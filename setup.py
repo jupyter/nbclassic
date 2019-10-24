@@ -7,7 +7,7 @@ from setuptools import find_packages, setup, Command
 import setuptools
 
 NAME = 'nbclassic'
-VERSION = '0.0.2'
+VERSION = '0.0.3'
 
 with open("README.md", "r") as fh:
     long_description = fh.read()

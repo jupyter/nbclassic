@@ -299,9 +299,9 @@ class NotebookApp(ExtensionApp):
     #         self.log.info(DEV_NOTE_NPM)
 
         template_settings = dict(
-            nbserver_shim_template_paths=template_path,
-            nbserver_shim_jinja_template_vars=self.jinja_template_vars,
-            nbserver_shim_jinja2_env=env,
+            nbclassic_template_paths=template_path,
+            nbclassic_jinja_template_vars=self.jinja_template_vars,
+            nbclassic_jinja2_env=env,
         )
         self.settings.update(**template_settings)
 
