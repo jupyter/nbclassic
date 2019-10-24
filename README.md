@@ -17,4 +17,8 @@ Launch with Jupyter Server:
 ```
 jupyter server
 ```
+or directly with 
+```
+jupyter nbclassic
+```
 and go to: http://localhost:8888/tree?token=...
