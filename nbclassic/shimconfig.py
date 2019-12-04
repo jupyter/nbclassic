@@ -31,12 +31,12 @@ def shim_configs(notebook_config_name: None, server_config_name: None, extension
 def _print_warnings(notebook_config, server_config):
     deprecated = list(notebook_config.NotebookApp.keys())
     if deprecated:
-        print("=========================================================================================")
+        print("==============================================================================================")
         print("You are using NotebookApp settings that will be deprecated at the next major notebook release.")
         print("Please migrate following settings from NotebookApp to ServerApp:")
         print("  {}".format(deprecated))
-        print("Read more on https://...")
-        print("=========================================================================================")
+        print("Read more on https://jupyter-server.readthedocs.io/en/latest/migrate-from-notebook.html")
+        print("==============================================================================================")
         warnings.warn(
             "NotebookApp configuration is deprecated. Migrate them to ServerApp",
             DeprecationWarning, stacklevel=2,
