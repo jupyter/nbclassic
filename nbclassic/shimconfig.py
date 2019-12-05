@@ -18,7 +18,7 @@ def load_config(conf_name, argv):
     conf = ConfLoader(conf_name, argv)
     return conf.config
 
-def shim_configs(notebook_config_name: None, server_config_name: None, extension_config_name: None, argv=None):
+def merge_notebook_configs(notebook_config_name: None, server_config_name: None, other_config_name: None, argv=None):
     """Merge the notebook, server and your extension configurations and prints warnings in case
     the notebook configuration still contains NotebookApp traits.
   
@@ -33,18 +33,19 @@ def shim_configs(notebook_config_name: None, server_config_name: None, extension
 
     notebook_config = load_config(notebook_config_name, argv)
     server_config = load_config(server_config_name, argv)
-    extension_config = load_config(extension_config_name, argv)
+    other_config = load_config(other_config_name, argv)
 
-    _print_warnings(notebook_config, server_config)
+    _print_warnings(notebook_config)
 
     merged_config = Config()
     merged_config.ServerApp = notebook_config.NotebookApp
     merged_config.merge(notebook_config)
     merged_config.merge(server_config)
-    merged_config.merge(extension_config)
+    merged_config.merge(other_config)
+    
     return merged_config
 
-def _print_warnings(notebook_config, server_config):
+def _print_warnings(notebook_config):
     """Print warnings if the notebooik_config still contains traits.
     """
     deprecated = list(notebook_config.NotebookApp.keys())
