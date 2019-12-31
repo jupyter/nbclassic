@@ -87,4 +87,9 @@ setup(
             'jupyter-nbclassic = nbclassic.notebookapp:main'
         ]
     },
+    extras_require = {
+        'test': [
+            'pytest'
+        ],
+    },
 )

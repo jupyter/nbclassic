@@ -9,6 +9,7 @@ from __future__ import absolute_import, print_function
 import os
 import gettext
 import random
+import sys
 import warnings
 
 from jinja2 import Environment, FileSystemLoader
@@ -43,6 +44,7 @@ from jupyter_server.serverapp import (
     random_ports,
     load_handlers
 )
+from .shimconfig import merge_notebook_configs
 
 #-----------------------------------------------------------------------------
 # Module globals
@@ -320,6 +322,14 @@ class NotebookApp(ExtensionApp):
             nbextensions_path=self.nbextensions_path,
         )
         self.settings.update(**settings)
+
+        merged_config = merge_notebook_configs(
+            notebook_config_name = 'jupyter_notebook',
+            server_config_name = 'jupyter_server',
+            other_config_name = 'jupyter_nbclassic', 
+            argv = sys.argv
+            )
+        self.settings['ServerApp'] = merged_config['ServerApp']
 
     def initialize_handlers(self):
         """Load the (URL pattern, handler) tuples for each component."""
