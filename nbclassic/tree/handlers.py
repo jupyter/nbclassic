@@ -8,11 +8,16 @@ This is a fork from jupyter/notebook#5.7.x
 
 from tornado import web
 import os
-from ..base.handlers import IPythonHandler, path_regex
-from ..utils import url_path_join, url_escape
+
+from jupyter_server.extension.handler import (
+    ExtensionHandler,
+    ExtensionHandlerJinjaMixin
+)
+from jupyter_server.base.handlers import path_regex
+from jupyter_server.utils import url_path_join, url_escape
 
 
-class TreeHandler(IPythonHandler):
+class TreeHandler(ExtensionHandlerJinjaMixin, ExtensionHandler):
     """Render the tree view, listing notebooks, etc."""
 
     def generate_breadcrumbs(self, path):

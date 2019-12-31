@@ -11,9 +11,11 @@ import gettext
 import random
 import sys
 import warnings
+import gettext
 
 from jinja2 import Environment, FileSystemLoader
 
+import notebook
 from notebook import (
     DEFAULT_STATIC_FILES_PATH,
     DEFAULT_TEMPLATE_PATH_LIST,
@@ -36,7 +38,10 @@ from jupyter_server.base.handlers import FileFindHandler
 from jupyter_server.utils import url_path_join
 
 # Try to load Notebook as an extension of the Jupyter Server
-from jupyter_server.extension.application import ExtensionApp
+from jupyter_server.extension.application import (
+    ExtensionApp,
+    ExtensionAppJinjaMixin
+)
 
 from jupyter_server.log import log_request
 from jupyter_server.transutils import _
@@ -68,11 +73,11 @@ flags['no-browser']=(
 flags['no-mathjax']=(
     {'NotebookApp' : {'enable_mathjax' : False}},
     """Disable MathJax
-    
+
     MathJax is the javascript library Jupyter uses to render math/LaTeX. It is
     very large, so you may want to disable it if you have a slow internet
     connection, or for offline use of the notebook.
-    
+
     When disabled, equations etc. will appear as their untransformed TeX source.
     """
 )
@@ -101,25 +106,25 @@ aliases.update({
 # NotebookApp
 #-----------------------------------------------------------------------------
 
-class NotebookApp(ExtensionApp):
+class NotebookApp(ExtensionAppJinjaMixin, ExtensionApp):
 
     name = 'jupyter-nbclassic'
     version = __version__
     description = _("""The Jupyter HTML Notebook.
-    
+
     This launches a Tornado based HTML Notebook Server that serves up an HTML5/Javascript Notebook client.""")
 
     extension_name = 'nbclassic'
 
     ignore_minified_js = Bool(False,
             config=True,
-            help=_('Deprecated: Use minified JS file or not, mainly use during dev to avoid JS recompilation'), 
+            help=_('Deprecated: Use minified JS file or not, mainly use during dev to avoid JS recompilation'),
             )
 
     max_body_size = Integer(512 * 1024 * 1024, config=True,
         help="""
-        Sets the maximum allowed size of the client request body, specified in 
-        the Content-Length request header field. If the size in a request 
+        Sets the maximum allowed size of the client request body, specified in
+        the Content-Length request header field. If the size in a request
         exceeds the configured value, a malformed HTTP message is returned to
         the client.
 
@@ -129,19 +134,19 @@ class NotebookApp(ExtensionApp):
 
     max_buffer_size = Integer(512 * 1024 * 1024, config=True,
         help="""
-        Gets or sets the maximum amount of memory, in bytes, that is allocated 
+        Gets or sets the maximum amount of memory, in bytes, that is allocated
         for use by the buffer manager.
         """
     )
 
-    jinja_environment_options = Dict(config=True, 
+    jinja_environment_options = Dict(config=True,
             help=_("Supply extra arguments that will be passed to Jinja environment."))
 
     jinja_template_vars = Dict(
         config=True,
         help=_("Extra variables to supply to jinja templates when rendering."),
     )
-    
+
     enable_mathjax = Bool(True, config=True,
         help="""Whether to enable MathJax for typesetting math/TeX
 
@@ -161,16 +166,16 @@ class NotebookApp(ExtensionApp):
 
     extra_static_paths = List(Unicode(), config=True,
         help="""Extra paths to search for serving static files.
-        
+
         This allows adding javascript/css to be available from the notebook server machine,
         or overriding individual files in the IPython"""
     )
-    
+
     @property
     def static_file_path(self):
         """return extra paths + the default location"""
         return self.extra_static_paths + [DEFAULT_STATIC_FILES_PATH]
-    
+
     static_custom_path = List(Unicode(),
         help=_("""Path to search for custom.js, css""")
     )
@@ -201,7 +206,7 @@ class NotebookApp(ExtensionApp):
     extra_services = List(Unicode(), config=True,
         help=_("""handlers that should be loaded at higher priority than the default services""")
     )
-    
+
     @property
     def nbextensions_path(self):
         """The path to look for Javascript notebook extensions"""
@@ -231,9 +236,9 @@ class NotebookApp(ExtensionApp):
     def _default_mathjax_url(self):
         if not self.enable_mathjax:
             return u''
-        static_url_prefix = self.static_url_prefix 
+        static_url_prefix = self.static_url_prefix
         return url_path_join(static_url_prefix, 'components', 'MathJax', 'MathJax.js')
-    
+
     @observe('mathjax_url')
     def _update_mathjax_url(self, change):
         new = change['new']
@@ -250,7 +255,7 @@ class NotebookApp(ExtensionApp):
     @observe('mathjax_config')
     def _update_mathjax_config(self, change):
         self.log.info(_("Using MathJax configuration file: %s"), change['new'])
-        
+
     quit_button = Bool(True, config=True,
         help="""If True, display a button in the dashboard to quit
         (shutdown the notebook server)."""
@@ -273,40 +278,13 @@ class NotebookApp(ExtensionApp):
         return self.template_file_path
 
     def initialize_templates(self):
-        """Initialize the jinja templates for the notebook application."""
-        _template_path = self.template_paths
-        if isinstance(_template_path, py3compat.string_types):
-            _template_path = (_template_path,)
-        template_path = [os.path.expanduser(path) for path in _template_path]
+        super(NotebookApp, self).initialize_templates()
 
-        jenv_opt = {"autoescape": True}
-        jenv_opt.update(self.jinja_environment_options if self.jinja_environment_options else {})
-
-        env = Environment(loader=FileSystemLoader(template_path), extensions=['jinja2.ext.i18n'], **jenv_opt)
-
-        # If the user is running the notebook in a git directory, make the assumption
-        # that this is a dev install and suggest to the developer `npm run build:watch`.
-        base_dir = os.path.realpath(os.path.join(__file__, '..', '..'))
-        dev_mode = os.path.exists(os.path.join(base_dir, '.git'))
+        # Get translations from notebook package.
+        base_dir = os.path.dirname(notebook.__file__)
 
         nbui = gettext.translation('nbui', localedir=os.path.join(base_dir, 'notebook/i18n'), fallback=True)
-        env.install_gettext_translations(nbui, newstyle=False)
-
-    #     if dev_mode:
-    #         DEV_NOTE_NPM = """It looks like you're running the notebook from source.
-    # If you're working on the Javascript of the notebook, try running
-    # %s
-    # in another terminal window to have the system incrementally
-    # watch and build the notebook's JavaScript for you, as you make changes.""" % 'npm run build:watch'
-    #         self.log.info(DEV_NOTE_NPM)
-
-        template_settings = dict(
-            nbclassic_template_paths=template_path,
-            nbclassic_jinja_template_vars=self.jinja_template_vars,
-            nbclassic_jinja2_env=env,
-        )
-        self.settings.update(**template_settings)
-
+        self.jinja2_env.install_gettext_translations(nbui, newstyle=False)
 
     def initialize_settings(self):
         """Add settings to the tornado app."""
@@ -326,7 +304,7 @@ class NotebookApp(ExtensionApp):
         merged_config = merge_notebook_configs(
             notebook_config_name = 'jupyter_notebook',
             server_config_name = 'jupyter_server',
-            other_config_name = 'jupyter_nbclassic', 
+            other_config_name = 'jupyter_nbclassic',
             argv = sys.argv
             )
         self.settings['ServerApp'] = merged_config['ServerApp']
@@ -338,8 +316,9 @@ class NotebookApp(ExtensionApp):
         # load extra services specified by users before default handlers
         for service in self.settings['extra_services']:
             handlers.extend(load_handlers(service))
-        
-        handlers.extend(load_handlers('nbclassic.handlers'))
+
+        handlers.extend(load_handlers('nbclassic.tree.handlers'))
+        handlers.extend(load_handlers('nbclassic.notebook.handlers'))
 
         handlers.append(
             (r"/nbextensions/(.*)", FileFindHandler, {
@@ -353,7 +332,7 @@ class NotebookApp(ExtensionApp):
                 'no_cache_paths': ['/'], # don't cache anything in custom
             })
         )
-        
+
         # Add new handlers to Jupyter server handlers.
         self.handlers.extend(handlers)
 

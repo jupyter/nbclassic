@@ -11,11 +11,13 @@ import os
 from tornado import web
 HTTPError = web.HTTPError
 
-from ..base.handlers import (
-    IPythonHandler, FilesRedirectHandler, path_regex,
+from jupyter_server.extension.handler import (
+    ExtensionHandler,
+    ExtensionHandlerJinjaMixin
 )
-from ..utils import url_escape
-from ..transutils import _
+from jupyter_server.base.handlers import path_regex, FilesRedirectHandler
+from jupyter_server.utils import url_path_join, url_escape
+from jupyter_server.transutils import _
 
 
 def get_custom_frontend_exporters():
@@ -31,7 +33,7 @@ def get_custom_frontend_exporters():
             yield ExporterInfo(name, display)
 
 
-class NotebookHandler(IPythonHandler):
+class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandler):
 
     @web.authenticated
     def get(self, path):
