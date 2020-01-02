@@ -1,6 +1,11 @@
 name: Testing nbclassic
 
-on: [push]
+on:
+  push:
+    branches: 
+    - master
+  pull_request:
+    branches: '*'
 
 jobs:
   build:
