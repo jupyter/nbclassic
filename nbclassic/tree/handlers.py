@@ -83,4 +83,4 @@ class TreeHandler(ExtensionHandlerJinjaMixin, ExtensionHandler):
 default_handlers = [
     (r"/tree%s" % path_regex, TreeHandler),
     (r"/tree", TreeHandler),
-    ]
+]
