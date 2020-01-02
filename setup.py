@@ -89,7 +89,7 @@ setup(
     },
     extras_require = {
         'test': [
-            'pytest'
+            'pytest', 'pytest-tornasync', 'pytest-console-scripts'
         ],
     },
 )
