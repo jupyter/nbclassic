@@ -1,6 +1,6 @@
 """Tornado handlers for the live notebook view.
 
-This is a fork from jupyter/notebook#5.7.x
+This is a fork from jupyter/notebook#6.x
 """
 
 # Copyright (c) Jupyter Development Team.
@@ -8,7 +8,7 @@ This is a fork from jupyter/notebook#5.7.x
 
 from collections import namedtuple
 import os
-from tornado import web
+from tornado import web, gen
 HTTPError = web.HTTPError
 
 from jupyter_server.extension.handler import (
@@ -16,26 +16,70 @@ from jupyter_server.extension.handler import (
     ExtensionHandlerJinjaMixin
 )
 from jupyter_server.base.handlers import path_regex, FilesRedirectHandler
-from jupyter_server.utils import url_path_join, url_escape
+from jupyter_server.utils import (
+    url_path_join,
+    url_escape,
+    maybe_future,
+
+)
 from jupyter_server.transutils import _
 
 
-def get_custom_frontend_exporters():
+def get_frontend_exporters():
     from nbconvert.exporters.base import get_export_names, get_exporter
 
+    # name=exporter_name, display=export_from_notebook+extension
     ExporterInfo = namedtuple('ExporterInfo', ['name', 'display'])
 
-    for name in sorted(get_export_names()):
-        exporter = get_exporter(name)()
-        ux_name = getattr(exporter, 'export_from_notebook', None)
-        if ux_name is not None:
-            display = _('{} ({})'.format(ux_name, exporter.file_extension))
-            yield ExporterInfo(name, display)
+    default_exporters = [
+        ExporterInfo(name='html', display='HTML (.html)'),
+        ExporterInfo(name='latex', display='LaTeX (.tex)'),
+        ExporterInfo(name='markdown', display='Markdown (.md)'),
+        ExporterInfo(name='notebook', display='Notebook (.ipynb)'),
+        ExporterInfo(name='pdf', display='PDF via LaTeX (.pdf)'),
+        ExporterInfo(name='rst', display='reST (.rst)'),
+        ExporterInfo(name='script', display='Script (.txt)'),
+        ExporterInfo(name='slides', display='Reveal.js slides (.slides.html)')
+    ]
+
+    frontend_exporters = []
+    for name in get_export_names():
+        exporter_class = get_exporter(name)
+        exporter_instance = exporter_class()
+        ux_name = getattr(exporter_instance, 'export_from_notebook', None)
+        super_uxname = getattr(super(exporter_class, exporter_instance),
+                               'export_from_notebook', None)
+
+        # Ensure export_from_notebook is explicitly defined & not inherited
+        if ux_name is not None and ux_name != super_uxname:
+            display = _('{} ({})'.format(ux_name,
+                                         exporter_instance.file_extension))
+            frontend_exporters.append(ExporterInfo(name, display))
+
+    # Ensure default_exporters are in frontend_exporters if not already
+    # This protects against nbconvert versions lower than 5.5
+    names = set(exporter.name.lower() for exporter in frontend_exporters)
+    for exporter in default_exporters:
+        if exporter.name not in names:
+            frontend_exporters.append(exporter)
+
+    # Protect against nbconvert 5.5.0
+    python_exporter = ExporterInfo(name='python', display='python (.py)')
+    if python_exporter in frontend_exporters:
+        frontend_exporters.remove(python_exporter)
+
+    # Protect against nbconvert 5.4.x
+    template_exporter = ExporterInfo(name='custom', display='custom (.txt)')
+    if template_exporter in frontend_exporters:
+        frontend_exporters.remove(template_exporter)
+    return sorted(frontend_exporters)
 
 
 class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandler):
 
+
     @web.authenticated
+    @gen.coroutine
     def get(self, path):
         """get renders the notebook template if a name is given, or
         redirects to the '/files/' handler if the name is not given."""
@@ -44,7 +88,7 @@ class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandler):
 
         # will raise 404 on not found
         try:
-            model = cm.get(path, content=False)
+            model = yield maybe_future(cm.get(path, content=False))
         except web.HTTPError as e:
             if e.status_code == 404 and 'files' in path.split('/'):
                 # 404, but '/files/' in URL, let FilesRedirect take care of it
@@ -61,10 +105,9 @@ class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandler):
             kill_kernel=False,
             mathjax_url=self.mathjax_url,
             mathjax_config=self.mathjax_config,
-            get_custom_frontend_exporters=get_custom_frontend_exporters
+            get_frontend_exporters=get_frontend_exporters
             )
         )
-
 
 #-----------------------------------------------------------------------------
 # URL to handler mappings

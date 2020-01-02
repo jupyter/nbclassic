@@ -1,11 +1,12 @@
 """Test the shimming of the configs.
 """
-
 import os.path
 from nbclassic.shimconfig import merge_notebook_configs
 
+
 test_conf_dir = os.path.join(os.getcwd(), 'tests', 'confs')
 os.chdir(test_conf_dir)
+
 
 def test_none():
     """Test None parameters support.
@@ -19,6 +20,7 @@ def test_none():
     assert merged.NotebookApp != None
     assert merged.ServerApp != None
     assert merged.MyExt != None
+
 
 def test_merge():
     """Test NotebookApp are copied to ServerApp.
@@ -41,7 +43,8 @@ def test_merge():
 
     assert merged.MyExt.hello == 'My extension'
 
-def test_merge_cli_order():
+
+def test_merge_cli():
     """Test NotebookApp are copied to ServerApp
     and CLI flags are processed.
     """
@@ -64,6 +67,7 @@ def test_merge_cli_order():
     assert merged.ServerApp.password_required == True
 
     assert merged.MyExt.hello == 'My extension'
+
 
 def test_merge_cli_order():
     """Test NotebookApp are copied to ServerApp
