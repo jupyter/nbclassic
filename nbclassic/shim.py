@@ -48,94 +48,57 @@ class NBClassicConfigShimMixin:
         shimmed_config = self.shim_config_from_notebook_to_jupyter_server(config)
         super().update_config(shimmed_config)
 
-    def _shim_notebookapp_config(
-        self,
-        trait_name,
-        trait_value,
-        nbapp_traits,
-        svapp_traits,
-        nbapp_config_shim,
-        svapp_config_shim
-        ):
-        """Filter traits in an old notebookapp config to their
-        new destinations, i.e. either NotebookApp or ServerApp.
-
-        This method raises warnings when:
-        1. a trait has moved.
-        2. a trait is redundant across classes.
-
-        Redundant traits across multiple classes now must be
-        configured separately, *or* removed from their old
-        location to avoid this warning.
-        """
-        if all((
-            trait_name in svapp_traits,
-            trait_name in nbapp_traits
-        )):
-            self.log.warning(
-                "This trait is redundant."
-            )
-            nbapp_config_shim.update({trait_name: trait_value})
-        elif trait_name in svapp_traits:
-            self.log.warning(
-                "'{trait_name}' has moved from NotebookApp to ServerApp. Be sure to update your config before our next release."
-                "".format(trait_name=trait_name)
-            )
-            svapp_config_shim.update({trait_name: trait_value})
-        elif trait_name in nbapp_traits:
-            nbapp_config_shim.update({trait_name: trait_value})
-        else:
-            raise TraitError("Trait not found.")
-
     def shim_config_from_notebook_to_jupyter_server(self, config):
         """Reorganizes a config object to reroute traits to their expected destinations
         after the transition from NotebookApp to ServerApp.
-
-        ---- TL;DR ---------------
 
         A detailed explanation of how traits are handled:
 
         1. If the argument is prefixed with `ServerApp`,
             pass this trait to `ServerApp`.
         2. If the argument is prefixed with `NotebookApp`,
-            - If the argument is a trait of `NotebookApp` *and* `ServerApp`:
+            * If the argument is a trait of `NotebookApp` *and* `ServerApp`:
                 1. Raise a warning—**for the extension developers**—that
                     there's redundant traits.
                 2. Pass trait to `NotebookApp`.
-            - If the argument is a trait of just `ServerApp` only
+            * If the argument is a trait of just `ServerApp` only
                 (i.e. the trait moved from `NotebookApp` to `ServerApp`):
-                1. Raise a `"DeprecationWarning: this trait has moved"`
-                    **for the user**.
+                1. Raise a "this trait has moved" **for the user**.
                 2. Migrate/write the trait to a new config file if it came
                     from a config file.
                 3. Pass trait to `ServerApp`.
-            - If the argument is a trait of `NotebookApp` only, pass trait
+            * If the argument is a trait of `NotebookApp` only, pass trait
                 to `NotebookApp`.
-            - If the argument is not found in any object, raise a
+            * If the argument is not found in any object, raise a
                 `"Trait not found."` error.
         3. If the argument is prefixed with `ExtensionApp`:
-            - If the argument is a trait of `ExtensionApp` and either
-                `NotebookApp` or `ServerApp`,
-                1. Raise a warning—**for the extension developers**—that
-                    there's redundant traits.
-                2. Pass trait to Step 2 above.
-            - If the argument is *not* a trait of `ExtensionApp`, but *is*
-                a trait of either `NotebookApp` or `ServerApp` (i.e. the trait
-                moved from `ExtensionApp` to `NotebookApp`/`ServerApp`):
-                1. Raise a `"DeprecationWarning: this trait has moved"`
-                    **for the user**.
-                2. Migrate/write the trait to a new config file if it came
-                    from a config file.
-                2. Pass trait to Step 2 above.
-            - If the argument is *not* a trait of `ExtensionApp` and not a
-                trait of either `NotebookApp` or `ServerApp`, raise a
-                `"Trait not found."` error.
-
+            * If the argument is a trait of `ExtensionApp`,
+                `NotebookApp`, and `ServerApp`,
+                1. Raise a warning about redundancy.
+                2. Pass to the ExtensionApp
+            * If the argument is a trait of `ExtensionApp` and `NotebookApp`,
+                1. Raise a warning about redundancy.
+                2. Pass to ExtensionApp.
+            * If the argument is a trait of `ExtensionApp` and `ServerApp`,
+                1. Raise a warning about redundancy.
+                2. Pass to ExtensionApp.
+            * If the argument is a trait of `ExtensionApp`.
+                1. Pass to ExtensionApp.
+            * If the argument is a trait of `NotebookApp`
+                1. Raise a warning that trait has likely moved.
+                2. Pass to NotebookApp
+            * If the arguent is a trait of `ServerApp`
+                1. Raise a warning that the trait has likely moved.
+                2. Pass to ServerApp.
+            * else
+                * Raise a TraitError: "trait not found."
         """
+        extapp_name = self.__class__.__name__, {}
+
         # Pop out the various configurable objects that we need to evaluate.
         nbapp_config = config.pop('NotebookApp', {})
         svapp_config = config.pop('ServerApp', {})
-        extapp_config = config.pop(self.__class__.__name__, {})
+        extapp_config = config.pop(extapp_name, {})
 
         # Created shimmed configs.
         # Leave the rest of the config alone.
@@ -152,46 +115,122 @@ class NBClassicConfigShimMixin:
         svapp_config_shim.update(svapp_config)
 
         # 2. Handle NotebookApp traits.
-        for name, value in nbapp_config.items():
-            self._shim_notebookapp_config(
-                name,
-                value,
-                nbapp_traits,
-                svapp_traits,
-                nbapp_config_shim,
-                svapp_config_shim
-            )
-
-        # 3. Handle ExtensionApp traits.
-        for name, value in extapp_config.items():
-            if all([
-                name in extapp_traits,
-                any([name in svapp_traits, name in nbapp_traits])
-            ]):
-                self.log.warning(
-                    "This trait is redundant."
+        for trait_name, trait_value in nbapp_config.items():
+            in_svapp = trait_name in svapp_traits
+            in_nbapp = trait_name in nbapp_traits
+            if in_svapp and in_nbapp:
+                warning_msg = (
+                    "'{trait_name}' was found in both NotebookApp "
+                    "and ServerApp. This is likely a recent change."
+                    "This config will only be set in NotebookApp. "
+                    "Please check if you should also config these traits in "
+                    "ServerApp for your purpose.".format(
+                        trait_name=trait_name,
+                    )
                 )
-                nbapp_config_shim.update({name: value})
-            elif all([
-                name not in extapp_traits,
-                any([name in svapp_traits, name in nbapp_traits])
-            ]):
-                self.log.warning(
-                    "'{trait_name}' has moved from NotebookApp to ServerApp. Be sure to update your config before our next release."
-                    "".format(trait_name=name)
+                nbapp_config_shim.update({trait_name: trait_value})
+            elif in_svapp:
+                warning_msg = (
+                    "'{trait_name}' has moved from NotebookApp to "
+                    "ServerApp. This config will be passed to ServerApp. "
+                    "Be sure to update your config before "
+                    "our next release.".format(
+                        trait_name=trait_name,
+                    )
                 )
-                self._shim_notebookapp_config(
-                    name,
-                    value,
-                    nbapp_traits,
-                    svapp_traits,
-                    nbapp_config_shim,
-                    svapp_config_shim
-                )
-            elif name is extapp_traits:
-                extapp_config_shim.update({name: value})
+                svapp_config_shim.update({trait_name: trait_value})
+            elif in_nbapp:
+                nbapp_config_shim.update({trait_name: trait_value})
             else:
                 raise TraitError("Trait not found.")
+
+            # Raise a warning if it's given.
+            if warning_msg:
+                self.log.warning(warning_msg)
+
+        # 3. Handle ExtensionApp traits.
+        for trait_name, trait_value in extapp_config.items():
+            in_extapp = trait_name in extapp_traits
+            in_svapp = trait_name in svapp_traits
+            in_nbapp = trait_name in nbapp_traits
+
+            if all([in_extapp, in_svapp, in_nbapp]):
+                warning_msg = (
+                    "'{trait_name}' is found in {extapp_name}, NotebookApp, "
+                    "and ServerApp. This is a recent change."
+                    "This config will only be set in {extapp_name}. "
+                    "Please check if you should also config these traits in "
+                    "NotebookApp and ServerApp for your purpose.".format(
+                        trait_name=trait_name,
+                        extapp_name=extapp_name
+                    )
+                )
+                extapp_config_shim.update({trait_name: trait_value})
+            elif in_extapp and in_svapp:
+                warning_msg = (
+                    "'{trait_name}' is found in both {extapp_name} "
+                    "and ServerApp. This is a recent change."
+                    "This config will only be set in {extapp_name}. "
+                    "Please check if you should also config these traits in "
+                    "ServerApp for your purpose.".format(
+                        trait_name=trait_name,
+                        extapp_name=extapp_name
+                    )
+                )
+                extapp_config_shim.update({trait_name: trait_value})
+            elif in_extapp and in_nbapp:
+                warning_msg = (
+                    "'{trait_name}' is found in both {extapp_name} "
+                    "and NotebookApp. This is a recent change."
+                    "This config will only be set in {extapp_name}. "
+                    "Please check if you should also config these traits in "
+                    "NotebookApp for your purpose.".format(
+                        trait_name=trait_name,
+                        extapp_name=extapp_name
+                    )
+                )
+                extapp_config_shim.update({trait_name: trait_value})
+            elif in_extapp:
+                extapp_config_shim.update({trait_name: trait_value})
+            elif in_svapp and in_nbapp:
+                warning_msg = (
+                    "'{trait_name}' is not found in {extapp_name}, but "
+                    "it was found in both NotebookApp "
+                    "and ServerApp. This is likely a recent change."
+                    "This config will only be set in ServerApp. "
+                    "Please check if you should also config these traits in "
+                    "NotebookApp for your purpose.".format(
+                        trait_name=trait_name,
+                        extapp_name=extapp_name
+                    )
+                )
+                svapp_config_shim.update({trait_name: trait_value})
+            elif in_svapp:
+                warning_msg = (
+                    "'{trait_name}' has moved from {extapp_name} to "
+                    "ServerApp. Be sure to update your config before "
+                    "our next release.".format(
+                        trait_name=trait_name,
+                        extapp_name=extapp_name
+                    )
+                )
+                svapp_config_shim.update({trait_name: trait_value})
+            elif in_nbapp:
+                warning_msg = (
+                    "'{trait_name}' has moved from {extapp_name} to "
+                    "NotebookApp. Be sure to update your config before "
+                    "our next release.".format(
+                        trait_name=trait_name,
+                        extapp_name=extapp_name
+                    )
+                )
+                nbapp_config_shim.update({trait_name: trait_value})
+            else:
+                raise TraitError("Trait not found.")
+
+            # Raise warning if one is given
+            if warning_msg:
+                self.log.warning(warning_msg)
 
         # Update the shimmed config.
         config_shim.update(
