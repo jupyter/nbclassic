@@ -23,6 +23,24 @@ class NBClassicConfigShimMixin:
 
     After one release cycle, this class can be safely removed
     from the inheriting class.
+
+    TL;DR
+
+    The entry point to shimming is at the `update_config` method.
+    Once traits are loaded, before updating config across all
+    configurable objects, this class injects a method to reroute
+    traits to their *most logical* classes.
+
+    This class raises warnings when:
+        1. a trait has moved.
+        2. a trait is redundant across classes.
+
+    Redundant traits across multiple classes now must be
+    configured separately, *or* removed from their old
+    location to avoid this warning.
+
+    For a longer description on how individual traits are handled,
+    read the docstring under `shim_config_from_notebook_to_jupyter_server`.
     """
     @wraps(JupyterApp.update_config)
     def update_config(self, config):
@@ -39,7 +57,17 @@ class NBClassicConfigShimMixin:
         nbapp_config_shim,
         svapp_config_shim
         ):
-        """Properly shim traits with NotebookApp prefix."""
+        """Filter traits in an old notebookapp config to their
+        new destinations, i.e. either NotebookApp or ServerApp.
+
+        This method raises warnings when:
+        1. a trait has moved.
+        2. a trait is redundant across classes.
+
+        Redundant traits across multiple classes now must be
+        configured separately, *or* removed from their old
+        location to avoid this warning.
+        """
         if all((
             trait_name in svapp_traits,
             trait_name in nbapp_traits
