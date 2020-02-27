@@ -186,9 +186,6 @@ class NotebookApp(
         # Add new handlers to Jupyter server handlers.
         self.handlers.extend(handlers)
 
-
-
-
 #-----------------------------------------------------------------------------
 # Main entry point
 #-----------------------------------------------------------------------------
