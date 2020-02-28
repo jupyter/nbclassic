@@ -13,6 +13,7 @@ from jupyter_core.application import JupyterApp
 from jupyter_server.serverapp import ServerApp
 from .traits import NotebookAppTraits
 
+
 class NBClassicConfigShimMixin:
     """A Mixin class for shimming configuration from
     NotebookApp to ServerApp. This class handles warnings, errors,
@@ -42,6 +43,18 @@ class NBClassicConfigShimMixin:
     For a longer description on how individual traits are handled,
     read the docstring under `shim_config_from_notebook_to_jupyter_server`.
     """
+    # @staticmethod
+    # def initialize_server(argv=[], load_other_extensions=True, **kwargs):
+    #     """Get an instance of the Jupyter Server."""
+    #     # Get a jupyter server instance
+    #     serverapp = ServerApp.instance(**kwargs)
+    #     serverapp.upate_config =
+    #     # Initialize ServerApp config.
+    #     # Parses the command line looking for
+    #     # ServerApp configuration.
+    #     serverapp.initialize(argv=argv, load_extensions=load_other_extensions)
+    #     return serverapp
+
     @wraps(JupyterApp.update_config)
     def update_config(self, config):
         # Shim traits to handle transition from NotebookApp to ServerApp
