@@ -14,6 +14,90 @@ from jupyter_server.serverapp import ServerApp
 from .traits import NotebookAppTraits
 
 
+NBAPP_AND_SVAPP_SHIM_MSG = lambda trait_name: (
+    "'{trait_name}' was found in both NotebookApp "
+    "and ServerApp. This is likely a recent change. "
+    "This config will only be set in NotebookApp. "
+    "Please check if you should also config these traits in "
+    "ServerApp for your purpose.".format(
+        trait_name=trait_name,
+    )
+)
+
+NBAPP_TO_SVAPP_SHIM_MSG = lambda trait_name: (
+    "'{trait_name}' has moved from NotebookApp to "
+    "ServerApp. This config will be passed to ServerApp. "
+    "Be sure to update your config before "
+    "our next release.".format(
+        trait_name=trait_name,
+    )
+)
+
+EXTAPP_AND_NBAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
+    "'{trait_name}' is found in {extapp_name}, NotebookApp, "
+    "and ServerApp. This is a recent change."
+    "This config will only be set in {extapp_name}. "
+    "Please check if you should also config these traits in "
+    "NotebookApp and ServerApp for your purpose.".format(
+        trait_name=trait_name,
+        extapp_name=extapp_name
+    )
+)
+
+EXTAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
+    "'{trait_name}' is found in both {extapp_name} "
+    "and ServerApp. This is a recent change."
+    "This config will only be set in {extapp_name}. "
+    "Please check if you should also config these traits in "
+    "ServerApp for your purpose.".format(
+        trait_name=trait_name,
+        extapp_name=extapp_name
+    )
+)
+
+EXTAPP_AND_NBAPP_SHIM_MSG = lambda trait_name, extapp_name: (
+    "'{trait_name}' is found in both {extapp_name} "
+    "and NotebookApp. This is a recent change."
+    "This config will only be set in {extapp_name}. "
+    "Please check if you should also config these traits in "
+    "NotebookApp for your purpose.".format(
+        trait_name=trait_name,
+        extapp_name=extapp_name
+    )
+)
+
+NOT_EXTAPP_NBAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
+    "'{trait_name}' is not found in {extapp_name}, but "
+    "it was found in both NotebookApp "
+    "and ServerApp. This is likely a recent change."
+    "This config will only be set in ServerApp. "
+    "Please check if you should also config these traits in "
+    "NotebookApp for your purpose.".format(
+        trait_name=trait_name,
+        extapp_name=extapp_name
+    )
+)
+
+EXTAPP_TO_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
+    "'{trait_name}' has moved from {extapp_name} to "
+    "ServerApp. Be sure to update your config before "
+    "our next release.".format(
+        trait_name=trait_name,
+        extapp_name=extapp_name
+    )
+)
+
+EXTAPP_TO_NBAPP_SHIM_MSG = lambda trait_name, extapp_name: (
+    "'{trait_name}' has moved from {extapp_name} to "
+    "NotebookApp. Be sure to update your config before "
+    "our next release.".format(
+        trait_name=trait_name,
+        extapp_name=extapp_name
+    )
+)
+
+
+
 class NBClassicConfigShimMixin:
     """A Mixin class for shimming configuration from
     NotebookApp to ServerApp. This class handles warnings, errors,
@@ -43,17 +127,6 @@ class NBClassicConfigShimMixin:
     For a longer description on how individual traits are handled,
     read the docstring under `shim_config_from_notebook_to_jupyter_server`.
     """
-    # @staticmethod
-    # def initialize_server(argv=[], load_other_extensions=True, **kwargs):
-    #     """Get an instance of the Jupyter Server."""
-    #     # Get a jupyter server instance
-    #     serverapp = ServerApp.instance(**kwargs)
-    #     serverapp.upate_config =
-    #     # Initialize ServerApp config.
-    #     # Parses the command line looking for
-    #     # ServerApp configuration.
-    #     serverapp.initialize(argv=argv, load_extensions=load_other_extensions)
-    #     return serverapp
 
     @wraps(JupyterApp.update_config)
     def update_config(self, config):
@@ -106,7 +179,7 @@ class NBClassicConfigShimMixin:
             * else
                 * Raise a TraitError: "trait not found."
         """
-        extapp_name = self.__class__.__name__, {}
+        extapp_name = self.__class__.__name__
 
         # Pop out the various configurable objects that we need to evaluate.
         nbapp_config = config.pop('NotebookApp', {})
@@ -116,9 +189,9 @@ class NBClassicConfigShimMixin:
         # Created shimmed configs.
         # Leave the rest of the config alone.
         config_shim = deepcopy(config)
-        svapp_config_shim = Config()
-        nbapp_config_shim = Config()
-        extapp_config_shim = Config()
+        svapp_config_shim = {}
+        nbapp_config_shim = {}
+        extapp_config_shim = {}
 
         extapp_traits = self.__class__.class_trait_names()
         svapp_traits = ServerApp.class_trait_names()
@@ -128,29 +201,15 @@ class NBClassicConfigShimMixin:
         svapp_config_shim.update(svapp_config)
 
         # 2. Handle NotebookApp traits.
+        warning_msg = None
         for trait_name, trait_value in nbapp_config.items():
             in_svapp = trait_name in svapp_traits
             in_nbapp = trait_name in nbapp_traits
             if in_svapp and in_nbapp:
-                warning_msg = (
-                    "'{trait_name}' was found in both NotebookApp "
-                    "and ServerApp. This is likely a recent change."
-                    "This config will only be set in NotebookApp. "
-                    "Please check if you should also config these traits in "
-                    "ServerApp for your purpose.".format(
-                        trait_name=trait_name,
-                    )
-                )
+                warning_msg = NBAPP_AND_SVAPP_SHIM_MSG(trait_name)
                 nbapp_config_shim.update({trait_name: trait_value})
             elif in_svapp:
-                warning_msg = (
-                    "'{trait_name}' has moved from NotebookApp to "
-                    "ServerApp. This config will be passed to ServerApp. "
-                    "Be sure to update your config before "
-                    "our next release.".format(
-                        trait_name=trait_name,
-                    )
-                )
+                warning_msg = NBAPP_TO_SVAPP_SHIM_MSG(trait_name)
                 svapp_config_shim.update({trait_name: trait_value})
             elif in_nbapp:
                 nbapp_config_shim.update({trait_name: trait_value})
@@ -162,80 +221,48 @@ class NBClassicConfigShimMixin:
                 self.log.warning(warning_msg)
 
         # 3. Handle ExtensionApp traits.
+        warning_msg = None
         for trait_name, trait_value in extapp_config.items():
             in_extapp = trait_name in extapp_traits
             in_svapp = trait_name in svapp_traits
             in_nbapp = trait_name in nbapp_traits
 
             if all([in_extapp, in_svapp, in_nbapp]):
-                warning_msg = (
-                    "'{trait_name}' is found in {extapp_name}, NotebookApp, "
-                    "and ServerApp. This is a recent change."
-                    "This config will only be set in {extapp_name}. "
-                    "Please check if you should also config these traits in "
-                    "NotebookApp and ServerApp for your purpose.".format(
-                        trait_name=trait_name,
-                        extapp_name=extapp_name
-                    )
+                warning_msg = EXTAPP_AND_NBAPP_AND_SVAPP_SHIM_MSG(
+                    trait_name,
+                    extapp_name
                 )
                 extapp_config_shim.update({trait_name: trait_value})
             elif in_extapp and in_svapp:
-                warning_msg = (
-                    "'{trait_name}' is found in both {extapp_name} "
-                    "and ServerApp. This is a recent change."
-                    "This config will only be set in {extapp_name}. "
-                    "Please check if you should also config these traits in "
-                    "ServerApp for your purpose.".format(
-                        trait_name=trait_name,
-                        extapp_name=extapp_name
-                    )
+                warning_msg = EXTAPP_AND_SVAPP_SHIM_MSG(
+                    trait_name,
+                    extapp_name
                 )
                 extapp_config_shim.update({trait_name: trait_value})
             elif in_extapp and in_nbapp:
-                warning_msg = (
-                    "'{trait_name}' is found in both {extapp_name} "
-                    "and NotebookApp. This is a recent change."
-                    "This config will only be set in {extapp_name}. "
-                    "Please check if you should also config these traits in "
-                    "NotebookApp for your purpose.".format(
-                        trait_name=trait_name,
-                        extapp_name=extapp_name
-                    )
+                warning_msg = EXTAPP_AND_NBAPP_SHIM_MSG(
+                    trait_name,
+                    extapp_name
                 )
                 extapp_config_shim.update({trait_name: trait_value})
             elif in_extapp:
                 extapp_config_shim.update({trait_name: trait_value})
             elif in_svapp and in_nbapp:
-                warning_msg = (
-                    "'{trait_name}' is not found in {extapp_name}, but "
-                    "it was found in both NotebookApp "
-                    "and ServerApp. This is likely a recent change."
-                    "This config will only be set in ServerApp. "
-                    "Please check if you should also config these traits in "
-                    "NotebookApp for your purpose.".format(
-                        trait_name=trait_name,
-                        extapp_name=extapp_name
-                    )
+                warning_msg = NOT_EXTAPP_NBAPP_AND_SVAPP_SHIM_MSG(
+                    trait_name,
+                    extapp_name
                 )
                 svapp_config_shim.update({trait_name: trait_value})
             elif in_svapp:
-                warning_msg = (
-                    "'{trait_name}' has moved from {extapp_name} to "
-                    "ServerApp. Be sure to update your config before "
-                    "our next release.".format(
-                        trait_name=trait_name,
-                        extapp_name=extapp_name
-                    )
+                warning_msg = EXTAPP_TO_SVAPP_SHIM_MSG(
+                    trait_name,
+                    extapp_name
                 )
                 svapp_config_shim.update({trait_name: trait_value})
             elif in_nbapp:
-                warning_msg = (
-                    "'{trait_name}' has moved from {extapp_name} to "
-                    "NotebookApp. Be sure to update your config before "
-                    "our next release.".format(
-                        trait_name=trait_name,
-                        extapp_name=extapp_name
-                    )
+                warning_msg = EXTAPP_TO_NBAPP_SHIM_MSG(
+                    trait_name,
+                    extapp_name
                 )
                 nbapp_config_shim.update({trait_name: trait_value})
             else:
@@ -245,12 +272,15 @@ class NBClassicConfigShimMixin:
             if warning_msg:
                 self.log.warning(warning_msg)
 
-        # Update the shimmed config.
-        config_shim.update(
-            {
-                'NotebookApp': nbapp_config_shim,
-                'ServerApp': svapp_config_shim,
+        # Build config for shimmed traits.
+        new_config = Config({
+            'NotebookApp': nbapp_config_shim,
+            'ServerApp': svapp_config_shim,
+        })
+        if extapp_config_shim:
+            new_config.update(Config({
                 self.__class__.__name__: extapp_config_shim
-            }
-        )
+            }))
+        # Update the full config with new values
+        config_shim.update(new_config)
         return config_shim

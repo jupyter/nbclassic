@@ -20,23 +20,6 @@ class NotebookAppTraits(HasTraits):
             help=_('Deprecated: Use minified JS file or not, mainly use during dev to avoid JS recompilation'),
             )
 
-    max_body_size = Integer(512 * 1024 * 1024, config=True,
-        help="""
-        Sets the maximum allowed size of the client request body, specified in
-        the Content-Length request header field. If the size in a request
-        exceeds the configured value, a malformed HTTP message is returned to
-        the client.
-
-        Note: max_body_size is applied even in streaming mode.
-        """
-    )
-
-    max_buffer_size = Integer(512 * 1024 * 1024, config=True,
-        help="""
-        Gets or sets the maximum amount of memory, in bytes, that is allocated
-        for use by the buffer manager.
-        """
-    )
 
     jinja_environment_options = Dict(config=True,
             help=_("Supply extra arguments that will be passed to Jinja environment."))
@@ -100,10 +83,6 @@ class NotebookAppTraits(HasTraits):
 
     extra_nbextensions_path = List(Unicode(), config=True,
         help=_("""extra paths to look for Javascript notebook extensions""")
-    )
-
-    extra_services = List(Unicode(), config=True,
-        help=_("""handlers that should be loaded at higher priority than the default services""")
     )
 
     @property
