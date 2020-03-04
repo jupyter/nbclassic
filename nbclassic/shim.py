@@ -150,8 +150,6 @@ class NBClassicConfigShimMixin:
             * If the argument is a trait of just `ServerApp` only
                 (i.e. the trait moved from `NotebookApp` to `ServerApp`):
                 1. Raise a "this trait has moved" **for the user**.
-                2. Migrate/write the trait to a new config file if it came
-                    from a config file.
                 3. Pass trait to `ServerApp`.
             * If the argument is a trait of `NotebookApp` only, pass trait
                 to `NotebookApp`.
@@ -170,11 +168,11 @@ class NBClassicConfigShimMixin:
                 2. Pass to ExtensionApp.
             * If the argument is a trait of `ExtensionApp`.
                 1. Pass to ExtensionApp.
-            * If the argument is a trait of `NotebookApp`
-                1. Raise a warning that trait has likely moved.
+            * If the argument is a trait of `NotebookApp` but not `ExtensionApp`,
+                1. Raise a warning that trait has likely moved to NotebookApp.
                 2. Pass to NotebookApp
-            * If the arguent is a trait of `ServerApp`
-                1. Raise a warning that the trait has likely moved.
+            * If the arguent is a trait of `ServerApp` but not `ExtensionApp`,
+                1. Raise a warning that the trait has likely moved to ServerApp.
                 2. Pass to ServerApp.
             * else
                 * Raise a TraitError: "trait not found."
