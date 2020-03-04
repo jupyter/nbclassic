@@ -18,8 +18,6 @@ def test_NBAPP_AND_SVAPP_SHIM_MSG(
     trait_name,
     trait_value
     ):
-    # trait_name = 'max_body_size'
-    # trait_value = 10
     arg = '--NotebookApp.{trait_name}={trait_value}'.format(
         trait_name=trait_name,
         trait_value=trait_value
@@ -47,8 +45,6 @@ def test_NBAPP_TO_SVAPP_SHIM_MSG(
     trait_name,
     trait_value
     ):
-    # trait_name = 'max_body_size'
-    # trait_value = 10
     arg = '--NotebookApp.{trait_name}={trait_value}'.format(
         trait_name=trait_name,
         trait_value=trait_value
@@ -78,8 +74,6 @@ def test_nbclassic_traits_pass_shim(
     trait_name,
     trait_value
     ):
-    # trait_name = 'max_body_size'
-    # trait_value = 10
     arg = '--NotebookApp.{trait_name}={trait_value}'.format(
         trait_name=trait_name,
         trait_value=trait_value

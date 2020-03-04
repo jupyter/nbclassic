@@ -39,7 +39,7 @@ def notebookapp_logcapture(monkeypatch, nbapp_log):
 
 
 @pytest.fixture
-def notebookapp(serverapp):
+def svapp_with_nbapp(serverapp):
     """Return an instance of ServerApp with the
     NotebookApp extension initialized.
     """
@@ -59,7 +59,7 @@ def nbclassic_entrypoint(configurable_serverapp):
     becomes
     nbclassic_entrypoint('--ServerApp.port=8889')
     """
-    def nbclassic_entrypoint(argv):
+    def built_entrypoint(argv):
         if isinstance(argv, str):
             argv = [argv]
         svapp = configurable_serverapp(argv=argv)
@@ -67,4 +67,4 @@ def nbclassic_entrypoint(configurable_serverapp):
         app.initialize(svapp)
         return app
 
-    yield nbclassic_entrypoint
+    yield built_entrypoint
