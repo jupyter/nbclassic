@@ -35,8 +35,6 @@ class MockExtensionApp(
     allow_origin_pat = Unicode(config=True)
 
 
-
-
 @pytest.fixture
 def extapp_log():
     """An io stream with the NotebookApp's logging output"""
@@ -227,7 +225,6 @@ def test_EXTAPP_TO_SVAPP_SHIM_MSG(
     assert log_msg in log
     # Verify the trait was updated.
     assert getattr(app.serverapp, trait_name) == trait_value
-
 
 
 @pytest.mark.parametrize(
