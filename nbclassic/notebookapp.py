@@ -135,8 +135,8 @@ class NotebookApp(
         """Rename trait for Jupyter Server."""
         return self.template_file_path
 
-    def initialize_templates(self):
-        super(NotebookApp, self).initialize_templates()
+    def _prepare_templates(self):
+        super(NotebookApp, self)._prepare_templates()
 
         # Get translations from notebook package.
         base_dir = os.path.dirname(notebook.__file__)
