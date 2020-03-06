@@ -1,4 +1,8 @@
 from .notebookapp import NotebookApp
 
 
-_jupyter_server_extension_paths = NotebookApp._jupyter_server_extension_paths
+def _jupyter_server_extension_paths():
+    return [{
+        'mod': 'nbclassic.notebookapp',
+        'app': NotebookApp
+    }]
