@@ -125,6 +125,35 @@ class NotebookApp(
     aliases = aliases
     flags = flags
 
+    static_custom_path = List(Unicode(),
+        help=_("""Path to search for custom.js, css""")
+    )
+
+    @default('static_custom_path')
+    def _default_static_custom_path(self):
+        return [
+            os.path.join(d, 'custom') for d in (
+                self.config_dir,
+                DEFAULT_STATIC_FILES_PATH)
+        ]
+
+    extra_nbextensions_path = List(Unicode(), config=True,
+        help=_("""extra paths to look for Javascript notebook extensions""")
+    )
+
+    @property
+    def nbextensions_path(self):
+        """The path to look for Javascript notebook extensions"""
+        path = self.extra_nbextensions_path + jupyter_path('nbextensions')
+        # FIXME: remove IPython nbextensions path after a migration period
+        try:
+            from IPython.paths import get_ipython_dir
+        except ImportError:
+            pass
+        else:
+            path.append(os.path.join(get_ipython_dir(), 'nbextensions'))
+        return path
+
     @property
     def static_paths(self):
         """Rename trait in jupyter_server."""
@@ -152,6 +181,18 @@ class NotebookApp(
             warnings.warn(_("The `ignore_minified_js` flag is deprecated and will be removed in Notebook 6.0"), DeprecationWarning)
 
         settings = dict(
+            static_custom_path=self.static_custom_path,
+            static_handler_args = {
+                # don't cache custom.js
+                'no_cache_paths': [
+                    url_path_join(
+                        self.serverapp.base_url,
+                        'static',
+                        self.extension_name,
+                        'custom'
+                    )
+                ],
+            },
             ignore_minified_js=self.ignore_minified_js,
             mathjax_url=self.mathjax_url,
             mathjax_config=self.mathjax_config,
