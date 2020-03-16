@@ -11,8 +11,9 @@ import os
 from tornado import web, gen
 HTTPError = web.HTTPError
 
+from jupyter_server.base.handlers import JupyterHandler
 from jupyter_server.extension.handler import (
-    ExtensionHandler,
+    ExtensionHandlerMixin,
     ExtensionHandlerJinjaMixin
 )
 from jupyter_server.base.handlers import path_regex, FilesRedirectHandler
@@ -75,7 +76,7 @@ def get_frontend_exporters():
     return sorted(frontend_exporters)
 
 
-class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandler):
+class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHandler):
 
 
     @web.authenticated

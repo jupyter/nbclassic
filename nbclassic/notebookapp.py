@@ -49,7 +49,6 @@ from jupyter_server.serverapp import (
     random_ports,
     load_handlers
 )
-from .shimconfig import merge_notebook_configs
 
 #-----------------------------------------------------------------------------
 # Module globals
@@ -93,20 +92,28 @@ aliases.update({
     'ip': 'ServerApp.ip',
     'port': 'ServerApp.port',
     'port-retries': 'ServerApp.port_retries',
-    'transport': 'KernelManager.transport',
+    'transport': 'ServerApp.KernelManager.transport',
     'keyfile': 'ServerApp.keyfile',
     'certfile': 'ServerApp.certfile',
     'client-ca': 'ServerApp.client_ca',
     'notebook-dir': 'ServerApp.notebook_dir',
     'browser': 'ServerApp.browser',
-    'gateway-url': 'GatewayClient.url',
+    'gateway-url': 'ServerApp.GatewayClient.url',
 })
 
 #-----------------------------------------------------------------------------
 # NotebookApp
 #-----------------------------------------------------------------------------
 
-class NotebookApp(ExtensionAppJinjaMixin, ExtensionApp):
+from . import shim
+from . import traits
+
+class NotebookApp(
+    shim.NBClassicConfigShimMixin,
+    traits.NotebookAppTraits,
+    ExtensionAppJinjaMixin,
+    ExtensionApp
+    ):
 
     name = 'jupyter-nbclassic'
     version = __version__
@@ -115,66 +122,8 @@ class NotebookApp(ExtensionAppJinjaMixin, ExtensionApp):
     This launches a Tornado based HTML Notebook Server that serves up an HTML5/Javascript Notebook client.""")
 
     extension_name = 'nbclassic'
-
-    ignore_minified_js = Bool(False,
-            config=True,
-            help=_('Deprecated: Use minified JS file or not, mainly use during dev to avoid JS recompilation'),
-            )
-
-    max_body_size = Integer(512 * 1024 * 1024, config=True,
-        help="""
-        Sets the maximum allowed size of the client request body, specified in
-        the Content-Length request header field. If the size in a request
-        exceeds the configured value, a malformed HTTP message is returned to
-        the client.
-
-        Note: max_body_size is applied even in streaming mode.
-        """
-    )
-
-    max_buffer_size = Integer(512 * 1024 * 1024, config=True,
-        help="""
-        Gets or sets the maximum amount of memory, in bytes, that is allocated
-        for use by the buffer manager.
-        """
-    )
-
-    jinja_environment_options = Dict(config=True,
-            help=_("Supply extra arguments that will be passed to Jinja environment."))
-
-    jinja_template_vars = Dict(
-        config=True,
-        help=_("Extra variables to supply to jinja templates when rendering."),
-    )
-
-    enable_mathjax = Bool(True, config=True,
-        help="""Whether to enable MathJax for typesetting math/TeX
-
-        MathJax is the javascript library Jupyter uses to render math/LaTeX. It is
-        very large, so you may want to disable it if you have a slow internet
-        connection, or for offline use of the notebook.
-
-        When disabled, equations etc. will appear as their untransformed TeX source.
-        """
-    )
-
-    @observe('enable_mathjax')
-    def _update_enable_mathjax(self, change):
-        """set mathjax url to empty if mathjax is disabled"""
-        if not change['new']:
-            self.mathjax_url = u''
-
-    extra_static_paths = List(Unicode(), config=True,
-        help="""Extra paths to search for serving static files.
-
-        This allows adding javascript/css to be available from the notebook server machine,
-        or overriding individual files in the IPython"""
-    )
-
-    @property
-    def static_file_path(self):
-        """return extra paths + the default location"""
-        return self.extra_static_paths + [DEFAULT_STATIC_FILES_PATH]
+    aliases = aliases
+    flags = flags
 
     static_custom_path = List(Unicode(),
         help=_("""Path to search for custom.js, css""")
@@ -188,23 +137,8 @@ class NotebookApp(ExtensionAppJinjaMixin, ExtensionApp):
                 DEFAULT_STATIC_FILES_PATH)
         ]
 
-    extra_template_paths = List(Unicode(), config=True,
-        help=_("""Extra paths to search for serving jinja templates.
-
-        Can be used to override templates from notebook.templates.""")
-    )
-
-    @property
-    def template_file_path(self):
-        """return extra paths + the default locations"""
-        return self.extra_template_paths + DEFAULT_TEMPLATE_PATH_LIST
-
     extra_nbextensions_path = List(Unicode(), config=True,
         help=_("""extra paths to look for Javascript notebook extensions""")
-    )
-
-    extra_services = List(Unicode(), config=True,
-        help=_("""handlers that should be loaded at higher priority than the default services""")
     )
 
     @property
@@ -220,53 +154,6 @@ class NotebookApp(ExtensionAppJinjaMixin, ExtensionApp):
             path.append(os.path.join(get_ipython_dir(), 'nbextensions'))
         return path
 
-    mathjax_url = Unicode("", config=True,
-        help="""A custom url for MathJax.js.
-        Should be in the form of a case-sensitive url to MathJax,
-        for example:  /static/components/MathJax/MathJax.js
-        """
-    )
-
-    @property
-    def static_url_prefix(self):
-        """Get the static url prefix for serving static files."""
-        return super(NotebookApp, self).static_url_prefix
-
-    @default('mathjax_url')
-    def _default_mathjax_url(self):
-        if not self.enable_mathjax:
-            return u''
-        static_url_prefix = self.static_url_prefix
-        return url_path_join(static_url_prefix, 'components', 'MathJax', 'MathJax.js')
-
-    @observe('mathjax_url')
-    def _update_mathjax_url(self, change):
-        new = change['new']
-        if new and not self.enable_mathjax:
-            # enable_mathjax=False overrides mathjax_url
-            self.mathjax_url = u''
-        else:
-            self.log.info(_("Using MathJax: %s"), new)
-
-    mathjax_config = Unicode("TeX-AMS-MML_HTMLorMML-full,Safe", config=True,
-        help=_("""The MathJax.js configuration file that is to be used.""")
-    )
-
-    @observe('mathjax_config')
-    def _update_mathjax_config(self, change):
-        self.log.info(_("Using MathJax configuration file: %s"), change['new'])
-
-    quit_button = Bool(True, config=True,
-        help="""If True, display a button in the dashboard to quit
-        (shutdown the notebook server)."""
-    )
-
-    # ------------------------------------------------------------------------
-    # traits and methods for Jupyter Server
-    # ------------------------------------------------------------------------
-
-    default_url = Unicode("/tree", config=True)
-
     @property
     def static_paths(self):
         """Rename trait in jupyter_server."""
@@ -277,8 +164,8 @@ class NotebookApp(ExtensionAppJinjaMixin, ExtensionApp):
         """Rename trait for Jupyter Server."""
         return self.template_file_path
 
-    def initialize_templates(self):
-        super(NotebookApp, self).initialize_templates()
+    def _prepare_templates(self):
+        super(NotebookApp, self)._prepare_templates()
 
         # Get translations from notebook package.
         base_dir = os.path.dirname(notebook.__file__)
@@ -294,20 +181,24 @@ class NotebookApp(ExtensionAppJinjaMixin, ExtensionApp):
             warnings.warn(_("The `ignore_minified_js` flag is deprecated and will be removed in Notebook 6.0"), DeprecationWarning)
 
         settings = dict(
+            static_custom_path=self.static_custom_path,
+            static_handler_args = {
+                # don't cache custom.js
+                'no_cache_paths': [
+                    url_path_join(
+                        self.serverapp.base_url,
+                        'static',
+                        self.extension_name,
+                        'custom'
+                    )
+                ],
+            },
             ignore_minified_js=self.ignore_minified_js,
             mathjax_url=self.mathjax_url,
             mathjax_config=self.mathjax_config,
             nbextensions_path=self.nbextensions_path,
         )
         self.settings.update(**settings)
-
-        merged_config = merge_notebook_configs(
-            notebook_config_name = 'jupyter_notebook',
-            server_config_name = 'jupyter_server',
-            other_config_name = 'jupyter_nbclassic',
-            argv = sys.argv
-            )
-        self.settings['ServerApp'] = merged_config['ServerApp']
 
     def initialize_handlers(self):
         """Load the (URL pattern, handler) tuples for each component."""
@@ -335,7 +226,6 @@ class NotebookApp(ExtensionAppJinjaMixin, ExtensionApp):
 
         # Add new handlers to Jupyter server handlers.
         self.handlers.extend(handlers)
-
 
 #-----------------------------------------------------------------------------
 # Main entry point
