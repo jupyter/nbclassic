@@ -20,8 +20,7 @@ from jupyter_server.base.handlers import path_regex, FilesRedirectHandler
 from jupyter_server.utils import (
     url_path_join,
     url_escape,
-    maybe_future,
-
+    ensure_async
 )
 from jupyter_server.transutils import _
 
@@ -89,16 +88,16 @@ class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, Jupyter
 
         # will raise 404 on not found
         try:
-            model = yield maybe_future(cm.get(path, content=False))
+            model = yield ensure_async(cm.get(path, content=False))
         except web.HTTPError as e:
             if e.status_code == 404 and 'files' in path.split('/'):
                 # 404, but '/files/' in URL, let FilesRedirect take care of it
-                return FilesRedirectHandler.redirect_to_files(self, path)
+                yield FilesRedirectHandler.redirect_to_files(self, path)
             else:
                 raise
         if model['type'] != 'notebook':
             # not a notebook, redirect to files
-            return FilesRedirectHandler.redirect_to_files(self, path)
+            yield FilesRedirectHandler.redirect_to_files(self, path)
         name = path.rsplit('/', 1)[-1]
         self.write(self.render_template('notebook.html',
             notebook_path=path,

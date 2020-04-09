@@ -39,32 +39,11 @@ def notebookapp_logcapture(monkeypatch, nbapp_log):
 
 
 @pytest.fixture
-def svapp_with_nbapp(serverapp):
-    """Return an instance of ServerApp with the
-    NotebookApp extension initialized.
-    """
-    app = NotebookApp(parent=serverapp)
-    app.initialize(serverapp)
-    yield serverapp
-
-
-@pytest.fixture
-def nbclassic_entrypoint(configurable_serverapp):
-    """A fixture that mimics the nbclassic command-line entrypoint.
-    You can pass a string or list of args that look like
-    the args from the CLI.
-
-    Example:
-    > jupyter nbclassic --ServerApp.port=8889
-    becomes
-    nbclassic_entrypoint('--ServerApp.port=8889')
-    """
-    def built_entrypoint(argv):
-        if isinstance(argv, str):
-            argv = [argv]
-        svapp = configurable_serverapp(argv=argv)
-        app = NotebookApp(parent=svapp)
-        app.initialize(svapp)
-        return app
-
-    yield built_entrypoint
+def server_config():
+    return {
+        "ServerApp": {
+            "jpserver_extensions": {
+                "nbclassic": True
+            }
+        }
+    }

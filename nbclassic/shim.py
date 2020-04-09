@@ -11,6 +11,7 @@ from traitlets.config.loader import (
 )
 from jupyter_core.application import JupyterApp
 from jupyter_server.serverapp import ServerApp
+from jupyter_server.extension.application import ExtensionApp
 from .traits import NotebookAppTraits
 
 
@@ -191,9 +192,15 @@ class NBClassicConfigShimMixin:
         nbapp_config_shim = {}
         extapp_config_shim = {}
 
-        extapp_traits = self.__class__.class_trait_names()
+        extapp_traits = (
+            self.__class__.class_trait_names() +
+            ExtensionApp.class_trait_names()
+        )
         svapp_traits = ServerApp.class_trait_names()
-        nbapp_traits = NotebookAppTraits.class_trait_names()
+        nbapp_traits = (
+            NotebookAppTraits.class_trait_names() +
+            ExtensionApp.class_trait_names()
+        )
 
         # 1. Handle ServerApp traits.
         svapp_config_shim.update(svapp_config)

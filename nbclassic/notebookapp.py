@@ -24,9 +24,6 @@ from notebook import (
 
 from traitlets.config import Config
 from traitlets.config.application import boolean_flag
-from jupyter_core.application import (
-    base_flags, base_aliases,
-)
 from traitlets import (
     Dict, Unicode, Integer, List, Bool,
     observe, default
@@ -64,7 +61,8 @@ jupyter nbclassic password              # enter a password to protect the server
 # Aliases and Flags
 #-----------------------------------------------------------------------------
 
-flags = dict(base_flags)
+flags = {}
+aliases = {}
 flags['no-browser']=(
     {'ServerApp' : {'open_browser' : False}},
     _("Don't open the notebook in a browser after startup.")
@@ -86,8 +84,6 @@ flags['allow-root']=(
     _("Allow the notebook to be run from root user.")
 )
 
-aliases = dict(base_aliases)
-
 aliases.update({
     'ip': 'ServerApp.ip',
     'port': 'ServerApp.port',
@@ -108,12 +104,13 @@ aliases.update({
 from . import shim
 from . import traits
 
+
 class NotebookApp(
     shim.NBClassicConfigShimMixin,
-    traits.NotebookAppTraits,
     ExtensionAppJinjaMixin,
-    ExtensionApp
-    ):
+    ExtensionApp,
+    traits.NotebookAppTraits,
+):
 
     name = 'jupyter-nbclassic'
     version = __version__
@@ -122,6 +119,8 @@ class NotebookApp(
     This launches a Tornado based HTML Notebook Server that serves up an HTML5/Javascript Notebook client.""")
 
     extension_name = 'nbclassic'
+    extension_url = '/tree'
+
     aliases = aliases
     flags = flags
 
