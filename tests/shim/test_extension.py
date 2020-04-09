@@ -138,7 +138,7 @@ def test_NOT_EXTAPP_NBAPP_AND_SVAPP_SHIM_MSG(
 
 
 @pytest.mark.parametrize(
-    'trait_name,trait_value',
+    'argv,trait_name,trait_value',
     list_test_params([
         ('allow_credentials', False),
     ])
@@ -159,7 +159,7 @@ def test_EXTAPP_TO_SVAPP_SHIM_MSG(
 
 
 @pytest.mark.parametrize(
-    'trait_name,trait_value',
+    'argv,trait_name,trait_value',
     list_test_params([
         ('mathjax_config', 'TEST'),
         ('mathjax_url', 'TEST')
