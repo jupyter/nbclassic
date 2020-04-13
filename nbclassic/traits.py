@@ -138,10 +138,3 @@ class NotebookAppTraits(HasTraits):
         help="""If True, display a button in the dashboard to quit
         (shutdown the notebook server)."""
     )
-
-    # ------------------------------------------------------------------------
-    # traits and methods for Jupyter Server
-    # ------------------------------------------------------------------------
-
-    default_url = Unicode("/tree", config=True)
-

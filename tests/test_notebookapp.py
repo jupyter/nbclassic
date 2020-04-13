@@ -15,7 +15,8 @@ def notebooks(create_notebook):
         create_notebook(nb)
     return nbpaths
 
-async def test_tree_handler(notebooks, fetch, svapp_with_nbapp):
+
+async def test_tree_handler(notebooks, fetch):
     r = await fetch('tree', 'nbclassic_test_notebooks')
     assert r.code == 200
 
@@ -26,7 +27,7 @@ async def test_tree_handler(notebooks, fetch, svapp_with_nbapp):
     assert "Clusters" in html
 
 
-async def test_notebook_handler(notebooks, fetch, svapp_with_nbapp):
+async def test_notebook_handler(notebooks, fetch):
     for nbpath in notebooks:
         r = await fetch('notebooks', nbpath)
         assert r.code == 200

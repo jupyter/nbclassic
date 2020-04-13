@@ -2,37 +2,10 @@
 import io
 import logging
 import pytest
-from traitlets import (
-    Unicode,
-    Bool,
-    Dict,
-    default
-)
-from jupyter_server.extension.application import ExtensionApp
 
-from nbclassic.notebookapp import NotebookApp
+from traitlets import default
+from .mockextension import MockExtensionApp
 from nbclassic import shim
-
-
-class MockExtensionApp(
-    shim.NBClassicConfigShimMixin,
-    ExtensionApp
-    ):
-    """Mock an extension app that previously inherited NotebookApp."""
-    extension_name = 'mockext'
-
-    # ------ Traits found ServerApp, NotebookApp, and MockExtensionApp
-
-    default_url = Unicode(config=True)
-
-    # ------ Traits found Notebook and MockExtensionApp
-
-    enable_mathjax = Bool(config=True)
-
-    # ------ Traits found ServerApp and MockExtensionApp
-
-    allow_origin = Unicode(config=True)
-    allow_origin_pat = Unicode(config=True)
 
 
 @pytest.fixture
@@ -66,185 +39,139 @@ def extapp_logcapture(monkeypatch, extapp_log):
     return _log_default
 
 
+@pytest.fixture
+def server_config():
+    return {
+        "ServerApp": {
+            "jpserver_extensions": {
+                "nbclassic": True,
+                "tests.shim.mockextension": True
+            }
+        }
+    }
+
 
 @pytest.fixture
-def extapp_entrypoint(configurable_serverapp):
-    """A fixture that mimics the nbclassic command-line entrypoint.
-    You can pass a string or list of args that look like
-    the args from the CLI.
+def extensionapp(serverapp):
+    return serverapp._enabled_extensions["mockextension"]
 
-    Example:
-    > jupyter nbclassic --ServerApp.port=8889
-    becomes
-    nbclassic_entrypoint('--ServerApp.port=8889')
-    """
-    def built_entrypoint(argv):
-        if isinstance(argv, str):
-            argv = [argv]
-        svapp = configurable_serverapp(argv=argv)
 
-        # Append Nbclassic
-        nbapp = NotebookApp(parent=svapp)
-        nbapp.initialize(svapp)
-
-        # Append extapp
-        extapp = MockExtensionApp(parent=svapp)
-        extapp.initialize(svapp)
-        return extapp
-
-    yield built_entrypoint
-
+def list_test_params(param_input):
+    """"""
+    params = []
+    for test in param_input:
+        name, value = test[0], test[1]
+        option = (
+            '--MockExtensionApp.'
+            '{name}={value}'
+            .format(name=name, value=value)
+        )
+        params.append([[option], name, value])
+    return params
 
 
 @pytest.mark.parametrize(
-    'trait_name,trait_value',
-    [
-        ('default_url', '/tree'),
-    ]
-)
-def test_EXTAPP_AND_NBAPP_AND_SVAPP_SHIM_MSG(
-    extapp_entrypoint,
-    extapp_log,
-    trait_name,
-    trait_value
-    ):
-    arg = '--MockExtensionApp.{trait_name}={trait_value}'.format(
-        trait_name=trait_name,
-        trait_value=trait_value
-    )
-    app = extapp_entrypoint(arg)
-    log = extapp_log.getvalue()
-    # Verify a shim warning appeared.
-    log_msg = shim.EXTAPP_AND_NBAPP_AND_SVAPP_SHIM_MSG(trait_name, 'MockExtensionApp')
-    assert log_msg in log
-    # Verify the trait was updated.
-    assert getattr(app, trait_name) == trait_value
-
-
-
-@pytest.mark.parametrize(
-    'trait_name,trait_value',
-    [
+    'argv,trait_name,trait_value',
+    list_test_params([
         ('enable_mathjax', False)
-    ]
+    ])
 )
 def test_EXTAPP_AND_NBAPP_SHIM_MSG(
-    extapp_entrypoint,
+    extensionapp,
     extapp_log,
+    argv,
     trait_name,
     trait_value
-    ):
-    arg = '--MockExtensionApp.{trait_name}={trait_value}'.format(
-        trait_name=trait_name,
-        trait_value=trait_value
-    )
-    app = extapp_entrypoint(arg)
+):
     log = extapp_log.getvalue()
     # Verify a shim warning appeared.
     log_msg = shim.EXTAPP_AND_NBAPP_SHIM_MSG(trait_name, 'MockExtensionApp')
     assert log_msg in log
     # Verify the trait was updated.
-    assert getattr(app, trait_name) == trait_value
+    assert getattr(extensionapp, trait_name) == trait_value
 
 
 @pytest.mark.parametrize(
-    'trait_name,trait_value',
-    [
+    'argv,trait_name,trait_value',
+    list_test_params([
         ('allow_origin', ''),
         ('allow_origin_pat', ''),
-    ]
+    ])
 )
 def test_EXTAPP_AND_SVAPP_SHIM_MSG(
-    extapp_entrypoint,
+    extensionapp,
     extapp_log,
+    argv,
     trait_name,
     trait_value
-    ):
-    arg = '--MockExtensionApp.{trait_name}={trait_value}'.format(
-        trait_name=trait_name,
-        trait_value=trait_value
-    )
-    app = extapp_entrypoint(arg)
+):
     log = extapp_log.getvalue()
     # Verify a shim warning appeared.
     log_msg = shim.EXTAPP_AND_SVAPP_SHIM_MSG(trait_name, 'MockExtensionApp')
     assert log_msg in log
     # Verify the trait was updated.
-    assert getattr(app, trait_name) == trait_value
+    assert getattr(extensionapp, trait_name) == trait_value
 
 
 @pytest.mark.parametrize(
-    'trait_name,trait_value',
-    [
+    'argv,trait_name,trait_value',
+    list_test_params([
         ('jinja_environment_options', {}),
         ('jinja_template_vars', {}),
         ('extra_template_paths', []),
         ('quit_button', True),
-    ]
+    ])
 )
 def test_NOT_EXTAPP_NBAPP_AND_SVAPP_SHIM_MSG(
-    extapp_entrypoint,
+    extensionapp,
     extapp_log,
+    argv,
     trait_name,
     trait_value
-    ):
-    arg = '--MockExtensionApp.{trait_name}={trait_value}'.format(
-        trait_name=trait_name,
-        trait_value=trait_value
-    )
-    app = extapp_entrypoint(arg)
+):
     log = extapp_log.getvalue()
     # Verify a shim warning appeared.
     log_msg = shim.NOT_EXTAPP_NBAPP_AND_SVAPP_SHIM_MSG(trait_name, 'MockExtensionApp')
     assert log_msg in log
     # Verify the trait was updated.
-    assert getattr(app.serverapp, trait_name) == trait_value
-
+    assert getattr(extensionapp.serverapp, trait_name) == trait_value
 
 
 @pytest.mark.parametrize(
-    'trait_name,trait_value',
-    [
+    'argv,trait_name,trait_value',
+    list_test_params([
         ('allow_credentials', False),
-    ]
+    ])
 )
 def test_EXTAPP_TO_SVAPP_SHIM_MSG(
-    extapp_entrypoint,
+    extensionapp,
     extapp_log,
+    argv,
     trait_name,
     trait_value
-    ):
-    arg = '--MockExtensionApp.{trait_name}={trait_value}'.format(
-        trait_name=trait_name,
-        trait_value=trait_value
-    )
-    app = extapp_entrypoint(arg)
+):
     log = extapp_log.getvalue()
     # Verify a shim warning appeared.
     log_msg = shim.EXTAPP_TO_SVAPP_SHIM_MSG(trait_name, 'MockExtensionApp')
     assert log_msg in log
     # Verify the trait was updated.
-    assert getattr(app.serverapp, trait_name) == trait_value
+    assert getattr(extensionapp.serverapp, trait_name) == trait_value
 
 
 @pytest.mark.parametrize(
-    'trait_name,trait_value',
-    [
+    'argv,trait_name,trait_value',
+    list_test_params([
         ('mathjax_config', 'TEST'),
         ('mathjax_url', 'TEST')
-    ]
+    ])
 )
 def test_EXTAPP_TO_NBAPP_SHIM_MSG(
-    extapp_entrypoint,
+    extensionapp,
     extapp_log,
+    argv,
     trait_name,
     trait_value
-    ):
-    arg = '--MockExtensionApp.{trait_name}={trait_value}'.format(
-        trait_name=trait_name,
-        trait_value=trait_value
-    )
-    app = extapp_entrypoint(arg)
+):
     log = extapp_log.getvalue()
     # Verify a shim warning appeared.
     log_msg = shim.EXTAPP_TO_NBAPP_SHIM_MSG(trait_name, 'MockExtensionApp')
