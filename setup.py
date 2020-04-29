@@ -67,7 +67,7 @@ setup(
     platforms="Linux, Mac OS X, Windows",
     packages=setuptools.find_packages(),
     install_requires=[
-        'jupyter_server@git+https://github.com/zsailer/jupyter_server.git@discover-extensionapp-config',
+        'jupyter_server>=0.3',
         'notebook<7',
     ],
     classifiers=[
