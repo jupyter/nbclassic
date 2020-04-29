@@ -7,7 +7,13 @@ from setuptools import find_packages, setup, Command
 import setuptools
 
 NAME = 'nbclassic'
-VERSION = '0.0.4'
+
+about = {}
+here = os.path.abspath(os.path.dirname(__file__))
+project_slug = NAME.lower().replace("-", "_").replace(" ", "_")
+with open(os.path.join(here, project_slug, '__version__.py')) as f:
+    exec(f.read(), about)
+
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -50,7 +56,7 @@ class UploadCommand(Command):
 
 setup(
     name=NAME,
-    version=VERSION,
+    version=about['__version__'],
     author="Jupyter Development Team",
     author_email="jupyter@googlegroups.com",
     description="A package that provides a simple transition away from Jupyter Notebook to Jupyter Server",
