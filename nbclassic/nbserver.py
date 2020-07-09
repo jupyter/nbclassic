@@ -11,7 +11,7 @@ class ClassProxyError(Exception):
 
 
 def proxy(obj1, obj2, name, overwrite=False):
-    """Redirects a method from object 1 to object 2."""
+    """Redirects a method, property, or trait from object 1 to object 2."""
     if hasattr(obj1, name) and overwrite is False:
         raise ClassProxyError(
             "Cannot proxy the attribute '{name}' from {cls2} because "
