@@ -1,10 +1,7 @@
-
 import os
-import sys
-from shutil import rmtree
+from setuptools import setup
+from jupyter_packaging import create_cmdclass
 
-from setuptools import find_packages, setup, Command
-import setuptools
 
 NAME = 'nbclassic'
 
@@ -20,74 +17,47 @@ with open("README.md", "r") as fh:
 
 here = os.path.abspath(os.path.dirname(__file__))
 
+# Handle datafiles
+cmdclass = create_cmdclass(
+    data_files_spec=[(
+        'etc/jupyter/jupyter_server_config.d',
+        'jupyter-config/jupyter/jupyter_server_config.d',
+        '*.json'
+    )]
+)
 
-class UploadCommand(Command):
-    """Support setup.py upload."""
-
-    description = 'Build and publish the package.'
-    user_options = []
-
-    @staticmethod
-    def status(s):
-        """Prints things in bold."""
-        print('\033[1m{0}\033[0m'.format(s))
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        try:
-            self.status('Removing previous builds…')
-            rmtree(os.path.join(here, 'dist'))
-        except OSError:
-            pass
-
-        self.status('Building Source and Wheel (universal) distribution…')
-        os.system('{0} setup.py sdist bdist_wheel --universal'.format(sys.executable))
-
-        self.status('Uploading the package to PyPI via Twine…')
-        os.system('twine upload dist/*')
-
-        sys.exit()
-
-
-setup(
-    name=NAME,
-    version=about['__version__'],
-    author="Jupyter Development Team",
-    author_email="jupyter@googlegroups.com",
-    description="A package that provides a simple transition away from Jupyter Notebook to Jupyter Server",
-    long_description=long_description,
+setup_args = dict(
+    name             = NAME,
+    description      = 'Jupyter Notebook as a Jupyter Server Extension.',
+    long_description = long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Zsailer/nbclassic",
-    license='BSD',
-    platforms="Linux, Mac OS X, Windows",
-    packages=setuptools.find_packages(),
-    install_requires=[
+    version          = about['__version__'],
+    author           = 'Jupyter Development Team',
+    author_email     = 'jupyter@googlegroups.com',
+    url              = 'http://jupyter.org',
+    license          = 'BSD',
+    platforms        = "Linux, Mac OS X, Windows",
+    keywords         = ['ipython', 'jupyter'],
+    classifiers      = [
+        'Intended Audience :: Developers',
+        'Intended Audience :: System Administrators',
+        'Intended Audience :: Science/Research',
+        'License :: OSI Approved :: BSD License',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+    ],
+    cmdclass         = cmdclass,
+    zip_safe=False,
+    python_requires='>=3.6',
+    include_package_data=True,
+    install_requires = [
         'jupyter_server>=0.3',
         'notebook<7',
     ],
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    python_requires='>=3.6',
-    include_package_data=True,
-    data_files=[
-        # like `jupyter serverextension enable --sys-prefix`
-        ("etc/jupyter/jupyter_server_config.d", [
-            "jupyter-config/jupyter_server_config.d/nbclassic.json"
-        ])
-    ],
-    zip_safe=False,
-    # $ setup.py publish support.
-    cmdclass={
-        'upload': UploadCommand,
-    },
     entry_points = {
         'console_scripts': [
             'jupyter-nbclassic = nbclassic.notebookapp:main'
@@ -99,3 +69,8 @@ setup(
         ],
     },
 )
+
+if __name__ == '__main__':
+    setup(**setup_args)
+
+
