@@ -9,6 +9,7 @@ def _jupyter_server_extension_paths():
             'name': 'jupyter-nbclassic'
         },
         {
-            'module': 'nbclassic.nbserver'
+            'module': 'nbclassic.nbserver',
+            'name': 'nbserver'
         }
     ]

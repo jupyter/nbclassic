@@ -219,10 +219,9 @@ class NotebookApp(
         handlers.append(
             (r"/custom/(.*)", FileFindHandler, {
                 'path': self.settings['static_custom_path'],
-                'no_cache_paths': ['/'], # don't cache anything in custom
-            })
+                'no_cache_paths': ['/'], # don't cache anything in nbextensions
+            }),
         )
-
         # Add new handlers to Jupyter server handlers.
         self.handlers.extend(handlers)
 

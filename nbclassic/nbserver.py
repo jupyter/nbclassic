@@ -1,9 +1,11 @@
+import os
 import types
 import inspect
 from functools import wraps
-from jupyter_server.services.config import ConfigManager
+from jupyter_core.paths import jupyter_config_path
 from traitlets import is_trait
 from .traits import NotebookAppTraits
+from .config_manager import NBClassicConfigManager
 
 
 class ClassProxyError(Exception):
@@ -52,8 +54,8 @@ def diff_members(obj1, obj2):
     return set(m2).difference(m1)
 
 
-def get_nbserver_extensions(config_dir):
-    cm = ConfigManager(read_config_path=[config_dir])
+def get_nbserver_extensions(config_dirs):
+    cm = NBClassicConfigManager(read_config_path=config_dirs)
     section = cm.get("jupyter_notebook_config")
     extensions = section.get('NotebookApp', {}).get('nbserver_extensions', {})
     return extensions
@@ -102,8 +104,9 @@ def _link_jupyter_server_extension(serverapp):
         proxy(serverapp, nbapp, m)
 
     # Find jupyter server extensions listed as notebook server extensions.
-    config_dir = serverapp.config_dir
-    nbserver_extensions = get_nbserver_extensions(config_dir)
+    jupyter_paths = jupyter_config_path()
+    config_dirs = jupyter_paths + [serverapp.config_dir]
+    nbserver_extensions = get_nbserver_extensions(config_dirs)
 
     # Link all extensions found in the old locations for
     # notebook server extensions.
@@ -111,8 +114,12 @@ def _link_jupyter_server_extension(serverapp):
     for name in nbserver_extensions:
         manager.link_extension(name, serverapp)
 
-    return {}
-
 
 def _load_jupyter_server_extension(serverapp):
-    return
+    # Patch the config service manager to find the
+    # proper path for old notebook frontend extensions
+    config_manager = serverapp.config_manager
+    read_config_path = config_manager.read_config_path
+    read_config_path += [os.path.join(p, 'nbconfig')
+                         for p in jupyter_config_path()]
+    config_manager.read_config_path = read_config_path
