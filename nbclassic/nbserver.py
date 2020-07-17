@@ -3,9 +3,9 @@ import types
 import inspect
 from functools import wraps
 from jupyter_core.paths import jupyter_config_path
+from jupyter_server.services.config.manager import ConfigManager
 from traitlets import is_trait
 from .traits import NotebookAppTraits
-from .config_manager import NBClassicConfigManager
 
 
 class ClassProxyError(Exception):
@@ -55,7 +55,7 @@ def diff_members(obj1, obj2):
 
 
 def get_nbserver_extensions(config_dirs):
-    cm = NBClassicConfigManager(read_config_path=config_dirs)
+    cm = ConfigManager(read_config_path=config_dirs)
     section = cm.get("jupyter_notebook_config")
     extensions = section.get('NotebookApp', {}).get('nbserver_extensions', {})
     return extensions
@@ -64,6 +64,7 @@ def get_nbserver_extensions(config_dirs):
 def _link_jupyter_server_extension(serverapp):
     # Get the extension manager from the server
     manager = serverapp.extension_manager
+    logger = serverapp.log
 
     # Hack that patches the enabled extensions list, prioritizing
     # jupyter nbclassic. In the future, it would be much better
@@ -112,6 +113,11 @@ def _link_jupyter_server_extension(serverapp):
     # notebook server extensions.
     manager.from_jpserver_extensions(nbserver_extensions)
     for name in nbserver_extensions:
+        logger.info(
+            "{name} | extension was found and enabled by nbclassic. "
+            "Consider moving the extension to Jupyter Server's "
+            "extension paths.".format(name=name)
+        )
         manager.link_extension(name, serverapp)
 
 

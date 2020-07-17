@@ -10,6 +10,5 @@ def _jupyter_server_extension_paths():
         },
         {
             'module': 'nbclassic.nbserver',
-            'name': 'nbserver'
         }
     ]
