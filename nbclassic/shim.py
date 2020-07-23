@@ -129,6 +129,7 @@ class NBClassicConfigShimMixin:
     read the docstring under `shim_config_from_notebook_to_jupyter_server`.
     """
 
+
     @wraps(JupyterApp.update_config)
     def update_config(self, config):
         # Shim traits to handle transition from NotebookApp to ServerApp

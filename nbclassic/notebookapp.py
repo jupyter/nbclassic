@@ -118,11 +118,11 @@ class NotebookApp(
 
     This launches a Tornado based HTML Notebook Server that serves up an HTML5/Javascript Notebook client.""")
 
-    extension_name = 'nbclassic'
-    extension_url = '/tree'
+    name = 'nbclassic'
 
     aliases = aliases
     flags = flags
+    extension_url = "/tree"
 
     static_custom_path = List(Unicode(),
         help=_("""Path to search for custom.js, css""")
@@ -187,7 +187,7 @@ class NotebookApp(
                     url_path_join(
                         self.serverapp.base_url,
                         'static',
-                        self.extension_name,
+                        self.name,
                         'custom'
                     )
                 ],
@@ -219,10 +219,9 @@ class NotebookApp(
         handlers.append(
             (r"/custom/(.*)", FileFindHandler, {
                 'path': self.settings['static_custom_path'],
-                'no_cache_paths': ['/'], # don't cache anything in custom
-            })
+                'no_cache_paths': ['/'], # don't cache anything in nbextensions
+            }),
         )
-
         # Add new handlers to Jupyter server handlers.
         self.handlers.extend(handlers)
 
