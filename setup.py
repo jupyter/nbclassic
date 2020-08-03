@@ -52,7 +52,7 @@ setup_args = dict(
     ],
     cmdclass         = cmdclass,
     zip_safe=False,
-    python_requires='>=3.6',
+    python_requires='>=3.5',
     include_package_data=True,
     install_requires = [
         'jupyter_server>=0.3',

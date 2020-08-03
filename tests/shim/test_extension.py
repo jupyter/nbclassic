@@ -53,7 +53,7 @@ def server_config():
 
 @pytest.fixture
 def extensionapp(serverapp):
-    return serverapp._enabled_extensions["mockextension"]
+    return serverapp.extension_manager.extension_points["mockextension"].app
 
 
 def list_test_params(param_input):

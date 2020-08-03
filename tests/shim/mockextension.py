@@ -8,7 +8,7 @@ from jupyter_server.extension.application import ExtensionApp
 from nbclassic import shim
 
 
-def _jupyter_server_extension_paths():
+def _jupyter_server_extension_points():
     return [
         {
             "module": "tests.shim.mockextension",
@@ -22,7 +22,7 @@ class MockExtensionApp(
     ExtensionApp
 ):
     """Mock an extension app that previously inherited NotebookApp."""
-    extension_name = 'mockextension'
+    name = 'mockextension'
 
     # ------ Traits found ServerApp, NotebookApp, and MockExtensionApp
 
