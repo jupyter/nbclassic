@@ -24,8 +24,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        pip install git+https://github.com/jupyter/jupyter_server
         python -m pip install --upgrade pip
+        pip install git+https://github.com/jupyter/jupyter_server
         pip install -e .[test]
     - name: Test with pytest
       run: |
