@@ -71,28 +71,28 @@ def _link_jupyter_server_extension(serverapp):
     # to incorporate a dependency injection system in the
     # Extension manager that allows extensions to list
     # their dependency tree and sort that way.
-    def enabled_extensions(self):
+    def extensions(self):
         """Dictionary with extension package names as keys
         and an ExtensionPackage objects as values.
         """
         # Pop out the nbclassic extension to prepend
         # this extension at the front of the sorted server extensions.
-        nb = self._enabled_extensions.get("nbclassic")
+        nb = self._extensions.get("nbclassic")
         # Sort all other extensions alphabetically.
-        other_extensions = dict(sorted(self._enabled_extensions.items()))
+        other_extensions = dict(sorted(self._extensions.items()))
         # Build a new extensions dictionary, sorted with nbclassic first.
         sorted_extensions = {"nbclassic": nb}
         sorted_extensions.update(**other_extensions)
         return sorted_extensions
 
-    manager.__class__.enabled_extensions = property(enabled_extensions)
+    manager.__class__.extensions = property(extensions)
 
     # Look to see if nbclassic is enabled. if so,
     # link the nbclassic extension here to load
     # its config. Then, port its config to the serverapp
     # for backwards compatibility.
     try:
-        pkg = manager.enabled_extensions["nbclassic"]
+        pkg = manager.extensions["nbclassic"]
         pkg.link_point("jupyter-nbclassic", serverapp)
         point = pkg.extension_points["jupyter-nbclassic"]
         nbapp = point.app

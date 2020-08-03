@@ -16,7 +16,7 @@ def server_config():
 
 @pytest.fixture
 def nbclassic(serverapp):
-    return serverapp._enabled_extensions["nbclassic"]
+    return serverapp.extension_manager.extension_points["nbclassic"].app
 
 
 def list_test_params(param_input):
