@@ -9,7 +9,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -27,7 +26,7 @@ jobs:
         python -m pip install --upgrade pip
         git clone https://github.com/jupyter/jupyter_server.git
         cd jupyter_server
-        pip install -e .[test]
+        pip install -e .
         cd ..
         pip install -e .[test]
     - name: Test with pytest
