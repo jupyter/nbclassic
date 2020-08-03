@@ -24,11 +24,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -v -e ".[test]"
-        cd ..
-        git clone https://github.com/jupyter/jupyter_server.git
-        cd jupyter_server
-        pip install -e .
-        cd ../nbclassic
+        pip install -U git+https://github.com/jupyter/jupyter_server.git
     - name: Test with pytest
       run: |
         pytest
