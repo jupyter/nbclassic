@@ -26,6 +26,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -v -e ".[test]"
     - name: Install Jupyter Server from source
+      run: |
         cd ..
         git clone https://github.com/jupyter/jupyter_server.git
         cd jupyter_server
