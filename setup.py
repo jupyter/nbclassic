@@ -21,7 +21,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 cmdclass = create_cmdclass(
     data_files_spec=[(
         'etc/jupyter/jupyter_server_config.d',
-        'jupyter-config/jupyter/jupyter_server_config.d',
+        'jupyter_server_config.d',
         '*.json'
     )]
 )
