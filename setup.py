@@ -1,6 +1,6 @@
 import os
-from setuptools import setup
-from jupyter_packaging import create_cmdclass
+from setuptools import setup, find_packages
+from setupbase import create_cmdclass
 
 
 NAME = 'nbclassic'
@@ -32,6 +32,7 @@ setup_args = dict(
     long_description = long_description,
     long_description_content_type="text/markdown",
     version          = about['__version__'],
+    packages         = find_packages('.'),
     author           = 'Jupyter Development Team',
     author_email     = 'jupyter@googlegroups.com',
     url              = 'http://jupyter.org',
