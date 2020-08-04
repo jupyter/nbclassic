@@ -4,7 +4,7 @@ import inspect
 from functools import wraps
 from jupyter_core.paths import jupyter_config_path
 from jupyter_server.services.config.manager import ConfigManager
-from traitlets import is_trait
+from traitlets.traitlets import is_trait
 from .traits import NotebookAppTraits
 
 
