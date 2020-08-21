@@ -111,14 +111,18 @@ def _link_jupyter_server_extension(serverapp):
 
     # Link all extensions found in the old locations for
     # notebook server extensions.
-    manager.from_jpserver_extensions(nbserver_extensions)
-    for name in nbserver_extensions:
-        logger.info(
-            "{name} | extension was found and enabled by nbclassic. "
-            "Consider moving the extension to Jupyter Server's "
-            "extension paths.".format(name=name)
-        )
-        manager.link_extension(name, serverapp)
+    for name, enabled in nbserver_extensions.items():
+        # If the extension is already enabled in the manager, i.e.
+        # because it was discovered already by Jupyter Server
+        # through its jupyter_server_config, then don't re-enable here.
+        if name not in manager.extensions:
+            manager.add_extension(name, enabled=enabled)
+            logger.info(
+                "{name} | extension was found and enabled by nbclassic. "
+                "Consider moving the extension to Jupyter Server's "
+                "extension paths.".format(name=name)
+            )
+            manager.link_extension(name, serverapp)
 
 
 def _load_jupyter_server_extension(serverapp):
