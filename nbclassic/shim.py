@@ -220,7 +220,7 @@ class NBClassicConfigShimMixin:
             elif in_nbapp:
                 nbapp_config_shim.update({trait_name: trait_value})
             else:
-                raise TraitError("Trait not found.")
+                raise TraitError("Trait, {}, not found.".format(trait_name))
 
             # Raise a warning if it's given.
             if warning_msg:
@@ -272,7 +272,7 @@ class NBClassicConfigShimMixin:
                 )
                 nbapp_config_shim.update({trait_name: trait_value})
             else:
-                raise TraitError("Trait not found.")
+                raise TraitError("Trait, {}, not found.".format(trait_name))
 
             # Raise warning if one is given
             if warning_msg:

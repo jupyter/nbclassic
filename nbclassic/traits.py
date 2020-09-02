@@ -138,3 +138,10 @@ class NotebookAppTraits(HasTraits):
         help="""If True, display a button in the dashboard to quit
         (shutdown the notebook server)."""
     )
+
+    nbserver_extensions = Dict({}, config=True,
+        help=(_("Dict of Python modules to load as notebook server extensions."
+              "Entry values can be used to enable and disable the loading of"
+              "the extensions. The extensions will be loaded in alphabetical "
+              "order."))
+    )
