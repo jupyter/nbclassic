@@ -116,13 +116,14 @@ def _link_jupyter_server_extension(serverapp):
         # because it was discovered already by Jupyter Server
         # through its jupyter_server_config, then don't re-enable here.
         if name not in manager.extensions:
-            manager.add_extension(name, enabled=enabled)
-            logger.info(
-                "{name} | extension was found and enabled by nbclassic. "
-                "Consider moving the extension to Jupyter Server's "
-                "extension paths.".format(name=name)
-            )
-            manager.link_extension(name, serverapp)
+            successful = manager.add_extension(name, enabled=enabled)
+            if successful:
+                logger.info(
+                    "{name} | extension was found and enabled by nbclassic. "
+                    "Consider moving the extension to Jupyter Server's "
+                    "extension paths.".format(name=name)
+                )
+                manager.link_extension(name, serverapp)
 
 
 def _load_jupyter_server_extension(serverapp):
