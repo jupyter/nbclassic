@@ -36,7 +36,7 @@ jobs:
         cat serverextensions | grep -i "nbclassic.*enabled"
         cat serverextensions | grep -i "nbclassic.*OK"
     - name: Test release assets
-      if: ${{ matrix.python-version != "3.6" }}
+      if: ${{ matrix.python-version != '3.6' }}
       run: |
         pip install twine build
         python -m build .
