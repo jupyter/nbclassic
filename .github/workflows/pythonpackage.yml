@@ -30,7 +30,6 @@ jobs:
         pytest
     - name: Test integrity
       run: |
-        python -m pip install --upgrade pip
         pip install .
         jupyter server extension list 1>serverextensions 2>&1
         cat serverextensions
