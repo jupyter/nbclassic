@@ -1,6 +1,6 @@
 import os
 from setuptools import setup, find_packages
-from setupbase import create_cmdclass
+from jupyter_packaging import create_cmdclass
 
 
 NAME = 'nbclassic'
@@ -53,10 +53,10 @@ setup_args = dict(
     ],
     cmdclass         = cmdclass,
     zip_safe=False,
-    python_requires='>=3.5',
+    python_requires='>=3.6',
     include_package_data=True,
     install_requires = [
-        'jupyter_server~=1.0.0rc5',
+        'jupyter_server~=1.0.0rc16',
         'notebook<7',
     ],
     entry_points = {
