@@ -43,9 +43,14 @@ from jupyter_server.extension.application import (
 from jupyter_server.log import log_request
 from jupyter_server.transutils import _
 from jupyter_server.serverapp import (
+    ServerApp,
     random_ports,
     load_handlers
 )
+from jupyter_server.utils import url_path_join as ujoin
+
+from .terminal.handlers import TerminalHandler, TermSocket
+
 
 #-----------------------------------------------------------------------------
 # Module globals
@@ -88,13 +93,13 @@ aliases.update({
     'ip': 'ServerApp.ip',
     'port': 'ServerApp.port',
     'port-retries': 'ServerApp.port_retries',
-    'transport': 'ServerApp.KernelManager.transport',
+    #'transport': 'KernelManager.transport',
     'keyfile': 'ServerApp.keyfile',
     'certfile': 'ServerApp.certfile',
     'client-ca': 'ServerApp.client_ca',
     'notebook-dir': 'ServerApp.notebook_dir',
     'browser': 'ServerApp.browser',
-    'gateway-url': 'ServerApp.GatewayClient.url',
+    #'gateway-url': 'GatewayClient.url',
 })
 
 #-----------------------------------------------------------------------------
@@ -209,6 +214,21 @@ class NotebookApp(
 
         handlers.extend(load_handlers('nbclassic.tree.handlers'))
         handlers.extend(load_handlers('nbclassic.notebook.handlers'))
+        handlers.extend(load_handlers('nbclassic.edit.handlers'))
+        
+        # Add terminal handlers
+        try:
+            term_mgr = self.serverapp.web_app.settings['terminal_manager']
+        except KeyError:
+            pass  # Terminals not enabled
+        else:
+            handlers.append(
+                (r"/terminals/(\w+)", TerminalHandler)
+            )
+            handlers.append(
+                (r"/terminals/websocket/(\w+)", TermSocket,
+                {'term_manager': term_mgr})
+            )
 
         handlers.append(
             (r"/nbextensions/(.*)", FileFindHandler, {
