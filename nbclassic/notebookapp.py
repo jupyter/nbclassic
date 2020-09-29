@@ -49,7 +49,7 @@ from jupyter_server.serverapp import (
 )
 from jupyter_server.utils import url_path_join as ujoin
 
-from .terminal.handlers import TerminalHandler, TermSocket
+from .terminal.handlers import TerminalHandler
 
 
 #-----------------------------------------------------------------------------
@@ -217,18 +217,9 @@ class NotebookApp(
         handlers.extend(load_handlers('nbclassic.edit.handlers'))
         
         # Add terminal handlers
-        try:
-            term_mgr = self.serverapp.web_app.settings['terminal_manager']
-        except KeyError:
-            pass  # Terminals not enabled
-        else:
-            handlers.append(
-                (r"/terminals/(\w+)", TerminalHandler)
-            )
-            handlers.append(
-                (r"/terminals/websocket/(\w+)", TermSocket,
-                {'term_manager': term_mgr})
-            )
+        handlers.append(
+            (r"/terminals/(\w+)", TerminalHandler)
+        )
 
         handlers.append(
             (r"/nbextensions/(.*)", FileFindHandler, {
