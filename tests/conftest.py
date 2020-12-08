@@ -4,8 +4,6 @@ import pytest
 from traitlets import default
 from nbclassic.notebookapp import NotebookApp
 
-pytest_plugins = ["pytest_jupyter_server"]
-
 
 @pytest.fixture
 def nbapp_log():
