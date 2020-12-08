@@ -9,29 +9,50 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: [ '3.6', '3.7', '3.8' ]
-
+        os: [ubuntu, macos, windows]
+        python-version: ['3.6', '3.7', '3.8', '3.9', 'pypy3']
+        exclude:
+        - os: windows
+          python-version: pypy3
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+    - name: Upgrade pip, etc.
       run: |
-        python -m pip install --upgrade pip
-        pip install -v -e ".[test]"
-    - name: Install Jupyter Server from source
+        python -m pip install --user --upgrade pip setuptools wheel
+    - name: Get pip cache dir
+      id: pip-cache
       run: |
-        cd ..
-        git clone https://github.com/jupyter/jupyter_server.git
-        cd jupyter_server
-        pip install -e .
-        cd ../nbclassic
+        echo "::set-output name=dir::$(pip cache dir)"
+    - name: Cache pip
+      uses: actions/cache@v1
+      with:
+        path: ${{ steps.pip-cache.outputs.dir }}
+        key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('setup.py') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-${{ matrix.python-version }}-
+          ${{ runner.os }}-pip-
+    - name: Install pip dependencies
+      run: |
+        pip install -v -e ".[test]" pytest-cov
+    - name: Check pip environment
+      run: |
+        pip freeze
+        pip check
+    # - name: Install Jupyter Server from source
+    #   run: |
+    #     cd ..
+    #     git clone https://github.com/jupyter/jupyter_server.git
+    #     cd jupyter_server
+    #     pip install -e .
+    #     cd ../nbclassic
     - name: Test with pytest
       run: |
-        pytest
+        pytest -vv --cov nbclassic --cov-report term-missing:skip-covered
