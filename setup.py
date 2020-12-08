@@ -32,7 +32,7 @@ setup_args = dict(
     long_description = long_description,
     long_description_content_type="text/markdown",
     version          = about['__version__'],
-    packages         = find_packages('.'),
+    packages         = find_packages(exclude=['tests*']),
     author           = 'Jupyter Development Team',
     author_email     = 'jupyter@googlegroups.com',
     url              = 'http://jupyter.org',
@@ -72,5 +72,3 @@ setup_args = dict(
 
 if __name__ == '__main__':
     setup(**setup_args)
-
-
