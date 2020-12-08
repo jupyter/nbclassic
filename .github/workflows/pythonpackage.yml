@@ -15,7 +15,9 @@ jobs:
       matrix:
         os: [ubuntu, macos, windows]
         python-version: ['3.6', '3.7', '3.8', '3.9', 'pypy3']
-
+        exclude:
+        - os: windows
+          python-version: pypy3
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python ${{ matrix.python-version }}
@@ -37,7 +39,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-${{ matrix.python-version }}-
           ${{ runner.os }}-pip-
-    - name: Install dependencies pip
+    - name: Install pip dependencies
       run: |
         pip install -v -e ".[test]" pytest-cov
     - name: Check pip environment
