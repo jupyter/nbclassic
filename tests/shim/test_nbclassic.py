@@ -3,7 +3,7 @@ from nbclassic import shim
 
 
 @pytest.fixture
-def server_config():
+def jp_server_config():
     return {
         "ServerApp": {
             "jpserver_extensions": {
@@ -15,8 +15,8 @@ def server_config():
 
 
 @pytest.fixture
-def nbclassic(serverapp):
-    return serverapp.extension_manager.extension_points["nbclassic"].app
+def nbclassic(jp_serverapp):
+    return jp_serverapp.extension_manager.extension_points["nbclassic"].app
 
 
 def list_test_params(param_input):
@@ -33,7 +33,7 @@ def list_test_params(param_input):
 
 
 @pytest.mark.parametrize(
-    'argv,trait_name,trait_value',
+    'jp_argv,trait_name,trait_value',
     list_test_params([
         ('jinja_environment_options', {}),
         ('jinja_template_vars', {}),
@@ -44,7 +44,7 @@ def list_test_params(param_input):
 def test_NBAPP_AND_SVAPP_SHIM_MSG(
     nbclassic,
     nbapp_log,
-    argv,
+    jp_argv,
     trait_name,
     trait_value
 ):
@@ -56,7 +56,7 @@ def test_NBAPP_AND_SVAPP_SHIM_MSG(
 
 
 @pytest.mark.parametrize(
-    'argv,trait_name,trait_value',
+    'jp_argv,trait_name,trait_value',
     list_test_params([
         ('allow_origin', ''),
         ('allow_origin_pat', ''),
@@ -65,9 +65,9 @@ def test_NBAPP_AND_SVAPP_SHIM_MSG(
     ])
 )
 def test_NBAPP_TO_SVAPP_SHIM_MSG(
-    serverapp,
+    jp_serverapp,
     nbapp_log,
-    argv,
+    jp_argv,
     trait_name,
     trait_value
 ):
@@ -77,11 +77,11 @@ def test_NBAPP_TO_SVAPP_SHIM_MSG(
     # Verify a warning message was raised
     assert expected_msg in log
     # Verify that trait changed.
-    assert getattr(serverapp, trait_name) == trait_value
+    assert getattr(jp_serverapp, trait_name) == trait_value
 
 
 @pytest.mark.parametrize(
-    'argv,trait_name,trait_value',
+    'jp_argv,trait_name,trait_value',
     list_test_params([
         #('ignore_minified_js', True),
         ('enable_mathjax', False),
@@ -91,7 +91,7 @@ def test_NBAPP_TO_SVAPP_SHIM_MSG(
 )
 def test_nbclassic_traits_pass_shim(
     nbclassic,
-    argv,
+    jp_argv,
     trait_name,
     trait_value
 ):
