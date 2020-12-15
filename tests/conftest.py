@@ -4,6 +4,8 @@ import pytest
 from traitlets import default
 from nbclassic.notebookapp import NotebookApp
 
+pytest_plugins = ["jupyter_server.pytest_plugin"]
+
 
 @pytest.fixture
 def nbapp_log():
@@ -37,7 +39,7 @@ def notebookapp_logcapture(monkeypatch, nbapp_log):
 
 
 @pytest.fixture
-def server_config():
+def jp_server_config():
     return {
         "ServerApp": {
             "jpserver_extensions": {

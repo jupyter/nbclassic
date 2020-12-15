@@ -40,7 +40,7 @@ def extapp_logcapture(monkeypatch, extapp_log):
 
 
 @pytest.fixture
-def server_config():
+def jp_server_config():
     return {
         "ServerApp": {
             "jpserver_extensions": {
@@ -52,8 +52,8 @@ def server_config():
 
 
 @pytest.fixture
-def extensionapp(serverapp):
-    return serverapp.extension_manager.extension_points["mockextension"].app
+def extensionapp(jp_serverapp):
+    return jp_serverapp.extension_manager.extension_points["mockextension"].app
 
 
 def list_test_params(param_input):
@@ -71,7 +71,7 @@ def list_test_params(param_input):
 
 
 @pytest.mark.parametrize(
-    'argv,trait_name,trait_value',
+    'jp_argv,trait_name,trait_value',
     list_test_params([
         ('enable_mathjax', False)
     ])
@@ -79,7 +79,7 @@ def list_test_params(param_input):
 def test_EXTAPP_AND_NBAPP_SHIM_MSG(
     extensionapp,
     extapp_log,
-    argv,
+    jp_argv,
     trait_name,
     trait_value
 ):
@@ -92,7 +92,7 @@ def test_EXTAPP_AND_NBAPP_SHIM_MSG(
 
 
 @pytest.mark.parametrize(
-    'argv,trait_name,trait_value',
+    'jp_argv,trait_name,trait_value',
     list_test_params([
         ('allow_origin', ''),
         ('allow_origin_pat', ''),
@@ -101,7 +101,7 @@ def test_EXTAPP_AND_NBAPP_SHIM_MSG(
 def test_EXTAPP_AND_SVAPP_SHIM_MSG(
     extensionapp,
     extapp_log,
-    argv,
+    jp_argv,
     trait_name,
     trait_value
 ):
@@ -114,7 +114,7 @@ def test_EXTAPP_AND_SVAPP_SHIM_MSG(
 
 
 @pytest.mark.parametrize(
-    'argv,trait_name,trait_value',
+    'jp_argv,trait_name,trait_value',
     list_test_params([
         ('jinja_environment_options', {}),
         ('jinja_template_vars', {}),
@@ -125,7 +125,7 @@ def test_EXTAPP_AND_SVAPP_SHIM_MSG(
 def test_NOT_EXTAPP_NBAPP_AND_SVAPP_SHIM_MSG(
     extensionapp,
     extapp_log,
-    argv,
+    jp_argv,
     trait_name,
     trait_value
 ):
@@ -138,7 +138,7 @@ def test_NOT_EXTAPP_NBAPP_AND_SVAPP_SHIM_MSG(
 
 
 @pytest.mark.parametrize(
-    'argv,trait_name,trait_value',
+    'jp_argv,trait_name,trait_value',
     list_test_params([
         ('allow_credentials', False),
     ])
@@ -146,7 +146,7 @@ def test_NOT_EXTAPP_NBAPP_AND_SVAPP_SHIM_MSG(
 def test_EXTAPP_TO_SVAPP_SHIM_MSG(
     extensionapp,
     extapp_log,
-    argv,
+    jp_argv,
     trait_name,
     trait_value
 ):
@@ -159,7 +159,7 @@ def test_EXTAPP_TO_SVAPP_SHIM_MSG(
 
 
 @pytest.mark.parametrize(
-    'argv,trait_name,trait_value',
+    'jp_argv,trait_name,trait_value',
     list_test_params([
         ('mathjax_config', 'TEST'),
         ('mathjax_url', 'TEST')
@@ -168,7 +168,7 @@ def test_EXTAPP_TO_SVAPP_SHIM_MSG(
 def test_EXTAPP_TO_NBAPP_SHIM_MSG(
     extensionapp,
     extapp_log,
-    argv,
+    jp_argv,
     trait_name,
     trait_value
 ):
