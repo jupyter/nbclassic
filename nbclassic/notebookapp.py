@@ -117,17 +117,27 @@ class NotebookApp(
     traits.NotebookAppTraits,
 ):
 
-    name = 'jupyter-nbclassic'
+    name = 'notebook'
     version = __version__
     description = _("""The Jupyter HTML Notebook.
 
     This launches a Tornado based HTML Notebook Server that serves up an HTML5/Javascript Notebook client.""")
 
-    name = 'nbclassic'
-
     aliases = aliases
     flags = flags
     extension_url = "/tree"
+
+    # Override the default open_Browser trait in ExtensionApp,
+    # setting it to True.
+    open_browser = Bool(
+        True,
+        help="""Whether to open in a browser after starting.
+        The specific browser used is platform dependent and
+        determined by the python standard library `webbrowser`
+        module, unless it is overridden using the --browser
+        (ServerApp.browser) configuration option.
+        """
+    ).tag(config=True)
 
     static_custom_path = List(Unicode(),
         help=_("""Path to search for custom.js, css""")
@@ -215,7 +225,7 @@ class NotebookApp(
         handlers.extend(load_handlers('nbclassic.tree.handlers'))
         handlers.extend(load_handlers('nbclassic.notebook.handlers'))
         handlers.extend(load_handlers('nbclassic.edit.handlers'))
-        
+
         # Add terminal handlers
         handlers.append(
             (r"/terminals/(\w+)", TerminalHandler)
