@@ -36,7 +36,7 @@ NBAPP_TO_SVAPP_SHIM_MSG = lambda trait_name: (
 
 EXTAPP_AND_NBAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
     "'{trait_name}' is found in {extapp_name}, NotebookApp, "
-    "and ServerApp. This is a recent change."
+    "and ServerApp. This is a recent change. "
     "This config will only be set in {extapp_name}. "
     "Please check if you should also config these traits in "
     "NotebookApp and ServerApp for your purpose.".format(
@@ -47,7 +47,7 @@ EXTAPP_AND_NBAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
 
 EXTAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
     "'{trait_name}' is found in both {extapp_name} "
-    "and ServerApp. This is a recent change."
+    "and ServerApp. This is a recent change. "
     "This config will only be set in {extapp_name}. "
     "Please check if you should also config these traits in "
     "ServerApp for your purpose.".format(
@@ -58,7 +58,7 @@ EXTAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
 
 EXTAPP_AND_NBAPP_SHIM_MSG = lambda trait_name, extapp_name: (
     "'{trait_name}' is found in both {extapp_name} "
-    "and NotebookApp. This is a recent change."
+    "and NotebookApp. This is a recent change. "
     "This config will only be set in {extapp_name}. "
     "Please check if you should also config these traits in "
     "NotebookApp for your purpose.".format(
@@ -70,7 +70,7 @@ EXTAPP_AND_NBAPP_SHIM_MSG = lambda trait_name, extapp_name: (
 NOT_EXTAPP_NBAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
     "'{trait_name}' is not found in {extapp_name}, but "
     "it was found in both NotebookApp "
-    "and ServerApp. This is likely a recent change."
+    "and ServerApp. This is likely a recent change. "
     "This config will only be set in ServerApp. "
     "Please check if you should also config these traits in "
     "NotebookApp for your purpose.".format(
@@ -97,6 +97,9 @@ EXTAPP_TO_NBAPP_SHIM_MSG = lambda trait_name, extapp_name: (
     )
 )
 
+# A tuple of traits that shouldn't be shimmed or throw any
+# warnings of any kind.
+IGNORED_TRAITS = ("open_browser", "log_level", "log_format")
 
 
 class NBClassicConfigShimMixin:
@@ -128,7 +131,6 @@ class NBClassicConfigShimMixin:
     For a longer description on how individual traits are handled,
     read the docstring under `shim_config_from_notebook_to_jupyter_server`.
     """
-
 
     @wraps(JupyterApp.update_config)
     def update_config(self, config):
@@ -211,7 +213,10 @@ class NBClassicConfigShimMixin:
         for trait_name, trait_value in nbapp_config.items():
             in_svapp = trait_name in svapp_traits
             in_nbapp = trait_name in nbapp_traits
-            if in_svapp and in_nbapp:
+            if trait_name in IGNORED_TRAITS:
+                # Pass trait through without any warning message.
+                nbapp_config_shim.update({trait_name: trait_value})
+            elif in_svapp and in_nbapp:
                 warning_msg = NBAPP_AND_SVAPP_SHIM_MSG(trait_name)
                 nbapp_config_shim.update({trait_name: trait_value})
             elif in_svapp:
@@ -232,8 +237,10 @@ class NBClassicConfigShimMixin:
             in_extapp = trait_name in extapp_traits
             in_svapp = trait_name in svapp_traits
             in_nbapp = trait_name in nbapp_traits
-
-            if all([in_extapp, in_svapp, in_nbapp]):
+            if trait_name in IGNORED_TRAITS:
+                # Pass trait through without any warning message.
+                extapp_config_shim.update({trait_name: trait_value})
+            elif all([in_extapp, in_svapp, in_nbapp]):
                 warning_msg = EXTAPP_AND_NBAPP_AND_SVAPP_SHIM_MSG(
                     trait_name,
                     extapp_name

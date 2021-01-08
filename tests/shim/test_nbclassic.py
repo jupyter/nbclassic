@@ -16,7 +16,7 @@ def jp_server_config():
 
 @pytest.fixture
 def nbclassic(jp_serverapp):
-    return jp_serverapp.extension_manager.extension_points["nbclassic"].app
+    return jp_serverapp.extension_manager.extension_points["notebook"].app
 
 
 def list_test_params(param_input):
