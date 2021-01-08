@@ -234,7 +234,6 @@ class NBClassicConfigShimMixin:
         # 3. Handle ExtensionApp traits.
         warning_msg = None
         for trait_name, trait_value in extapp_config.items():
-            if trait_name in IGNORED_TRAITS: continue
             in_extapp = trait_name in extapp_traits
             in_svapp = trait_name in svapp_traits
             in_nbapp = trait_name in nbapp_traits
