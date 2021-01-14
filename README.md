@@ -1,6 +1,6 @@
 # Jupyter Notebook as a Jupyter Server Extension
 
-![Testing nbclassic](https://github.com/Zsailer/nbclassic/workflows/Testing%20nbclassic/badge.svg)
+![Testing nbclassic](https://github.com/jupyterlab/nbclassic/workflows/Testing%20nbclassic/badge.svg)
 
 
 NBClassic runs the [Jupyter Notebook]((github.com/jupyter/notebook)) frontend on the Jupyter Server backend.
