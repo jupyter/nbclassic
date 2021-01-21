@@ -99,7 +99,7 @@ EXTAPP_TO_NBAPP_SHIM_MSG = lambda trait_name, extapp_name: (
 
 # A tuple of traits that shouldn't be shimmed or throw any
 # warnings of any kind.
-IGNORED_TRAITS = ("open_browser", "log_level", "log_format")
+IGNORED_TRAITS = ("open_browser", "log_level", "log_format", "default_url")
 
 
 class NBClassicConfigShimMixin:

@@ -127,6 +127,8 @@ class NotebookApp(
     flags = flags
     extension_url = "/tree"
 
+    default_url = Unicode("/tree").tag(config=True)
+
     # Override the default open_Browser trait in ExtensionApp,
     # setting it to True.
     open_browser = Bool(
