@@ -14,6 +14,7 @@ import warnings
 import gettext
 
 from jinja2 import Environment, FileSystemLoader
+from tornado.web import RedirectHandler
 
 import notebook
 from notebook import (
@@ -218,6 +219,17 @@ class NotebookApp(
         """Load the (URL pattern, handler) tuples for each component."""
         # Order matters. The first handler to match the URL will handle the request.
         handlers = []
+
+        # Add a redirect from /notebooks to /edit
+        # for opening non-ipynb files in edit mode.
+        handlers.append(
+            (
+                rf"/({self.file_url_prefix})/(.*)\.(((?!ipynb)).*)",
+                RedirectHandler,
+                {"url": "/edit/{1}.{2}"}
+            )
+        )
+
         # load extra services specified by users before default handlers
         for service in self.settings['extra_services']:
             handlers.extend(load_handlers(service))
