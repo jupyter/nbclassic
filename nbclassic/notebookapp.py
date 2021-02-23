@@ -224,9 +224,9 @@ class NotebookApp(
         # for opening non-ipynb files in edit mode.
         handlers.append(
             (
-                rf"/({self.file_url_prefix})/(.*)\.(((?!ipynb)).*)",
+                rf"/{self.file_url_prefix}/((?!.*\.ipynb($|\?)).*)",
                 RedirectHandler,
-                {"url": "/edit/{1}.{2}"}
+                {"url": "/edit/{0}"}
             )
         )
 
