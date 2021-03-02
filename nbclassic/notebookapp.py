@@ -127,6 +127,7 @@ class NotebookApp(
     aliases = aliases
     flags = flags
     extension_url = "/tree"
+    subcommands = {}
 
     # Override the default open_Browser trait in ExtensionApp,
     # setting it to True.
