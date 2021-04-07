@@ -22,7 +22,7 @@ from jupyter_server.utils import (
     url_escape,
     ensure_async
 )
-from jupyter_server.transutils import _
+from jupyter_server.transutils import _i18n
 
 
 def get_frontend_exporters():
@@ -52,7 +52,7 @@ def get_frontend_exporters():
 
         # Ensure export_from_notebook is explicitly defined & not inherited
         if ux_name is not None and ux_name != super_uxname:
-            display = _('{} ({})'.format(ux_name,
+            display = _i18n('{} ({})'.format(ux_name,
                                          exporter_instance.file_extension))
             frontend_exporters.append(ExporterInfo(name, display))
 
@@ -117,4 +117,3 @@ class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, Jupyter
 default_handlers = [
     (r"/notebooks%s" % path_regex, NotebookHandler),
 ]
-

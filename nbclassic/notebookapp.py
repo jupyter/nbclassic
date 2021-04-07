@@ -42,7 +42,7 @@ from jupyter_server.extension.application import (
 )
 
 from jupyter_server.log import log_request
-from jupyter_server.transutils import _
+from jupyter_server.transutils import _i18n
 from jupyter_server.serverapp import (
     ServerApp,
     random_ports,
@@ -71,7 +71,7 @@ flags = {}
 aliases = {}
 flags['no-browser']=(
     {'ServerApp' : {'open_browser' : False}},
-    _("Don't open the notebook in a browser after startup.")
+    _i18n("Don't open the notebook in a browser after startup.")
 )
 flags['no-mathjax']=(
     {'NotebookApp' : {'enable_mathjax' : False}},
@@ -87,7 +87,7 @@ flags['no-mathjax']=(
 
 flags['allow-root']=(
     {'ServerApp' : {'allow_root' : True}},
-    _("Allow the notebook to be run from root user.")
+    _i18n("Allow the notebook to be run from root user.")
 )
 
 aliases.update({
@@ -120,7 +120,7 @@ class NotebookApp(
 
     name = 'notebook'
     version = __version__
-    description = _("""The Jupyter HTML Notebook.
+    description = _i18n("""The Jupyter HTML Notebook.
 
     This launches a Tornado based HTML Notebook Server that serves up an HTML5/Javascript Notebook client.""")
 
@@ -144,7 +144,7 @@ class NotebookApp(
     ).tag(config=True)
 
     static_custom_path = List(Unicode(),
-        help=_("""Path to search for custom.js, css""")
+        help=_i18n("""Path to search for custom.js, css""")
     )
 
     @default('static_custom_path')
@@ -156,7 +156,7 @@ class NotebookApp(
         ]
 
     extra_nbextensions_path = List(Unicode(), config=True,
-        help=_("""extra paths to look for Javascript notebook extensions""")
+        help=_i18n("""extra paths to look for Javascript notebook extensions""")
     )
 
     @property
@@ -194,9 +194,9 @@ class NotebookApp(
     def initialize_settings(self):
         """Add settings to the tornado app."""
         if self.ignore_minified_js:
-            self.log.warning(_("""The `ignore_minified_js` flag is deprecated and no longer works."""))
-            self.log.warning(_("""Alternatively use `%s` when working on the notebook's Javascript and LESS""") % 'npm run build:watch')
-            warnings.warn(_("The `ignore_minified_js` flag is deprecated and will be removed in Notebook 6.0"), DeprecationWarning)
+            self.log.warning(_i18n("""The `ignore_minified_js` flag is deprecated and no longer works."""))
+            self.log.warning(_i18n("""Alternatively use `%s` when working on the notebook's Javascript and LESS""") % 'npm run build:watch')
+            warnings.warn(_i18n("The `ignore_minified_js` flag is deprecated and will be removed in Notebook 6.0"), DeprecationWarning)
 
         settings = dict(
             static_custom_path=self.static_custom_path,

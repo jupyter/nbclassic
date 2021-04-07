@@ -9,7 +9,7 @@ from notebook import (
     __version__,
 )
 from jupyter_core.paths import jupyter_path
-from jupyter_server.transutils import _
+from jupyter_server.transutils import _i18n
 from jupyter_server.utils import url_path_join
 
 
@@ -17,16 +17,16 @@ class NotebookAppTraits(HasTraits):
 
     ignore_minified_js = Bool(False,
             config=True,
-            help=_('Deprecated: Use minified JS file or not, mainly use during dev to avoid JS recompilation'),
+            help=_i18n('Deprecated: Use minified JS file or not, mainly use during dev to avoid JS recompilation'),
             )
 
 
     jinja_environment_options = Dict(config=True,
-            help=_("Supply extra arguments that will be passed to Jinja environment."))
+            help=_i18n("Supply extra arguments that will be passed to Jinja environment."))
 
     jinja_template_vars = Dict(
         config=True,
-        help=_("Extra variables to supply to jinja templates when rendering."),
+        help=_i18n("Extra variables to supply to jinja templates when rendering."),
     )
 
     enable_mathjax = Bool(True, config=True,
@@ -59,7 +59,7 @@ class NotebookAppTraits(HasTraits):
         return self.extra_static_paths + [DEFAULT_STATIC_FILES_PATH]
 
     static_custom_path = List(Unicode(),
-        help=_("""Path to search for custom.js, css""")
+        help=_i18n("""Path to search for custom.js, css""")
     )
 
     @default('static_custom_path')
@@ -71,7 +71,7 @@ class NotebookAppTraits(HasTraits):
         ]
 
     extra_template_paths = List(Unicode(), config=True,
-        help=_("""Extra paths to search for serving jinja templates.
+        help=_i18n("""Extra paths to search for serving jinja templates.
 
         Can be used to override templates from notebook.templates.""")
     )
@@ -82,7 +82,7 @@ class NotebookAppTraits(HasTraits):
         return self.extra_template_paths + DEFAULT_TEMPLATE_PATH_LIST
 
     extra_nbextensions_path = List(Unicode(), config=True,
-        help=_("""extra paths to look for Javascript notebook extensions""")
+        help=_i18n("""extra paths to look for Javascript notebook extensions""")
     )
 
     @property
@@ -124,15 +124,15 @@ class NotebookAppTraits(HasTraits):
             # enable_mathjax=False overrides mathjax_url
             self.mathjax_url = u''
         else:
-            self.log.info(_("Using MathJax: %s"), new)
+            self.log.info(_i18n("Using MathJax: %s"), new)
 
     mathjax_config = Unicode("TeX-AMS-MML_HTMLorMML-full,Safe", config=True,
-        help=_("""The MathJax.js configuration file that is to be used.""")
+        help=_i18n("""The MathJax.js configuration file that is to be used.""")
     )
 
     @observe('mathjax_config')
     def _update_mathjax_config(self, change):
-        self.log.info(_("Using MathJax configuration file: %s"), change['new'])
+        self.log.info(_i18n("Using MathJax configuration file: %s"), change['new'])
 
     quit_button = Bool(True, config=True,
         help="""If True, display a button in the dashboard to quit
@@ -140,7 +140,7 @@ class NotebookAppTraits(HasTraits):
     )
 
     nbserver_extensions = Dict({}, config=True,
-        help=(_("Dict of Python modules to load as notebook server extensions."
+        help=(_i18n("Dict of Python modules to load as notebook server extensions."
               "Entry values can be used to enable and disable the loading of"
               "the extensions. The extensions will be loaded in alphabetical "
               "order."))
