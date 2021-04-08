@@ -55,7 +55,7 @@ setup_args = dict(
     python_requires='>=3.6',
     include_package_data=True,
     install_requires = [
-        'jupyter_server~=1.4',
+        'jupyter_server~=1.5',
         'notebook<7',
     ],
     entry_points = {
