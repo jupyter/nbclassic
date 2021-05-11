@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.8
+
+([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/0.2.7...eabc8408210a8b4e76efec2c57b5b4f9778b1c2a))
+
+### Merged PRs
+
+- Remove forced sorting of extensions [#49](https://github.com/jupyterlab/nbclassic/pull/49) ([@minrk](https://github.com/minrk))
+- Add Changelog [#48](https://github.com/jupyterlab/nbclassic/pull/48) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2021-04-08&to=2021-05-11&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Ablink1073+updated%3A2021-04-08..2021-05-11&type=Issues) | [@minrk](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Aminrk+updated%3A2021-04-08..2021-05-11&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Awelcome+updated%3A2021-04-08..2021-05-11&type=Issues)
+
 ## 0.2.7
 
 ## Merged PRs
