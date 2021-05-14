@@ -15,5 +15,7 @@ class TerminalHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, Jupyter
     """Render the terminal interface."""
     @web.authenticated
     def get(self, term_name):
+        if term_name not in self.terminal_manager.terminals:
+            self.terminal_manager.create(name=term_name)
         self.write(self.render_template('terminal.html',
                    ws_path="terminals/websocket/%s" % term_name))
