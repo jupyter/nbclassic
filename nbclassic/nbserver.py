@@ -66,6 +66,23 @@ def _link_jupyter_server_extension(serverapp):
     manager = serverapp.extension_manager
     logger = serverapp.log
 
+    # Hack that patches the enabled extensions list, prioritizing
+    # jupyter nbclassic. In the future, it would be much better
+    # to incorporate a dependency injection system in the
+    # Extension manager that allows extensions to list
+    # their dependency tree and sort that way.
+    def sorted_extensions(self):
+        """Dictionary with extension package names as keys
+        and an ExtensionPackage objects as values.
+        """
+        # Sort the keys and
+        keys = sorted(self.extensions.keys())
+        keys.remove("nbclassic")
+        keys = ["nbclassic"] + keys
+        return {key: self.extensions[key] for key in keys}
+
+    manager.__class__.sorted_extensions = property(sorted_extensions)
+
     # Look to see if nbclassic is enabled. if so,
     # link the nbclassic extension here to load
     # its config. Then, port its config to the serverapp
