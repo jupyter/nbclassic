@@ -6,7 +6,7 @@ This is a fork from jupyter/notebook#5.7.x
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 
-from tornado import web
+from tornado import web, gen
 import os
 
 from jupyter_server.base.handlers import JupyterHandler
@@ -15,7 +15,7 @@ from jupyter_server.extension.handler import (
     ExtensionHandlerJinjaMixin
 )
 from jupyter_server.base.handlers import path_regex
-from jupyter_server.utils import url_path_join, url_escape
+from jupyter_server.utils import url_path_join, url_escape, ensure_async
 
 
 class TreeHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHandler):
@@ -44,6 +44,7 @@ class TreeHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHand
             return 'Home'
 
     @web.authenticated
+    @gen.coroutine
     def get(self, path=''):
         path = path.strip('/')
         cm = self.contents_manager
@@ -64,7 +65,7 @@ class TreeHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHand
             ))
         elif cm.file_exists(path):
             # it's not a directory, we have redirecting to do
-            model = cm.get(path, content=False)
+            model = yield ensure_async(cm.get(path, content=False))
             # redirect to /api/notebooks if it's a notebook, otherwise /api/files
             service = 'notebooks' if model['type'] == 'notebook' else 'files'
             url = url_path_join(
