@@ -229,7 +229,7 @@ class NotebookApp(
             (
                 rf"/{self.file_url_prefix}/((?!.*\.ipynb($|\?)).*)",
                 RedirectHandler,
-                {"url": "/edit/{0}"}
+                {"url": self.serverapp.base_url+"edit/{0}"}
             )
         )
 
