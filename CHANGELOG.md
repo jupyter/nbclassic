@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.3.0
+
+([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/0.2.8...0df2d3341205609c1a1b4e2c8fc6e8959c7e828a))
+
+### Enhancements made
+
+- Support creating terminal with a given name. [#52](https://github.com/jupyterlab/nbclassic/pull/52) ([@cailiang9](https://github.com/cailiang9))
+
+### Bugs fixed
+
+- BUG fix: correct redirection to {base_url}/edit/*. [#55](https://github.com/jupyterlab/nbclassic/pull/55) ([@cailiang9](https://github.com/cailiang9))
+
+### Maintenance and upkeep improvements
+
+- patch server's sorted_extensions to prioritize nbclassic [#56](https://github.com/jupyterlab/nbclassic/pull/56) ([@Zsailer](https://github.com/Zsailer))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2021-05-11&to=2021-05-20&type=c))
+
+[@cailiang9](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Acailiang9+updated%3A2021-05-11..2021-05-20&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Awelcome+updated%3A2021-05-11..2021-05-20&type=Issues) | [@Zsailer](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3AZsailer+updated%3A2021-05-11..2021-05-20&type=Issues)
+
 ## 0.2.8
 
 ([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/0.2.7...eabc8408210a8b4e76efec2c57b5b4f9778b1c2a))
