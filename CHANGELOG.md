@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.3.1
+
+([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/0.3.0...f1b8540eb6e7ee33c3b923454366e34adbcaad1a))
+
+### Maintenance and upkeep improvements
+
+- bump jupyter_server dependency to 1.8 [#58](https://github.com/jupyterlab/nbclassic/pull/58) ([@Zsailer](https://github.com/Zsailer))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2021-05-20&to=2021-05-21&type=c))
+
+[@Zsailer](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3AZsailer+updated%3A2021-05-20..2021-05-21&type=Issues)
+
 ## 0.3.0
 
 ([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/0.2.8...0df2d3341205609c1a1b4e2c8fc6e8959c7e828a))
