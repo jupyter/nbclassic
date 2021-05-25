@@ -4,9 +4,9 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 
-from tornado import web
+from tornado import web, gen
 from jupyter_server.base.handlers import JupyterHandler, path_regex
-from jupyter_server.utils import url_escape
+from jupyter_server.utils import url_escape, ensure_async
 from jupyter_server.extension.handler import (
     ExtensionHandlerMixin,
     ExtensionHandlerJinjaMixin
@@ -16,18 +16,24 @@ class EditorHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHa
     """Render the text editor interface."""
 
     @web.authenticated
+    @gen.coroutine
     def get(self, path):
-        path = path.strip('/')
-        if not self.contents_manager.file_exists(path):
-            raise web.HTTPError(404, u'File does not exist: %s' % path)
+        if await ensure_async(self.contents_manager.dir_exists(path)):
+            # it's a *directory*, redirect to /tree
+            url = url_path_join(self.base_url, 'tree', url_escape(path))
+            self.redirect(url)
+        else:
+            path = path.strip('/')
+            if not await ensure_async(self.contents_manager.file_exists(path)):
+                raise web.HTTPError(404, u'File does not exist: %s' % path)
 
-        basename = path.rsplit('/', 1)[-1]
-        self.write(self.render_template('edit.html',
-            file_path=url_escape(path),
-            basename=basename,
-            page_title=basename + " (editing)",
+            basename = path.rsplit('/', 1)[-1]
+            self.write(self.render_template('edit.html',
+                file_path=url_escape(path),
+                basename=basename,
+                page_title=basename + " (editing)",
+                )
             )
-        )
 
 default_handlers = [
     (r"/edit%s" % path_regex, EditorHandler),
