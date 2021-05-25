@@ -6,7 +6,7 @@
 
 from tornado import web, gen
 from jupyter_server.base.handlers import JupyterHandler, path_regex
-from jupyter_server.utils import url_escape, ensure_async
+from jupyter_server.utils import url_path_join, url_escape, ensure_async
 from jupyter_server.extension.handler import (
     ExtensionHandlerMixin,
     ExtensionHandlerJinjaMixin
@@ -18,13 +18,13 @@ class EditorHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHa
     @web.authenticated
     @gen.coroutine
     def get(self, path):
-        if await ensure_async(self.contents_manager.dir_exists(path)):
+        if (self.contents_manager.dir_exists(path)):
             # it's a *directory*, redirect to /tree
             url = url_path_join(self.base_url, 'tree', url_escape(path))
             self.redirect(url)
         else:
             path = path.strip('/')
-            if not await ensure_async(self.contents_manager.file_exists(path)):
+            if not (self.contents_manager.file_exists(path)):
                 raise web.HTTPError(404, u'File does not exist: %s' % path)
 
             basename = path.rsplit('/', 1)[-1]
