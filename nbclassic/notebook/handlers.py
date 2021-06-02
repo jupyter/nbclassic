@@ -16,7 +16,7 @@ from jupyter_server.extension.handler import (
     ExtensionHandlerMixin,
     ExtensionHandlerJinjaMixin
 )
-from jupyter_server.base.handlers import path_regex, FilesRedirectHandler
+from jupyter_server.base.handlers import path_regex, get_service_name, FilesRedirectHandler
 from jupyter_server.utils import (
     url_path_join,
     url_escape,
@@ -97,7 +97,11 @@ class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, Jupyter
                 raise
         if model['type'] != 'notebook':
             # not a notebook, redirect to files
-            yield FilesRedirectHandler.redirect_to_files(self, path)
+            url = url_path_join(
+                self.base_url, get_service_name(model['name']), url_escape(path),
+            )
+            self.log.debug("Redirecting %s to %s", self.request.path, url)
+            self.redirect(url)
         name = path.rsplit('/', 1)[-1]
         self.write(self.render_template('notebook.html',
             notebook_path=path,
