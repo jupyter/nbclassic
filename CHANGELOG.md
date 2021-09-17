@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.3.2
+
+([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/0.3.1...32ff24b059573c51e1bf91c426f8fd2fe6dac665))
+
+### Merged PRs
+
+- ExtensionManager's link_extension changed call signature [#64](https://github.com/jupyterlab/nbclassic/pull/64) ([@athornton](https://github.com/athornton))
+- Fix link to the Jupyter Notebook repo in README [#62](https://github.com/jupyterlab/nbclassic/pull/62) ([@saiwing-yeung](https://github.com/saiwing-yeung))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2021-05-21&to=2021-09-17&type=c))
+
+[@athornton](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Aathornton+updated%3A2021-05-21..2021-09-17&type=Issues) | [@saiwing-yeung](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Asaiwing-yeung+updated%3A2021-05-21..2021-09-17&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Awelcome+updated%3A2021-05-21..2021-09-17&type=Issues)
+
 ## 0.3.1
 
 ([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/0.3.0...f1b8540eb6e7ee33c3b923454366e34adbcaad1a))
