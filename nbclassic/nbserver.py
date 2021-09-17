@@ -119,7 +119,7 @@ def _link_jupyter_server_extension(serverapp):
                     "Consider moving the extension to Jupyter Server's "
                     "extension paths.".format(name=name)
                 )
-                manager.link_extension(name, serverapp)
+                manager.link_extension(name)
 
 
 def _load_jupyter_server_extension(serverapp):
