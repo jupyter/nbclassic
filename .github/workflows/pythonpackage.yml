@@ -14,10 +14,10 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-        python-version: ["3.6", "3.7", "3.8", "3.9", "pypy-3.7-v7.3.4"]
+        python-version: ["3.6", "3.7", "3.8", "3.9", "pypy-3.7-v7.3.5"]
         exclude:
           - os: windows
-            python-version: pypy3
+            python-version: pypy-3.7-v7.3.5
     steps:
       - name: Checkout
         uses: actions/checkout@v2
