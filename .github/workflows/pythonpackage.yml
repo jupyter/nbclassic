@@ -3,9 +3,9 @@ name: Testing nbclassic
 on:
   push:
     branches:
-    - master
+      - master
   pull_request:
-    branches: '*'
+    branches: "*"
 
 jobs:
   build:
@@ -14,48 +14,43 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-        python-version: ['3.6', '3.7', '3.8', '3.9', 'pypy3']
+        python-version: ["3.7", "3.8", "3.9", "pypy-3.7-v7.3.3"]
         exclude:
-        - os: windows
-          python-version: pypy3
+          - os: windows
+            python-version: pypy3
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Upgrade pip, etc.
-      run: |
-        python -m pip install --user --upgrade pip setuptools wheel
-    - name: Get pip cache dir
-      id: pip-cache
-      run: |
-        echo "::set-output name=dir::$(pip cache dir)"
-    - name: Cache pip
-      uses: actions/cache@v1
-      with:
-        path: ${{ steps.pip-cache.outputs.dir }}
-        key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('setup.py') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-${{ matrix.python-version }}-
-          ${{ runner.os }}-pip-
-    - name: Install pip dependencies
-      run: |
-        pip install -v -e ".[test]" pytest-cov
-    - name: Check pip environment
-      run: |
-        pip freeze
-        pip check
-    # - name: Install Jupyter Server from source
-    #   run: |
-    #     cd ..
-    #     git clone https://github.com/jupyter/jupyter_server.git
-    #     cd jupyter_server
-    #     pip install -e .
-    #     cd ../nbclassic
-    - name: Run the help command
-      run: |
-        jupyter nbclassic -h
-    - name: Test with pytest
-      run: |
-        pytest -vv --cov nbclassic --cov-report term-missing:skip-covered
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: "x64"
+      - name: Upgrade packaging dependencies
+        run: |
+          pip install --upgrade pip setuptools wheel --user
+      - name: Get pip cache dir
+        id: pip-cache
+        run: |
+          echo "::set-output name=dir::$(pip cache dir)"
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.pip-cache.outputs.dir }}
+          key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('setup.cfg') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-${{ matrix.python-version }}-
+            ${{ runner.os }}-pip-
+      - name: Install pip dependencies
+        run: |
+          pip install -v -e ".[test]" pytest-cov
+      - name: Check pip environment
+        run: |
+          pip freeze
+          pip check
+      - name: Run the help command
+        run: |
+          jupyter nbclassic -h
+      - name: Test with pytest
+        run: |
+          pytest -vv --cov nbclassic --cov-report term-missing:skip-covered
