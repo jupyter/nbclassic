@@ -1,6 +1,6 @@
 import os
 from traitlets import (
-    HasTraits, Dict, Unicode, Integer, List, Bool,
+    HasTraits, Dict, Unicode, List, Bool,
     observe, default
 )
 from notebook import (
@@ -16,21 +16,22 @@ from jupyter_server.utils import url_path_join
 class NotebookAppTraits(HasTraits):
 
     ignore_minified_js = Bool(False,
-            config=True,
-            help=_i18n('Deprecated: Use minified JS file or not, mainly use during dev to avoid JS recompilation'),
-            )
-
+                              config=True,
+                              help=_i18n(
+                                  'Deprecated: Use minified JS file or not, mainly use during dev to avoid JS recompilation'),
+                              )
 
     jinja_environment_options = Dict(config=True,
-            help=_i18n("Supply extra arguments that will be passed to Jinja environment."))
+                                     help=_i18n("Supply extra arguments that will be passed to Jinja environment."))
 
     jinja_template_vars = Dict(
         config=True,
-        help=_i18n("Extra variables to supply to jinja templates when rendering."),
+        help=_i18n(
+            "Extra variables to supply to jinja templates when rendering."),
     )
 
     enable_mathjax = Bool(True, config=True,
-        help="""Whether to enable MathJax for typesetting math/TeX
+                          help="""Whether to enable MathJax for typesetting math/TeX
 
         MathJax is the javascript library Jupyter uses to render math/LaTeX. It is
         very large, so you may want to disable it if you have a slow internet
@@ -38,7 +39,7 @@ class NotebookAppTraits(HasTraits):
 
         When disabled, equations etc. will appear as their untransformed TeX source.
         """
-    )
+                          )
 
     @observe('enable_mathjax')
     def _update_enable_mathjax(self, change):
@@ -47,11 +48,11 @@ class NotebookAppTraits(HasTraits):
             self.mathjax_url = u''
 
     extra_static_paths = List(Unicode(), config=True,
-        help="""Extra paths to search for serving static files.
+                              help="""Extra paths to search for serving static files.
 
         This allows adding javascript/css to be available from the notebook server machine,
         or overriding individual files in the IPython"""
-    )
+                              )
 
     @property
     def static_file_path(self):
@@ -59,8 +60,9 @@ class NotebookAppTraits(HasTraits):
         return self.extra_static_paths + [DEFAULT_STATIC_FILES_PATH]
 
     static_custom_path = List(Unicode(),
-        help=_i18n("""Path to search for custom.js, css""")
-    )
+                              help=_i18n(
+                                  """Path to search for custom.js, css""")
+                              )
 
     @default('static_custom_path')
     def _default_static_custom_path(self):
@@ -71,10 +73,10 @@ class NotebookAppTraits(HasTraits):
         ]
 
     extra_template_paths = List(Unicode(), config=True,
-        help=_i18n("""Extra paths to search for serving jinja templates.
+                                help=_i18n("""Extra paths to search for serving jinja templates.
 
         Can be used to override templates from notebook.templates.""")
-    )
+                                )
 
     @property
     def template_file_path(self):
@@ -82,8 +84,9 @@ class NotebookAppTraits(HasTraits):
         return self.extra_template_paths + DEFAULT_TEMPLATE_PATH_LIST
 
     extra_nbextensions_path = List(Unicode(), config=True,
-        help=_i18n("""extra paths to look for Javascript notebook extensions""")
-    )
+                                   help=_i18n(
+                                       """extra paths to look for Javascript notebook extensions""")
+                                   )
 
     @property
     def nbextensions_path(self):
@@ -99,11 +102,11 @@ class NotebookAppTraits(HasTraits):
         return path
 
     mathjax_url = Unicode("", config=True,
-        help="""A custom url for MathJax.js.
+                          help="""A custom url for MathJax.js.
         Should be in the form of a case-sensitive url to MathJax,
         for example:  /static/components/MathJax/MathJax.js
         """
-    )
+                          )
 
     @property
     def static_url_prefix(self):
@@ -127,21 +130,23 @@ class NotebookAppTraits(HasTraits):
             self.log.info(_i18n("Using MathJax: %s"), new)
 
     mathjax_config = Unicode("TeX-AMS-MML_HTMLorMML-full,Safe", config=True,
-        help=_i18n("""The MathJax.js configuration file that is to be used.""")
-    )
+                             help=_i18n(
+                                 """The MathJax.js configuration file that is to be used.""")
+                             )
 
     @observe('mathjax_config')
     def _update_mathjax_config(self, change):
-        self.log.info(_i18n("Using MathJax configuration file: %s"), change['new'])
+        self.log.info(
+            _i18n("Using MathJax configuration file: %s"), change['new'])
 
     quit_button = Bool(True, config=True,
-        help="""If True, display a button in the dashboard to quit
+                       help="""If True, display a button in the dashboard to quit
         (shutdown the notebook server)."""
-    )
+                       )
 
     nbserver_extensions = Dict({}, config=True,
-        help=(_i18n("Dict of Python modules to load as notebook server extensions."
-              "Entry values can be used to enable and disable the loading of"
-              "the extensions. The extensions will be loaded in alphabetical "
-              "order."))
-    )
+                               help=(_i18n("Dict of Python modules to load as notebook server extensions."
+                                           "Entry values can be used to enable and disable the loading of"
+                                           "the extensions. The extensions will be loaded in alphabetical "
+                                           "order."))
+                               )

@@ -4,9 +4,7 @@ import re
 from functools import wraps
 from copy import deepcopy
 from traitlets import TraitError, HasTraits
-from traitlets.config.application import catch_config_error
 from traitlets.config.loader import (
-    KVArgParseConfigLoader,
     Config,
 )
 from jupyter_core.application import JupyterApp
@@ -15,7 +13,7 @@ from jupyter_server.extension.application import ExtensionApp
 from .traits import NotebookAppTraits
 
 
-NBAPP_AND_SVAPP_SHIM_MSG = lambda trait_name: (
+def NBAPP_AND_SVAPP_SHIM_MSG(trait_name): return (
     "'{trait_name}' was found in both NotebookApp "
     "and ServerApp. This is likely a recent change. "
     "This config will only be set in NotebookApp. "
@@ -25,7 +23,8 @@ NBAPP_AND_SVAPP_SHIM_MSG = lambda trait_name: (
     )
 )
 
-NBAPP_TO_SVAPP_SHIM_MSG = lambda trait_name: (
+
+def NBAPP_TO_SVAPP_SHIM_MSG(trait_name): return (
     "'{trait_name}' has moved from NotebookApp to "
     "ServerApp. This config will be passed to ServerApp. "
     "Be sure to update your config before "
@@ -34,7 +33,8 @@ NBAPP_TO_SVAPP_SHIM_MSG = lambda trait_name: (
     )
 )
 
-EXTAPP_AND_NBAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
+
+def EXTAPP_AND_NBAPP_AND_SVAPP_SHIM_MSG(trait_name, extapp_name): return (
     "'{trait_name}' is found in {extapp_name}, NotebookApp, "
     "and ServerApp. This is a recent change. "
     "This config will only be set in {extapp_name}. "
@@ -45,7 +45,8 @@ EXTAPP_AND_NBAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
     )
 )
 
-EXTAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
+
+def EXTAPP_AND_SVAPP_SHIM_MSG(trait_name, extapp_name): return (
     "'{trait_name}' is found in both {extapp_name} "
     "and ServerApp. This is a recent change. "
     "This config will only be set in {extapp_name}. "
@@ -56,7 +57,8 @@ EXTAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
     )
 )
 
-EXTAPP_AND_NBAPP_SHIM_MSG = lambda trait_name, extapp_name: (
+
+def EXTAPP_AND_NBAPP_SHIM_MSG(trait_name, extapp_name): return (
     "'{trait_name}' is found in both {extapp_name} "
     "and NotebookApp. This is a recent change. "
     "This config will only be set in {extapp_name}. "
@@ -67,7 +69,8 @@ EXTAPP_AND_NBAPP_SHIM_MSG = lambda trait_name, extapp_name: (
     )
 )
 
-NOT_EXTAPP_NBAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
+
+def NOT_EXTAPP_NBAPP_AND_SVAPP_SHIM_MSG(trait_name, extapp_name): return (
     "'{trait_name}' is not found in {extapp_name}, but "
     "it was found in both NotebookApp "
     "and ServerApp. This is likely a recent change. "
@@ -79,7 +82,8 @@ NOT_EXTAPP_NBAPP_AND_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
     )
 )
 
-EXTAPP_TO_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
+
+def EXTAPP_TO_SVAPP_SHIM_MSG(trait_name, extapp_name): return (
     "'{trait_name}' has moved from {extapp_name} to "
     "ServerApp. Be sure to update your config before "
     "our next release.".format(
@@ -88,7 +92,8 @@ EXTAPP_TO_SVAPP_SHIM_MSG = lambda trait_name, extapp_name: (
     )
 )
 
-EXTAPP_TO_NBAPP_SHIM_MSG = lambda trait_name, extapp_name: (
+
+def EXTAPP_TO_NBAPP_SHIM_MSG(trait_name, extapp_name): return (
     "'{trait_name}' has moved from {extapp_name} to "
     "NotebookApp. Be sure to update your config before "
     "our next release.".format(
@@ -96,6 +101,7 @@ EXTAPP_TO_NBAPP_SHIM_MSG = lambda trait_name, extapp_name: (
         extapp_name=extapp_name
     )
 )
+
 
 # A tuple of traits that shouldn't be shimmed or throw any
 # warnings of any kind.
@@ -135,7 +141,8 @@ class NBClassicConfigShimMixin:
     @wraps(JupyterApp.update_config)
     def update_config(self, config):
         # Shim traits to handle transition from NotebookApp to ServerApp
-        shimmed_config = self.shim_config_from_notebook_to_jupyter_server(config)
+        shimmed_config = self.shim_config_from_notebook_to_jupyter_server(
+            config)
         super().update_config(shimmed_config)
 
     def shim_config_from_notebook_to_jupyter_server(self, config):

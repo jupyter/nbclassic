@@ -6,23 +6,20 @@ This is a fork from jupyter/notebook#6.x
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 
-from collections import namedtuple
-import os
-from tornado import web, gen
-HTTPError = web.HTTPError
-
-from jupyter_server.base.handlers import JupyterHandler
+from jupyter_server.transutils import _i18n
+from jupyter_server.utils import (
+    ensure_async
+)
+from jupyter_server.base.handlers import path_regex, FilesRedirectHandler
 from jupyter_server.extension.handler import (
     ExtensionHandlerMixin,
     ExtensionHandlerJinjaMixin
 )
-from jupyter_server.base.handlers import path_regex, FilesRedirectHandler
-from jupyter_server.utils import (
-    url_path_join,
-    url_escape,
-    ensure_async
-)
-from jupyter_server.transutils import _i18n
+from jupyter_server.base.handlers import JupyterHandler
+from collections import namedtuple
+import os
+from tornado import web, gen
+HTTPError = web.HTTPError
 
 
 def get_frontend_exporters():
@@ -53,7 +50,7 @@ def get_frontend_exporters():
         # Ensure export_from_notebook is explicitly defined & not inherited
         if ux_name is not None and ux_name != super_uxname:
             display = _i18n('{} ({})'.format(ux_name,
-                                         exporter_instance.file_extension))
+                                             exporter_instance.file_extension))
             frontend_exporters.append(ExporterInfo(name, display))
 
     # Ensure default_exporters are in frontend_exporters if not already
@@ -77,7 +74,6 @@ def get_frontend_exporters():
 
 class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHandler):
 
-
     @web.authenticated
     @gen.coroutine
     def get(self, path):
@@ -100,18 +96,18 @@ class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, Jupyter
             yield FilesRedirectHandler.redirect_to_files(self, path)
         name = path.rsplit('/', 1)[-1]
         self.write(self.render_template('notebook.html',
-            notebook_path=path,
-            notebook_name=name,
-            kill_kernel=False,
-            mathjax_url=self.mathjax_url,
-            mathjax_config=self.mathjax_config,
-            get_frontend_exporters=get_frontend_exporters
-            )
-        )
+                                        notebook_path=path,
+                                        notebook_name=name,
+                                        kill_kernel=False,
+                                        mathjax_url=self.mathjax_url,
+                                        mathjax_config=self.mathjax_config,
+                                        get_frontend_exporters=get_frontend_exporters
+                                        )
+                   )
 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # URL to handler mappings
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 
 default_handlers = [
