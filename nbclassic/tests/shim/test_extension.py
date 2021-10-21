@@ -45,7 +45,7 @@ def jp_server_config():
         "ServerApp": {
             "jpserver_extensions": {
                 "nbclassic": True,
-                "tests.shim.mockextension": True
+                "nbclassic.tests.shim.mockextension": True
             }
         }
     }
