@@ -11,7 +11,7 @@ from nbclassic import shim
 def _jupyter_server_extension_points():
     return [
         {
-            "module": "tests.shim.mockextension",
+            "module": "nbclassic.tests.shim.mockextension",
             "app": MockExtensionApp
         }
     ]
