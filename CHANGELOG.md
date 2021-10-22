@@ -1,5 +1,7 @@
 # Changelog
 
+<!-- <START NEW CHANGELOG ENTRY> -->
+
 ## 0.3.2
 
 ([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/0.3.1...32ff24b059573c51e1bf91c426f8fd2fe6dac665))
@@ -14,6 +16,8 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2021-05-21&to=2021-09-17&type=c))
 
 [@athornton](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Aathornton+updated%3A2021-05-21..2021-09-17&type=Issues) | [@saiwing-yeung](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Asaiwing-yeung+updated%3A2021-05-21..2021-09-17&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Awelcome+updated%3A2021-05-21..2021-09-17&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.1
 
