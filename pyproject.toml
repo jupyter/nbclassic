@@ -16,7 +16,7 @@ testpaths = [
 skip = ["check-links"]
 
 [tool.tbump.version]
-current = "0.3.2"
+current = "0.3.3"
 regex = '''
   (?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)
   ((?P<channel>a|b|rc|.dev)(?P<release>\d+))?
