@@ -2,6 +2,30 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.3.3
+
+([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/0.3.2...d32701cb76bf4d1258e5f0fda9b1eac91e697f3a))
+
+### Maintenance and upkeep improvements
+
+- Use Jupyter Packaging and other cleanup [#68](https://github.com/jupyterlab/nbclassic/pull/68) ([@Zsailer](https://github.com/Zsailer))
+
+### Other merged PRs
+
+- add missing lines to manifest [#72](https://github.com/jupyterlab/nbclassic/pull/72) ([@Zsailer](https://github.com/Zsailer))
+- add changelog comments for jupyter-releaser [#70](https://github.com/jupyterlab/nbclassic/pull/70) ([@Zsailer](https://github.com/Zsailer))
+- add setup.py back to enable jupyter_releaser [#69](https://github.com/jupyterlab/nbclassic/pull/69) ([@Zsailer](https://github.com/Zsailer))
+- Add workflow to test JupyterLab [#67](https://github.com/jupyterlab/nbclassic/pull/67) ([@Zsailer](https://github.com/Zsailer))
+- Expose classic notebook's static assets from their original endpoints [#63](https://github.com/jupyterlab/nbclassic/pull/63) ([@Zsailer](https://github.com/Zsailer))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2021-09-17&to=2021-10-22&type=c))
+
+[@meeseeksmachine](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Ameeseeksmachine+updated%3A2021-09-17..2021-10-22&type=Issues) | [@Zsailer](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3AZsailer+updated%3A2021-09-17..2021-10-22&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.3.2
 
 ([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/0.3.1...32ff24b059573c51e1bf91c426f8fd2fe6dac665))
@@ -16,8 +40,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2021-05-21&to=2021-09-17&type=c))
 
 [@athornton](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Aathornton+updated%3A2021-05-21..2021-09-17&type=Issues) | [@saiwing-yeung](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Asaiwing-yeung+updated%3A2021-05-21..2021-09-17&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Awelcome+updated%3A2021-05-21..2021-09-17&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.1
 
