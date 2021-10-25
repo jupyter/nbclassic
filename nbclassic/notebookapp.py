@@ -248,20 +248,22 @@ class NotebookApp(
         # need to tbe injected into the wildcard routes.
         static_handlers = []
 
+        base_url = self.serverapp.base_url
+        ujoin = url_path_join
         # Add terminal handlers
         static_handlers.append(
-            (r"/terminals/(\w+)", TerminalHandler)
+            (ujoin(base_url, r"/terminals/(\w+)"), TerminalHandler)
         )
         static_handlers.append(
             # (r"/nbextensions/(?!nbextensions_configurator\/list)(.*)", FileFindHandler, {
-            (r"/nbextensions/(.*)", FileFindHandler, {
+            (ujoin(base_url, r"/nbextensions/(.*)"), FileFindHandler, {
                 'path': self.settings['nbextensions_path'],
                 # don't cache anything in nbextensions
                 'no_cache_paths': ['/'],
             }),
         )
         static_handlers.append(
-            (r"/custom/(.*)", FileFindHandler, {
+            (ujoin(base_url, r"/custom/(.*)"), FileFindHandler, {
                 'path': self.settings['static_custom_path'],
                 # don't cache anything in nbextensions
                 'no_cache_paths': ['/'],
