@@ -20,12 +20,18 @@ jobs:
         with:
           python-version: 3.8
 
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
       - name: Install dependencies
         run: |
           pip install --upgrade pip
           pip install "."
           pip install --pre --upgrade jupyterlab[test]
           pip freeze
+
       - name: Run tests
         run: |
-          python -m jupyterlab.browser_check --no-browser-test
+          python -m jupyterlab.browser_check
