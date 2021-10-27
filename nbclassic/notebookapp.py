@@ -248,33 +248,42 @@ class NotebookApp(
         # need to tbe injected into the wildcard routes.
         static_handlers = []
 
+        base_url = self.serverapp.base_url
+        ujoin = url_path_join
         # Add terminal handlers
         static_handlers.append(
-            (r"/terminals/(\w+)", TerminalHandler)
+            (ujoin(base_url, r"/terminals/(\w+)"), TerminalHandler)
         )
         static_handlers.append(
             # (r"/nbextensions/(?!nbextensions_configurator\/list)(.*)", FileFindHandler, {
-            (r"/nbextensions/(.*)", FileFindHandler, {
+            (ujoin(base_url, r"/nbextensions/(.*)"), FileFindHandler, {
                 'path': self.settings['nbextensions_path'],
                 # don't cache anything in nbextensions
                 'no_cache_paths': ['/'],
             }),
         )
         static_handlers.append(
-            (r"/custom/(.*)", FileFindHandler, {
+            (ujoin(base_url, r"/custom/(.*)"), FileFindHandler, {
                 'path': self.settings['static_custom_path'],
                 # don't cache anything in nbextensions
                 'no_cache_paths': ['/'],
             }),
         )
-        # Get the wildcard router
+        # Add these static handlers after the Notebook base handlers
+        # to match the original order of handlers in the classic
+        # notebook codebase.
+        base_handlers = load_handlers('jupyter_server.base.handlers')
+        # The extra two handlers (+2) cover the redirect handler
+        # and the final 404 handler.
+        n = len(base_handlers) + 2
+        # Inject the handlers in the tornado router.
         router = self.serverapp.web_app.wildcard_router
-        # Pop out the last route... this route is the final "catch-all" 404.
-        last_route = router.rules.pop(-1)
-        # Add the handlers above
+        core_rules = router.rules[:-n]
+        final_rules = router.rules[-n:]
+        router.rules = []
+        router.add_rules(core_rules)
         router.add_rules(static_handlers)
-        # Put the 404 handlers back at the end.
-        router.rules.append(last_route)
+        router.add_rules(final_rules)
 
 # -----------------------------------------------------------------------------
 # Main entry point

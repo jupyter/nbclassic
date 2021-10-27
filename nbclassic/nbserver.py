@@ -133,22 +133,17 @@ def _link_jupyter_server_extension(serverapp):
                 )
                 manager.link_extension(name)
 
-    # Monkey-patch Jupyter Server's template and static path list to include
-    # the classic notebooks template folder. Since there are some
-    # redundancy in the template names between these two packages,
-    # this patch makes an opinionated choice to use the templates
-    # in the classic notebook first. This should be a *safe* choice
-    # because the Jupyter Server templates are simpler, more
-    # stripped down versions of the classic notebook templates. If
-    # the templates in Jupyter server eventually change, we may
-    # need to revisit this patch.
-    def template_file_path(self):
-        """return extra paths + the default locations"""
-        return self.extra_template_paths + \
-            notebook.DEFAULT_TEMPLATE_PATH_LIST + \
-            jupyter_server.DEFAULT_TEMPLATE_PATH_LIST
+    # Monkeypatch the IPython handler to pull templates from the "correct"
+    # Jinja Environment, namespaced by "notebook".
+    def get_template(self, name):
+        """Return the jinja template object for a given name"""
+        return self.settings['notebook_jinja2_env'].get_template(name)
 
-    serverapp.__class__.template_file_path = property(template_file_path)
+    notebook.base.handlers.IPythonHandler.get_template = get_template
+
+
+    # Monkey-patch Jupyter Server's and nbclassic's static path list to include
+    # the classic notebooks static folder.
 
     def static_file_path_jupyter_server(self):
         """return extra paths + the default location"""
