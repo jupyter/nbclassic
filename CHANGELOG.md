@@ -2,6 +2,30 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.3.4
+
+([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/v0.3.3...48ae58cfa2fcd1a939dfbb6b5bd8b0f0e912b024))
+
+### Bugs fixed
+
+- Monkeypatch IPythonHandler to find nbclassic's jinja templates [#77](https://github.com/jupyterlab/nbclassic/pull/77) ([@Zsailer](https://github.com/Zsailer))
+
+### Maintenance and upkeep improvements
+
+- Run JupyterLab browser tests as downstream tests [#76](https://github.com/jupyterlab/nbclassic/pull/76) ([@Zsailer](https://github.com/Zsailer))
+
+### Other merged PRs
+
+- add check-release workflow [#75](https://github.com/jupyterlab/nbclassic/pull/75) ([@Zsailer](https://github.com/Zsailer))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2021-10-22&to=2021-10-27&type=c))
+
+[@Zsailer](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3AZsailer+updated%3A2021-10-22..2021-10-27&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.3.3
 
 ([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/0.3.2...d32701cb76bf4d1258e5f0fda9b1eac91e697f3a))
@@ -23,8 +47,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2021-09-17&to=2021-10-22&type=c))
 
 [@meeseeksmachine](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Ameeseeksmachine+updated%3A2021-09-17..2021-10-22&type=Issues) | [@Zsailer](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3AZsailer+updated%3A2021-09-17..2021-10-22&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.2
 
