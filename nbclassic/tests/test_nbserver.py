@@ -7,7 +7,7 @@ def test_classic_notebook_templates(jp_serverapp):
         "tree.html"
     ]
     # Get the server's template environment.
-    template_env = jp_serverapp.web_app.settings.get("jinja2_env")
+    template_env = jp_serverapp.web_app.settings.get("notebook_jinja2_env")
 
     for name in classic_notebook_templates:
         template_env.get_template(name)

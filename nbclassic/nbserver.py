@@ -134,12 +134,36 @@ def _link_jupyter_server_extension(serverapp):
                 manager.link_extension(name)
 
     # Monkeypatch the IPython handler to pull templates from the "correct"
-    # Jinja Environment, prefixed with "notebook" in the tornado settings.
+    # Jinja Environment, namespaced by "notebook".
     def get_template(self, name):
         """Return the jinja template object for a given name"""
         return self.settings['notebook_jinja2_env'].get_template(name)
 
     notebook.base.handlers.IPythonHandler.get_template = get_template
+
+
+    # Monkey-patch Jupyter Server's and nbclassic's static path list to include
+    # the classic notebooks static folder.
+
+    def static_file_path_jupyter_server(self):
+        """return extra paths + the default location"""
+        return self.extra_static_paths + [jupyter_server.DEFAULT_STATIC_FILES_PATH, notebook.DEFAULT_STATIC_FILES_PATH]
+
+    serverapp.__class__.static_file_path = property(
+        static_file_path_jupyter_server)
+
+    def static_file_path_nbclassic(self):
+        """return extra paths + the default location"""
+        # NBExtensions look for classic notebook static files under the `/static/notebook/...`
+        # URL. Unfortunately, this conflicts with nbclassic's new static endpoints which are
+        # prefixed with `/static/notebooks`, and therefore, serves these files under
+        # `/static/notebook/notebooks/...`. This monkey-patch places a new file-finder path
+        # to nbclassic's static file handlers that drops the extra "notebook".
+        return self.extra_static_paths + \
+            [os.path.join(notebook.DEFAULT_STATIC_FILES_PATH,
+                          "notebook"), notebook.DEFAULT_STATIC_FILES_PATH]
+
+    nbapp.__class__.static_file_path = property(static_file_path_nbclassic)
 
 
 def _load_jupyter_server_extension(serverapp):
