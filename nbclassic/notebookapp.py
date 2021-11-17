@@ -252,7 +252,7 @@ class NotebookApp(
         ujoin = url_path_join
         # Add terminal handlers
         static_handlers.append(
-            (ujoin(base_url, r"/terminals/(\w+)"), TerminalHandler)
+            (ujoin(base_url, r"/terminals/(\w+)"), TerminalHandler, {"name": self.name})
         )
         static_handlers.append(
             # (r"/nbextensions/(?!nbextensions_configurator\/list)(.*)", FileFindHandler, {
