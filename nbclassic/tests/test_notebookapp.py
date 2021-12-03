@@ -37,3 +37,10 @@ async def test_notebook_handler(notebooks, jp_fetch):
         assert "Kernel" in html
         assert nbpath in html
 
+
+async def test_terminal_handler(jp_fetch):
+        r = await jp_fetch('terminals', "1")
+        assert r.code == 200
+        # Check that the terminals template is loaded
+        html = r.body.decode()
+        assert "terminal-app" in html
