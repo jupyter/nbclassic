@@ -15,23 +15,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
+      - name: Base Setup
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+
+      - name: Test jupyterlab_server
+        uses: jupyterlab/maintainer-tools/.github/actions/downstream-test@v1
         with:
-          python-version: 3.8
+          package_name: jupyterlab_server
 
-      - name: Set up Node
-        uses: actions/setup-node@v1
+      - name: Test jupyterlab
+        uses: jupyterlab/maintainer-tools/.github/actions/downstream-test@v1
         with:
-          node-version: "12.x"
+          package_name: jupyterlab
+          test_command: "python -m jupyterlab.browser_check --no-browser-test"
 
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install "."
-          pip install --pre --upgrade jupyterlab[test]
-          pip freeze
-
-      - name: Run tests
-        run: |
-          python -m jupyterlab.browser_check
