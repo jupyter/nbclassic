@@ -2,6 +2,27 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.3.5
+
+([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/v0.3.4...c3005f28ca58d5dd81c62eb1a61f30d0c31a9498))
+
+### Bugs fixed
+
+- ensure extension name is passed to TerminalHandler [#79](https://github.com/jupyterlab/nbclassic/pull/79) ([@minrk](https://github.com/minrk))
+
+### Maintenance and upkeep improvements
+
+- Clean up downstream tests [#82](https://github.com/jupyterlab/nbclassic/pull/82) ([@blink1073](https://github.com/blink1073))
+- Enforce labels on PRs [#80](https://github.com/jupyterlab/nbclassic/pull/80) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2021-10-27&to=2022-01-11&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Ablink1073+updated%3A2021-10-27..2022-01-11&type=Issues) | [@minrk](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Aminrk+updated%3A2021-10-27..2022-01-11&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.3.4
 
 ([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/v0.3.3...48ae58cfa2fcd1a939dfbb6b5bd8b0f0e912b024))
@@ -23,8 +44,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2021-10-22&to=2021-10-27&type=c))
 
 [@Zsailer](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3AZsailer+updated%3A2021-10-22..2021-10-27&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.3
 
