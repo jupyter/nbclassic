@@ -43,7 +43,8 @@ def jp_server_config():
     return {
         "ServerApp": {
             "jpserver_extensions": {
-                "nbclassic": True
+                "nbclassic": True,
+                "notebook_shim": True
             }
         }
     }
