@@ -7,8 +7,5 @@ def _jupyter_server_extension_paths():
             'module': 'nbclassic.notebookapp',
             'app': NotebookApp,
             'name': 'jupyter-nbclassic'
-        },
-        {
-            'module': 'nbclassic.nbserver',
         }
     ]
