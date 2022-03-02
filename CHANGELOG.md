@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.3.6
+
+([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/v0.3.5...a5f3e6ecae9baf71a1057f1a98587ef59936f687))
+
+### Maintenance and upkeep improvements
+
+- Depend on notebook_shim package for server-side shim layer [#88](https://github.com/jupyterlab/nbclassic/pull/88) ([@Zsailer](https://github.com/Zsailer))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2022-01-11&to=2022-03-02&type=c))
+
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Ajtpio+updated%3A2022-01-11..2022-03-02&type=Issues) | [@Zsailer](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3AZsailer+updated%3A2022-01-11..2022-03-02&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.3.5
 
 ([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/v0.3.4...c3005f28ca58d5dd81c62eb1a61f30d0c31a9498))
@@ -20,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2021-10-27&to=2022-01-11&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Ablink1073+updated%3A2021-10-27..2022-01-11&type=Issues) | [@minrk](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Aminrk+updated%3A2021-10-27..2022-01-11&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.4
 
