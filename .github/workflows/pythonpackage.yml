@@ -36,7 +36,7 @@ jobs:
         run: |
           pytest -vv --cov=nbclassic --cov-report term-missing:skip-covered
       - name: Test Running Server
-        if: ${{ matrix.os == "ubuntu-latest" }}
+        if: startsWith(runner.os, 'Linux')
         run: |
           jupyter nbclassic --no-browser &
           TASK_PID=$!
