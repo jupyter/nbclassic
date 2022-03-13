@@ -11,6 +11,10 @@ norecursedirs = ["confs"]
 testpaths = [
     "tests"
 ]
+filterwarnings= [
+  # Fail on warnings
+  "error",
+]
 
 [tool.jupyter-releaser]
 skip = ["check-links"]
