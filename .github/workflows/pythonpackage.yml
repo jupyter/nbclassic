@@ -34,7 +34,7 @@ jobs:
           jupyter nbclassic -h
       - name: Test with pytest
         run: |
-          pytest -vv --cov=nbclassic --cov-report term-missing:skip-covered
+          pytest -vv --cov=nbclassic --cov-report term-missing:skip-covered || pytest -vv --cov=nbclassic --cov-report term-missing:skip-covered
       - name: Test Running Server
         if: startsWith(runner.os, 'Linux')
         run: |
@@ -59,7 +59,7 @@ jobs:
       - name: Install miniumum versions
         uses: jupyterlab/maintainer-tools/.github/actions/install-minimums@v1
       - name: Run the unit tests
-        run: pytest -vv|| pytest -vv --lf
+        run: pytest -vv || pytest -vv --lf
 
   test_prereleases:
     name: Test Prereleases
