@@ -16,7 +16,7 @@ jobs:
         python-version: ["3.7", "3.8", "3.9", "3.10", "pypy-3.7"]
         exclude:
           - os: windows
-            python-version: pypy-3.7-v7.3.5
+            python-version: pypy-3.7
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -36,6 +36,7 @@ jobs:
         run: |
           pytest -vv --cov=nbclassic --cov-report term-missing:skip-covered
       - name: Test Running Server
+        if: ${{ matrix.os == "ubuntu-latest" }}
         run: |
           jupyter nbclassic --no-browser &
           TASK_PID=$!
