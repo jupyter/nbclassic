@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.0
+
+([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/v0.3.6...30510b64239cb46ae74367b19375dbdde797341b))
+
+### Maintenance and upkeep improvements
+
+- Clean up packaging and CI [#91](https://github.com/jupyterlab/nbclassic/pull/91) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2022-03-02&to=2022-03-16&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Ablink1073+updated%3A2022-03-02..2022-03-16&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.3.6
 
 ([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/v0.3.5...a5f3e6ecae9baf71a1057f1a98587ef59936f687))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2022-01-11&to=2022-03-02&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Ajtpio+updated%3A2022-01-11..2022-03-02&type=Issues) | [@Zsailer](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3AZsailer+updated%3A2022-01-11..2022-03-02&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.5
 
