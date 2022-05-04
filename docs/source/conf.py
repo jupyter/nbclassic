@@ -98,13 +98,13 @@ copyright = '2015, Jupyter Team, https://jupyter.org'
 author = 'The Jupyter Team'
 
 # ghissue config
-github_project_url = "https://github.com/jupyter/notebook"
+github_project_url = "https://github.com/jupyter/nbclassic"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
-_version_py = '../../notebook/_version.py'
+_version_py = '../../nbclassic/_version.py'
 version_ns = {}
 exec(compile(open(_version_py).read(), _version_py, 'exec'), version_ns)
 # The short X.Y version.

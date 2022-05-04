@@ -13,12 +13,13 @@ import gettext
 
 from tornado.web import RedirectHandler
 
-import notebook
-from notebook import (
+import nbclassic
+from nbclassic import (
     DEFAULT_STATIC_FILES_PATH,
-    DEFAULT_TEMPLATE_PATH_LIST,
-    __version__,
+    DEFAULT_TEMPLATE_PATH_LIST
 )
+
+from nbclassic._version import __version__
 
 from traitlets import (
     Unicode, List, Bool, default
@@ -106,7 +107,7 @@ class NotebookApp(
     NotebookAppTraits,
 ):
 
-    name = 'notebook'
+    name = 'nbclassic'
     version = __version__
     description = _i18n("""The Jupyter HTML Notebook.
 
@@ -167,24 +168,30 @@ class NotebookApp(
             path.append(os.path.join(get_ipython_dir(), 'nbextensions'))
         return path
 
+    # Local path to static files directory.
+    static_paths = [DEFAULT_STATIC_FILES_PATH]
+
+    # Local path to templates directory.
+    template_paths = DEFAULT_TEMPLATE_PATH_LIST
+
     @property
     def static_paths(self):
         """Rename trait in jupyter_server."""
-        return self.static_file_path
+        return [DEFAULT_STATIC_FILES_PATH]
 
     @property
     def template_paths(self):
         """Rename trait for Jupyter Server."""
-        return self.template_file_path
+        return DEFAULT_TEMPLATE_PATH_LIST
 
     def _prepare_templates(self):
         super(NotebookApp, self)._prepare_templates()
 
         # Get translations from notebook package.
-        base_dir = os.path.dirname(notebook.__file__)
+        base_dir = os.path.dirname(nbclassic.__file__)
 
         nbui = gettext.translation('nbui', localedir=os.path.join(
-            base_dir, 'notebook/i18n'), fallback=True)
+            base_dir, 'nbclassic/i18n'), fallback=True)
         self.jinja2_env.install_gettext_translations(nbui, newstyle=False)
 
     def _link_jupyter_server_extension(self, serverapp):
@@ -194,14 +201,14 @@ class NotebookApp(
             """Return the jinja template object for a given name"""
             return self.settings['notebook_jinja2_env'].get_template(name)
 
-        notebook.base.handlers.IPythonHandler.get_template = get_template
+        nbclassic.base.handlers.IPythonHandler.get_template = get_template
 
         # Monkey-patch Jupyter Server's and nbclassic's static path list to include
         # the classic notebooks static folder.
 
         def static_file_path_jupyter_server(self):
             """return extra paths + the default location"""
-            return self.extra_static_paths + [jupyter_server.DEFAULT_STATIC_FILES_PATH, notebook.DEFAULT_STATIC_FILES_PATH]
+            return self.extra_static_paths + [jupyter_server.DEFAULT_STATIC_FILES_PATH, nbclassic.DEFAULT_STATIC_FILES_PATH]
 
         serverapp.__class__.static_file_path = property(
             static_file_path_jupyter_server)
@@ -214,8 +221,8 @@ class NotebookApp(
             # `/static/notebook/notebooks/...`. This monkey-patch places a new file-finder path
             # to nbclassic's static file handlers that drops the extra "notebook".
             return self.extra_static_paths + \
-                [os.path.join(notebook.DEFAULT_STATIC_FILES_PATH,
-                            "notebook"), notebook.DEFAULT_STATIC_FILES_PATH]
+                [os.path.join(nbclassic.DEFAULT_STATIC_FILES_PATH,
+                            "notebook"), nbclassic.DEFAULT_STATIC_FILES_PATH]
 
         self.__class__.static_file_path = property(static_file_path_nbclassic)
         return super()._link_jupyter_server_extension(serverapp)

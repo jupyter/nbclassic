@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/jupyter/notebook.svg?branch=master)](https://travis-ci.org/jupyter/notebook)
 [![Documentation Status](https://readthedocs.org/projects/jupyter-notebook/badge/?version=latest)](http://jupyter-notebook.readthedocs.io/en/stable/?badge=stable)
                 
-English 버전 링크 : [[English Version](http://github.com/jupyter/notebook/)]
+English 버전 링크 : [[English Version](http://github.com/jupyter/nbclassic/)]
 
 Jupyter notebook 은 상호 교환을 위한 웹 기반 환경입니다.
 
@@ -51,5 +51,5 @@ You can find the installation documentation for the
 - [Online Demo at try.jupyter.org](https://try.jupyter.org)
 - [Documentation for Jupyter notebook](https://jupyter-notebook.readthedocs.io/en/stable/)
 - [Documentation for Project Jupyter](https://jupyter.readthedocs.io/en/latest/index.html )
-- [Issues](https://github.com/jupyter/notebook/issues)
+- [Issues](https://github.com/jupyter/nbclassic/issues)
 - [Technical support - Jupyter Google Group](https://groups.google.com/forum/#!forum/jupyter)

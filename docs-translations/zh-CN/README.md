@@ -73,5 +73,5 @@ IPython代码库的Big Split™。 IPython 3是最后一个主要的整体
 - [Documentation for Jupyter notebook](https://jupyter-notebook.readthedocs.io/en/stable/)
 - [Korean Version of Installation](https://github.com/ChungJooHo/Jupyter_Kor_doc/)
 - [Documentation for Project Jupyter](https://jupyter.readthedocs.io/en/latest/index.html )
-- [Issues](https://github.com/jupyter/notebook/issues)
+- [Issues](https://github.com/jupyter/nbclassic/issues)
 - [Technical support - Jupyter Google Group](https://groups.google.com/forum/#!forum/jupyter) 

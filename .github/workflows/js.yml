@@ -50,7 +50,7 @@ jobs:
 
       - name: Temporary workaround for sanitizer loading in JS Tests
         run: |
-          cp tools/security_deprecated.js notebook/static/base/js/security.js
+          cp tools/security_deprecated.js nbclassic/static/base/js/security.js
 
       - name: Install dependencies
         run: |

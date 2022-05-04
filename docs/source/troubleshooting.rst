@@ -212,7 +212,7 @@ If you can't find an existing answer, you can ask questions at:
 Gathering Information
 ^^^^^^^^^^^^^^^^^^^^^
 Should you find that your problem warrants that an issue be opened in
-`notebook <https://github.com/jupyter/notebook>`_ please don't forget to provide details
+`notebook <https://github.com/jupyter/nbclassic>`_ please don't forget to provide details
 like the following:
 
 * What error messages do you see (within your notebook and, more importantly, in

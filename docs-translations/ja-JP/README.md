@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/jupyter/notebook.svg?branch=master)](https://travis-ci.org/jupyter/notebook)
 [![Documentation Status](https://readthedocs.org/projects/jupyter-notebook/badge/?version=latest)](https://jupyter-notebook.readthedocs.io/en/stable/?badge=latest)
                 
-英語版のリンク : [[English Version](http://github.com/jupyter/notebook/)]
+英語版のリンク : [[English Version](http://github.com/jupyter/nbclassic/)]
 
 Jupyter Notebookは、インタラクティブなWebベースのノートブック形式の環境です。
 
@@ -41,11 +41,11 @@ Jupyter Notebookをリモートで起動する前に、いくつかの構成が�
 
 ## 開発用インストール
 
-開発用インストールのセットアップ方法については、[`CONTRIBUTING.rst`](https://github.com/jupyter/notebook/blob/master/CONTRIBUTING.rst)を参照してください。
+開発用インストールのセットアップ方法については、[`CONTRIBUTING.rst`](https://github.com/jupyter/nbclassic/blob/master/CONTRIBUTING.rst)を参照してください。
 
 ## 貢献
 
-プロジェクトへの貢献に興味がある場合は、[`CONTRIBUTING.rst`](https://github.com/jupyter/notebook/blob/master/CONTRIBUTING.rst)をご覧ください。
+プロジェクトへの貢献に興味がある場合は、[`CONTRIBUTING.rst`](https://github.com/jupyter/nbclassic/blob/master/CONTRIBUTING.rst)をご覧ください。
 
 ## 参考
 
@@ -53,5 +53,5 @@ Jupyter Notebookをリモートで起動する前に、いくつかの構成が�
 - [Online Demo at try.jupyter.org](https://try.jupyter.org)
 - [Documentation for Jupyter notebook](https://jupyter-notebook.readthedocs.io/en/stable/)
 - [Documentation for Project Jupyter](https://jupyter.readthedocs.io/en/latest/index.html )
-- [Issues](https://github.com/jupyter/notebook/issues)
+- [Issues](https://github.com/jupyter/nbclassic/issues)
 - [Technical support - Jupyter Google Group](https://groups.google.com/forum/#!forum/jupyter)
