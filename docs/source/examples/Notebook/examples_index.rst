@@ -5,7 +5,8 @@ Notebook Examples
 The pages in this section are all converted notebook files. You can also
 `view these notebooks on nbviewer`__.
 
-__ https://nbviewer.jupyter.org/github/jupyter/nbclassic/blob/6.4.x/
+__ https://nbviewer.jupyter.org/github/jupyter/nbclassic/blob/main/
+   docs/source/examples/Notebook/
    docs/source/examples/Notebook/
 
 .. toctree::
