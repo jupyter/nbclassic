@@ -38,4 +38,4 @@
 .. _Plotting with Matplotlib: notebook_p3_
 .. _notebook_p3: https://nbviewer.jupyter.org/github/ipython/ipython/blob/master/examples/IPython%20Kernel/Plotting%20in%20the%20Notebook.ipynb
 
-.. _Working with Markdown Cells: https://nbviewer.jupyter.org/github/jupyter/nbclassic/blob/6.4.x/docs/source/examples/Notebook/Working%20With%20Markdown%20Cells.ipynb
+.. _Working with Markdown Cells: https://nbviewer.jupyter.org/github/jupyter/nbclassic/blob/main/docs/source/examples/Notebook/Working%20With%20Markdown%20Cells.ipynb
