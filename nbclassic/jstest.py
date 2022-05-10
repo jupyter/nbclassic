@@ -24,7 +24,7 @@ from unittest.mock import patch
 
 from jupyter_core.paths import jupyter_runtime_dir
 from ipython_genutils.py3compat import bytes_to_str, which
-from notebook._sysinfo import get_sys_info
+from nbclassic._sysinfo import get_sys_info
 from ipython_genutils.tempdir import TemporaryDirectory
 
 from subprocess import TimeoutExpired
@@ -182,7 +182,7 @@ class TestController:
 
 
 def get_js_test_dir():
-    import notebook.tests as t
+    import nbclassic.tests as t
     return os.path.join(os.path.dirname(t.__file__), '')
 
 def all_js_groups():
@@ -291,7 +291,7 @@ class JSController(TestController):
     def _init_server(self):
         "Start the notebook server in a separate process"
         self.server_command = command = [sys.executable,
-            '-m', 'notebook',
+            '-m', 'nbclassic',
             '--no-browser',
             '--notebook-dir', self.nbdir.name,
             '--NotebookApp.token=',
@@ -566,7 +566,7 @@ def run_jstestall(options):
         print(f'ERROR - {nfail} out of {nrunners} test groups failed ({", ".join(failed_sections)}).', took)
         print()
         print('You may wish to rerun these, with:')
-        print('  python -m notebook.jstest', *failed_sections)
+        print('  python -m nbclassic.jstest', *failed_sections)
         print()
 
     if failed:

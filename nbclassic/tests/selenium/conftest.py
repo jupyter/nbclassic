@@ -50,7 +50,7 @@ def notebook_server():
         env = os.environ.copy()
         env.update(info['extra_env'])
 
-        command = [sys.executable, '-m', 'notebook',
+        command = [sys.executable, '-m', 'nbclassic',
                    '--no-browser',
                    '--notebook-dir', nbdir,
                    # run with a base URL that would be escaped,
