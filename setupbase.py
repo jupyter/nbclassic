@@ -208,7 +208,6 @@ def find_package_data():
         'nbclassic' : ['templates/*'] + static_data,
         'nbclassic.tests' : js_tests,
         'nbclassic.bundler.tests': ['resources/*', 'resources/*/*', 'resources/*/*/.*'],
-        'nbclassic.services.api': ['api.yaml'],
         'nbclassic.i18n': ['*/LC_MESSAGES/*.*'],
     }
 
