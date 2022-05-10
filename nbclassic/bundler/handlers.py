@@ -6,11 +6,28 @@
 from ipython_genutils.importstring import import_item
 from tornado import web, gen
 
-from nbclassic.utils import maybe_future, url2path
+from jupyter_server.utils import url2path
 from nbclassic.base.handlers import IPythonHandler
 from nbclassic.services.config import ConfigManager
 
 from . import tools
+
+
+def maybe_future(obj):
+    """Like tornado's deprecated gen.maybe_future
+
+    but more compatible with asyncio for recent versions
+    of tornado
+    """
+    if inspect.isawaitable(obj):
+        return asyncio.ensure_future(obj)
+    elif isinstance(obj, concurrent.futures.Future):
+        return asyncio.wrap_future(obj)
+    else:
+        # not awaitable, wrap scalar in future
+        f = asyncio.Future()
+        f.set_result(obj)
+        return f
 
 
 class BundlerHandler(IPythonHandler):
