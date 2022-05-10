@@ -294,8 +294,8 @@ class JSController(TestController):
             '-m', 'nbclassic',
             '--no-browser',
             '--notebook-dir', self.nbdir.name,
-            '--NotebookApp.token=',
-            f'--NotebookApp.base_url={self.base_url}',
+            '--ServerApp.token=',
+            f'--ServerApp.base_url={self.base_url}',
         ]
         # ipc doesn't work on Windows, and darwin has crazy-long temp paths,
         # which run afoul of ipc's maximum path length.
@@ -315,7 +315,7 @@ class JSController(TestController):
             runtime_dir = jupyter_runtime_dir()
         self.server_info_file = os.path.join(
             runtime_dir,
-            f'nbserver-{self.server.pid}.json'
+            f'jpserver-{self.server.pid}.json'
         )
         self._wait_for_server()
 

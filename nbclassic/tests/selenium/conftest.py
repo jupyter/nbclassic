@@ -55,12 +55,12 @@ def notebook_server():
                    '--notebook-dir', nbdir,
                    # run with a base URL that would be escaped,
                    # to test that we don't double-escape URLs
-                   '--NotebookApp.base_url=/a@b/',
+                   '--ServerApp.base_url=/a@b/',
                    ]
         print("command=", command)
         proc = info['popen'] = Popen(command, cwd=nbdir, env=env)
         info_file_path = pjoin(td, 'jupyter_runtime',
-                               f'nbserver-{proc.pid:d}.json')
+                               f'jpserver-{proc.pid:d}.json')
         info.update(_wait_for_server(proc, info_file_path))
 
         print("Notebook server info:", info)
