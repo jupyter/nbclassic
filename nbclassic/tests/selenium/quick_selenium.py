@@ -6,7 +6,7 @@ can use them to experiment with Selenium.
 from selenium.webdriver import Firefox
 
 from nbclassic.tests.selenium.utils import Notebook
-from nbclassic.notebookapp import list_running_servers
+from jupyter_server.serverapp import list_running_servers
 
 class NoServerError(Exception):
 
