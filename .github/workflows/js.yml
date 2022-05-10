@@ -62,4 +62,4 @@ jobs:
 
       - name: Run Tests
         run: |
-          python -m notebook.jstest ${{ matrix.group }}
+          python -m nbclassic.jstest ${{ matrix.group }}
