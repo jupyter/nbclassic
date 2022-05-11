@@ -8,14 +8,14 @@ fi
 
 # if style changed (and less available), rebuild sourcemaps
 if [[
-  ! -z "$(git diff $PREVIOUS_HEAD notebook/static/*/js/**.js)"
+  ! -z "$(git diff $PREVIOUS_HEAD nbclassic/static/*/js/**.js)"
 ]]; then
   echo "rebuilding javascript"
   python setup.py js || echo "fail to rebuild javascript"
 fi
 
 if [[
-  ! -z "$(git diff $PREVIOUS_HEAD notebook/static/*/less/**.less)"
+  ! -z "$(git diff $PREVIOUS_HEAD nbclassic/static/*/less/**.less)"
 ]]; then
   echo "rebuilding css sourcemaps"
   python setup.py css || echo "fail to recompile css"

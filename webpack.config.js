@@ -11,7 +11,7 @@ module.exports = {
   entry: ['babel-polyfill', '@jupyterlab/apputils/lib/sanitizer'],
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, 'notebook/static/components/sanitizer'),
+    path: path.resolve(__dirname, 'nbclassic/static/components/sanitizer'),
     libraryTarget: "amd",
   },
   devtool: false,

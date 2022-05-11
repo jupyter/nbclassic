@@ -349,7 +349,7 @@ def new_window(browser):
 
     Usage example:
 
-        from notebook.tests.selenium.utils import new_window, Notebook
+        from nbclassic.tests.selenium.utils import new_window, Notebook
 
         ⋮ # something that creates a browser object
 

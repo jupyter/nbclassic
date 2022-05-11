@@ -1,3 +1,61 @@
+build
+dist
+_build
+docs/man/*.gz
+docs/source/api/generated
+docs/source/config.rst
+docs/gh-pages
+nbclassic/i18n/*/LC_MESSAGES/*.mo
+nbclassic/i18n/*/LC_MESSAGES/nbjs.json
+nbclassic/static/components
+nbclassic/static/style/*.min.css*
+nbclassic/static/*/js/built/
+nbclassic/static/*/built/
+nbclassic/static/built/
+nbclassic/static/*/js/main.min.js*
+nbclassic/static/lab/*bundle.js
+node_modules
+*.py[co]
+__pycache__
+*.egg-info
+*~
+*.bak
+.ipynb_checkpoints
+.tox
+.DS_Store
+\#*#
+.#*
+.coverage
+.pytest_cache
+src
+
+*.swp
+*.map
+.idea/
+Read the Docs
+config.rst
+*.iml
+/.project
+/.pydevproject
+
+package-lock.json
+geckodriver.log
+*.iml
+
+# jetbrains IDE stuff
+*.iml
+.idea/
+
+# ms IDE stuff
+*.code-workspace
+.history
+.vscode
+
+# copied changelog
+docs/source/changelog.md
+
+.jupyter_releaser_checkout
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

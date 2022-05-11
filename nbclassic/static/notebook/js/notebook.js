@@ -651,7 +651,7 @@ define([
     };
 
     /**
-     * Reads direction settings (LTR/RTL) from notebook/cells metadata
+     * Reads direction settings (LTR/RTL) from nbclassic/cells metadata
      * and applies them to display elements.
      */
     Notebook.prototype.apply_directionality = function () {

@@ -43,4 +43,4 @@ jobs:
       run: |
         export JUPYTER_TEST_BROWSER=firefox
         export MOZ_HEADLESS=1
-        pytest -sv notebook/tests/selenium
+        pytest -sv nbclassic/tests/selenium

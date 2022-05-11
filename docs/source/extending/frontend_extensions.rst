@@ -183,7 +183,7 @@ action name, should be unique. Built-in actions, like the
 actions defined in an extension, it makes sense to use the extension name as
 the prefix. For the action name, the following guidelines should be considered:
 
-.. adapted from notebook/static/notebook/js/actions.js
+.. adapted from nbclassic/static/notebook/js/actions.js
 
 * First pick a noun and a verb for the action. For example, if the action is
   "restart kernel," the verb is "restart" and the noun is "kernel".

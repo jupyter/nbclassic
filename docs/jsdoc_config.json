@@ -8,7 +8,7 @@
     ],
     "source": {
         "include": [
-            "../notebook/static/notebook/js/notebook.js"
+            "../nbclassic/static/notebook/js/notebook.js"
         ]
     },
     "tags": {

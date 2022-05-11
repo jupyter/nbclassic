@@ -5,8 +5,8 @@ can use them to experiment with Selenium.
 """
 from selenium.webdriver import Firefox
 
-from notebook.tests.selenium.utils import Notebook
-from notebook.notebookapp import list_running_servers
+from nbclassic.tests.selenium.utils import Notebook
+from jupyter_server.serverapp import list_running_servers
 
 class NoServerError(Exception):
 
@@ -18,7 +18,7 @@ def quick_driver(lab=False):
 
     Usage example:
     
-        from notebook.tests.selenium.quick_selenium import quick_driver
+        from nbclassic.tests.selenium.quick_selenium import quick_driver
         driver = quick_driver
         
     Note: you need to manually close the driver that opens with driver.quit()
@@ -45,7 +45,7 @@ def quick_notebook():
 
     Usage example:
     
-        from notebook.tests.selenium.quick_selenium import quick_notebook
+        from nbclassic.tests.selenium.quick_selenium import quick_notebook
         nb = quick_notebook()
 
     Note: you need to manually close the driver that opens with nb.browser.quit()

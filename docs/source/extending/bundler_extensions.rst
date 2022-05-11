@@ -166,7 +166,7 @@ Bundler invocation details
 --------------------------
 
 Support for bundler extensions comes from Python modules in `notebook/bundler`
-and JavaScript in `notebook/static/notebook/js/menubar.js`. The flow of data
+and JavaScript in `nbclassic/static/notebook/js/menubar.js`. The flow of data
 between the various components proceeds roughly as follows:
 
 1. User opens a notebook document

@@ -24,7 +24,7 @@ from unittest.mock import patch
 
 from jupyter_core.paths import jupyter_runtime_dir
 from ipython_genutils.py3compat import bytes_to_str, which
-from notebook._sysinfo import get_sys_info
+from nbclassic._sysinfo import get_sys_info
 from ipython_genutils.tempdir import TemporaryDirectory
 
 from subprocess import TimeoutExpired
@@ -182,7 +182,7 @@ class TestController:
 
 
 def get_js_test_dir():
-    import notebook.tests as t
+    import nbclassic.tests as t
     return os.path.join(os.path.dirname(t.__file__), '')
 
 def all_js_groups():
@@ -291,11 +291,11 @@ class JSController(TestController):
     def _init_server(self):
         "Start the notebook server in a separate process"
         self.server_command = command = [sys.executable,
-            '-m', 'notebook',
+            '-m', 'nbclassic',
             '--no-browser',
             '--notebook-dir', self.nbdir.name,
-            '--NotebookApp.token=',
-            f'--NotebookApp.base_url={self.base_url}',
+            '--ServerApp.token=',
+            f'--ServerApp.base_url={self.base_url}',
         ]
         # ipc doesn't work on Windows, and darwin has crazy-long temp paths,
         # which run afoul of ipc's maximum path length.
@@ -315,7 +315,7 @@ class JSController(TestController):
             runtime_dir = jupyter_runtime_dir()
         self.server_info_file = os.path.join(
             runtime_dir,
-            f'nbserver-{self.server.pid}.json'
+            f'jpserver-{self.server.pid}.json'
         )
         self._wait_for_server()
 
@@ -566,7 +566,7 @@ def run_jstestall(options):
         print(f'ERROR - {nfail} out of {nrunners} test groups failed ({", ".join(failed_sections)}).', took)
         print()
         print('You may wish to rerun these, with:')
-        print('  python -m notebook.jstest', *failed_sections)
+        print('  python -m nbclassic.jstest', *failed_sections)
         print()
 
     if failed:

@@ -10,14 +10,14 @@ The JavaScript tests are organized into subdirectories that match those in
 To run all of the JavaScript tests do:
 
 ```
-python -m notebook.jstest 
+python -m nbclassic.jstest 
 ```
 
 To run the JavaScript tests for a specific file (`base/utils.js` in this case)
 do:
 
 ```
-python -m notebook.jstest base/utils.js
+python -m nbclassic.jstest base/utils.js
 ```
 
 The file `jstest.py` will automatically launch a notebook server to run the

@@ -1,7 +1,7 @@
 import os
 
-from notebook.utils import url_path_join
-from notebook.tests.selenium.utils import wait_for_selector
+from jupyter_server.utils import url_path_join
+from nbclassic.tests.selenium.utils import wait_for_selector
 pjoin = os.path.join
 
 

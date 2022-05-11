@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from notebook.tests.selenium.utils import wait_for_selector
+from nbclassic.tests.selenium.utils import wait_for_selector
 
 restart_selectors = [
     '#restart_kernel', '#restart_clear_output', '#restart_run_all'
