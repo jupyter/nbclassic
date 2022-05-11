@@ -19,3 +19,4 @@ dependencies:
   - prometheus_client
   - sphinxcontrib_github_alt
   - ipython_genutils
+  - jupyter_server>=1.8
