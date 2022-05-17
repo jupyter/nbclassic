@@ -1,11 +1,11 @@
-Contributing to the Jupyter Notebook
+Contributing to the Jupyter NbClassic
 ====================================
 
 If you're reading this section, you're probably interested in contributing to
 Jupyter.  Welcome and thanks for your interest in contributing!
 
 Please take a look at the Contributor documentation, familiarize yourself with
-using the Jupyter Notebook, and introduce yourself on the mailing list and
+using the Jupyter NbClassic, and introduce yourself on the mailing list and
 share what area of the project you are interested in working on.
 
 General Guidelines
@@ -23,7 +23,7 @@ Setting Up a Development Environment
 Installing Node.js and npm
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Building the Notebook from its GitHub source code requires some tools to
+Building the NbClassic from its GitHub source code requires some tools to
 create and minify JavaScript components and the CSS,
 specifically Node.js and Node's package manager, ``npm``.
 It should be node version ≥ 6.0.
@@ -42,7 +42,7 @@ included in the system package repository may be too old to work properly.
 You can also use the installer from the `Node.js website <https://nodejs.org>`_.
 
 
-Installing the Jupyter Notebook
+Installing the Jupyter NbClassic
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Once you have installed the dependencies mentioned above, use the following
@@ -71,8 +71,8 @@ If you are working in development mode, you will see that your version of Jupyte
 Troubleshooting the Installation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you do not see that your Jupyter Notebook is not running on dev mode, it's possible that you are
-running other instances of Jupyter Notebook. You can try the following steps:
+If you do not see that your Jupyter NbClassic is not running on dev mode, it's possible that you are
+running other instances of Jupyter NbClassic. You can try the following steps:
 
 1. Uninstall all instances of the notebook package. These include any installations you made using
    pip or conda.
@@ -87,7 +87,7 @@ running other instances of Jupyter Notebook. You can try the following steps:
 Rebuilding JavaScript and CSS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-There is a build step for the JavaScript and CSS in the notebook.
+There is a build step for the JavaScript and CSS in the nbclassic.
 To make sure that you are working with up-to-date code, you will need to run
 this command whenever there are changes to JavaScript or LESS sources::
 
@@ -147,17 +147,17 @@ installed::
 
 Then, to run the JavaScript tests::
 
-    python -m notebook.jstest [group]
+    python -m nbclassic.jstest [group]
 
 where ``[group]`` is an optional argument that is a path relative to
 ``notebook/tests/``.
 For example, to run all tests in ``notebook/tests/notebook``::
 
-    python -m notebook.jstest notebook
+    python -m nbclassic.jstest notebook
 
 or to run just ``notebook/tests/notebook/deletecell.js``::
 
-    python -m notebook.jstest notebook/deletecell.js
+    python -m nbclassic.jstest notebook/deletecell.js
 
 
 Building the Documentation
@@ -166,12 +166,12 @@ Building the Documentation
 To build the documentation you'll need `Sphinx <http://www.sphinx-doc.org/>`_,
 `pandoc <http://pandoc.org/>`_ and a few other packages.
 
-To install (and activate) a conda environment named ``notebook_docs``
+To install (and activate) a conda environment named ``nbclassic_docs``
 containing all the necessary packages (except pandoc), use::
 
-    conda create -n notebook_docs pip
-    conda activate notebook_docs  # Linux and OS X
-    activate notebook_docs        # Windows
+    conda create -n nbclassic_docs pip
+    conda activate nbclassic_docs  # Linux and OS X
+    activate nbclassic_docs        # Windows
     pip install .[docs]
 
 If you want to install the necessary packages with ``pip``, use the following instead::
