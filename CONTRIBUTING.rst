@@ -59,7 +59,7 @@ you can add ``--user`` to the install commands.
 Once you have done this, you can launch the master branch of Jupyter notebook
 from any directory in your system with::
 
-    jupyter notebook
+    jupyter nbclassic
 
 Verification
 ^^^^^^^^^^^^
