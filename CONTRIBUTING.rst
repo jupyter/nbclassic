@@ -49,7 +49,7 @@ Once you have installed the dependencies mentioned above, use the following
 steps::
 
     pip install --upgrade setuptools pip
-    git clone https://github.com/jupyter/notebook
+    git clone https://github.com/jupyter/nbclassic
     cd notebook
     pip install -e .
 
