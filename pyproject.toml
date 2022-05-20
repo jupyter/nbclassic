@@ -27,4 +27,4 @@ message_template = "Bump to {new_version}"
 tag_template = "v{new_version}"
 
 [[tool.tbump.file]]
-src = "nbclassic/__version__.py"
+src = "nbclassic/_version.py"
