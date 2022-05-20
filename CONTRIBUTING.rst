@@ -96,7 +96,7 @@ this command whenever there are changes to JavaScript or LESS sources::
 **IMPORTANT:** Don't forget to run ``npm run build`` after switching branches.
 When switching between branches of different versions (e.g. ``4.x`` and
 ``master``), run ``pip install -e .``. If you have tried the above and still
-find that the notebook is not reflecting the current source code, try cleaning
+find that NbClassic is not reflecting the current source code, try cleaning
 the repo with ``git clean -xfd`` and reinstalling with ``pip install -e .``.
 
 Development Tip
