@@ -151,7 +151,7 @@ Then, to run the JavaScript tests::
 
 where ``[group]`` is an optional argument that is a path relative to
 ``nbclassic/tests/``.
-For example, to run all tests in ``notebook/tests/notebook``::
+For example, to run all tests in ``nbclassic/tests/notebook``::
 
     python -m nbclassic.jstest notebook
 
