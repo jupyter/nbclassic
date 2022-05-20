@@ -135,7 +135,7 @@ To run the Python tests, use::
 
 If you want coverage statistics as well, you can run::
 
-    py.test --cov nbclassic -v --pyargs notebook
+    py.test --cov nbclassic -v --pyargs nbclassic
 
 JavaScript Tests
 ^^^^^^^^^^^^^^^^
