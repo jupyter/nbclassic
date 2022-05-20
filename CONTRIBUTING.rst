@@ -50,7 +50,7 @@ steps::
 
     pip install --upgrade setuptools pip
     git clone https://github.com/jupyter/nbclassic
-    cd notebook
+    cd nbclassic
     pip install -e .
 
 If you are using a system-wide Python installation and you only want to install the notebook for you,
