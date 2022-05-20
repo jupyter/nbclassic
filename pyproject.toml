@@ -15,6 +15,13 @@ testpaths = [
 [tool.jupyter-releaser]
 skip = ["check-links"]
 
+[tool.jupyter-releaser.hooks]
+after-bump-version = "python setup.py jsversion"
+before-build-python = ["pip install babel", "npm install -g po2json"]
+
+[tool.jupyter-releaser.options]
+ignore-glob = ["docs/source/examples/Notebook/Working With Markdown Cells.ipynb", "docs-translations/**/README.md", "docs/source/contributing.rst", "docs/source/examples/Notebook/JavaScript Notebook Extensions.ipynb", "CHANGELOG.md", "notebook/static/components/**/*.*"]
+
 [tool.tbump.version]
 current = "0.3.7"
 regex = '''
