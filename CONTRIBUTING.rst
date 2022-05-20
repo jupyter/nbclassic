@@ -74,7 +74,7 @@ Troubleshooting the Installation
 If you do not see that your Jupyter NbClassic is not running on dev mode, it's possible that you are
 running other instances of Jupyter NbClassic. You can try the following steps:
 
-1. Uninstall all instances of the notebook package. These include any installations you made using
+1. Uninstall all instances of the NbClassic package. These include any installations you made using
    pip or conda.
 2. Run ``python3 -m pip install -e .`` in the notebook repository to install the notebook from there.
 3. Run ``npm run build`` to make sure the Javascript and CSS are updated and compiled.
