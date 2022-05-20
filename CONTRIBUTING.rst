@@ -1,5 +1,5 @@
 Contributing to the Jupyter NbClassic
-====================================
+=====================================
 
 If you're reading this section, you're probably interested in contributing to
 Jupyter.  Welcome and thanks for your interest in contributing!
