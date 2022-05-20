@@ -56,7 +56,7 @@ steps::
 If you are using a system-wide Python installation and you only want to install NbClassic for you,
 you can add ``--user`` to the install commands.
 
-Once you have done this, you can launch the master branch of Jupyter notebook
+Once you have done this, you can launch the main branch of Jupyter NbClassic
 from any directory in your system with::
 
     jupyter nbclassic
