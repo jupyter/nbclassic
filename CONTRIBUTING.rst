@@ -155,7 +155,7 @@ For example, to run all tests in ``nbclassic/tests/notebook``::
 
     python -m nbclassic.jstest notebook
 
-or to run just ``notebook/tests/notebook/deletecell.js``::
+or to run just ``nbclassic/tests/notebook/deletecell.js``::
 
     python -m nbclassic.jstest notebook/deletecell.js
 
