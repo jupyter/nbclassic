@@ -12,6 +12,12 @@ include setup.py
 include setupbase.py
 include Dockerfile
 include *.js
+include *.in
+include *.md
+include *.svg
+include *.yml
+recursive-include nbclassic *.less
+recursive-include tests *.py
 graft tools
 graft nbclassic/tests
 
