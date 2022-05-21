@@ -18,8 +18,12 @@ include *.svg
 include *.yml
 recursive-include nbclassic *.less
 recursive-include tests *.py
+graft jupyter_server_config.d
 graft tools
 graft nbclassic/tests
+
+exclude git-hooks
+exclude docs-translations
 
 # Translations
 graft nbclassic/i18n
