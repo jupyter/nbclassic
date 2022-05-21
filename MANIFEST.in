@@ -22,8 +22,8 @@ graft jupyter_server_config.d
 graft tools
 graft nbclassic/tests
 
-exclude git-hooks
-exclude docs-translations
+prune git-hooks
+prune docs-translations
 
 # Translations
 graft nbclassic/i18n
