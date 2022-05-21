@@ -1,4 +1,8 @@
 include LICENSE
+include setup.py
+include setupbase.py
+include setup.cfg
+include pyproject.toml
 
 # added by check-manifest
 include *.md
