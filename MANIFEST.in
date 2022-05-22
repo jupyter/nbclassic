@@ -20,6 +20,7 @@ recursive-include nbclassic *.less
 recursive-include nbclassic *.md
 recursive-include nbclassic *.png
 recursive-include tests *.py
+recursive-include jupyter_server_config.d nbclassic.json
 graft tools
 graft notebook/tests
 
