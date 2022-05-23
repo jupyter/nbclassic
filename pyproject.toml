@@ -13,7 +13,7 @@ testpaths = [
 ]
 
 [tool.jupyter-releaser]
-skip = ["check-links"]
+skip = ["check-links", "check-manifest"]
 
 [tool.jupyter-releaser.hooks]
 after-bump-version = "python setup.py jsversion"
