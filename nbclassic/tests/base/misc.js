@@ -5,7 +5,7 @@
 casper.notebook_test(function () {
     var jsver = this.evaluate(function () {
         var cell = IPython.notebook.get_cell(0);
-        cell.set_text('import notebook; print(notebook.__version__)');
+        cell.set_text('import nbclassic; print(nbclassic.__version__)');
         cell.execute();
         return IPython.version;
     });
