@@ -48,5 +48,5 @@ jobs:
       run: |
         EXIT_STATUS=0
         make -C docs/ html || EXIT_STATUS=$?
-        pytest --nbval --current-env docs || EXIT_STATUS=$?
+        cd docs/source && pytest --nbval --current-env .. || EXIT_STATUS=$?
         exit $EXIT_STATUS
