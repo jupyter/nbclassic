@@ -207,7 +207,7 @@ casper.notebook_test(function () {
     
     this.then(function() {
         clear_and_execute(this,
-            "from IPython.core.display import SVG; SVG(" + svg + ")");
+            "from IPython.display import SVG; SVG(" + svg + ")");
     });
     
     this.then(function ( ) {
@@ -216,7 +216,7 @@ casper.notebook_test(function () {
 
     this.then(function() {
         clear_and_execute(this,
-            "from IPython.core.display import SVG, display; display(SVG(" + svg + "))");
+            "from IPython.display import SVG, display; display(SVG(" + svg + "))");
     });
     
     this.then(function ( ) {
