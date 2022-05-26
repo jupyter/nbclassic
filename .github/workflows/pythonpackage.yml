@@ -35,11 +35,11 @@ jobs:
       - name: Test with pytest and coverage
         if: ${{ matrix.python-version != 'pypy-3.7' }}
         run: |
-          pytest -vv --cov=nbclassic --cov-report term-missing:skip-covered || pytest -vv --cov=nbclassic --cov-report term-missing:skip-covered
+          python -m pytest -vv --cov=nbclassic --cov-report term-missing:skip-covered || python -m pytest -vv --cov=nbclassic --cov-report term-missing:skip-covered
       - name: Run the tests on pypy
         if: ${{ matrix.python-version == 'pypy-3.7' }}
         run: |
-          pytest -vv || pytest -vv -lf
+          python -m pytest -vv || python -m pytest -vv -lf
       - name: Test Running Server
         if: startsWith(runner.os, 'Linux')
         run: |
