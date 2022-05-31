@@ -13,10 +13,10 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-        python-version: ["3.7", "3.8", "3.9", "3.10", "pypy-3.7"]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "pypy-3.8"]
         exclude:
           - os: windows
-            python-version: pypy-3.7
+            python-version: pypy-3.8
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -33,11 +33,11 @@ jobs:
         run: |
           jupyter nbclassic -h
       - name: Test with pytest and coverage
-        if: ${{ matrix.python-version != 'pypy-3.7' }}
+        if: ${{ matrix.python-version != 'pypy-3.8' }}
         run: |
           python -m pytest -vv --cov=nbclassic --cov-report term-missing:skip-covered || python -m pytest -vv --cov=nbclassic --cov-report term-missing:skip-covered
       - name: Run the tests on pypy
-        if: ${{ matrix.python-version == 'pypy-3.7' }}
+        if: ${{ matrix.python-version == 'pypy-3.8' }}
         run: |
           python -m pytest -vv || python -m pytest -vv -lf
       - name: Test Running Server
