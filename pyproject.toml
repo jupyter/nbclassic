@@ -1,5 +1,5 @@
 [build-system]
-requires = ["jupyter_packaging~=0.9,<2"]
+requires = ["jupyter_packaging~=0.9,<2", "babel"]
 build-backend = "jupyter_packaging.build_api"
 
 [tool.check-manifest]
@@ -17,7 +17,7 @@ skip = ["check-links", "check-manifest"]
 
 [tool.jupyter-releaser.hooks]
 after-bump-version = "python setup.py jsversion"
-before-build-python = ["pip install babel", "npm install -g po2json"]
+before-build-python = ["npm install -g po2json"]
 
 [tool.jupyter-releaser.options]
 ignore-glob = ["docs/source/examples/Notebook/Working With Markdown Cells.ipynb", "docs-translations/**/README.md", "docs/source/contributing.rst", "docs/source/examples/Notebook/JavaScript Notebook Extensions.ipynb", "CHANGELOG.md", "notebook/static/components/**/*.*"]
