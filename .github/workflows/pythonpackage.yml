@@ -25,6 +25,9 @@ jobs:
       - name: Pip Upgrade
         run: |
           python -m pip install --upgrade pip
+      - name: Foobar
+        run: |
+          pip show ".[test]"
       - name: Install pip dependencies
         run: |
           pip install -v -e ".[test]" pytest-cov
