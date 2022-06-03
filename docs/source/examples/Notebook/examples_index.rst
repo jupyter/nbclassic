@@ -7,7 +7,6 @@ The pages in this section are all converted notebook files. You can also
 
 __ https://nbviewer.jupyter.org/github/jupyter/nbclassic/blob/main/
    docs/source/examples/Notebook/
-   docs/source/examples/Notebook/
 
 .. toctree::
    :maxdepth: 2
