@@ -22,7 +22,6 @@ jobs:
         uses: jupyterlab/maintainer-tools/.github/actions/downstream-test@v1
         with:
           package_name: jupyterlab_server
-          test_command: pytest --pyargs jupyterlab_server
 
       - name: Test jupyterlab
         uses: jupyterlab/maintainer-tools/.github/actions/downstream-test@v1
