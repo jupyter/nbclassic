@@ -116,7 +116,7 @@ for more information.
         'argon2-cffi',
         'traitlets>=4.2.1',
         'jupyter_core>=4.6.1',
-        'jupyter_client>=5.3.4',
+        'jupyter_client>=6.1.1',
         'ipython_genutils',
         'jupyter_server>=1.8',
         'nbformat',
