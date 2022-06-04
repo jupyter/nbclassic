@@ -1,4 +1,4 @@
-name: Selenium Tests
+name: Flaky Selenium Tests
 
 on:
   push:
@@ -12,14 +12,14 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, macos]
-        python-version: [ '3.7', '3.8', '3.9', '3.10' ]
-        exclude:
+        python-version: [ '3.7', '3.8', '3.9']
+        exclude: 
           - os: ubuntu
-            python-version: '3.8'
-          - os: macos
             python-version: '3.7'
-          - os: macos
+          - os: ubuntu
             python-version: '3.9'
+          - os: macos
+            python-version: '3.8'
     steps:
     - name: Checkout
       uses: actions/checkout@v2
