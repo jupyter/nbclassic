@@ -6,11 +6,12 @@
 
 import sys
 
+
 def shim_notebook_6():
     """Define in sys.module the needed notebook packages that should be fullfilled by
     their corresponding and backwards-compatible jupyter-server packages.
 
-    TODO Can we lazy load these loading.
+    TODO Can we lazy load these loadings?
     
     Note: We could a custom module loader to achieve similar functionality. The 
     logic thar conditional loading seems to be more complicated than simply
@@ -55,18 +56,38 @@ def shim_notebook_6():
     utils.py
 
     """
-    sys.modules["notebook.auth"] = __import__("jupyter_server.auth")
-    sys.modules["notebook.base"] = __import__("jupyter_server.base")
-    sys.modules["notebook.files"] = __import__("jupyter_server.files")
-    sys.modules["notebook.gateway"] = __import__("jupyter_server.gateway")
-    sys.modules["notebook.kernelspecs"] = __import__("jupyter_server.kernelspecs")
-    sys.modules["notebook.nbconvert"] = __import__("jupyter_server.nbconvert")
-    sys.modules["notebook.prometheus"] = __import__("jupyter_server.prometheus")
-    sys.modules["notebook.services"] = __import__("jupyter_server.services")
-    sys.modules["notebook.view"] = __import__("jupyter_server.view")
-    sys.modules["notebook._tz"] = __import__("jupyter_server._tz")
-    sys.modules["notebook.log"] = __import__("jupyter_server.log")
-    sys.modules["notebook.utils"] = __import__("jupyter_server.utils")
+
+    from jupyter_server import auth
+    sys.modules["notebook.auth"] = auth
+    from jupyter_server import base
+    sys.modules["notebook.base"] = base
+    from jupyter_server import files
+    sys.modules["notebook.files"] = files
+    from jupyter_server import gateway
+    sys.modules["notebook.gateway"] = gateway
+    from jupyter_server import kernelspecs
+    sys.modules["notebook.kernelspecs"] = kernelspecs
+    from jupyter_server import nbconvert
+    sys.modules["notebook.nbconvert"] = nbconvert
+    from jupyter_server import prometheus
+    sys.modules["notebook.prometheus"] = prometheus
+    from jupyter_server import services
+    sys.modules["notebook.services"] = services
+    from jupyter_server import view
+    sys.modules["notebook.view"] = view
+    from jupyter_server import _tz
+    sys.modules["notebook._tz"] = _tz
+    from jupyter_server import log
+    sys.modules["notebook.log"] = log
+    from jupyter_server import utils
+    sys.modules["notebook.utils"] = utils
+
+    base.handlers.IPythonHandler = base.handlers.JupyterHandler
+    sys.modules["notebook.base.handlers.IPythonHandler"] = base.handlers.JupyterHandler
+
+
+#    from notebook.base import handlers as notebook_handlers
+#    notebook_handlers.IPythonHandler = base.handlers.JupyterHandler
 
 
 def shim_notebook_7_and_above():

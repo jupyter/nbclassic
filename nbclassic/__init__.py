@@ -2,23 +2,47 @@ import os
 import sys
 from ._version import __version__ 
 
+
 # Packagers: modify this line if you store the notebook static files elsewhere
 DEFAULT_STATIC_FILES_PATH = os.path.join(os.path.dirname(__file__), "static")
 
-# Notebook shim to ensure notebook extensions do not break.
+
+# Notebook shim to ensure notebook extensions backwards compatiblity.
+
 try:
     from notebook._version import __version__ as notebook_version
+except Exception as e:
+    # Notebook is not available on the platform.
+    # We shim the complete notebook module.
+    print('No notebook python package found. Shimming notebook to jupyter_server for notebook extensions backwards compatiblity.')
+    import jupyter_server
+    sys.modules["notebook"] = jupyter_server
+    from jupyter_server.base import handlers
+    from notebook.base import handlers as notebook_handlers
+    handlers.IPythonHandler = handlers.JupyterHandler
+    notebook_handlers.IPythonHandler = handlers.JupyterHandler
+
+if "notebook_version" in locals():
+    # Notebook is available on the platform.
+    # We shim based on the notebook version.
     if notebook_version < "7":
         from .shim_notebook import shim_notebook_6
+        print('Shimming existing notebook python package < 7 to jupyter_server for notebook extensions backwards compatiblity.')
         shim_notebook_6()
     else:
         from .shim_notebook import shim_notebook_7_and_above
+        print('Shimming existing notebook python package >= 7 to jupyter_server for notebook extensions backwards compatiblity.')
         shim_notebook_7_and_above()
-except:
-    # Notebook is not available on the platform.
-    # We just shim the complete notebook module.
-    import jupyter_server
-    sys.modules["notebook"] = jupyter_server
+
+
+# Sanity check for the notebook shim.
+
+from jupyter_server.base.handlers import IPythonHandler as JupyterServerIPythonHandler
+assert JupyterServerIPythonHandler.__name__ == "JupyterHandler"
+
+from notebook.base.handlers import IPythonHandler as NotebookIPythonHandler
+assert NotebookIPythonHandler.__name__ == "JupyterHandler"
+
 
 # Include both nbclassic/ and nbclassic/templates/.  This makes it
 # possible for users to override a template with a file that inherits from that
