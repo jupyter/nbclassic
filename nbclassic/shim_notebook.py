@@ -86,10 +86,6 @@ def shim_notebook_6():
     sys.modules["notebook.base.handlers.IPythonHandler"] = base.handlers.JupyterHandler
 
 
-#    from notebook.base import handlers as notebook_handlers
-#    notebook_handlers.IPythonHandler = base.handlers.JupyterHandler
-
-
 def shim_notebook_7_and_above():
     """For now, notebook v7 should be shimmed for now the same way 
     as notebook v6. This distinction could be useful for later 
