@@ -12,9 +12,9 @@ DEFAULT_STATIC_FILES_PATH = os.path.join(os.path.dirname(__file__), "static")
 try:
     from notebook._version import __version__ as notebook_version
 except Exception as e:
-    # Notebook is not available on the platform.
+    # No notebook python package found.
+    # Shimming notebook to jupyter_server for notebook extensions backwards compatiblity.
     # We shim the complete notebook module.
-    print('No notebook python package found. Shimming notebook to jupyter_server for notebook extensions backwards compatiblity.')
     import jupyter_server
     sys.modules["notebook"] = jupyter_server
     from jupyter_server.base import handlers
@@ -27,11 +27,13 @@ if "notebook_version" in locals():
     # We shim based on the notebook version.
     if notebook_version < "7":
         from .shim_notebook import shim_notebook_6
-        print('Shimming existing notebook python package < 7 to jupyter_server for notebook extensions backwards compatiblity.')
+        # Shimming existing notebook python package < 7 to jupyter_server.
+        # For notebook extensions backwards compatiblity.
         shim_notebook_6()
     else:
         from .shim_notebook import shim_notebook_7_and_above
-        print('Shimming existing notebook python package >= 7 to jupyter_server for notebook extensions backwards compatiblity.')
+        # Shimming existing notebook python package >= 7 to jupyter_server.
+        # For notebook extensions backwards compatiblity.
         shim_notebook_7_and_above()
 
 
