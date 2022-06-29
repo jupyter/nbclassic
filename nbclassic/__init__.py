@@ -59,6 +59,7 @@ DEFAULT_TEMPLATE_PATH_LIST = [
     os.path.join(os.path.dirname(__file__), "templates"),
 ]
 
+
 def _jupyter_server_extension_paths():
     # Locally import to avoid install errors.
     from .notebookapp import NotebookApp
