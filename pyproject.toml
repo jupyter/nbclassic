@@ -20,6 +20,7 @@ after-bump-version = "python setup.py jsversion"
 before-build-python = ["npm install -g po2json"]
 
 [tool.jupyter-releaser.options]
+post-version-spec = "dev"
 ignore-glob = ["docs/source/examples/Notebook/Working With Markdown Cells.ipynb", "docs-translations/**/README.md", "docs/source/contributing.rst", "docs/source/examples/Notebook/JavaScript Notebook Extensions.ipynb", "CHANGELOG.md", "nbclassic/static/components/**/*.*"]
 
 [tool.tbump.version]
