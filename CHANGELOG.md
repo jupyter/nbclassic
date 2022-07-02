@@ -2,6 +2,46 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.0
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.3.7...b00324a5a3b20ac58e074460050c28a8bcb876bb))
+
+### Enhancements made
+
+- Shim to support the notebook extensions [#113](https://github.com/jupyter/nbclassic/pull/113) ([@echarles](https://github.com/echarles))
+- Fix `Check Release / check_release` CI job [#102](https://github.com/jupyter/nbclassic/pull/102) ([@echarles](https://github.com/echarles))
+- nbclassic to use its own static assets [#96](https://github.com/jupyter/nbclassic/pull/96) ([@echarles](https://github.com/echarles))
+
+### Bugs fixed
+
+- [HOT FIX] Test Selenium CI [#114](https://github.com/jupyter/nbclassic/pull/114) ([@echarles](https://github.com/echarles))
+- Fix ```link_check``` CI Job [#111](https://github.com/jupyter/nbclassic/pull/111) ([@echarles](https://github.com/echarles))
+- Fix ```downstream``` CI Job [#110](https://github.com/jupyter/nbclassic/pull/110) ([@echarles](https://github.com/echarles))
+- Disable ```Test Minimum Version``` CI Job [#109](https://github.com/jupyter/nbclassic/pull/109) ([@echarles](https://github.com/echarles))
+- Fix ```Make SDist``` CI Job by installing babel as a build dependency  [#108](https://github.com/jupyter/nbclassic/pull/108) ([@RRosio](https://github.com/RRosio))
+- Exclude Services tests from ```Linux JS Tests``` Job and Separate Workflow for flaky Selenium Tests [#105](https://github.com/jupyter/nbclassic/pull/105) ([@RRosio](https://github.com/RRosio))
+- CI fix for "Testing nbclassic" on macos 3.7, 3.8, 3.9, 3.10 [#104](https://github.com/jupyter/nbclassic/pull/104) ([@ericsnekbytes](https://github.com/ericsnekbytes))
+- Fix part of the ```Linux JS Tests``` / Notebook and Base Test Failures in CI Job [#103](https://github.com/jupyter/nbclassic/pull/103) ([@RRosio](https://github.com/RRosio))
+
+### Maintenance and upkeep improvements
+
+- Add the notebook 6.4.x tests, docs and companion files (with git history) [#94](https://github.com/jupyter/nbclassic/pull/94) ([@echarles](https://github.com/echarles))
+- Add the notebook static assets (with git history) [#93](https://github.com/jupyter/nbclassic/pull/93) ([@echarles](https://github.com/echarles))
+
+### Other merged PRs
+
+- Add post-version-spec in tool.jupyer-releaser.options [#116](https://github.com/jupyter/nbclassic/pull/116) ([@echarles](https://github.com/echarles))
+- CI fix for "Testing nbclassic" on macos / pypy [#106](https://github.com/jupyter/nbclassic/pull/106) ([@ericsnekbytes](https://github.com/ericsnekbytes))
+- [CI] Fix the `Docs Tests` job [#99](https://github.com/jupyter/nbclassic/pull/99) ([@echarles](https://github.com/echarles))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-03-16&to=2022-07-02&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Ablink1073+updated%3A2022-03-16..2022-07-02&type=Issues) | [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-03-16..2022-07-02&type=Issues) | [@ericsnekbytes](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aericsnekbytes+updated%3A2022-03-16..2022-07-02&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2022-03-16..2022-07-02&type=Issues) | [@Zsailer](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3AZsailer+updated%3A2022-03-16..2022-07-02&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.3.7
 
 ([Full Changelog](https://github.com/jupyterlab/nbclassic/compare/v0.3.6...30510b64239cb46ae74367b19375dbdde797341b))
@@ -15,8 +55,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/nbclassic/graphs/contributors?from=2022-03-02&to=2022-03-16&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fnbclassic+involves%3Ablink1073+updated%3A2022-03-02..2022-03-16&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.6
 
