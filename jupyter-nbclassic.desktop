@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Jupyter Notebook
 Comment=Run Jupyter Notebook
-Exec=jupyter-notebook %f
+Exec=jupyter-nbclassic %f
 Terminal=true
 Type=Application
 Icon=notebook
