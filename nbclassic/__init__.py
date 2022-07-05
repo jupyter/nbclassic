@@ -43,7 +43,7 @@ from jupyter_server.base.handlers import IPythonHandler as JupyterServerIPythonH
 assert JupyterServerIPythonHandler.__name__ == "JupyterHandler"
 
 from notebook.base.handlers import IPythonHandler as NotebookIPythonHandler
-assert NotebookIPythonHandler.__name__ == "JupyterHandler"
+assert NotebookIPythonHandler.__name__ == "JupyterHandler" or NotebookIPythonHandler.__name__ == "IPythonHandler"
 
 
 # Include both nbclassic/ and nbclassic/templates/.  This makes it
