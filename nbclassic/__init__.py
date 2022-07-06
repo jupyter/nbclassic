@@ -13,7 +13,7 @@ try:
     from notebook._version import __version__ as notebook_version
 except Exception as e:
     # No notebook python package found.
-    # Shimming notebook to jupyter_server for notebook extensions backwards compatiblity.
+    # Shimming notebook to jupyter_server for notebook extensions backwards compatibility.
     # We shim the complete notebook module.
     import jupyter_server
     sys.modules["notebook"] = jupyter_server
@@ -25,25 +25,16 @@ except Exception as e:
 if "notebook_version" in locals():
     # Notebook is available on the platform.
     # We shim based on the notebook version.
-    if notebook_version < "7":
-        from .shim_notebook import shim_notebook_6
-        # Shimming existing notebook python package < 7 to jupyter_server.
-        # For notebook extensions backwards compatiblity.
-        shim_notebook_6()
-    else:
-        from .shim_notebook import shim_notebook_7_and_above
-        # Shimming existing notebook python package >= 7 to jupyter_server.
-        # For notebook extensions backwards compatiblity.
-        shim_notebook_7_and_above()
-
-
-# Sanity check for the notebook shim.
-
-from jupyter_server.base.handlers import IPythonHandler as JupyterServerIPythonHandler
-assert JupyterServerIPythonHandler.__name__ == "JupyterHandler"
-
-from notebook.base.handlers import IPythonHandler as NotebookIPythonHandler
-assert NotebookIPythonHandler.__name__ == "JupyterHandler" or NotebookIPythonHandler.__name__ == "IPythonHandler"
+    if not notebook_version < "7":
+        from .shim_notebook import shim_notebook
+        # Shimming existing notebook python package > 6 to jupyter_server.
+        # For notebook extensions backwards compatibility.
+        shim_notebook()
+        # Sanity check for the notebook shim.
+        from jupyter_server.base.handlers import IPythonHandler as JupyterServerIPythonHandler
+        assert JupyterServerIPythonHandler.__name__ == "JupyterHandler"
+        from notebook.base.handlers import IPythonHandler as NotebookIPythonHandler
+        assert NotebookIPythonHandler.__name__ == "JupyterHandler" or NotebookIPythonHandler.__name__ == "IPythonHandler"
 
 
 # Include both nbclassic/ and nbclassic/templates/.  This makes it

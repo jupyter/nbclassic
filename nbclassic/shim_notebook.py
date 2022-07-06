@@ -7,7 +7,7 @@
 import sys
 
 
-def shim_notebook_6():
+def shim_notebook():
     """Define in sys.module the needed notebook packages that should be fullfilled by
     their corresponding and backwards-compatible jupyter-server packages.
 
@@ -84,13 +84,3 @@ def shim_notebook_6():
 
     base.handlers.IPythonHandler = base.handlers.JupyterHandler
     sys.modules["notebook.base.handlers.IPythonHandler"] = base.handlers.JupyterHandler
-
-
-def shim_notebook_7_and_above():
-    """For now, notebook v7 should be shimmed for now the same way 
-    as notebook v6. This distinction could be useful for later 
-    notebook >=7 evolutions.
-
-    TODO Discuss and remove if not needed.
-    """
-    shim_notebook_6()
