@@ -2,6 +2,30 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.1
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.0...ab19ce1f648c99a0cf847cf9878f1828bedbb9a8))
+
+### Enhancements made
+
+- Don't shim notebook if notebook<7 is available [#123](https://github.com/jupyter/nbclassic/pull/123) ([@echarles](https://github.com/echarles))
+
+### Bugs fixed
+
+- Relax assert for IPythonHandler in case of notebook<6 [#122](https://github.com/jupyter/nbclassic/pull/122) ([@echarles](https://github.com/echarles))
+
+### Other merged PRs
+
+- Fix executable name in desktop file [#119](https://github.com/jupyter/nbclassic/pull/119) ([@antonio-rojas](https://github.com/antonio-rojas))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-07-02&to=2022-07-06&type=c))
+
+[@antonio-rojas](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aantonio-rojas+updated%3A2022-07-02..2022-07-06&type=Issues) | [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-07-02..2022-07-06&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.0
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.3.7...b00324a5a3b20ac58e074460050c28a8bcb876bb))
@@ -39,8 +63,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-03-16&to=2022-07-02&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Ablink1073+updated%3A2022-03-16..2022-07-02&type=Issues) | [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-03-16..2022-07-02&type=Issues) | [@ericsnekbytes](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aericsnekbytes+updated%3A2022-03-16..2022-07-02&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2022-03-16..2022-07-02&type=Issues) | [@Zsailer](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3AZsailer+updated%3A2022-03-16..2022-07-02&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.7
 
