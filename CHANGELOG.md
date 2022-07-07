@@ -2,7 +2,7 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
-## 0.4.1
+## 0.4.2
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.0...ab19ce1f648c99a0cf847cf9878f1828bedbb9a8))
 
@@ -25,6 +25,10 @@
 [@antonio-rojas](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aantonio-rojas+updated%3A2022-07-02..2022-07-06&type=Issues) | [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-07-02..2022-07-06&type=Issues)
 
 <!-- <END NEW CHANGELOG ENTRY> -->
+
+## 0.4.1
+
+This release has been skipped by the release process.
 
 ## 0.4.0
 
