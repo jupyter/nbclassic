@@ -65,12 +65,6 @@ from setupbase import (
 )
 
 
-data_files = [
-    ('share/applications', ['jupyter-nbclassic.desktop']),
-    ('share/icons/hicolor/scalable/apps', ['nbclassic.svg']),
- ]
-
-
 setup_args = dict(
     name            = name,
     description     = "A web-based notebook environment for interactive computing",
@@ -87,7 +81,6 @@ for more information.
     version         = version,
     packages        = find_packages(),
     package_data    = find_package_data(),
-    data_files      = data_files,
     author          = 'Jupyter Development Team',
     author_email    = 'jupyter@googlegroups.com',
     url             = 'http://jupyter.org',
