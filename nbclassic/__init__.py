@@ -1,6 +1,6 @@
 import os
 import sys
-from ._version import __version__ 
+from ._version import __version__
 
 
 # Packagers: modify this line if you store the notebook static files elsewhere
@@ -10,8 +10,9 @@ DEFAULT_STATIC_FILES_PATH = os.path.join(os.path.dirname(__file__), "static")
 # Notebook shim to ensure notebook extensions backwards compatiblity.
 
 try:
-    from notebook._version import __version__ as notebook_version
-except Exception as e:
+    from notebook import version_info as notebook_version_info
+except Exception:
+    notebook_version_info = None
     # No notebook python package found.
     # Shimming notebook to jupyter_server for notebook extensions backwards compatibility.
     # We shim the complete notebook module.
@@ -22,10 +23,10 @@ except Exception as e:
     handlers.IPythonHandler = handlers.JupyterHandler
     notebook_handlers.IPythonHandler = handlers.JupyterHandler
 
-if "notebook_version" in locals():
+if notebook_version_info is not None:
     # Notebook is available on the platform.
     # We shim based on the notebook version.
-    if not notebook_version < "7":
+    if notebook_version_info >= (7,):
         from .shim_notebook import shim_notebook
         # Shimming existing notebook python package > 6 to jupyter_server.
         # For notebook extensions backwards compatibility.
