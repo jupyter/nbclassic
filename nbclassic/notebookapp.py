@@ -107,7 +107,7 @@ class NotebookApp(
     NotebookAppTraits,
 ):
 
-    name = 'nbclassic'
+    name = 'notebook'
     version = __version__
     description = _i18n("""The Jupyter HTML Notebook.
 
@@ -201,7 +201,7 @@ class NotebookApp(
             """Return the jinja template object for a given name"""
             return self.settings['notebook_jinja2_env'].get_template(name)
 
-        nbclassic.base.handlers.IPythonHandler.get_template = get_template
+        jupyter_server.base.handlers.JupyterHandler.get_template = get_template
 
         # Monkey-patch Jupyter Server's and nbclassic's static path list to include
         # the classic notebooks static folder.
