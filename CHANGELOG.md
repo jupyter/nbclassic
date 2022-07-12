@@ -2,6 +2,36 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.3
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.2...00f26ca5ff980705dd05d87328e04820e30ee2d8))
+
+### Enhancements made
+
+- Handle execution errors with empty traceback entries similar to Lab [#126](https://github.com/jupyter/nbclassic/pull/126) ([@kevin-bates](https://github.com/kevin-bates))
+
+### Bugs fixed
+
+- fix some import errors in 0.4 [#130](https://github.com/jupyter/nbclassic/pull/130) ([@minrk](https://github.com/minrk))
+- fix enable-on-install [#127](https://github.com/jupyter/nbclassic/pull/127) ([@minrk](https://github.com/minrk))
+
+### Maintenance and upkeep improvements
+
+- Fix handling of dev version when releasing [#131](https://github.com/jupyter/nbclassic/pull/131) ([@echarles](https://github.com/echarles))
+- Update release notes for 0.4.2 [#125](https://github.com/jupyter/nbclassic/pull/125) ([@echarles](https://github.com/echarles))
+
+### Other merged PRs
+
+- Fix notebook shim version check [#129](https://github.com/jupyter/nbclassic/pull/129) ([@minrk](https://github.com/minrk))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-07-06&to=2022-07-12&type=c))
+
+[@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-07-06..2022-07-12&type=Issues) | [@kevin-bates](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Akevin-bates+updated%3A2022-07-06..2022-07-12&type=Issues) | [@minrk](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aminrk+updated%3A2022-07-06..2022-07-12&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.2
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.0...ab19ce1f648c99a0cf847cf9878f1828bedbb9a8))
@@ -23,8 +53,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-07-02&to=2022-07-06&type=c))
 
 [@antonio-rojas](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aantonio-rojas+updated%3A2022-07-02..2022-07-06&type=Issues) | [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-07-02..2022-07-06&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.1
 
