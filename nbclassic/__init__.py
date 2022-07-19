@@ -10,7 +10,7 @@ DEFAULT_STATIC_FILES_PATH = os.path.join(os.path.dirname(__file__), "static")
 # Notebook shim to ensure notebook extensions backwards compatiblity.
 
 try:
-    from notebook import version_info as notebook_version_info
+    from notebook._version import version_info as notebook_version_info
 except Exception:
     notebook_version_info = None
     # No notebook python package found.
