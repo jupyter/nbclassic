@@ -1,6 +1,6 @@
-====================
-The Jupyter Notebook
-====================
+===================================
+The Jupyter Notebook with NbClassic
+===================================
 
 * `Installation <https://jupyter.readthedocs.io/en/latest/install.html>`_
 * `Starting the Notebook <https://jupyter.readthedocs.io/en/latest/running.html>`_
@@ -10,6 +10,7 @@ The Jupyter Notebook
    :caption: User Documentation
 
    notebook
+   nbclassic
    ui_components
    examples/Notebook/examples_index.rst
    troubleshooting

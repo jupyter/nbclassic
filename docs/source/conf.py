@@ -93,7 +93,7 @@ templates_path = ['_templates']
 master_doc = 'index'
 
 # General information about the project.
-project = 'Jupyter Notebook'
+project = 'NbClassic'
 copyright = '2015, Jupyter Team, https://jupyter.org'
 author = 'The Jupyter Team'
 
