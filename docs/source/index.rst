@@ -9,8 +9,8 @@ The Jupyter Notebook with NbClassic
    :maxdepth: 1
    :caption: User Documentation
 
-   notebook
    nbclassic
+   notebook
    ui_components
    examples/Notebook/examples_index.rst
    troubleshooting
