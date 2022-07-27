@@ -26,9 +26,36 @@ intends to address that need.
 NbClassic Usage
 ---------------
 
-Using nbclassic, notebook-v7 and jupyterlab
+Installation
+~~~~~~~~~~~~
 
-Usign nbclassic and notebook-v6
+Installing from PyPI:
+``> pip install nbclassic``
+This will automatically enable the extension in Jupyter Server.
+
+Launch directly:
+``> jupyter nbclassic``
+
+Alternatively, you can run Jupyter Server and visit the `/tree` endpoint:
+``> jupyter server``
+
+
+NbClassic in the Jupyter Ecosystem
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can install the nbclassic, notebook-v7 and jupyterlab, all three of
+which will be providing different user interfaces that will be available
+on the same server.
+
+As nbclassic provides the static assets for notebook-v6.5.x, while
+having both installed should cause no issues, the user interface provided
+by these two packages will be the same. These UIs would be available in
+different servers.
+
+When using nbclassic and notebook <= v6.4.x you can expect that these UIs
+will not be only presented at different servers but may also differ as
+potential changes to the nblcassic UI will not be reflected in Notebook
+versions <= 6.4.x.
 
 
 NbClassic Development
@@ -38,8 +65,10 @@ Nbclassic is the package that holds the UI components of
 the classic Jupyter Notebook-v6 and serves this UI through the server
 endpoints provided by Jupyter Server.
 
-**The jupyter/notebook Repository**: The original jupyter/notebook GitHub 
+**The jupyter/notebook Repository**: The original `jupyter/notebook`_` GitHub 
 repository now holds the codebase for the new Jupyter Notebook (version 7).
+
+.. _jupyter/notebook: https://github.com/jupyter/notebook
 
 
 NbClassic Timeline
