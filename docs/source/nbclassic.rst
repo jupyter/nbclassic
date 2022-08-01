@@ -42,6 +42,8 @@ Alternatively, you can run Jupyter Server and visit the `/tree` endpoint:
 
 NbClassic in the Jupyter Ecosystem
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Read more details about the changes currently taking place in the
+Jupyter Ecosystem in this `team-compass issue`_.
 
 You can install the nbclassic, notebook-v7 and jupyterlab, all three of
 which will be providing different user interfaces that will be available
@@ -57,6 +59,7 @@ will not be only presented at different servers but may also differ as
 potential changes to the nblcassic UI will not be reflected in Notebook
 versions <= 6.4.x.
 
+.. _team-compass issue: https://github.com/jupyter/notebook-team-compass/issues/5#issuecomment-1085254000
 
 NbClassic Development
 ---------------------
