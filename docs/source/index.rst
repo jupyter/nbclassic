@@ -1,5 +1,5 @@
 ===================================
-The Jupyter Notebook with NbClassic
+The Jupyter NbClassic
 ===================================
 
 * `Installation <https://jupyter.readthedocs.io/en/latest/install.html>`_
