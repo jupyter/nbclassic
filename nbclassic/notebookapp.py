@@ -131,6 +131,14 @@ class NotebookApp(
         """
     ).tag(config=True)
 
+    # Load configuration from classic notebook config file
+    # for backwards compatibility
+    config_file_name = Unicode(
+        "jupyter_notebook_config",
+        config=True,
+        help="Specify a config file to load."
+    )
+
     static_custom_path = List(Unicode(),
                               help=_i18n(
                                   """Path to search for custom.js, css""")
