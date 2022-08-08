@@ -133,9 +133,9 @@ for more information.
     entry_points = {
         'console_scripts': [
             'jupyter-nbclassic = nbclassic.notebookapp:main',
-            'jupyter-nbextension = nbclassic.nbextensions:main',
-            'jupyter-serverextension = nbclassic.serverextensions:main',
-            'jupyter-bundlerextension = nbclassic.bundler.bundlerextensions:main',
+            'jupyter-nbclassic-extension = nbclassic.nbextensions:main',
+            'jupyter-nbclassic-serverextension = nbclassic.serverextensions:main',
+            'jupyter-nbclassic-bundlerextension = nbclassic.bundler.bundlerextensions:main',
         ]
     },
 )

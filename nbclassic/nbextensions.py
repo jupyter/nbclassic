@@ -632,9 +632,9 @@ class InstallNBExtensionApp(BaseExtensionApp):
 
     Usage
 
-        jupyter nbextension install path|url [--user|--sys-prefix]
+        jupyter nbclassic-extension install path|url [--user|--sys-prefix]
 
-    This copies a file or a folder into the Jupyter nbextensions directory.
+    This copies a file or a folder into the jupyter nbclassic-extensions directory.
     If a URL is given, it will be downloaded.
     If an archive is given, it will be extracted into nbextensions.
     If the requested files are already up to date, no action is taken
@@ -642,7 +642,7 @@ class InstallNBExtensionApp(BaseExtensionApp):
     """
 
     examples = """
-    jupyter nbextension install /path/to/myextension
+    jupyter nbclassic-extension install /path/to/myextension
     """
     aliases = aliases
     flags = flags
@@ -687,7 +687,7 @@ class InstallNBExtensionApp(BaseExtensionApp):
             self.log.info(
                 f"\nTo initialize this nbextension in the browser every time"
                 f" the notebook (or other app) loads:\n\n"
-                f"      jupyter nbextension enable {self.extra_args[0] if self.python else '<the entry point>'}"
+                f"      jupyter nbclassic-extension enable {self.extra_args[0] if self.python else '<the entry point>'}"
                 f"{' --user' if self.user else ''}"
                 f"{' --py' if self.python else ''}"
                 f"{' --sys-prefix' if self.sys_prefix else ''}\n"
@@ -711,8 +711,8 @@ class UninstallNBExtensionApp(BaseExtensionApp):
 
     Usage
 
-        jupyter nbextension uninstall path/url path/url/entrypoint
-        jupyter nbextension uninstall --py pythonPackageName
+        jupyter nbclassic-extension uninstall path/url path/url/entrypoint
+        jupyter nbclassic-extension uninstall --py pythonPackageName
 
     This uninstalls an nbextension. By default, it uninstalls from the
     first directory on the search path where it finds the extension, but you can
@@ -722,7 +722,7 @@ class UninstallNBExtensionApp(BaseExtensionApp):
     If you specify the --require option, the named extension will be disabled,
     e.g.::
 
-        jupyter nbextension uninstall myext --require myext/main
+        jupyter nbclassic-extension uninstall myext --require myext/main
 
     If you use the --py or --python flag, the name should be a Python module.
     It will uninstall nbextensions listed in that module, but not the module
@@ -730,8 +730,8 @@ class UninstallNBExtensionApp(BaseExtensionApp):
     """
 
     examples = """
-    jupyter nbextension uninstall dest/dir dest/dir/extensionjs
-    jupyter nbextension uninstall --py extensionPyPackage
+    jupyter nbclassic-extension uninstall dest/dir dest/dir/extensionjs
+    jupyter nbclassic-extension uninstall --py extensionPyPackage
     """
 
     aliases = {
@@ -821,7 +821,7 @@ class UninstallNBExtensionApp(BaseExtensionApp):
 
 class ToggleNBExtensionApp(BaseExtensionApp):
     """A base class for apps that enable/disable extensions"""
-    name = "jupyter nbextension enable/disable"
+    name = "jupyter nbclassic-extension enable/disable"
     version = __version__
     description = "Enable/disable an nbextension in configuration."
 
@@ -886,31 +886,31 @@ class ToggleNBExtensionApp(BaseExtensionApp):
 
 class EnableNBExtensionApp(ToggleNBExtensionApp):
     """An App that enables nbextensions"""
-    name = "jupyter nbextension enable"
+    name = "jupyter nbclassic-extension enable"
     description = """
     Enable an nbextension in frontend configuration.
 
     Usage
-        jupyter nbextension enable [--system|--sys-prefix]
+        jupyter nbclassic-extension enable [--system|--sys-prefix]
     """
     _toggle_value = True
 
 
 class DisableNBExtensionApp(ToggleNBExtensionApp):
     """An App that disables nbextensions"""
-    name = "jupyter nbextension disable"
+    name = "jupyter nbclassic-extension disable"
     description = """
     Disable an nbextension in frontend configuration.
 
     Usage
-        jupyter nbextension disable [--system|--sys-prefix]
+        jupyter nbclassic-extension disable [--system|--sys-prefix]
     """
     _toggle_value = None
 
 
 class ListNBExtensionsApp(BaseExtensionApp):
     """An App that lists and validates nbextensions"""
-    name = "jupyter nbextension list"
+    name = "jupyter nbclassic-extension list"
     version = __version__
     description = "List all nbextensions known by the configuration system"
 
@@ -945,16 +945,16 @@ class ListNBExtensionsApp(BaseExtensionApp):
 
 
 _examples = """
-jupyter nbextension list                          # list all configured nbextensions
-jupyter nbextension install --py <packagename>    # install an nbextension from a Python package
-jupyter nbextension enable --py <packagename>     # enable all nbextensions in a Python package
-jupyter nbextension disable --py <packagename>    # disable all nbextensions in a Python package
-jupyter nbextension uninstall --py <packagename>  # uninstall an nbextension in a Python package
+jupyter nbclassic-extension list                          # list all configured nbextensions
+jupyter nbclassic-extension install --py <packagename>    # install an nbextension from a Python package
+jupyter nbclassic-extension enable --py <packagename>     # enable all nbextensions in a Python package
+jupyter nbclassic-extension disable --py <packagename>    # disable all nbextensions in a Python package
+jupyter nbclassic-extension uninstall --py <packagename>  # uninstall an nbextension in a Python package
 """
 
 class NBExtensionApp(BaseExtensionApp):
-    """Base jupyter nbextension command entry point"""
-    name = "jupyter nbextension"
+    """Base jupyter nbclassic-extension command entry point"""
+    name = "jupyter nbclassic-extension"
     version = __version__
     description = "Work with Jupyter notebook extensions"
     examples = _examples
