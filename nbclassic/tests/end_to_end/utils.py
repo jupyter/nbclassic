@@ -1,14 +1,15 @@
 import os
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.remote.webelement import WebElement
-
 from contextlib import contextmanager
+from os.path import join as pjoin
 
-pjoin = os.path.join
+from playwright.sync_api import ElementHandle
+
+# from selenium.webdriver import ActionChains
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.remote.webelement import WebElement
 
 
 def wait_for_selector(driver, selector, timeout=10, visible=False, single=False, wait_for_n=1, obscures=False):
@@ -97,12 +98,13 @@ class CellTypeError(ValueError):
         self.message = message
 
 
-class Notebook:
+class NotebookFrontend:
 
     def __init__(self, page):
         self.page = page
         self._wait_for_start()
         self.disable_autosave_and_onbeforeunload()
+        # self.current_cell = None  # Defined/used below
 
     def __len__(self):
         return len(self.cells)
@@ -126,10 +128,14 @@ class Notebook:
 
     def _wait_for_start(self):
         """Wait until the notebook interface is loaded and the kernel started"""
-        wait_for_selector(self.browser, '.cell')
-        WebDriverWait(self.browser, 10).until(
-            lambda drvr: self.is_kernel_running()
-        )
+        # wait_for_selector(self.browser, '.cell')
+        self.page.locator('.cell')
+        # TODO: Refactor/fix
+        import time
+        time.sleep(10)
+        # WebDriverWait(self.browser, 10).until(
+        #     lambda drvr: self.is_kernel_running()
+        # )
 
     @property
     def body(self):
@@ -140,7 +146,7 @@ class Notebook:
         """Gets all cells once they are visible.
 
         """
-        return self.page.locator("cell")
+        return self.page.query_selector_all("cell")
 
     @property
     def current_index(self):
@@ -149,20 +155,22 @@ class Notebook:
     def index(self, cell):
         return self.cells.index(cell)
 
+    # TODO: Do we need to wrap in an anonymous function?
+    def evaluate(self, text):
+        return self.page.evaluate(text)
+
     def disable_autosave_and_onbeforeunload(self):
         """Disable request to save before closing window and autosave.
 
         This is most easily done by using js directly.
         """
-        self.browser.execute_script("window.onbeforeunload = null;")
-        self.browser.execute_script("Jupyter.notebook.set_autosave_interval(0)")
+        self.page.evaluate("window.onbeforeunload = null;")
+        self.page.evaluate("Jupyter.notebook.set_autosave_interval(0)")
 
     def to_command_mode(self):
-        """Changes us into command mode on currently focused cell
-
-        """
-        self.body.send_keys(Keys.ESCAPE)
-        self.browser.execute_script("return Jupyter.notebook.handle_command_mode("
+        """Changes us into command mode on currently focused cell"""
+        self.body.press('Escape')
+        self.evaluate("return Jupyter.notebook.handle_command_mode("
                                        "Jupyter.notebook.get_cell("
                                            "Jupyter.notebook.get_edit_index()))")
 
@@ -225,12 +233,13 @@ class Notebook:
         return self.cells[index].find_element_by_css_selector(selector).text
 
     def get_cell_output(self, index=0, output='output_subarea'):
-        return self.cells[index].find_elements_by_class_name(output)
+        return self.cells[index].query_selector(output)  # Find cell child elements
 
     def wait_for_cell_output(self, index=0, timeout=10):
-        return WebDriverWait(self.browser, timeout).until(
-            lambda b: self.get_cell_output(index)
-        )
+        # return WebDriverWait(self.browser, timeout).until(
+        #     lambda b: self.get_cell_output(index)
+        # )
+        return self.get_cell_output()
 
     def set_cell_metadata(self, index, key, value):
         JS = f'Jupyter.notebook.get_cell({index}).metadata.{key} = {value}'
@@ -252,26 +261,27 @@ class Notebook:
         self.focus_cell(index)
 
         # Select & delete anything already in the cell
-        self.current_cell.send_keys(Keys.ENTER)
-        cmdtrl(self.browser, 'a')
-        self.current_cell.send_keys(Keys.DELETE)
+        self.current_cell.press('Enter')
+        cmdtrl(self.page, 'a')  # TODO: FIX
+        self.current_cell.press('Delete')
 
         for line_no, line in enumerate(content.splitlines()):
             if line_no != 0:
-                self.current_cell.send_keys(Keys.ENTER, "\n")
-            self.current_cell.send_keys(Keys.ENTER, line)
+                self.page.type("Enter")
+            self.page.type("Enter")
+            self.page.type(line)
         if render:
             self.execute_cell(self.current_index)
 
     def execute_cell(self, cell_or_index=None):
         if isinstance(cell_or_index, int):
             index = cell_or_index
-        elif isinstance(cell_or_index, WebElement):
+        elif isinstance(cell_or_index, ElementHandle):
             index = self.index(cell_or_index)
         else:
-            raise TypeError("execute_cell only accepts a WebElement or an int")
+            raise TypeError("execute_cell only accepts an ElementHandle or an int")
         self.focus_cell(index)
-        self.current_cell.send_keys(Keys.CONTROL, Keys.ENTER)
+        self.current_cell.press("Control+Enter")
 
     def add_cell(self, index=-1, cell_type="code", content=""):
         self.focus_cell(index)
@@ -323,60 +333,66 @@ class Notebook:
         self.browser.execute_script(JS)
 
     @classmethod
-    def new_notebook(cls, browser, kernel_name='kernel-python3'):
-        with new_window(browser):
-            select_kernel(browser, kernel_name=kernel_name)
-        return cls(browser)
+    def new_notebook(cls, page, kernel_name='kernel-python3'):
+        # with new_window(page):
+        select_kernel(page, kernel_name=kernel_name)
+        return cls(page)
 
 
-def select_kernel(browser, kernel_name='kernel-python3'):
+def select_kernel(page, kernel_name='kernel-python3'):
     """Clicks the "new" button and selects a kernel from the options.
     """
-    wait = WebDriverWait(browser, 10)
-    new_button = wait.until(EC.element_to_be_clickable((By.ID, "new-dropdown-button")))
+    # wait = WebDriverWait(browser, 10)
+    # new_button = wait.until(EC.element_to_be_clickable((By.ID, "new-dropdown-button")))
+    new_button = page.locator('#new-dropdown-button')
     new_button.click()
     kernel_selector = f'#{kernel_name} a'
-    kernel = wait_for_selector(browser, kernel_selector, single=True)
+    # kernel = wait_for_selector(page, kernel_selector, single=True)
+    kernel = page.locator(kernel_selector)
     kernel.click()
 
 
-@contextmanager
-def new_window(browser):
-    """Contextmanager for switching to & waiting for a window created.
+# @contextmanager
+# def new_window(browser):
+#     """Contextmanager for switching to & waiting for a window created.
+#
+#     This context manager gives you the ability to create a new window inside
+#     the created context and it will switch you to that new window.
+#
+#     Usage example:
+#
+#         from nbclassic.tests.selenium.utils import new_window, Notebook
+#
+#         ⋮ # something that creates a browser object
+#
+#         with new_window(browser):
+#             select_kernel(browser, kernel_name=kernel_name)
+#         nb = Notebook(browser)
+#
+#     """
+#     initial_window_handles = browser.window_handles
+#     yield
+#     new_window_handles = [window for window in browser.window_handles
+#                           if window not in initial_window_handles]
+#     if not new_window_handles:
+#         raise Exception("No new windows opened during context")
+#     browser.switch_to.window(new_window_handles[0])
 
-    This context manager gives you the ability to create a new window inside
-    the created context and it will switch you to that new window.
-
-    Usage example:
-
-        from nbclassic.tests.selenium.utils import new_window, Notebook
-
-        ⋮ # something that creates a browser object
-
-        with new_window(browser):
-            select_kernel(browser, kernel_name=kernel_name)
-        nb = Notebook(browser)
-
-    """
-    initial_window_handles = browser.window_handles
-    yield
-    new_window_handles = [window for window in browser.window_handles
-                          if window not in initial_window_handles]
-    if not new_window_handles:
-        raise Exception("No new windows opened during context")
-    browser.switch_to.window(new_window_handles[0])
 
 def shift(browser, k):
     """Send key combination Shift+(k)"""
     trigger_keystrokes(browser, "shift-%s"%k)
 
-def cmdtrl(browser, k):
-    """Send key combination Ctrl+(k) or Command+(k) for MacOS"""
-    trigger_keystrokes(browser, "command-%s"%k) if os.uname()[0] == "Darwin" else trigger_keystrokes(browser, "control-%s"%k)
+
+def cmdtrl(page, key):
+    """Send key combination Ctrl+(key) or Command+(key) for MacOS"""
+    page.press("Meta+{}".format(key)) if os.uname()[0] == "Darwin" else page.press("Control+{}".format(key))
+
 
 def alt(browser, k):
     """Send key combination Alt+(k)"""
     trigger_keystrokes(browser, 'alt-%s'%k)
+
 
 def trigger_keystrokes(browser, *keys):
     """ Send the keys in sequence to the browser.
@@ -397,6 +413,7 @@ def trigger_keystrokes(browser, *keys):
             ac.perform()
         else:              # single key stroke. Check if modifier eg. "up"
             browser.send_keys(getattr(Keys, keys[0].upper(), keys[0]))
+
 
 def validate_dualmode_state(notebook, mode, index):
     '''Validate the entire dual mode state of the notebook.
@@ -438,7 +455,6 @@ def validate_dualmode_state(notebook, mode, index):
         JS = "return IPython.notebook.get_cell(%s).code_mirror.getInputField()"%index
         cell = notebook.browser.execute_script(JS)
         return focused_cell == cell
-
 
     #general test
     JS = "return IPython.keyboard_manager.mode;"

@@ -1,20 +1,20 @@
-import json
-import nbformat
-from nbformat.v4 import new_notebook, new_code_cell
 import os
-import pytest
-import requests
-from subprocess import Popen
+import json
 import sys
-from tempfile import mkstemp
-from testpath.tempdir import TemporaryDirectory
 import time
+from os.path import join as pjoin
+from subprocess import Popen
+from tempfile import mkstemp
 from urllib.parse import urljoin
 
-from selenium.webdriver import Firefox, Remote, Chrome
-from .utils import Notebook
+import pytest
+import requests
+from testpath.tempdir import TemporaryDirectory
+# from selenium.webdriver import Firefox, Remote, Chrome
 
-pjoin = os.path.join
+import nbformat
+from nbformat.v4 import new_notebook, new_code_cell
+from .utils import NotebookFrontend
 
 
 def _wait_for_server(proc, info_file_path):
@@ -71,73 +71,91 @@ def notebook_server():
                   headers={'Authorization': 'token '+info['token']})
 
 
-def make_sauce_driver():
-    """This function helps travis create a driver on Sauce Labs.
-
-    This function will err if used without specifying the variables expected
-    in that context.
-    """
-
-    username = os.environ["SAUCE_USERNAME"]
-    access_key = os.environ["SAUCE_ACCESS_KEY"]
-    capabilities = {
-        "tunnel-identifier": os.environ["TRAVIS_JOB_NUMBER"],
-        "build": os.environ["TRAVIS_BUILD_NUMBER"],
-        "tags": [os.environ['TRAVIS_PYTHON_VERSION'], 'CI'],
-        "platform": "Windows 10",
-        "browserName": os.environ['JUPYTER_TEST_BROWSER'],
-        "version": "latest",
-    }
-    if capabilities['browserName'] == 'firefox':
-        # Attempt to work around issue where browser loses authentication
-        capabilities['version'] = '57.0'
-    hub_url = f"{username}:{access_key}@localhost:4445"
-    print("Connecting remote driver on Sauce Labs")
-    driver = Remote(desired_capabilities=capabilities,
-                    command_executor=f"http://{hub_url}/wd/hub")
-    return driver
+# def make_sauce_driver():
+#     """This function helps travis create a driver on Sauce Labs.
+#
+#     This function will err if used without specifying the variables expected
+#     in that context.
+#     """
+#
+#     username = os.environ["SAUCE_USERNAME"]
+#     access_key = os.environ["SAUCE_ACCESS_KEY"]
+#     capabilities = {
+#         "tunnel-identifier": os.environ["TRAVIS_JOB_NUMBER"],
+#         "build": os.environ["TRAVIS_BUILD_NUMBER"],
+#         "tags": [os.environ['TRAVIS_PYTHON_VERSION'], 'CI'],
+#         "platform": "Windows 10",
+#         "browserName": os.environ['JUPYTER_TEST_BROWSER'],
+#         "version": "latest",
+#     }
+#     if capabilities['browserName'] == 'firefox':
+#         # Attempt to work around issue where browser loses authentication
+#         capabilities['version'] = '57.0'
+#     hub_url = f"{username}:{access_key}@localhost:4445"
+#     print("Connecting remote driver on Sauce Labs")
+#     driver = Remote(desired_capabilities=capabilities,
+#                     command_executor=f"http://{hub_url}/wd/hub")
+#     return driver
 
 
 @pytest.fixture(scope='session')
-def selenium_driver():
-    if os.environ.get('SAUCE_USERNAME'):
-        driver = make_sauce_driver()
-    elif os.environ.get('JUPYTER_TEST_BROWSER') == 'chrome':
-        driver = Chrome()
+def playwright_driver(playwright):
+    # TODO: Fix
+    # if os.environ.get('SAUCE_USERNAME'):
+    #     driver = make_sauce_driver()
+    if os.environ.get('JUPYTER_TEST_BROWSER') == 'chrome':
+        driver = playwright.chromium.launch()
     else:
-        driver = Firefox()
+        driver = playwright.firefox.launch()
+    driver = driver.new_context().new_page()
 
     yield driver
 
-    # Teardown
-    driver.quit()
+    # # Teardown
+    # driver.quit()
+
+
+# @pytest.fixture(scope='module')
+# def authenticated_browser(selenium_driver, notebook_server):
+#     selenium_driver.jupyter_server_info = notebook_server
+#     selenium_driver.get("{url}?token={token}".format(**notebook_server))
+#     return selenium_driver
+#
+#
+# @pytest.fixture
+# def notebook(authenticated_browser):
+#     tree_wh = authenticated_browser.current_window_handle
+#     yield Notebook.new_notebook(authenticated_browser)
+#     authenticated_browser.switch_to.window(tree_wh)
 
 
 @pytest.fixture(scope='module')
-def authenticated_browser(selenium_driver, notebook_server):
-    selenium_driver.jupyter_server_info = notebook_server
-    selenium_driver.get("{url}?token={token}".format(**notebook_server))
-    return selenium_driver
+def authenticated_browser(playwright_driver, notebook_server):
+    playwright_driver.jupyter_server_info = notebook_server
+    playwright_driver.goto("{url}?token={token}".format(**notebook_server))
+    return playwright_driver
+
 
 @pytest.fixture
 def notebook(authenticated_browser):
-    tree_wh = authenticated_browser.current_window_handle
-    yield Notebook.new_notebook(authenticated_browser)
-    authenticated_browser.switch_to.window(tree_wh)
+    # tree_wh = authenticated_browser.current_window_handle
+    yield NotebookFrontend.new_notebook(authenticated_browser)
+    # authenticated_browser.switch_to.window(tree_wh)
 
-@pytest.fixture
-def prefill_notebook(selenium_driver, notebook_server):
-    def inner(cells):
-        cells = [new_code_cell(c) if isinstance(c, str) else c
-                 for c in cells]
-        nb = new_notebook(cells=cells)
-        fd, path = mkstemp(dir=notebook_server['nbdir'], suffix='.ipynb')
-        with open(fd, 'w', encoding='utf-8') as f:
-            nbformat.write(nb, f)
-        fname = os.path.basename(path)
-        selenium_driver.get(
-            "{url}notebooks/{}?token={token}".format(fname, **notebook_server)
-        )
-        return Notebook(selenium_driver)
 
-    return inner
+# @pytest.fixture
+# def prefill_notebook(selenium_driver, notebook_server):
+#     def inner(cells):
+#         cells = [new_code_cell(c) if isinstance(c, str) else c
+#                  for c in cells]
+#         nb = new_notebook(cells=cells)
+#         fd, path = mkstemp(dir=notebook_server['nbdir'], suffix='.ipynb')
+#         with open(fd, 'w', encoding='utf-8') as f:
+#             nbformat.write(nb, f)
+#         fname = os.path.basename(path)
+#         selenium_driver.get(
+#             "{url}notebooks/{}?token={token}".format(fname, **notebook_server)
+#         )
+#         return Notebook(selenium_driver)
+#
+#     return inner
