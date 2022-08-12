@@ -11,9 +11,9 @@ from playwright.sync_api import Page, expect
 def test_execute_code(notebook):
     # browser = notebook.browser
 
-    def clear_outputs():
-        return notebook.evaluate(
-            "Jupyter.notebook.clear_all_output();")
+    # def clear_outputs():
+    #     return notebook.evaluate(
+    #         "Jupyter.notebook.clear_all_output();")
 
     # Execute cell with Javascript API
     notebook.edit_cell(index=0, content='a=10; print(a)')

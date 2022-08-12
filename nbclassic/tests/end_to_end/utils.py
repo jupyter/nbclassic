@@ -1,4 +1,6 @@
+import datetime
 import os
+import time
 from contextlib import contextmanager
 from os.path import join as pjoin
 
@@ -131,8 +133,16 @@ class NotebookFrontend:
         # wait_for_selector(self.browser, '.cell')
         self.page.locator('.cell')
         # TODO: Refactor/fix
-        import time
         time.sleep(10)
+        # begin = datetime.datetime.now()
+        # while (datetime.datetime.now() - begin).seconds < 100:
+        #     while not self.is_kernel_running():
+        #         print(self.is_kernel_running())
+        #         time.sleep(.1)
+        #     else:
+        #         print("Kernel running!")
+        # else:
+        #     raise Exception('Kernel not running!')
         # WebDriverWait(self.browser, 10).until(
         #     lambda drvr: self.is_kernel_running()
         # )
