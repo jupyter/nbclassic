@@ -546,16 +546,16 @@ msgid "Opens in a new window"
 msgstr "Opent in een nieuw venster"
 
 #: notebook/templates/notebook.html:319
-msgid "About Jupyter Notebook"
-msgstr "Over Jupyter Notebook"
+msgid "About Jupyter NbClassic"
+msgstr "Over Jupyter NbClassic"
 
 #: notebook/templates/notebook.html:319
 msgid "About"
 msgstr "Over"
 
 #: notebook/templates/page.html:114
-msgid "Jupyter Notebook requires JavaScript."
-msgstr "Jupyter Notebook vereist JavaScript."
+msgid "Jupyter NbClassic requires JavaScript."
+msgstr "Jupyter NbClassic vereist JavaScript."
 
 #: notebook/templates/page.html:115
 msgid "Please enable it to proceed. "

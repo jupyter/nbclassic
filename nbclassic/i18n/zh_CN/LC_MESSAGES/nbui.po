@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
 #
 #, fuzzy
-# Universal translation: cell=单元格; kernal=内核; don't translate notebook whenever referring to Jupyter Notebook
+# Universal translation: cell=单元格; kernal=内核; don't translate notebook whenever referring to Jupyter NbClassic
 msgid ""
 msgstr ""
 "Project-Id-Version: Jupyter VERSION\n"
@@ -535,7 +535,7 @@ msgid "Opens in a new window"
 msgstr "在新窗口打开"
 
 #: notebook/templates/notebook.html:319
-msgid "About Jupyter Notebook"
+msgid "About Jupyter NbClassic"
 msgstr "关于本程序"
 
 #: notebook/templates/notebook.html:319
@@ -543,8 +543,8 @@ msgid "About"
 msgstr "关于"
 
 #: notebook/templates/page.html:114
-msgid "Jupyter Notebook requires JavaScript."
-msgstr "Jupyter Notebook 需要 JavaScript。"
+msgid "Jupyter NbClassic requires JavaScript."
+msgstr "Jupyter NbClassic 需要 JavaScript。"
 
 #: notebook/templates/page.html:115
 msgid "Please enable it to proceed. "

@@ -5,12 +5,16 @@
 # Distributed under the terms of the Modified BSD License.
 
 from tornado import web
+
 from jupyter_server.base.handlers import JupyterHandler, path_regex
 from jupyter_server.utils import url_escape
 from jupyter_server.extension.handler import (
     ExtensionHandlerMixin,
     ExtensionHandlerJinjaMixin
 )
+
+from nbclassic import url_prefix_notebook
+
 
 class EditorHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHandler):
     """Render the text editor interface."""
@@ -29,6 +33,7 @@ class EditorHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHa
             )
         )
 
+
 default_handlers = [
-    (r"/edit%s" % path_regex, EditorHandler),
+    (r"{}/edit{}".format(url_prefix_notebook(), path_regex), EditorHandler),
 ]

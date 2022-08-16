@@ -203,7 +203,7 @@ define([
 
         // The documentation
         var doc = $('<div/>').addClass('alert alert-info');
-        doc.append(i18n.msg._('The Jupyter Notebook has two different keyboard input modes.'))
+        doc.append(i18n.msg._('The Jupyter NbClassic has two different keyboard input modes.'))
            .append(' ')
            .append(i18n.msg._('<b>Edit mode</b> allows you to type code or text into a cell and is indicated by a green cell border.'))
            .append(' ')

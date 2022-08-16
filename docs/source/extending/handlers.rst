@@ -82,7 +82,7 @@ Hello World handler:
         def get(self):
             self.finish('Hello, world!')
 
-The Jupyter Notebook server use
+The Jupyter NbClassic server use
 `Tornado <http://www.tornadoweb.org/en/stable/>`__ as its web framework.
 For more information on how to implement request handlers, refer to the
 `Tornado documentation on the

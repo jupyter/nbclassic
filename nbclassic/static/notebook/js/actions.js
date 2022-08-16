@@ -58,7 +58,7 @@ define([
      *  avoid conflict the prefix should be all lowercase and end with a dot `.`
      *  in the absence of a prefix the behavior of the action is undefined.
      *
-     *  All action provided by the Jupyter notebook are prefixed with `jupyter-notebook:`.
+     *  All action provided by the Jupyter nbclassic are prefixed with `jupyter-notebook:`.
      *
      *  One can register extra actions or replace an existing action with another one is possible
      *  but is considered undefined behavior.

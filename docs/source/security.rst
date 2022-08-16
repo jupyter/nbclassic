@@ -1,10 +1,10 @@
 
 .. _server_security:
 
-Security in the Jupyter notebook server
+Security in the Jupyter nbclassic server
 =======================================
 
-Since access to the Jupyter notebook server means access to running arbitrary code,
+Since access to the Jupyter nbclassic server means access to running arbitrary code,
 it is important to restrict access to the notebook server.
 For this reason, notebook 4.3 introduces token-based authentication that is **on by default**.
 
@@ -31,7 +31,7 @@ When you start a notebook server with token authentication enabled (default),
 a token is generated to use for authentication.
 This token is logged to the terminal, so that you can copy/paste the URL into your browser::
 
-    [I 11:59:16.597 NotebookApp] The Jupyter Notebook is running at:
+    [I 11:59:16.597 NotebookApp] The Jupyter NbClassic is running at:
     http://localhost:8888/?token=c8de56fa4deed24899803e93c227592aef6538f93025fe01
 
 
@@ -86,7 +86,7 @@ but this is **NOT RECOMMENDED**, unless authentication or access restrictions ar
 Security in notebook documents
 ==============================
 
-As Jupyter notebooks become more popular for sharing and collaboration,
+As Jupyter nbclassics become more popular for sharing and collaboration,
 the potential for malicious people to attempt to exploit the notebook
 for their nefarious purposes increases. IPython 2.0 introduced a
 security model to prevent execution of untrusted code without explicit
@@ -99,7 +99,7 @@ The whole point of Jupyter is arbitrary code execution. We have no
 desire to limit what can be done with a notebook, which would negatively
 impact its utility.
 
-Unlike other programs, a Jupyter notebook document includes output.
+Unlike other programs, a Jupyter nbclassic document includes output.
 Unlike other documents, that output exists in a context that can execute
 code (via Javascript).
 

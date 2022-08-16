@@ -71,8 +71,13 @@ requirejs([
 
     // Setup all of the config related things
 
+    const htmlConfig = document.getElementById('nbclassic-config-data');
+//    config = JSON.parse(htmlConfig.textContent);
+//    const baseUrlPrefix = config['baseUrlPrefix'];
+    const baseUrlPrefix = htmlConfig.textContent;
     var common_options = {
         base_url: utils.get_body_data("baseUrl"),
+        base_url_prefix: baseUrlPrefix,
         notebook_path: utils.get_body_data("notebookPath"),
     };
     var cfg = new config.ConfigSection('tree', common_options);

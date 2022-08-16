@@ -133,7 +133,7 @@ docs/_build/
 # PyBuilder
 target/
 
-# Jupyter Notebook
+# Jupyter NbClassic
 .ipynb_checkpoints
 
 # IPython

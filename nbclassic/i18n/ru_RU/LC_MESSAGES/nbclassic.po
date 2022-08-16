@@ -21,17 +21,17 @@ msgstr ""
 "Language: ru_RU\n"
 
 #: notebook/notebookapp.py:53
-msgid "The Jupyter Notebook requires tornado >= 4.0"
-msgstr "Для Jupyter Notebook требуется tornado >= 4.0"
+msgid "The Jupyter NbClassic requires tornado >= 4.0"
+msgstr "Для Jupyter NbClassic требуется tornado >= 4.0"
 
 #: notebook/notebookapp.py:57
-msgid "The Jupyter Notebook requires tornado >= 4.0, but you have < 1.1.0"
-msgstr "Для Jupyter Notebook требуется tornado >= 4.0, но у вас < 1.1.0"
+msgid "The Jupyter NbClassic requires tornado >= 4.0, but you have < 1.1.0"
+msgstr "Для Jupyter NbClassic требуется tornado >= 4.0, но у вас < 1.1.0"
 
 #: notebook/notebookapp.py:59
 #, python-format
-msgid "The Jupyter Notebook requires tornado >= 4.0, but you have %s"
-msgstr "Для Jupyter Notebook требуется tornado >= 4.0, но у вас %s"
+msgid "The Jupyter NbClassic requires tornado >= 4.0, but you have %s"
+msgstr "Для Jupyter NbClassic требуется tornado >= 4.0, но у вас %s"
 
 #: notebook/notebookapp.py:209
 msgid "The `ignore_minified_js` flag is deprecated and no longer works."
@@ -245,7 +245,7 @@ msgstr ""
 
 #: notebook/notebookapp.py:746
 msgid ""
-"Supply overrides for the tornado.web.Application that the Jupyter notebook "
+"Supply overrides for the tornado.web.Application that the Jupyter nbclassic "
 "uses."
 msgstr ""
 "Перекрывает поставки для tornado.web. Приложение, использующее блокнот "
@@ -566,10 +566,10 @@ msgstr[2] "%d активных ядер"
 #: notebook/notebookapp.py:1379
 #, python-format
 msgid ""
-"The Jupyter Notebook is running at:\n"
+"The Jupyter NbClassic is running at:\n"
 "\r%s"
 msgstr ""
-"Jupyter Notebook запущен на:\n"
+"Jupyter NbClassic запущен на:\n"
 "\r%s"
 
 #: notebook/notebookapp.py:1426

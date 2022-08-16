@@ -141,7 +141,7 @@ define([
 
     SaveWidget.prototype.update_document_title = function () {
         var nbname = this.notebook.get_notebook_name();
-        document.title = nbname + ' - Jupyter Notebook';
+        document.title = nbname + ' - Jupyter NbClassic';
     };
 
     SaveWidget.prototype.update_address_bar = function(){

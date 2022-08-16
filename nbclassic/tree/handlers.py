@@ -6,8 +6,8 @@ This is a fork from jupyter/notebook#5.7.x
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 
+import re
 from tornado import web
-import os
 
 from jupyter_server.base.handlers import JupyterHandler
 from jupyter_server.extension.handler import (
@@ -16,6 +16,8 @@ from jupyter_server.extension.handler import (
 )
 from jupyter_server.base.handlers import path_regex
 from jupyter_server.utils import url_path_join, url_escape
+
+from nbclassic import url_prefix_notebook
 
 
 class TreeHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHandler):
@@ -82,6 +84,6 @@ class TreeHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHand
 
 
 default_handlers = [
-    (r"/tree%s" % path_regex, TreeHandler),
-    (r"/tree", TreeHandler),
+    (r"{}/tree{}".format(url_prefix_notebook(), path_regex), TreeHandler),
+    (r"%s/tree" % url_prefix_notebook(), TreeHandler),
 ]

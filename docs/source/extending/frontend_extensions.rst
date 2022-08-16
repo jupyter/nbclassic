@@ -40,7 +40,7 @@ extension:
 .. note::
 
     Although for historical reasons the function is called
-    ``load_ipython_extension``, it does apply to the Jupyter notebook in
+    ``load_ipython_extension``, it does apply to the Jupyter nbclassic in
     general, and will work regardless of the kernel in use.
 
 If you are familiar with JavaScript, you can use this template to require any
@@ -49,7 +49,7 @@ Javascript. Your extension will be loaded at the right time during the notebook
 page initialisation for you to set up a listener for the various events that
 the page can trigger.
 
-You might want access to the current instances of the various Jupyter notebook
+You might want access to the current instances of the various Jupyter nbclassic
 components on the page, as opposed to the classes defined in the modules. The
 current instances are exposed by a module named ``base/js/namespace``. If you
 plan on accessing instances on the page, you should ``require`` this module

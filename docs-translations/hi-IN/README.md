@@ -1,4 +1,4 @@
-# Jupyter Notebook
+# Jupyter NbClassic
 
 [![Google Group](https://img.shields.io/badge/-Google%20Group-lightgrey.svg)](https://groups.google.com/forum/#!forum/jupyter)
 [![Build Status](https://travis-ci.org/jupyter/notebook.svg?branch=master)](https://travis-ci.org/jupyter/notebook)
@@ -9,7 +9,7 @@
 Jupyter नोटबुक इंटरैक्टिव के लिए एक वेब-आधारित नोटबुक वातावरण है
 कंप्यूटिंग।
 
-![Jupyter notebook example](resources/running_code_med.png "Jupyter notebook example")
+![Jupyter nbclassic example](resources/running_code_med.png "Jupyter nbclassic example")
 
 ### नोटिस
 कृपया ध्यान दें कि इस भंडार का रखरखाव वर्तमान में जुपिटर समुदाय के एक कंकाल के दल द्वारा किया जाता है। हम उपयोगकर्ताओं को जुपिटरलैब में संक्रमण के लिए प्रोत्साहित करते हैं, जहां अधिक तत्काल समर्थन हो सकता है। हमारा दृष्टिकोण आगे बढ़ेगा:
@@ -70,7 +70,7 @@ IPython कोडबेस का बिग स्प्लिट ™। IPython
 ## साधन
 - [Project Jupyter website](https://jupyter.org)
 - [Online Demo at jupyter.org/try](https://jupyter.org/try)
-- [Documentation for Jupyter notebook](https://jupyter-notebook.readthedocs.io/en/stable/)
+- [Documentation for Jupyter nbclassic](https://jupyter-notebook.readthedocs.io/en/stable/)
 - [Korean Version of Installation](https://github.com/ChungJooHo/Jupyter_Kor_doc/)
 - [Documentation for Project Jupyter](https://jupyter.readthedocs.io/en/latest/index.html )
 - [Issues](https://github.com/jupyter/nbclassic/issues)

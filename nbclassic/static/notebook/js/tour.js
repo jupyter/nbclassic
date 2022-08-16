@@ -117,7 +117,7 @@ define(['jquery', 'bootstraptour', 'base/js/i18n'], function($, Tour, i18n) {
                 title: i18n.msg._("End of Tour"),
                 placement: 'bottom',
                 orphan: true,
-                content: i18n.msg._("This concludes the Jupyter Notebook User Interface Tour.")
+                content: i18n.msg._("This concludes the Jupyter NbClassic User Interface Tour.")
             }
         ];
 

@@ -5,7 +5,7 @@ Configuration Overview
 
 Beyond the default configuration settings, you can configure a rich array of
 options to suit your workflow. Here are areas that are commonly configured
-when using Jupyter Notebook:
+when using Jupyter NbClassic:
 
     - :ref:`Jupyter's common configuration system <configure_common>`
     - :ref:`Notebook server <configure_nbserver>`
@@ -68,7 +68,7 @@ Notebook extensions
 - `Extending the Notebook <https://jupyter-notebook.readthedocs.io/en/stable/extending/index.html>`_
 
 
-:ref:`Security in Jupyter notebooks:  <notebook_security>` Since security
+:ref:`Security in Jupyter nbclassics:  <notebook_security>` Since security
 policies vary from organization to organization, we encourage you to
 consult with your security team on settings that would be best for your use
 cases. Our documentation offers some responsible security practices, and we

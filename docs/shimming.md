@@ -1,4 +1,4 @@
-# Transitioning from Jupyter Notebook to Jupyter Server.
+# Transitioning from Jupyter NbClassic to Jupyter Server.
 
 **A story about configuration**
 

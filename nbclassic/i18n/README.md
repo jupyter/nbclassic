@@ -1,4 +1,4 @@
-# Implementation Notes for Internationalization of Jupyter Notebook
+# Implementation Notes for Internationalization of Jupyter NbClassic
 
 The implementation of i18n features for jupyter notebook is still a work-in-progress:
 
@@ -22,7 +22,7 @@ Hint: if running Windows, you can set it in PowerShell with `${Env:LANG} = "xx_X
 
 ## Contributing and managing translations
 
-Finding and translating the `.pot` files could be (partially) done with a translation API, see the repo [Jupyter Notebook Azure Translator](https://github.com/berendjan/Jupyter-Notebook-Azure-Translator.git) for a possible starting point. (Not affiliated with Jupyter)
+Finding and translating the `.pot` files could be (partially) done with a translation API, see the repo [Jupyter NbClassic Azure Translator](https://github.com/berendjan/Jupyter-Notebook-Azure-Translator.git) for a possible starting point. (Not affiliated with Jupyter)
 
 ### Requirements
 
@@ -42,7 +42,7 @@ The translatable material for notebook is split into 3 `.pot` files, as follows:
 - *notebook/i18n/nbui.pot* - User interface strings, as extracted from the Jinja2 templates
 	in *notebook/templates/\*.html*
 - *noteook/i18n/nbjs.pot* - JavaScript strings and dialogs, which contain much of the visible
-	user interface for Jupyter notebook.
+	user interface for Jupyter nbclassic.
 
 To extract the messages from the source code whenever new material is added, use the
 `pybabel` command:
@@ -55,7 +55,7 @@ pybabel extract -F babel_nbjs.cfg -o nbjs.pot --no-wrap --project Jupyter .
 
 After this is complete you have 3 `.pot` files that you can give to a translator for your favorite language.
 
-Finding and translating the `.pot` files could be (partially done with a translation API, see the repo [Jupyter Notebook Azure Translator](https://github.com/berendjan/Jupyter-Notebook-Azure-Translator.git) for a possible starting point. (Not affiliated with Jupyter)
+Finding and translating the `.pot` files could be (partially done with a translation API, see the repo [Jupyter NbClassic Azure Translator](https://github.com/berendjan/Jupyter-Notebook-Azure-Translator.git) for a possible starting point. (Not affiliated with Jupyter)
 
 ### Messages compilation
 

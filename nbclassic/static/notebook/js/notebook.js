@@ -2989,7 +2989,7 @@ define([
      */
     Notebook.prototype.trust_notebook = function (from_notification) {
         var body = $("<div>").append($("<p>")
-            .text(i18n.msg._("A trusted Jupyter notebook may execute hidden malicious code when you open it. " +
+            .text(i18n.msg._("A trusted Jupyter nbclassic may execute hidden malicious code when you open it. " +
                     "Selecting trust will immediately reload this notebook in a trusted state. " +
                     "For more information, see the Jupyter security documentation: "))
             .append($("<a>").attr("href", "https://jupyter-notebook.readthedocs.io/en/stable/security.html")

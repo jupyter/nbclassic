@@ -573,7 +573,7 @@ def run_jstestall(options):
         # Ensure that our exit code indicates failure
         sys.exit(1)
 
-argparser = argparse.ArgumentParser(description='Run Jupyter Notebook Javascript tests')
+argparser = argparse.ArgumentParser(description='Run Jupyter NbClassic Javascript tests')
 argparser.add_argument('testgroups', nargs='*',
                     help='Run specified groups of tests. If omitted, run '
                     'all tests.')

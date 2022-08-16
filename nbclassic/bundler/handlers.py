@@ -7,12 +7,16 @@ import asyncio
 import inspect
 import concurrent.futures
 
+from nbclassic import url_prefix_notebook
+
 from traitlets.utils.importstring import import_item
 from tornado import web, gen
 
 from jupyter_server.utils import url2path
 from jupyter_server.base.handlers import JupyterHandler
 from jupyter_server.services.config import ConfigManager
+
+from nbclassic import url_prefix_notebook
 
 from . import tools
 
@@ -102,8 +106,7 @@ class BundlerHandler(JupyterHandler):
         # finish the request
         yield maybe_future(bundler_mod.bundle(self, model))
 
-_bundler_id_regex = r'(?P<bundler_id>[A-Za-z0-9_]+)'
 
 default_handlers = [
-    (r"/bundle/(.*)", BundlerHandler)
+    (r"%s/bundle/(.*)" % url_prefix_notebook(), BundlerHandler)
 ]

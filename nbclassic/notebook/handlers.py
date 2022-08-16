@@ -6,6 +6,10 @@ This is a fork from jupyter/notebook#6.x
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 
+from collections import namedtuple
+
+from tornado import web, gen
+
 from jupyter_server.transutils import _i18n
 from jupyter_server.utils import (
     ensure_async
@@ -16,10 +20,9 @@ from jupyter_server.extension.handler import (
     ExtensionHandlerJinjaMixin
 )
 from jupyter_server.base.handlers import JupyterHandler
-from collections import namedtuple
-import os
-from tornado import web, gen
 HTTPError = web.HTTPError
+
+from nbclassic import url_prefix_notebook
 
 
 def get_frontend_exporters():
@@ -111,5 +114,5 @@ class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, Jupyter
 
 
 default_handlers = [
-    (r"/notebooks%s" % path_regex, NotebookHandler),
+    (r"{}/notebooks{}".format(url_prefix_notebook(), path_regex), NotebookHandler),
 ]

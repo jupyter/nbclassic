@@ -628,7 +628,7 @@ aliases.update({
 
 class InstallNBExtensionApp(BaseExtensionApp):
     """Entry point for installing notebook extensions"""
-    description = """Install Jupyter notebook extensions
+    description = """Install Jupyter nbclassic extensions
 
     Usage
 
@@ -707,7 +707,7 @@ class InstallNBExtensionApp(BaseExtensionApp):
 class UninstallNBExtensionApp(BaseExtensionApp):
     """Entry point for uninstalling notebook extensions"""
     version = __version__
-    description = """Uninstall Jupyter notebook extensions
+    description = """Uninstall Jupyter nbclassic extensions
 
     Usage
 
@@ -956,7 +956,7 @@ class NBExtensionApp(BaseExtensionApp):
     """Base jupyter nbextension command entry point"""
     name = "jupyter nbextension"
     version = __version__
-    description = "Work with Jupyter notebook extensions"
+    description = "Work with Jupyter nbclassic extensions"
     examples = _examples
 
     subcommands = dict(

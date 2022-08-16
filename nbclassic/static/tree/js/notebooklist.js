@@ -120,7 +120,9 @@ define([
         }
         this.notebooks_list = [];
         this.sessions = {};
+        this.base_url_prefix = options.base_url_prefix || utils.get_body_data("baseUrlPrefix");
         this.base_url = options.base_url || utils.get_body_data("baseUrl");
+        console.log('---', options)
         this.notebook_path = options.notebook_path || utils.get_body_data("notebookPath");
         this.initial_notebook_path = this.notebook_path;
         this.contents = options.contents;
@@ -905,6 +907,7 @@ define([
         var link = item.find("a.item_link")
             .attr('href',
                 utils.url_path_join(
+                    this.base_url_prefix,
                     this.base_url,
                     uri_prefix,
                     utils.encode_uri_components(model.path)

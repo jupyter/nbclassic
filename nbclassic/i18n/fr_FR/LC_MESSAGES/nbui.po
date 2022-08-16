@@ -545,16 +545,16 @@ msgid "Opens in a new window"
 msgstr "S'ouvre dans une nouvelle fenêtre"
 
 #: notebook/templates/notebook.html:319
-msgid "About Jupyter Notebook"
-msgstr "À propos de Jupyter Notebook"
+msgid "About Jupyter NbClassic"
+msgstr "À propos de Jupyter NbClassic"
 
 #: notebook/templates/notebook.html:319
 msgid "About"
 msgstr "À propos"
 
 #: notebook/templates/page.html:114
-msgid "Jupyter Notebook requires JavaScript."
-msgstr "Jupyter Notebook nécessite JavaScript"
+msgid "Jupyter NbClassic requires JavaScript."
+msgstr "Jupyter NbClassic nécessite JavaScript"
 
 #: notebook/templates/page.html:115
 msgid "Please enable it to proceed. "

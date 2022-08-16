@@ -18,17 +18,17 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 #: notebook/notebookapp.py:53
-msgid "The Jupyter Notebook requires tornado >= 4.0"
-msgstr "Jupyter Notebook は tornade 4.0 以上が必要です"
+msgid "The Jupyter NbClassic requires tornado >= 4.0"
+msgstr "Jupyter NbClassic は tornade 4.0 以上が必要です"
 
 #: notebook/notebookapp.py:57
-msgid "The Jupyter Notebook requires tornado >= 4.0, but you have < 1.1.0"
-msgstr "Jupyter Notebook は tornade 4.0 以上が必要ですが 1.1.0 以下です"
+msgid "The Jupyter NbClassic requires tornado >= 4.0, but you have < 1.1.0"
+msgstr "Jupyter NbClassic は tornade 4.0 以上が必要ですが 1.1.0 以下です"
 
 #: notebook/notebookapp.py:59
 #, python-format
-msgid "The Jupyter Notebook requires tornado >= 4.0, but you have %s"
-msgstr "Jupyter Notebook は tornade 4.0 以上が必要ですが %s です"
+msgid "The Jupyter NbClassic requires tornado >= 4.0, but you have %s"
+msgstr "Jupyter NbClassic は tornade 4.0 以上が必要ですが %s です"
 
 #: notebook/notebookapp.py:209
 msgid "The `ignore_minified_js` flag is deprecated and no longer works."
@@ -207,7 +207,7 @@ msgstr ""
 "    webapp_settings は非推奨です。tornado_settings を使って下さい。\n"
 
 #: notebook/notebookapp.py:746
-msgid "Supply overrides for the tornado.web.Application that the Jupyter notebook uses."
+msgid "Supply overrides for the tornado.web.Application that the Jupyter nbclassic uses."
 msgstr "Jupyterノートブックが使用する tornado.web.Application のオーバーライドを指定します。"
 
 #: notebook/notebookapp.py:750
@@ -485,10 +485,10 @@ msgstr[1] "%d 個のアクティブなカーネル"
 #: notebook/notebookapp.py:1379
 #, python-format
 msgid ""
-"The Jupyter Notebook is running at:\n"
+"The Jupyter NbClassic is running at:\n"
 "%s"
 msgstr ""
-"Jupyter Notebook は以下の URL 起動しています:\n"
+"Jupyter NbClassic は以下の URL 起動しています:\n"
 "%s"
 
 #: notebook/notebookapp.py:1426
