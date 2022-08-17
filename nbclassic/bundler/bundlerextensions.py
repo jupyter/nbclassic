@@ -171,7 +171,7 @@ def disable_bundler_python(module, user=True, sys_prefix=False, logger=None):
 
 class ToggleBundlerExtensionApp(BaseExtensionApp):
     """A base class for apps that enable/disable bundlerextensions"""
-    name = "jupyter bundlerextension enable/disable"
+    name = "jupyter nbclassic-bundlerextension enable/disable"
     version = __version__
     description = "Enable/disable a bundlerextension in configuration."
 
@@ -214,30 +214,30 @@ class ToggleBundlerExtensionApp(BaseExtensionApp):
 
 class EnableBundlerExtensionApp(ToggleBundlerExtensionApp):
     """An App that enables bundlerextensions"""
-    name = "jupyter bundlerextension enable"
+    name = "jupyter nbclassic-bundlerextension enable"
     description = """
     Enable a bundlerextension in frontend configuration.
     
     Usage
-        jupyter bundlerextension enable [--system|--sys-prefix]
+        jupyter nbclassic-bundlerextension enable [--system|--sys-prefix]
     """
     _toggle_value = True
     
 class DisableBundlerExtensionApp(ToggleBundlerExtensionApp):
     """An App that disables bundlerextensions"""
-    name = "jupyter bundlerextension disable"
+    name = "jupyter nbclassic-bundlerextension disable"
     description = """
     Disable a bundlerextension in frontend configuration.
     
     Usage
-        jupyter bundlerextension disable [--system|--sys-prefix]
+        jupyter nbclassic-bundlerextension disable [--system|--sys-prefix]
     """
     _toggle_value = None
 
 
 class ListBundlerExtensionApp(BaseExtensionApp):
     """An App that lists and validates nbextensions"""
-    name = "jupyter nbextension list"
+    name = "jupyter nbclassic-extension list"
     version = __version__
     description = "List all nbextensions known by the configuration system"
     
@@ -276,14 +276,14 @@ class ListBundlerExtensionApp(BaseExtensionApp):
 
 
 class BundlerExtensionApp(BaseExtensionApp):
-    """Base jupyter bundlerextension command entry point"""
-    name = "jupyter bundlerextension"
+    """Base jupyter nbclassic-bundlerextension command entry point"""
+    name = "jupyter nbclassic-bundlerextension"
     version = __version__
     description = "Work with Jupyter bundler extensions"
     examples = """
-jupyter bundlerextension list                          # list all configured bundlers
-jupyter bundlerextension enable --py <packagename>     # enable all bundlers in a Python package
-jupyter bundlerextension disable --py <packagename>    # disable all bundlers in a Python package
+jupyter nbclassic-bundlerextension list                          # list all configured bundlers
+jupyter nbclassic-bundlerextension enable --py <packagename>     # enable all bundlers in a Python package
+jupyter nbclassic-bundlerextension disable --py <packagename>    # disable all bundlers in a Python package
 """
 
     subcommands = dict(

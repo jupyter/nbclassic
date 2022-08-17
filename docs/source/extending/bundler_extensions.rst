@@ -125,7 +125,7 @@ following:
 
 .. code:: bash
 
-    jupyter bundlerextension enable --py mypackage.hello_bundler --sys-prefix
+    jupyter nbclassic-bundlerextension enable --py mypackage.hello_bundler --sys-prefix
 
 The above updates the notebook configuration file in the current
 conda/virtualenv environment (`--sys-prefix`) with the metadata returned by
@@ -136,13 +136,13 @@ following:
 
 .. code:: bash
 
-    jupyter bundlerextension disable --py mypackage.hello_bundler --sys-prefix
+    jupyter nbclassic-bundlerextension disable --py mypackage.hello_bundler --sys-prefix
 
 For more help using the `bundlerextension` subcommand, run the following.
 
 .. code:: bash
 
-    jupyter bundlerextension --help
+    jupyter nbclassic-bundlerextension --help
 
 The output describes options for listing enabled bundlers, configuring
 bundlers for single users, configuring bundlers system-wide, etc.
@@ -157,8 +157,8 @@ You can enable them to try them like so:
 
 .. code:: bash
 
-    jupyter bundlerextension enable --py notebook.bundler.zip_bundler --sys-prefix
-    jupyter bundlerextension enable --py notebook.bundler.tarball_bundler --sys-prefix
+    jupyter nbclassic-bundlerextension enable --py notebook.bundler.zip_bundler --sys-prefix
+    jupyter nbclassic-bundlerextension enable --py notebook.bundler.tarball_bundler --sys-prefix
 
 .. _bundler-details:
 
