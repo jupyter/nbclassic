@@ -56,7 +56,7 @@ different servers.
 
 When using nbclassic and notebook <= v6.4.x you can expect that these UIs
 will not be only presented at different servers but may also differ as
-potential changes to the nblcassic UI will not be reflected in Notebook
+potential changes to the nbclassic UI will not be reflected in Notebook
 versions <= 6.4.x.
 
 .. _team-compass issue: https://github.com/jupyter/notebook-team-compass/issues/5#issuecomment-1085254000
