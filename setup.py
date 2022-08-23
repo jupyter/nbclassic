@@ -69,7 +69,7 @@ setup_args = dict(
     name            = name,
     description     = "A web-based notebook environment for interactive computing",
     long_description = """
-The Jupyter Notebook is a web application that allows you to create and
+The Jupyter NbClassic is a web application that allows you to create and
 share documents that contain live code, equations, visualizations, and
 explanatory text. The NbClassic has support for multiple programming
 languages, sharing, and interactive widgets.
