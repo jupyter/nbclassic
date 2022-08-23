@@ -1,4 +1,4 @@
-# Jupyter NbClassic as a Jupyter Server Extension
+# Jupyter Notebook as a Jupyter Server Extension
 
 ![Testing nbclassic](https://github.com/jupyterlab/nbclassic/workflows/Testing%20nbclassic/badge.svg)
 
