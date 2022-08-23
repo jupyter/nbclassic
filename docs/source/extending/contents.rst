@@ -5,7 +5,7 @@ Contents API
 
 .. currentmodule:: notebook.services.contents
 
-The Jupyter NbClassic web application provides a graphical interface for
+The Jupyter Notebook web application provides a graphical interface for
 creating, opening, renaming, and deleting files in a virtual filesystem.
 
 The :class:`~manager.ContentsManager` class defines an abstract

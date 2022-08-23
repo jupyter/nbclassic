@@ -19,7 +19,7 @@
 	$ jupyter notebook
 	$ [I 08:58:24.417 NotebookApp] Serving notebooks from local directory: /Users/catherline
 	$ [I 08:58:24.417 NotebookApp] 0 active kernels
-	$ [I 08:58:24.417 NotebookApp] The Jupyter NbClassic is running at: http://localhost:8888/ 
+	$ [I 08:58:24.417 NotebookApp] The Jupyter Notebook is running at: http://localhost:8888/ 
 	$ [I 08:58:24.417 NotebookApp] Use Control-C to stop this server and shut down all kernels
 
  기본 브라우저를 통해 이 주소가 열립니다.

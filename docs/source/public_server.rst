@@ -4,7 +4,7 @@ Running a notebook server
 =========================
 
 
-The :doc:`Jupyter nbclassic <notebook>` web application is based on a
+The :doc:`Jupyter notebook <notebook>` web application is based on a
 server-client structure.  The notebook server uses a :ref:`two-process kernel
 architecture <ipython:ipythonzmq>` based on ZeroMQ_, as well as Tornado_ for
 serving HTTP requests.

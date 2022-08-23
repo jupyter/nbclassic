@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
 #
 #, fuzzy
-# Universal translation: cell=单元格; kernal=内核; don't translate notebook whenever referring to Jupyter NbClassic
+# Universal translation: cell=单元格; kernal=内核; don't translate notebook whenever referring to Jupyter Notebook
 msgid ""
 msgstr ""
 "Project-Id-Version: Jupyter VERSION\n"
@@ -116,8 +116,8 @@ msgid "Select a file"
 msgstr "选择文件"
 
 #: notebook/static/notebook/js/about.js:14
-msgid "You are using Jupyter nbclassic."
-msgstr "您正在使用 Jupyter NbClassic。"
+msgid "You are using Jupyter notebook."
+msgstr "您正在使用 Jupyter Notebook。"
 
 #: notebook/static/notebook/js/about.js:16
 msgid "The version of the notebook server is: "
@@ -148,8 +148,8 @@ msgid "Cannot find sys_info!"
 msgstr "找不到 sys_info！"
 
 #: notebook/static/notebook/js/about.js:38
-msgid "About Jupyter NbClassic"
-msgstr "关于 Jupyter NbClassic"
+msgid "About Jupyter Notebook"
+msgstr "关于 Jupyter Notebook"
 
 #: notebook/static/notebook/js/about.js:47
 msgid "unable to contact kernel"
@@ -925,7 +925,7 @@ msgid "The save operation succeeded, but the notebook does not appear to be vali
 msgstr "保存操作成功了，但是这个笔记本看起来并不有效。校验错误："
 
 #: notebook/static/notebook/js/notebook.js:2852
-msgid "A trusted Jupyter nbclassic may execute hidden malicious code when you open it. Selecting trust will immediately reload this notebook in a trusted state. For more information, see the Jupyter security documentation: "
+msgid "A trusted Jupyter notebook may execute hidden malicious code when you open it. Selecting trust will immediately reload this notebook in a trusted state. For more information, see the Jupyter security documentation: "
 msgstr "当你打开一个可信任的 Jupyter 笔记本时，它可能会执行隐藏的恶意代码。选择信任将立即在一个可信的状态中重新加载这个笔记本。要了解更多信息，请参阅 Jupyter 安全文档："
 
 #: notebook/static/notebook/js/notebook.js:2856
@@ -1426,7 +1426,7 @@ msgid "PageUp"
 msgstr "上一页"
 
 #: notebook/static/notebook/js/quickhelp.js:206
-msgid "The Jupyter NbClassic has two different keyboard input modes."
+msgid "The Jupyter Notebook has two different keyboard input modes."
 msgstr "Jupyter 笔记本有两种不同的键盘输入模式。"
 
 #: notebook/static/notebook/js/quickhelp.js:208
@@ -1704,7 +1704,7 @@ msgid "End of Tour"
 msgstr "结束导览"
 
 #: notebook/static/notebook/js/tour.js:120
-msgid "This concludes the Jupyter NbClassic User Interface Tour."
+msgid "This concludes the Jupyter Notebook User Interface Tour."
 msgstr "Jupyter 笔记本用户界面之旅到此为止。"
 
 #: notebook/static/notebook/js/celltoolbarpresets/attachments.js:32

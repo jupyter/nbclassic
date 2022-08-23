@@ -1,8 +1,8 @@
-# Jupyter NbClassic 설치하기
+# Jupyter Notebook 설치하기
 
 ## 필요한 것 : Python
 
-Jupyter NbClassic 을 설치하기 위해선 Jupyter가 많은 프로그래밍 언어들로 동작되기 때문에, Python이 필요합니다. (Python 3.3이상, Python 2.7)
+Jupyter Notebook 을 설치하기 위해선 Jupyter가 많은 프로그래밍 언어들로 동작되기 때문에, Python이 필요합니다. (Python 3.3이상, Python 2.7)
 
 Python과 Jupyter를 설치할 때 Anaconda를 이용하는 것을 추천합니다. 밑에서 이를 이용하여 설치할 것입니다.
 
@@ -14,7 +14,7 @@ Python과 Jupyter를 설치할 때 Anaconda를 이용하는 것을 추천합니�
    
    1. Anaconda를 다운받으세요. Anaconda의 가장 최신의 Python 3버전을 다운 받는 것을 추천합니다.
    2. 다운 받은 Anaconda 의 다운로드 페이지에 있는 설명을 읽고 설치해주세요.
-   3. 축하합니다. Jupyter NbClassic 을 설치하셨습니다. Jupyter NbClassic을 실행하려면 :
+   3. 축하합니다. Jupyter Notebook 을 설치하셨습니다. Jupyter Notebook을 실행하려면 :
 
 	$ jupyter notebook
 
@@ -26,8 +26,8 @@ Python과 Jupyter를 설치할 때 Anaconda를 이용하는 것을 추천합니�
    
     $ pip install --upgrade pip
 
- 이제 다음을 이용하여 Jupyter NbClassic를 설치하세요 :
+ 이제 다음을 이용하여 Jupyter Notebook를 설치하세요 :
 
     $ pip install jupyter
 
- (축하합니다. Jupyter NbClassic를 설치하셨습니다.)
+ (축하합니다. Jupyter Notebook를 설치하셨습니다.)

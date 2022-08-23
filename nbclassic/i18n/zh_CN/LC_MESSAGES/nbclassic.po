@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
 #
 #, fuzzy
-# Universal translation: cell=单元格; kernal=内核; don't translate notebook whenever referring to Jupyter NbClassic
+# Universal translation: cell=单元格; kernal=内核; don't translate notebook whenever referring to Jupyter Notebook
 msgid ""
 msgstr ""
 "Project-Id-Version: Jupyter VERSION\n"
@@ -19,17 +19,17 @@ msgstr ""
 "Generated-By: Babel 2.5.0\n"
 
 #: notebook/notebookapp.py:49
-msgid "The Jupyter NbClassic requires tornado >= 4.0"
-msgstr "Jupyter NbClassic要求拥有 tornado 版本号 >= 4.0"
+msgid "The Jupyter Notebook requires tornado >= 4.0"
+msgstr "Jupyter Notebook要求拥有 tornado 版本号 >= 4.0"
 
 #: notebook/notebookapp.py:53
-msgid "The Jupyter NbClassic requires tornado >= 4.0, but you have < 1.1.0"
-msgstr "Jupyter NbClassic要求拥有 tornado 版本号 >= 4.0, 但你的版本号却是 < 1.1.0"
+msgid "The Jupyter Notebook requires tornado >= 4.0, but you have < 1.1.0"
+msgstr "Jupyter Notebook要求拥有 tornado 版本号 >= 4.0, 但你的版本号却是 < 1.1.0"
 
 #: notebook/notebookapp.py:55
 #, python-format
-msgid "The Jupyter NbClassic requires tornado >= 4.0, but you have %s"
-msgstr "Jupyter NbClassic要求拥有 tornado 版本号 >= 4.0, 但你的版本号却是 %s"
+msgid "The Jupyter Notebook requires tornado >= 4.0, but you have %s"
+msgstr "Jupyter Notebook要求拥有 tornado 版本号 >= 4.0, 但你的版本号却是 %s"
 
 #: notebook/notebookapp.py:205
 msgid "The `ignore_minified_js` flag is deprecated and no longer works."
@@ -186,8 +186,8 @@ msgid ""
 msgstr "webapp_settings已被弃用，请使用tornado_settings。"
 
 #: notebook/notebookapp.py:752
-msgid "Supply overrides for the tornado.web.Application that the Jupyter nbclassic uses."
-msgstr "Supply重写了Jupyter nbclassic正在使用的tornado.web.Application。"
+msgid "Supply overrides for the tornado.web.Application that the Jupyter notebook uses."
+msgstr "Supply重写了Jupyter notebook正在使用的tornado.web.Application。"
 
 #: notebook/notebookapp.py:756
 msgid ""
@@ -445,9 +445,9 @@ msgstr[1] "%d 活跃的内核"
 #: notebook/notebookapp.py:1387
 #, python-format
 msgid ""
-"The Jupyter NbClassic is running at:\n"
+"The Jupyter Notebook is running at:\n"
 "%s"
-msgstr "Jupyter NbClassic运行在:\n %s"
+msgstr "Jupyter Notebook运行在:\n %s"
 
 #: notebook/notebookapp.py:1434
 msgid "Running as root is not recommended. Use --allow-root to bypass."

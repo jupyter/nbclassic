@@ -16,12 +16,12 @@
 
    NOTE: Some of these were taken from the nipy links compendium.
 
-.. Main Jupyter nbclassic links
+.. Main Jupyter notebook links
 
 .. _Notebook Basics: notebook_p2_
 .. _notebook_p2: https://nbviewer.jupyter.org/github/jupyter/nbclassic/blob/main/docs/source/examples/Notebook/Notebook%20Basics.ipynb
 
-.. _Running Code in the Jupyter NbClassic: notebook_p1_
+.. _Running Code in the Jupyter Notebook: notebook_p1_
 .. _notebook_p1: https://nbviewer.jupyter.org/github/jupyter/nbclassic/blob/master/docs/source/examples/Notebook/Running%20Code.ipynb
 
 .. Other python projects

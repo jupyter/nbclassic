@@ -1,4 +1,4 @@
-# Jupyter NbClassic
+# Jupyter Notebook
 
 [![Google Group](https://img.shields.io/badge/-Google%20Group-lightgrey.svg)](https://groups.google.com/forum/#!forum/jupyter)
 [![Build Status](https://travis-ci.org/jupyter/notebook.svg?branch=master)](https://travis-ci.org/jupyter/notebook)
@@ -6,10 +6,10 @@
                 
 
 
-Jupyter NbClassic是用于交互的基于Web的笔记本环境
+Jupyter Notebook是用于交互的基于Web的笔记本环境
 计算。
 
-![Jupyter nbclassic example](resources/running_code_med.png "Jupyter nbclassic example")
+![Jupyter notebook example](resources/running_code_med.png "Jupyter notebook example")
 
 ### 注意
 请注意，这家商店目前由木星社区的骨干团队维护。我们鼓励用户过渡到 JupyterLab，那里可能会立即提供更多支持。我们的方法将向前发展：
@@ -24,13 +24,13 @@ Jupyter NbClassic是用于交互的基于Web的笔记本环境
 此外，请考虑您的贡献是否适合Jupyter前端的基础服务器， [jupyter server](https://github.com/jupyter/jupyter_server) 或在 [JupyterLab 前端](https://github.com/jupyterlab/jupyterlab).
 
 ### Jupyter笔记本，与IPython笔记本无关的语言开发
-Jupyter NbClassic是与语言无关的HTML Notebook应用程序
+Jupyter Notebook是与语言无关的HTML Notebook应用程序
 木星计划。 2015年，木星作为笔记本的一部分发布
 IPython代码库的Big Split™。 IPython 3是最后一个主要的整体
 两种与语言无关的代码，例如 *IPython notebook*，
 以及特定语言的代码，例如 *用于Python的IPython内核* 。如
 通过多种语言计算SPAN，Jupyter项目将继续发展
-与语言无关 **Jupyter NbClassic** 在此仓库中更多帮助下
+与语言无关 **Jupyter Notebook** 在此仓库中更多帮助下
 社区开发自己发现的特定于语言的内核
 离散回购。
 [[Big Split™ 宣言](https://blog.jupyter.org/the-big-split-9d7b88a031a7)]
@@ -70,7 +70,7 @@ IPython代码库的Big Split™。 IPython 3是最后一个主要的整体
 ## 资源
 - [Project Jupyter website](https://jupyter.org)
 - [Online Demo at jupyter.org/try](https://jupyter.org/try)
-- [Documentation for Jupyter nbclassic](https://jupyter-notebook.readthedocs.io/en/stable/)
+- [Documentation for Jupyter notebook](https://jupyter-notebook.readthedocs.io/en/stable/)
 - [Korean Version of Installation](https://github.com/ChungJooHo/Jupyter_Kor_doc/)
 - [Documentation for Project Jupyter](https://jupyter.readthedocs.io/en/latest/index.html )
 - [Issues](https://github.com/jupyter/nbclassic/issues)

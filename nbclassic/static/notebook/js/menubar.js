@@ -18,7 +18,7 @@ define([
         /**
          * Constructor
          *
-         * A MenuBar Class to generate the menubar of Jupyter nbclassic
+         * A MenuBar Class to generate the menubar of Jupyter notebook
          *
          * Parameters:
          *  selector: string

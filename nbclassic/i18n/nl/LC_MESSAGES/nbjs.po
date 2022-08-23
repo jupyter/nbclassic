@@ -125,8 +125,8 @@ msgid "Select a file"
 msgstr "Een bestand selecteren"
 
 #: notebook/static/notebook/js/about.js:14
-msgid "You are using Jupyter nbclassic."
-msgstr "U gebruikt Jupyter nbclassic."
+msgid "You are using Jupyter notebook."
+msgstr "U gebruikt Jupyter notebook."
 
 #: notebook/static/notebook/js/about.js:16
 msgid "The version of the notebook server is: "
@@ -158,8 +158,8 @@ msgid "Cannot find sys_info!"
 msgstr "Ik kan sys_info niet vinden!"
 
 #: notebook/static/notebook/js/about.js:38
-msgid "About Jupyter NbClassic"
-msgstr "Over Jupyter NbClassic"
+msgid "About Jupyter Notebook"
+msgstr "Over Jupyter Notebook"
 
 #: notebook/static/notebook/js/about.js:47
 msgid "unable to contact kernel"
@@ -988,7 +988,7 @@ msgstr ""
 
 #: notebook/static/notebook/js/notebook.js:2836
 msgid ""
-"A trusted Jupyter nbclassic may execute hidden malicious code when you open "
+"A trusted Jupyter notebook may execute hidden malicious code when you open "
 "it. Selecting trust will immediately reload this notebook in a trusted "
 "state. For more information, see the Jupyter security documentation: "
 msgstr ""
@@ -1504,8 +1504,8 @@ msgid "PageUp"
 msgstr "PageUp"
 
 #: notebook/static/notebook/js/quickhelp.js:197
-msgid "The Jupyter NbClassic has two different keyboard input modes."
-msgstr "De Jupyter NbClassic heeft twee verschillende toetsenbordinvoermodi."
+msgid "The Jupyter Notebook has two different keyboard input modes."
+msgstr "De Jupyter Notebook heeft twee verschillende toetsenbordinvoermodi."
 
 #: notebook/static/notebook/js/quickhelp.js:199
 msgid ""
@@ -1840,8 +1840,8 @@ msgid "End of Tour"
 msgstr "Einde van de Tour"
 
 #: notebook/static/notebook/js/tour.js:120
-msgid "This concludes the Jupyter NbClassic User Interface Tour."
-msgstr "Dit concludeert de Jupyter NbClassic User Interface Rondleiding."
+msgid "This concludes the Jupyter Notebook User Interface Tour."
+msgstr "Dit concludeert de Jupyter Notebook User Interface Rondleiding."
 
 #: notebook/static/notebook/js/celltoolbarpresets/attachments.js:32
 msgid "Edit Attachments"

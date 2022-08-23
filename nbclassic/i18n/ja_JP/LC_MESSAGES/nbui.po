@@ -540,16 +540,16 @@ msgid "Opens in a new window"
 msgstr "新しいウィンドウで開く"
 
 #: notebook/templates/notebook.html:319
-msgid "About Jupyter NbClassic"
-msgstr "Jupyter NbClassic について"
+msgid "About Jupyter Notebook"
+msgstr "Jupyter Notebook について"
 
 #: notebook/templates/notebook.html:319
 msgid "About"
 msgstr "詳細"
 
 #: notebook/templates/page.html:114
-msgid "Jupyter NbClassic requires JavaScript."
-msgstr "Jupyter NbClassic には JavaScript が必要です。"
+msgid "Jupyter Notebook requires JavaScript."
+msgstr "Jupyter Notebook には JavaScript が必要です。"
 
 #: notebook/templates/page.html:115
 msgid "Please enable it to proceed. "

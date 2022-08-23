@@ -94,7 +94,7 @@ the ``argv`` stanza to ensure all file references exist and are appropriate.
 
 Windows Systems
 ---------------
-Although Jupyter NbClassic is primarily developed on the various flavors of the Unix
+Although Jupyter Notebook is primarily developed on the various flavors of the Unix
 operating system it also supports Microsoft
 Windows - which introduces its own set of commonly encountered issues,
 particularly in the areas of security, process management and lower-level libraries.

@@ -11,7 +11,7 @@ __ https://nbviewer.jupyter.org/github/jupyter/nbclassic/blob/main/
 .. toctree::
    :maxdepth: 2
 
-   What is the Jupyter NbClassic
+   What is the Jupyter Notebook
    Notebook Basics
    Running Code
    Working With Markdown Cells

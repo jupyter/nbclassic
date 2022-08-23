@@ -1,6 +1,6 @@
 [Desktop Entry]
-Name=Jupyter NbClassic
-Comment=Run Jupyter NbClassic
+Name=Jupyter Notebook
+Comment=Run Jupyter Notebook
 Exec=jupyter-nbclassic %f
 Terminal=true
 Type=Application

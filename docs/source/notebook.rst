@@ -1,6 +1,6 @@
 .. _htmlnotebook:
 
-The Jupyter NbClassic
+The Jupyter Notebook
 ====================
 
 Introduction
@@ -9,7 +9,7 @@ Introduction
 The notebook extends the console-based approach to interactive computing in
 a qualitatively new direction, providing a web-based application suitable for
 capturing the whole computation process: developing, documenting, and
-executing code, as well as communicating the results.  The Jupyter nbclassic
+executing code, as well as communicating the results.  The Jupyter notebook
 combines two components:
 
 **A web application**: a browser-based tool for interactive authoring of
@@ -68,10 +68,10 @@ example, for blog posts), reStructuredText, LaTeX, PDF, and slide shows, via
 the nbconvert_ command.
 
 Furthermore, any  ``.ipynb`` notebook document available from a public
-URL can be shared via the Jupyter NbClassic Viewer <nbviewer>.
+URL can be shared via the Jupyter Notebook Viewer <nbviewer>.
 This service loads the notebook document from the URL and renders it as a
 static web page.  The results may thus be shared with a colleague, or as a
-public blog post, without other users needing to install the Jupyter nbclassic
+public blog post, without other users needing to install the Jupyter notebook
 themselves.  In effect, nbviewer is simply nbconvert_ as
 a web service, so you can do your own static conversions with nbconvert,
 without relying on nbviewer.
@@ -118,7 +118,7 @@ This will print some information about the notebook server in your console,
 and open a web browser to the URL of the web application (by default,
 ``http://127.0.0.1:8888``).
 
-The landing page of the Jupyter nbclassic web application, the **dashboard**,
+The landing page of the Jupyter notebook web application, the **dashboard**,
 shows the notebooks currently available in the notebook directory (by default,
 the directory from which the notebook server was started).
 
@@ -329,7 +329,7 @@ other formats using the menu option :guilabel:`File`, :guilabel:`Download as`.
 
 .. seealso::
 
-    `Running Code in the Jupyter NbClassic`_ example notebook
+    `Running Code in the Jupyter Notebook`_ example notebook
 
     `Notebook Basics`_ example notebook
 
@@ -358,7 +358,7 @@ For the full list of available shortcuts, click :guilabel:`Help`,
 
 Plotting
 --------
-One major feature of the Jupyter nbclassic is the ability to display plots that
+One major feature of the Jupyter notebook is the ability to display plots that
 are the output of running code cells. The IPython kernel is designed to work
 seamlessly with the matplotlib_ plotting library to provide this functionality.
 Specific plotting library integration is a feature of the kernel.
@@ -402,7 +402,7 @@ See :ref:`notebook_security` for more details about the trust mechanism.
 Browser Compatibility
 ---------------------
 
-The Jupyter NbClassic aims to support the latest versions of these browsers:
+The Jupyter Notebook aims to support the latest versions of these browsers:
 
 * Chrome
 * Safari

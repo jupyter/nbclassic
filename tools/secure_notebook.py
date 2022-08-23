@@ -39,11 +39,11 @@ def create_self_signed_cert(cert_dir, keyfile, certfile):
         # create a self-signed cert
         cert = crypto.X509()
         cert.get_subject().C = "US"
-        cert.get_subject().ST = "Jupyter nbclassic self-signed certificate"
-        cert.get_subject().L = "Jupyter nbclassic self-signed certificate"
-        cert.get_subject().O = "Jupyter nbclassic self-signed certificate"
+        cert.get_subject().ST = "Jupyter notebook self-signed certificate"
+        cert.get_subject().L = "Jupyter notebook self-signed certificate"
+        cert.get_subject().O = "Jupyter notebook self-signed certificate"
         cert.get_subject().OU = "my organization"
-        cert.get_subject().CN = "Jupyter nbclassic self-signed certificate"
+        cert.get_subject().CN = "Jupyter notebook self-signed certificate"
         cert.set_serial_number(1000)
         cert.gmtime_adj_notBefore(0)
         cert.gmtime_adj_notAfter(365*24*60*60)

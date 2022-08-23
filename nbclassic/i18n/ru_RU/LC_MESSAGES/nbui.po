@@ -547,7 +547,7 @@ msgid "Opens in a new window"
 msgstr "Открыть в новом окне"
 
 #: notebook/templates/notebook.html:319
-msgid "About Jupyter NbClassic"
+msgid "About Jupyter Notebook"
 msgstr "О блокноте Jupyter"
 
 #: notebook/templates/notebook.html:319
@@ -555,7 +555,7 @@ msgid "About"
 msgstr "О программе"
 
 #: notebook/templates/page.html:114
-msgid "Jupyter NbClassic requires JavaScript."
+msgid "Jupyter Notebook requires JavaScript."
 msgstr "Блокнот Jupyter требует JavaScript."
 
 #: notebook/templates/page.html:115

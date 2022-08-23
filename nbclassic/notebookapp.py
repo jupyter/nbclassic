@@ -1,5 +1,5 @@
 # coding: utf-8
-"""A tornado based Jupyter nbclassic server."""
+"""A tornado based Jupyter notebook server."""
 
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.

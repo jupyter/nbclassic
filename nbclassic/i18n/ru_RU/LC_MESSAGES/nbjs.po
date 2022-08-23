@@ -127,7 +127,7 @@ msgid "Select a file"
 msgstr "Выберите файл"
 
 #: notebook/static/notebook/js/about.js:14
-msgid "You are using Jupyter nbclassic."
+msgid "You are using Jupyter notebook."
 msgstr "Вы используете блокнот Jupyter."
 
 #: notebook/static/notebook/js/about.js:16
@@ -161,7 +161,7 @@ msgid "Cannot find sys_info!"
 msgstr "Невозможно найти sys_info!"
 
 #: notebook/static/notebook/js/about.js:38
-msgid "About Jupyter NbClassic"
+msgid "About Jupyter Notebook"
 msgstr "О блокноте Jupyter"
 
 #: notebook/static/notebook/js/about.js:47
@@ -984,7 +984,7 @@ msgstr ""
 
 #: notebook/static/notebook/js/notebook.js:2836
 msgid ""
-"A trusted Jupyter nbclassic may execute hidden malicious code when you open "
+"A trusted Jupyter notebook may execute hidden malicious code when you open "
 "it. Selecting trust will immediately reload this notebook in a trusted "
 "state. For more information, see the Jupyter security documentation: "
 msgstr ""
@@ -1492,8 +1492,8 @@ msgid "PageUp"
 msgstr "СтраницаВверх"
 
 #: notebook/static/notebook/js/quickhelp.js:197
-msgid "The Jupyter NbClassic has two different keyboard input modes."
-msgstr "Jupyter NbClassic имеет два различных режима ввода с клавиатуры."
+msgid "The Jupyter Notebook has two different keyboard input modes."
+msgstr "Jupyter Notebook имеет два различных режима ввода с клавиатуры."
 
 #: notebook/static/notebook/js/quickhelp.js:199
 msgid ""
@@ -1833,7 +1833,7 @@ msgid "End of Tour"
 msgstr "Конец обзора"
 
 #: notebook/static/notebook/js/tour.js:120
-msgid "This concludes the Jupyter NbClassic User Interface Tour."
+msgid "This concludes the Jupyter Notebook User Interface Tour."
 msgstr ""
 "На этом завершается экскурсия по пользовательскому интерфейсу Jupyter "
 "Notebook."

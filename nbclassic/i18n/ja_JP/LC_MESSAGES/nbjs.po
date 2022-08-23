@@ -115,8 +115,8 @@ msgid "Select a file"
 msgstr "ファイルを選択"
 
 #: notebook/static/notebook/js/about.js:14
-msgid "You are using Jupyter nbclassic."
-msgstr "Jupyter nbclassic を使用しています。"
+msgid "You are using Jupyter notebook."
+msgstr "Jupyter notebook を使用しています。"
 
 #: notebook/static/notebook/js/about.js:16
 msgid "The version of the notebook server is: "
@@ -147,8 +147,8 @@ msgid "Cannot find sys_info!"
 msgstr "sys_info が見つかりません!"
 
 #: notebook/static/notebook/js/about.js:38
-msgid "About Jupyter NbClassic"
-msgstr "Jupyter NbClassic について"
+msgid "About Jupyter Notebook"
+msgstr "Jupyter Notebook について"
 
 #: notebook/static/notebook/js/about.js:47
 msgid "unable to contact kernel"
@@ -924,7 +924,7 @@ msgid "The save operation succeeded, but the notebook does not appear to be vali
 msgstr "保存操作は成功しましたがノートブックは有効ではないようです。検証エラー:"
 
 #: notebook/static/notebook/js/notebook.js:2836
-msgid "A trusted Jupyter nbclassic may execute hidden malicious code when you open it. Selecting trust will immediately reload this notebook in a trusted state. For more information, see the Jupyter security documentation: "
+msgid "A trusted Jupyter notebook may execute hidden malicious code when you open it. Selecting trust will immediately reload this notebook in a trusted state. For more information, see the Jupyter security documentation: "
 msgstr "信頼された Jupyter ノートブックは開いた際に隠された悪意のあるコードが実行される可能性があります。信頼を選択すると直ちにリロードされこのノートブックは信頼できる状態になりします。詳細については、Jupyter のセキュリティドキュメントを参照してください。"
 
 #: notebook/static/notebook/js/notebook.js:2840
@@ -1392,8 +1392,8 @@ msgid "PageUp"
 msgstr ""
 
 #: notebook/static/notebook/js/quickhelp.js:197
-msgid "The Jupyter NbClassic has two different keyboard input modes."
-msgstr "Jupyter NbClassic は異なる2つのキーボード入力モードを持っています。"
+msgid "The Jupyter Notebook has two different keyboard input modes."
+msgstr "Jupyter Notebook は異なる2つのキーボード入力モードを持っています。"
 
 #: notebook/static/notebook/js/quickhelp.js:199
 msgid "<b>Edit mode</b> allows you to type code or text into a cell and is indicated by a green cell border."
@@ -1670,8 +1670,8 @@ msgid "End of Tour"
 msgstr "ツアーの終わり"
 
 #: notebook/static/notebook/js/tour.js:120
-msgid "This concludes the Jupyter NbClassic User Interface Tour."
-msgstr "これで Jupyter NbClassic のユーザーインタフェースのツアーは終了です。"
+msgid "This concludes the Jupyter Notebook User Interface Tour."
+msgstr "これで Jupyter Notebook のユーザーインタフェースのツアーは終了です。"
 
 #: notebook/static/notebook/js/celltoolbarpresets/attachments.js:32
 msgid "Edit Attachments"

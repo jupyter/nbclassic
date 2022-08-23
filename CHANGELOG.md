@@ -194,7 +194,7 @@ This release has been skipped by the release process.
 ### Merged PRs
 
 - ExtensionManager's link_extension changed call signature [#64](https://github.com/jupyterlab/nbclassic/pull/64) ([@athornton](https://github.com/athornton))
-- Fix link to the Jupyter NbClassic repo in README [#62](https://github.com/jupyterlab/nbclassic/pull/62) ([@saiwing-yeung](https://github.com/saiwing-yeung))
+- Fix link to the Jupyter Notebook repo in README [#62](https://github.com/jupyterlab/nbclassic/pull/62) ([@saiwing-yeung](https://github.com/saiwing-yeung))
 
 ### Contributors to this release
 

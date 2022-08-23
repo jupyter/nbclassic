@@ -18,16 +18,16 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 #: notebook/notebookapp.py:53
-msgid "The Jupyter NbClassic requires tornado >= 4.0"
+msgid "The Jupyter Notebook requires tornado >= 4.0"
 msgstr ""
 
 #: notebook/notebookapp.py:57
-msgid "The Jupyter NbClassic requires tornado >= 4.0, but you have < 1.1.0"
+msgid "The Jupyter Notebook requires tornado >= 4.0, but you have < 1.1.0"
 msgstr ""
 
 #: notebook/notebookapp.py:59
 #, python-format
-msgid "The Jupyter NbClassic requires tornado >= 4.0, but you have %s"
+msgid "The Jupyter Notebook requires tornado >= 4.0, but you have %s"
 msgstr ""
 
 #: notebook/notebookapp.py:209
@@ -181,7 +181,7 @@ msgid ""
 msgstr ""
 
 #: notebook/notebookapp.py:746
-msgid "Supply overrides for the tornado.web.Application that the Jupyter nbclassic uses."
+msgid "Supply overrides for the tornado.web.Application that the Jupyter notebook uses."
 msgstr ""
 
 #: notebook/notebookapp.py:750
@@ -438,7 +438,7 @@ msgstr[1] ""
 #: notebook/notebookapp.py:1379
 #, python-format
 msgid ""
-"The Jupyter NbClassic is running at:\n"
+"The Jupyter Notebook is running at:\n"
 "\r"
 "%s"
 msgstr ""
