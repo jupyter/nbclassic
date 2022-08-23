@@ -1,11 +1,11 @@
-Contributing to the Jupyter Notebook
+Contributing to the Jupyter NbClassic
 =====================================
 
 If you're reading this section, you're probably interested in contributing to
 Jupyter.  Welcome and thanks for your interest in contributing!
 
 Please take a look at the Contributor documentation, familiarize yourself with
-using the Jupyter Notebook, and introduce yourself on the mailing list and
+using the Jupyter NbClassic, and introduce yourself on the mailing list and
 share what area of the project you are interested in working on.
 
 General Guidelines
@@ -42,7 +42,7 @@ included in the system package repository may be too old to work properly.
 You can also use the installer from the `Node.js website <https://nodejs.org>`_.
 
 
-Installing the Jupyter Notebook
+Installing the Jupyter NbClassic
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Once you have installed the dependencies mentioned above, use the following
@@ -56,7 +56,7 @@ steps::
 If you are using a system-wide Python installation and you only want to install NbClassic for you,
 you can add ``--user`` to the install commands.
 
-Once you have done this, you can launch the main branch of Jupyter Notebook
+Once you have done this, you can launch the main branch of Jupyter NbClassic
 from any directory in your system with::
 
     jupyter nbclassic
@@ -66,13 +66,13 @@ Verification
 
 While running NbClassic, select one of your notebook files (the file will have the extension ``.ipynb``).
 In the top tab you will click on "Help" and then click on "About". In the pop window you will see information about the version of Jupyter that you are running. You will see "The version of the notebook server is:".
-If you are working in development mode, you will see that your version of Jupyter Notebook will include the word "dev". If it does not include the word "dev", you are currently not working in development mode and should follow the steps below to uninstall and reinstall Jupyter.
+If you are working in development mode, you will see that your version of Jupyter NbClassic will include the word "dev". If it does not include the word "dev", you are currently not working in development mode and should follow the steps below to uninstall and reinstall Jupyter.
 
 Troubleshooting the Installation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you do not see that your Jupyter Notebook is not running on dev mode, it's possible that you are
-running other instances of Jupyter Notebook. You can try the following steps:
+If you do not see that your Jupyter NbClassic is not running on dev mode, it's possible that you are
+running other instances of Jupyter NbClassic. You can try the following steps:
 
 1. Uninstall all instances of the NbClassic package. These include any installations you made using
    pip or conda.
