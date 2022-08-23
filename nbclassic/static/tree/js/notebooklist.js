@@ -120,9 +120,8 @@ define([
         }
         this.notebooks_list = [];
         this.sessions = {};
-        this.base_url_prefix = options.base_url_prefix || utils.get_body_data("baseUrlPrefix");
+        this.base_url_prefix = options.base_url_prefix;
         this.base_url = options.base_url || utils.get_body_data("baseUrl");
-        console.log('---', options)
         this.notebook_path = options.notebook_path || utils.get_body_data("notebookPath");
         this.initial_notebook_path = this.notebook_path;
         this.contents = options.contents;
@@ -172,7 +171,7 @@ define([
                 var w = window.open('', IPython._target);
                 that.contents.new_untitled(that.notebook_path || '', {type: 'file', ext: '.txt'}).then(function(data) {
                     w.location = utils.url_path_join(
-                        that.base_url, 'edit',
+                        that.base_url_prefix, that.base_url, 'edit',
                         utils.encode_uri_components(data.path)
                     );
                 }).catch(function (e) {
@@ -386,7 +385,7 @@ define([
         var breadcrumb = $('.breadcrumb');
         breadcrumb.empty();
         var list_item = $('<li/>');
-        var root_url = utils.url_path_join(that.base_url, '/tree');
+        var root_url = utils.url_path_join(that.base_url_prefix, that.base_url, '/tree');
         var root = $('<li/>').append(
             $("<a/>")
             .attr('href', root_url)
@@ -404,7 +403,7 @@ define([
                 window.history.pushState(
                     {path: path},
                     'Home',
-                    utils.url_path_join(that.base_url, 'tree')
+                    utils.url_path_join(that.base_url_prefix, that.base_url, 'tree')
                 );
                 that.update_location(path);
                 return false;
@@ -416,6 +415,7 @@ define([
             path_parts.push(path_part);
             var path = path_parts.join('/');
             var url = utils.url_path_join(
+                that.base_url_prefix,
                 that.base_url,
                 '/tree',
                 utils.encode_uri_components(path)
@@ -931,6 +931,7 @@ define([
                 window.history.pushState({
                     path: model.path
                 }, model.path, utils.url_path_join(
+                    that.base_url_prefix,
                     that.base_url,
                     'tree',
                     utils.encode_uri_components(model.path)

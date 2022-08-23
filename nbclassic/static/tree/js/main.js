@@ -72,8 +72,6 @@ requirejs([
     // Setup all of the config related things
 
     const htmlConfig = document.getElementById('nbclassic-config-data');
-//    config = JSON.parse(htmlConfig.textContent);
-//    const baseUrlPrefix = config['baseUrlPrefix'];
     const baseUrlPrefix = htmlConfig.textContent;
     var common_options = {
         base_url: utils.get_body_data("baseUrl"),

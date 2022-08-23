@@ -36,6 +36,7 @@ define([
          *          config: ConfigSection instance
          */
         options = options || {};
+        this.base_url_prefix = options.base_url_prefix;
         this.base_url = options.base_url || utils.get_body_data("baseUrl");
         this.selector = selector;
         this.notebook = options.notebook;
@@ -177,7 +178,7 @@ define([
             var parent = utils.url_path_split(that.notebook.notebook_path)[0];
             window.open(
                 utils.url_path_join(
-                    that.base_url, 'tree',
+                    that.base_url_prefix, that.base_url, 'tree',
                     utils.encode_uri_components(parent)
                 ), IPython._target);
         });
