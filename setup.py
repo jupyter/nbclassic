@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Setup script for Jupyter Notebook"""
+"""Setup script for Jupyter NbClassic"""
 
 #-----------------------------------------------------------------------------
 #  Copyright (c) 2015-, Jupyter Development Team.

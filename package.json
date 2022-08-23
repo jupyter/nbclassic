@@ -2,7 +2,7 @@
   "name": "jupyter-nbclassic-deps",
   "private": true,
   "version": "4.0.0",
-  "description": "Jupyter Notebook nodejs dependencies",
+  "description": "Jupyter NbClassic nodejs dependencies",
   "author": "Jupyter Developers",
   "license": "BSD-3-Clause",
   "repository": {
