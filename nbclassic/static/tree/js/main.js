@@ -73,10 +73,9 @@ requirejs([
 
     var common_options = {
         base_url: utils.get_body_data("baseUrl"),
-        base_url_prefix: utils.get_body_data("baseUrlPrefix") || "",
+        base_url_prefix: document.baseUrlPrefix || "",
         notebook_path: utils.get_body_data("notebookPath"),
     };
-    console.log('--', common_options)
     var cfg = new config.ConfigSection('tree', common_options);
     cfg.load();
     common_options.config = cfg;
