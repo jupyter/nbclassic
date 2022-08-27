@@ -71,13 +71,12 @@ requirejs([
 
     // Setup all of the config related things
 
-    const htmlConfig = document.getElementById('nbclassic-config-data');
-    const baseUrlPrefix = htmlConfig.textContent;
     var common_options = {
         base_url: utils.get_body_data("baseUrl"),
-        base_url_prefix: baseUrlPrefix,
+        base_url_prefix: utils.get_body_data("baseUrlPrefix") || "",
         notebook_path: utils.get_body_data("notebookPath"),
     };
+    console.log('--', common_options)
     var cfg = new config.ConfigSection('tree', common_options);
     cfg.load();
     common_options.config = cfg;
