@@ -15,7 +15,8 @@ from tornado.web import RedirectHandler
 import nbclassic
 from nbclassic import (
     DEFAULT_STATIC_FILES_PATH,
-    DEFAULT_TEMPLATE_PATH_LIST
+    DEFAULT_TEMPLATE_PATH_LIST,
+    url_prefix_notebook
 )
 
 from nbclassic._version import __version__
@@ -117,7 +118,7 @@ class NotebookApp(
     extension_url = "/tree"
     subcommands = {}
 
-    default_url = Unicode("/tree").tag(config=True)
+    default_url = Unicode("%s/tree" % url_prefix_notebook()).tag(config=True)
 
     # Override the default open_Browser trait in ExtensionApp,
     # setting it to True.
@@ -200,6 +201,7 @@ class NotebookApp(
         nbui = gettext.translation('nbui', localedir=os.path.join(
             base_dir, 'nbclassic/i18n'), fallback=True)
         self.jinja2_env.install_gettext_translations(nbui, newstyle=False)
+        self.jinja2_env.globals.update(base_url_prefix=url_prefix_notebook)
 
     def _link_jupyter_server_extension(self, serverapp):
         # Monkey-patch Jupyter Server's and nbclassic's static path list to include
@@ -256,6 +258,7 @@ class NotebookApp(
             nbextensions_path=self.nbextensions_path,
         )
         self.settings.update(**settings)
+
 
     def initialize_handlers(self):
         """Load the (URL pattern, handler) tuples for each component."""

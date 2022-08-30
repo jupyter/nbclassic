@@ -7,10 +7,12 @@ from ._version import __version__
 DEFAULT_STATIC_FILES_PATH = os.path.join(os.path.dirname(__file__), "static")
 
 
+NOTEBOOK_V7_DETECTED = False
+
 # Notebook shim to ensure notebook extensions backwards compatiblity.
 
 try:
-    from notebook import version_info as notebook_version_info
+    from notebook._version import version_info as notebook_version_info
 except Exception:
     notebook_version_info = None
     # No notebook python package found.
@@ -27,6 +29,7 @@ if notebook_version_info is not None:
     # Notebook is available on the platform.
     # We shim based on the notebook version.
     if notebook_version_info >= (7,):
+        NOTEBOOK_V7_DETECTED = True
         from .shim_notebook import shim_notebook
         # Shimming existing notebook python package > 6 to jupyter_server.
         # For notebook extensions backwards compatibility.
@@ -51,6 +54,11 @@ DEFAULT_TEMPLATE_PATH_LIST = [
     os.path.join(os.path.dirname(__file__), "templates"),
 ]
 
+
+def url_prefix_notebook():
+    if NOTEBOOK_V7_DETECTED:
+        return "/nbclassic"
+    return ""
 
 def _jupyter_server_extension_paths():
     # Locally import to avoid install errors.

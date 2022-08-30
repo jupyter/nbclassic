@@ -21,6 +21,7 @@ define([
          */
         this.events = options.events;
         this.sessions = {};
+        this.base_url_prefix = options.base_url_prefix;
         this.base_url = options.base_url || utils.get_body_data("baseUrl");
 
         // Add collapse arrows.

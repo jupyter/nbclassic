@@ -12,6 +12,7 @@ define([
     
     var NewNotebookWidget = function (selector, options) {
         this.selector = selector;
+        this.base_url_prefix = options.base_url_prefix;
         this.base_url = options.base_url;
         this.contents = options.contents;
         this.events = options.events;
@@ -84,7 +85,7 @@ define([
         this.contents.new_untitled(dir_path, {type: "notebook"}).then(
             function (data) {
                 var url = utils.url_path_join(
-                    that.base_url, 'notebooks',
+                    that.base_url_prefix, that.base_url, 'notebooks',
                     utils.encode_uri_components(data.path)
                 );
                 if (kernel_name) {
