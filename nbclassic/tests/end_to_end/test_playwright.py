@@ -14,12 +14,20 @@ def test_execute_code(notebook):
     # def clear_outputs():
     #     return notebook.evaluate(
     #         "Jupyter.notebook.clear_all_output();")
+    page = notebook.page
+    page.pause()
+    page.reload()
+    title = page.title()
+    # notebook_a_tag = page.locator('a[href=\"http://localhost:8888/a@b/notebooks/Untitled.ipynb\"]')
+    notebook_a_tag = page.locator('#notebook_list > div:nth-child(4) > div > a')
+    new_page = notebook_a_tag.click()
+    page.goto('http://localhost:8888/a@b/notebooks/Untitled.ipynb')
 
     # Execute cell with Javascript API
     notebook.edit_cell(index=0, content='a=10; print(a)')
     notebook.evaluate("Jupyter.notebook.get_cell(0).execute();")
     outputs = notebook.wait_for_cell_output(0)
-    assert outputs[0].text == '10'
+    assert outputs.inner_text().strip() == '10'
 
     # # Execute cell with Shift-Enter
     # notebook.edit_cell(index=0, content='a=11; print(a)')

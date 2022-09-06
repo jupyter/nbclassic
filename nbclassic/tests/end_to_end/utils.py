@@ -156,7 +156,7 @@ class NotebookFrontend:
         """Gets all cells once they are visible.
 
         """
-        return self.page.query_selector_all("cell")
+        return self.page.query_selector_all(".cell")
 
     @property
     def current_index(self):
@@ -174,15 +174,16 @@ class NotebookFrontend:
 
         This is most easily done by using js directly.
         """
-        self.page.evaluate("window.onbeforeunload = null;")
-        self.page.evaluate("Jupyter.notebook.set_autosave_interval(0)")
+        self.evaluate("window.onbeforeunload = null;")
+        # Refactor this call, we can't call Jupyter.notebook on the /tree page during construction
+        # self.page.evaluate("Jupyter.notebook.set_autosave_interval(0)")
 
     def to_command_mode(self):
         """Changes us into command mode on currently focused cell"""
         self.body.press('Escape')
-        self.evaluate("return Jupyter.notebook.handle_command_mode("
+        self.evaluate(" () => { return Jupyter.notebook.handle_command_mode("
                                        "Jupyter.notebook.get_cell("
-                                           "Jupyter.notebook.get_edit_index()))")
+                                           "Jupyter.notebook.get_edit_index())) }")
 
     def focus_cell(self, index=0):
         cell = self.cells[index]
@@ -242,8 +243,8 @@ class NotebookFrontend:
     def get_cell_contents(self, index=0, selector='div .CodeMirror-code'):
         return self.cells[index].find_element_by_css_selector(selector).text
 
-    def get_cell_output(self, index=0, output='output_subarea'):
-        return self.cells[index].query_selector(output)  # Find cell child elements
+    def get_cell_output(self, index=0, output='.output_subarea'):
+        return self.cells[index].as_element().query_selector(output)  # Find cell child elements
 
     def wait_for_cell_output(self, index=0, timeout=10):
         # return WebDriverWait(self.browser, timeout).until(
@@ -277,9 +278,9 @@ class NotebookFrontend:
 
         for line_no, line in enumerate(content.splitlines()):
             if line_no != 0:
-                self.page.type("Enter")
-            self.page.type("Enter")
-            self.page.type(line)
+                self.page.keyboard.press("Enter")
+            self.page.keyboard.press("Enter")
+            self.page.keyboard.type(line)
         if render:
             self.execute_cell(self.current_index)
 
@@ -334,13 +335,13 @@ class NotebookFrontend:
         trigger_keystrokes(self.body, keys)
 
     def is_kernel_running(self):
-        return self.browser.execute_script(
-            "return Jupyter.notebook.kernel && Jupyter.notebook.kernel.is_connected()"
+        return self.evaluate(
+            "() => { return Jupyter.notebook.kernel && Jupyter.notebook.kernel.is_connected() }"
         )
 
     def clear_cell_output(self, index):
         JS = f'Jupyter.notebook.clear_output({index})'
-        self.browser.execute_script(JS)
+        self.evaluate(JS)
 
     @classmethod
     def new_notebook(cls, page, kernel_name='kernel-python3'):
@@ -396,7 +397,11 @@ def shift(browser, k):
 
 def cmdtrl(page, key):
     """Send key combination Ctrl+(key) or Command+(key) for MacOS"""
-    page.press("Meta+{}".format(key)) if os.uname()[0] == "Darwin" else page.press("Control+{}".format(key))
+    print(f"@@@@ key: {key}")
+    if os.uname()[0] == "Darwin":
+        page.keyboard.press("Meta+{}".format(key))
+    else:
+        page.keyboard.press("Control+{}".format(key))
 
 
 def alt(browser, k):
