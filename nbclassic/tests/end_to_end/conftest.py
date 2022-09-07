@@ -111,8 +111,8 @@ def playwright_browser(playwright):
 
     yield browser_context
 
-    # Teardown
-    browser.close()
+    # # Teardown
+    # browser.close()
 
 
 # @pytest.fixture(scope='module')

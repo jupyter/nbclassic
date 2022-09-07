@@ -379,15 +379,38 @@ class NotebookFrontend:
         kernel_selector = f'#{kernel_name} a'
         new_notebook_element = tree_page.locator(kernel_selector)
         new_notebook_element.click()
-        tree_page.pause()
 
-        # Grab the new editor page (was opened by the previous click)
-        open_pages = [pg for pg in self._browser_data[BROWSER].pages]
-        editor_pages = [pg for pg in open_pages if '/notebooks/' in pg.url]
-        print(f'@@@ ::: {open_pages}')
-        if not editor_pages:
-            raise Exception('Error, could not find open editor page!')
-        editor_page = editor_pages[0]  # TODO, extra checks here?
+        # tree_page.pause()
+
+        # # Wait for a new page to be created
+        # with self._browser_data[BROWSER].expect_event("page") as event:
+        #     new_notebook_element.click()
+        # foo = event.value
+        # assert '/notebooks/' in foo.url
+        # editor_page = foo
+
+        TIMEOUT = 10
+        begin = datetime.datetime.now()
+        while (datetime.datetime.now() - begin).seconds < TIMEOUT:
+            open_pages = self._browser_data[BROWSER].pages
+            # if [pg for pg in open_pages if '/notebooks/' in pg.url]:
+            if len(open_pages) > 1:
+                editor_page = [pg for pg in open_pages if 'tree' not in pg.url][0]
+                print(f'@@@ !! :::: {editor_page}')
+                break
+            print(f'@@@ OPENPAGES ::: {open_pages}')
+            time.sleep(.1)
+        else:
+            raise Exception('Error waiting for editor page!')
+
+        # # Grab the new editor page (was opened by the previous click)
+        # open_pages = [pg for pg in self._browser_data[BROWSER].pages]
+        # editor_pages = [pg for pg in open_pages if '/notebooks/' in pg.url]
+        # print(f'@@@ ::: {open_pages}')
+        # if not editor_pages:
+        #     raise Exception('Error, could not find open editor page!')
+
+        # editor_page = editor_pages[0]  # TODO, extra checks here?
 
         return editor_page
 
