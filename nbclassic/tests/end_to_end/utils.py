@@ -274,7 +274,20 @@ class NotebookFrontend:
         # return WebDriverWait(self.browser, timeout).until(
         #     lambda b: self.get_cell_output(index)
         # )
-        self.tree_page.pause()
+        # self.tree_page.pause()
+
+        # TODO refactor/remove
+        TIMEOUT = 30
+        begin = datetime.datetime.now()
+        while (datetime.datetime.now() - begin).seconds < TIMEOUT:
+            condition = self.editor_page.query_selector_all('.output_subarea')
+            if condition:
+                print(f'@@@ !! :::: {condition}')
+                break
+            time.sleep(.1)
+        else:
+            raise Exception('Error waiting for editor page!')
+
         return self.get_cell_output()
 
     def set_cell_metadata(self, index, key, value):
@@ -389,7 +402,7 @@ class NotebookFrontend:
         # assert '/notebooks/' in foo.url
         # editor_page = foo
 
-        TIMEOUT = 10
+        TIMEOUT = 30
         begin = datetime.datetime.now()
         while (datetime.datetime.now() - begin).seconds < TIMEOUT:
             open_pages = self._browser_data[BROWSER].pages
