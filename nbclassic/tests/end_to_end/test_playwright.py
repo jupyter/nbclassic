@@ -5,28 +5,32 @@ from playwright.sync_api import Page, expect
 
 # TODO: Remove
 # from selenium.webdriver.common.keys import Keys
-# from .utils import shift, cmdtrl
+from .utils import shift, cmdtrl, TREE_PAGE, EDITOR_PAGE
 
 
-def test_execute_code(notebook):
+def test_execute_code(notebook_frontend):
     # browser = notebook.browser
 
     # def clear_outputs():
     #     return notebook.evaluate(
     #         "Jupyter.notebook.clear_all_output();")
-    page = notebook.page
-    page.pause()
-    page.reload()
-    title = page.title()
-    # notebook_a_tag = page.locator('a[href=\"http://localhost:8888/a@b/notebooks/Untitled.ipynb\"]')
-    notebook_a_tag = page.locator('#notebook_list > div:nth-child(4) > div > a')
-    new_page = notebook_a_tag.click()
-    page.goto('http://localhost:8888/a@b/notebooks/Untitled.ipynb')
+
+    # page = notebook.page
+    # page.pause()
+    # page.reload()
+    # title = page.title()
+    # # notebook_a_tag = page.locator('a[href=\"http://localhost:8888/a@b/notebooks/Untitled.ipynb\"]')
+    # notebook_a_tag = page.locator('#notebook_list > div:nth-child(4) > div > a')
+    # new_page = notebook_a_tag.click()
+    # page.goto('http://localhost:8888/a@b/notebooks/Untitled.ipynb')
+    # print(f'@@@ PAGECELLS :: {page.query_selector_all(".cell")}')
+    # print(f'@@@ PAGECELLS :: {page.url}')
+    # page.pause()
 
     # Execute cell with Javascript API
-    notebook.edit_cell(index=0, content='a=10; print(a)')
-    notebook.evaluate("Jupyter.notebook.get_cell(0).execute();")
-    outputs = notebook.wait_for_cell_output(0)
+    notebook_frontend.edit_cell(index=0, content='a=10; print(a)')
+    notebook_frontend.evaluate("Jupyter.notebook.get_cell(0).execute();", page=EDITOR_PAGE)
+    outputs = notebook_frontend.wait_for_cell_output(0)
     assert outputs.inner_text().strip() == '10'
 
     # # Execute cell with Shift-Enter

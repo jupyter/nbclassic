@@ -14,6 +14,13 @@ from playwright.sync_api import ElementHandle
 # from selenium.webdriver.remote.webelement import WebElement
 
 
+# Key constants for browser_data
+BROWSER = 'BROWSER'
+TREE_PAGE = 'TREE_PAGE'
+EDITOR_PAGE = 'EDITOR_PAGE'
+SERVER_INFO = 'SERVER_INFO'
+
+
 def wait_for_selector(driver, selector, timeout=10, visible=False, single=False, wait_for_n=1, obscures=False):
     if wait_for_n > 1:
         return _wait_for_multiple(
@@ -102,11 +109,22 @@ class CellTypeError(ValueError):
 
 class NotebookFrontend:
 
-    def __init__(self, page):
-        self.page = page
+    TREE_PAGE = TREE_PAGE
+    EDITOR_PAGE = EDITOR_PAGE
+
+    def __init__(self, browser_data):
+        # Keep a reference to source data
+        self._browser_data = browser_data
+
+        # Define tree and editor attributes
+        self.tree_page = browser_data[TREE_PAGE]
+        self.editor_page = self._open_notebook_editor_page()
+        self.page = self.tree_page  # TODO remove/refactor this away
+
+        # Do some needed frontend setup
         self._wait_for_start()
-        self.disable_autosave_and_onbeforeunload()
-        # self.current_cell = None  # Defined/used below
+        self.disable_autosave_and_onbeforeunload()  # TODO fix/refactor
+        self.current_cell = None  # Defined/used below  # TODO refactor/remove
 
     def __len__(self):
         return len(self.cells)
@@ -131,7 +149,7 @@ class NotebookFrontend:
     def _wait_for_start(self):
         """Wait until the notebook interface is loaded and the kernel started"""
         # wait_for_selector(self.browser, '.cell')
-        self.page.locator('.cell')
+        self.tree_page.locator('.cell')
         # TODO: Refactor/fix
         time.sleep(10)
         # begin = datetime.datetime.now()
@@ -149,14 +167,14 @@ class NotebookFrontend:
 
     @property
     def body(self):
-        return self.page.locator("body")
+        return self.editor_page.locator("body")
 
     @property
     def cells(self):
         """Gets all cells once they are visible.
 
         """
-        return self.page.query_selector_all(".cell")
+        return self.editor_page.query_selector_all(".cell")
 
     @property
     def current_index(self):
@@ -165,16 +183,22 @@ class NotebookFrontend:
     def index(self, cell):
         return self.cells.index(cell)
 
-    # TODO: Do we need to wrap in an anonymous function?
-    def evaluate(self, text):
-        return self.page.evaluate(text)
+    def evaluate(self, text, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+
+        return specified_page.evaluate(text)
 
     def disable_autosave_and_onbeforeunload(self):
         """Disable request to save before closing window and autosave.
 
         This is most easily done by using js directly.
         """
-        self.evaluate("window.onbeforeunload = null;")
+        self.evaluate("window.onbeforeunload = null;", page=TREE_PAGE)
         # Refactor this call, we can't call Jupyter.notebook on the /tree page during construction
         # self.page.evaluate("Jupyter.notebook.set_autosave_interval(0)")
 
@@ -183,7 +207,7 @@ class NotebookFrontend:
         self.body.press('Escape')
         self.evaluate(" () => { return Jupyter.notebook.handle_command_mode("
                                        "Jupyter.notebook.get_cell("
-                                           "Jupyter.notebook.get_edit_index())) }")
+                                           "Jupyter.notebook.get_edit_index())) }", page=EDITOR_PAGE)
 
     def focus_cell(self, index=0):
         cell = self.cells[index]
@@ -264,6 +288,7 @@ class NotebookFrontend:
         JS = f'Jupyter.notebook.get_cell({index}).set_input_prompt({prmpt_val})'
         self.browser.execute_script(JS)
 
+    # TODO refactor this, it's terrible
     def edit_cell(self, cell=None, index=0, content="", render=False):
         """Set the contents of a cell to *content*, by cell object or by index
         """
@@ -273,14 +298,14 @@ class NotebookFrontend:
 
         # Select & delete anything already in the cell
         self.current_cell.press('Enter')
-        cmdtrl(self.page, 'a')  # TODO: FIX
+        cmdtrl(self.editor_page, 'a')  # TODO: FIX
         self.current_cell.press('Delete')
 
         for line_no, line in enumerate(content.splitlines()):
             if line_no != 0:
-                self.page.keyboard.press("Enter")
-            self.page.keyboard.press("Enter")
-            self.page.keyboard.type(line)
+                self.editor_page.keyboard.press("Enter")
+            self.editor_page.keyboard.press("Enter")
+            self.editor_page.keyboard.type(line)
         if render:
             self.execute_cell(self.current_index)
 
@@ -343,24 +368,55 @@ class NotebookFrontend:
         JS = f'Jupyter.notebook.clear_output({index})'
         self.evaluate(JS)
 
+    def _open_notebook_editor_page(self):
+        tree_page = self.tree_page
+
+        # Simulate a user opening a new notebook/kernel
+        new_dropdown_element = tree_page.locator('#new-dropdown-button')
+        new_dropdown_element.click()
+        kernel_name = 'kernel-python3'
+        kernel_selector = f'#{kernel_name} a'
+        new_notebook_element = tree_page.locator(kernel_selector)
+        new_notebook_element.click()
+        tree_page.pause()
+
+        # Grab the new editor page (was opened by the previous click)
+        open_pages = [pg for pg in self._browser_data[BROWSER].pages]
+        editor_pages = [pg for pg in open_pages if '/notebooks/' in pg.url]
+        print(f'@@@ ::: {open_pages}')
+        if not editor_pages:
+            raise Exception('Error, could not find open editor page!')
+        editor_page = editor_pages[0]  # TODO, extra checks here?
+
+        return editor_page
+
+    # TODO: Refactor/consider removing this
     @classmethod
-    def new_notebook(cls, page, kernel_name='kernel-python3'):
+    def new_notebook_frontend(cls, browser_data, kernel_name='kernel-python3'):
+        browser = browser_data[BROWSER]
+        tree_page = browser_data[TREE_PAGE]
+        server_info = browser_data[SERVER_INFO]
+
         # with new_window(page):
-        select_kernel(page, kernel_name=kernel_name)
-        return cls(page)
+        # select_kernel(tree_page, kernel_name=kernel_name)  # TODO this is terrible, remove it
+        # tree_page.pause()
+        instance = cls(browser_data)
+
+        return instance
 
 
-def select_kernel(page, kernel_name='kernel-python3'):
-    """Clicks the "new" button and selects a kernel from the options.
-    """
-    # wait = WebDriverWait(browser, 10)
-    # new_button = wait.until(EC.element_to_be_clickable((By.ID, "new-dropdown-button")))
-    new_button = page.locator('#new-dropdown-button')
-    new_button.click()
-    kernel_selector = f'#{kernel_name} a'
-    # kernel = wait_for_selector(page, kernel_selector, single=True)
-    kernel = page.locator(kernel_selector)
-    kernel.click()
+# # TODO: refactor/remove this
+# def select_kernel(page, kernel_name='kernel-python3'):
+#     """Clicks the "new" button and selects a kernel from the options.
+#     """
+#     # wait = WebDriverWait(browser, 10)
+#     # new_button = wait.until(EC.element_to_be_clickable((By.ID, "new-dropdown-button")))
+#     new_button = page.locator('#new-dropdown-button')
+#     new_button.click()
+#     kernel_selector = f'#{kernel_name} a'
+#     # kernel = wait_for_selector(page, kernel_selector, single=True)
+#     kernel = page.locator(kernel_selector)
+#     kernel.click()
 
 
 # @contextmanager

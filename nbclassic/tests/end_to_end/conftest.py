@@ -5,6 +5,7 @@ import time
 from os.path import join as pjoin
 from subprocess import Popen
 from tempfile import mkstemp
+from types import SimpleNamespace
 from urllib.parse import urljoin
 
 import pytest
@@ -14,7 +15,7 @@ from testpath.tempdir import TemporaryDirectory
 
 import nbformat
 from nbformat.v4 import new_notebook, new_code_cell
-from .utils import NotebookFrontend
+from .utils import NotebookFrontend, BROWSER, TREE_PAGE, SERVER_INFO
 
 
 def _wait_for_server(proc, info_file_path):
@@ -99,20 +100,19 @@ def notebook_server():
 
 
 @pytest.fixture(scope='session')
-def playwright_driver(playwright):
-    # TODO: Fix
-    # if os.environ.get('SAUCE_USERNAME'):
+def playwright_browser(playwright):
+    # if os.environ.get('SAUCE_USERNAME'):   # TODO: Fix
     #     driver = make_sauce_driver()
     if os.environ.get('JUPYTER_TEST_BROWSER') == 'chrome':
-        driver = playwright.chromium.launch()
+        browser = playwright.chromium.launch()
     else:
-        driver = playwright.firefox.launch()
-    driver = driver.new_context().new_page()
+        browser = playwright.firefox.launch()
+    browser_context = browser.new_context()
 
-    yield driver
+    yield browser_context
 
-    # # Teardown
-    # driver.quit()
+    # Teardown
+    browser.close()
 
 
 # @pytest.fixture(scope='module')
@@ -130,16 +130,24 @@ def playwright_driver(playwright):
 
 
 @pytest.fixture(scope='module')
-def authenticated_browser(playwright_driver, notebook_server):
-    playwright_driver.jupyter_server_info = notebook_server
-    playwright_driver.goto("{url}?token={token}".format(**notebook_server))
-    return playwright_driver
+def authenticated_browser_data(playwright_browser, notebook_server):
+    playwright_browser.jupyter_server_info = notebook_server
+    tree_page = playwright_browser.new_page()
+    tree_page.goto("{url}?token={token}".format(**notebook_server))
+
+    auth_browser_data = {
+        BROWSER: playwright_browser,
+        TREE_PAGE: tree_page,
+        SERVER_INFO: notebook_server,
+    }
+
+    return auth_browser_data
 
 
 @pytest.fixture
-def notebook(authenticated_browser):
+def notebook_frontend(authenticated_browser_data):
     # tree_wh = authenticated_browser.current_window_handle
-    yield NotebookFrontend.new_notebook(authenticated_browser)
+    yield NotebookFrontend.new_notebook_frontend(authenticated_browser_data)
     # authenticated_browser.switch_to.window(tree_wh)
 
 
