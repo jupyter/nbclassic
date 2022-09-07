@@ -393,15 +393,7 @@ class NotebookFrontend:
         new_notebook_element = tree_page.locator(kernel_selector)
         new_notebook_element.click()
 
-        # tree_page.pause()
-
-        # # Wait for a new page to be created
-        # with self._browser_data[BROWSER].expect_event("page") as event:
-        #     new_notebook_element.click()
-        # foo = event.value
-        # assert '/notebooks/' in foo.url
-        # editor_page = foo
-
+        # TODO refactor/remove
         TIMEOUT = 30
         begin = datetime.datetime.now()
         while (datetime.datetime.now() - begin).seconds < TIMEOUT:
@@ -415,15 +407,6 @@ class NotebookFrontend:
             time.sleep(.1)
         else:
             raise Exception('Error waiting for editor page!')
-
-        # # Grab the new editor page (was opened by the previous click)
-        # open_pages = [pg for pg in self._browser_data[BROWSER].pages]
-        # editor_pages = [pg for pg in open_pages if '/notebooks/' in pg.url]
-        # print(f'@@@ ::: {open_pages}')
-        # if not editor_pages:
-        #     raise Exception('Error, could not find open editor page!')
-
-        # editor_page = editor_pages[0]  # TODO, extra checks here?
 
         return editor_page
 
