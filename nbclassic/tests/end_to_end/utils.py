@@ -274,6 +274,7 @@ class NotebookFrontend:
         # return WebDriverWait(self.browser, timeout).until(
         #     lambda b: self.get_cell_output(index)
         # )
+        self.tree_page.pause()
         return self.get_cell_output()
 
     def set_cell_metadata(self, index, key, value):
