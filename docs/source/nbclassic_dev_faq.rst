@@ -38,3 +38,26 @@ list of the Github links to Jupyter organizations, and the different Jupyter pro
 .. _`MeeseeksDev bot`: https://github.com/MeeseeksBox/MeeseeksDev#meeseeksdev-migrate-to-target-orgrepo
 .. _`allowed organization list`: https://github.com/MeeseeksBox/MeeseeksDev/blob/master/meeseeksdev/__init__.py#L26
 .. _`Jupyter Community`: https://jupyter.org/community
+
+The Development of NbClassic
+============================
+
+- Entrypoints in NbClassic
+    - In NbClassic entrypoints have been renamed (`Rename duplicate entrypoints #138`_) to:
+
+        - ``jupyter-nbclassic-extension``
+        - ``jupyter nbclassic-serverextension``
+        - ``jupyter-nbclassic-bundlerextension``
+
+    - The decision to rename these entrypoints came about after some deliberation and consideration for user experience. When considering the confusion that having a more implicit handling of the entrypoints might pose, the concensus was that renaming the entrypoints would allow for more observability and it would help highlight some of the changes that are happening in the Jupyter ecosystem.  
+
+.. _`Rename duplicate entrypoints #138`: https://github.com/jupyter/nbclassic/pull/138
+
+
+- Providing backwards compatibility with the  `jupyter_notebook_config.py` file
+    - With the goal of allowing NbClassic to be installed along with Notebook 7, the release of NbClassic v0.4 included changing the project name from `notebook` to `nbclassic`. In changing the 'name' attribute to be `nbclassic`, the traitlet behavior changed and resulted in the configuration file which was previously named `jupyter_notebook_config`, to be named `jupyter_nbclassic_config`. However, this was updated to manually set the file name to `jupyter_notebook_config`. With this, the configuration file is picked up whether Notebook or NbClassic are installed. 
+
+- Endpoints in NbClassic
+    - NbClassic handlers have been updated to account for Notebook 7 being installed (`Handlers under nbclassic if notebook 7 is found`_). If so, the resources from nbclassic will be served under the ``/nbclassic/`` URL subpath, so as to not interfere  with those resources being served by Jupyter Notebook.
+
+.. _`Handlers under nbclassic if notebook 7 is found`: https://github.com/jupyter/nbclassic/pull/141
