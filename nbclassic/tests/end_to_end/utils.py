@@ -210,6 +210,25 @@ class NotebookFrontend:
 
         return specified_page.evaluate(text)
 
+    def clear_all_output(self):
+        return self.evaluate(
+            "Jupyter.notebook.clear_all_output();",
+            page=EDITOR_PAGE
+    )
+
+    def clear_cell_output(self, index):
+        JS = f'Jupyter.notebook.clear_output({index})'
+        self.evaluate(JS)
+
+    def click_toolbar_execute_btn(self):
+        execute_button = self.editor_page.locator(
+            "button["
+                "data-jupyter-action="
+                    "'jupyter-notebook:run-cell-and-select-next'"
+            "]"
+        )
+        execute_button.click()
+
     def disable_autosave_and_onbeforeunload(self):
         """Disable request to save before closing window and autosave.
 
@@ -312,7 +331,7 @@ class NotebookFrontend:
 
         self._wait_for_condition(cell_output_check)
 
-        return self.get_cell_output()
+        return self.get_cell_output(index=index)
 
     def set_cell_metadata(self, index, key, value):
         JS = f'Jupyter.notebook.get_cell({index}).metadata.{key} = {value}'
@@ -428,10 +447,6 @@ class NotebookFrontend:
             "() => { return Jupyter.notebook.kernel && Jupyter.notebook.kernel.is_connected() }",
             page=EDITOR_PAGE
         )
-
-    def clear_cell_output(self, index):
-        JS = f'Jupyter.notebook.clear_output({index})'
-        self.evaluate(JS)
 
     def _open_notebook_editor_page(self):
         tree_page = self.tree_page
