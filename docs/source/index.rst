@@ -2,6 +2,8 @@
 Jupyter NbClassic
 ==================
 
+:ref:`Getting Started <NbClassicUsage>`
+
 .. toctree::
    :maxdepth: 1
    :caption: User Documentation

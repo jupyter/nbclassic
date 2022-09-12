@@ -43,7 +43,9 @@ front-end Notebook client (i.e. the familiar notebook interface).
 
             $ jupyter notebook --generate-config
 
-      :ref:`Command line arguments for configuration <config>` settings are documented in the configuration file and the user documentation.
+          :ref:`Command line arguments for configuration <config>` settings are
+        documented in the configuration file and the user documentation.
+      .. :ref:`Command line arguments for configuration <config>` settings are documented in the configuration file and the user documentation.
 
   - :ref:`Running a Notebook server <working_remotely>`
   - Related: `Configuring a language kernel <https://ipython.readthedocs.io/en/latest/install/kernel_install.html>`_
