@@ -1,9 +1,8 @@
-===================================
-The Jupyter NbClassic
-===================================
+==================
+Jupyter NbClassic
+==================
 
-* `Installation <https://jupyter.readthedocs.io/en/latest/install.html>`_
-* `Starting the Notebook <https://jupyter.readthedocs.io/en/latest/running.html>`_
+:ref:`Getting Started <InstallationTag>`
 
 .. toctree::
    :maxdepth: 1
