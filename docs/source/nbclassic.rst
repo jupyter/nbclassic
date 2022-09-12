@@ -40,6 +40,20 @@ Launch directly:
 Alternatively, you can run Jupyter Server and visit the `/tree` endpoint:
 ``> jupyter server``
 
+Configuration
+~~~~~~~~~~~~~
+
+To create a ``jupyter_nbclassic_config.py`` file in the ``.jupyter`` directory you can use the following command::
+    
+    $ jupyter nbclassic --generate-config
+
+Options
+~~~~~~~
+
+You can view a list of the available options by typing::
+
+    $ jupyter nbclassic --help
+    
 
 NbClassic in the Jupyter Ecosystem
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -65,9 +79,12 @@ versions <= 6.4.x.
 NbClassic Development
 ---------------------
 
-Nbclassic is the package that holds the UI components of
+`Nbclassic <https://github.com/jupyter/nbclassic>`_ is the package that holds the UI components of
 the classic Jupyter Notebook 6 and serves this UI through the server
 endpoints provided by Jupyter Server.
+
+*Jupyter Server Extensions*
+- `Authoring a basic server extension <https://jupyter-server.readthedocs.io/en/latest/developers/extensions.html>`_
 
 **The jupyter/notebook Repository**: The original `jupyter/notebook`_` GitHub 
 repository now holds the codebase for the new Jupyter Notebook (version 7).
