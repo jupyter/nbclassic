@@ -2,8 +2,6 @@
 Jupyter NbClassic
 ==================
 
-:ref:`Getting Started <InstallationTag>`
-
 .. toctree::
    :maxdepth: 1
    :caption: User Documentation

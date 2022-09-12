@@ -22,7 +22,7 @@ intends to address that need.
 
 .. _Jupyter Enhancement Proposal #79: https://jupyter.org/enhancement-proposals/79-notebook-v7/notebook-v7.html
 
-.. _InstallationTag:
+.. _NbClassicUsage:
 
 NbClassic Usage
 ---------------
