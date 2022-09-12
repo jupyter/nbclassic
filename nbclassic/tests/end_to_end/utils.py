@@ -182,6 +182,24 @@ class NotebookFrontend:
     def index(self, cell):
         return self.cells.index(cell)
 
+    def press(self, keycode, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+        specified_page.keyboard.press(keycode)
+
+    def type(self, text, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+        specified_page.keyboard.type(text)
+
     def evaluate(self, text, page):
         if page == TREE_PAGE:
             specified_page = self.tree_page
@@ -355,7 +373,7 @@ class NotebookFrontend:
     def delete_cell(self, index):
         self.focus_cell(index)
         self.to_command_mode()
-        self.current_cell.send_keys('dd')
+        self.current_cell.type('dd')
 
     def add_markdown_cell(self, index=-1, content="", render=True):
         self.add_cell(index, cell_type="markdown")

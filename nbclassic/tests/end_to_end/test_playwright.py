@@ -9,23 +9,11 @@ from .utils import shift, cmdtrl, TREE_PAGE, EDITOR_PAGE
 
 
 def test_execute_code(notebook_frontend):
-    # browser = notebook.browser
-
-    # def clear_outputs():
-    #     return notebook.evaluate(
-    #         "Jupyter.notebook.clear_all_output();")
-
-    # page = notebook.page
-    # page.pause()
-    # page.reload()
-    # title = page.title()
-    # # notebook_a_tag = page.locator('a[href=\"http://localhost:8888/a@b/notebooks/Untitled.ipynb\"]')
-    # notebook_a_tag = page.locator('#notebook_list > div:nth-child(4) > div > a')
-    # new_page = notebook_a_tag.click()
-    # page.goto('http://localhost:8888/a@b/notebooks/Untitled.ipynb')
-    # print(f'@@@ PAGECELLS :: {page.query_selector_all(".cell")}')
-    # print(f'@@@ PAGECELLS :: {page.url}')
-    # page.pause()
+    def clear_outputs():
+        return notebook_frontend.evaluate(
+            "Jupyter.notebook.clear_all_output();",
+            page=EDITOR_PAGE
+        )
 
     # Execute cell with Javascript API
     notebook_frontend.edit_cell(index=0, content='a=10; print(a)')
@@ -33,14 +21,14 @@ def test_execute_code(notebook_frontend):
     outputs = notebook_frontend.wait_for_cell_output(0)
     assert outputs.inner_text().strip() == '10'
 
-    # # Execute cell with Shift-Enter
-    # notebook.edit_cell(index=0, content='a=11; print(a)')
-    # clear_outputs()
-    # shift(notebook.browser, Keys.ENTER)
-    # outputs = notebook.wait_for_cell_output(0)
-    # assert outputs[0].text == '11'
-    # notebook.delete_cell(index=1)
-    #
+    # Execute cell with Shift-Enter
+    notebook_frontend.edit_cell(index=0, content='a=11; print(a)')
+    clear_outputs()
+    notebook_frontend.press("Shift+Enter", EDITOR_PAGE)
+    outputs = notebook_frontend.wait_for_cell_output(0)
+    assert outputs.inner_text().strip() == '11'
+    notebook_frontend.delete_cell(index=1)
+
     # # Execute cell with Ctrl-Enter
     # notebook.edit_cell(index=0, content='a=12; print(a)')
     # clear_outputs()
