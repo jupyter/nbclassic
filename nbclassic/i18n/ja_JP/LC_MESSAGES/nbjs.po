@@ -115,11 +115,11 @@ msgid "Select a file"
 msgstr "ファイルを選択"
 
 #: notebook/static/notebook/js/about.js:14
-msgid "You are using Jupyter notebook."
+msgid "You are using Jupyter NbClassic."
 msgstr "Jupyter notebook を使用しています。"
 
 #: notebook/static/notebook/js/about.js:16
-msgid "The version of the notebook server is: "
+msgid "The version of the Jupyter server is: "
 msgstr "ノートブックサーバのバージョン"
 
 #: notebook/static/notebook/js/about.js:22
@@ -147,7 +147,7 @@ msgid "Cannot find sys_info!"
 msgstr "sys_info が見つかりません!"
 
 #: notebook/static/notebook/js/about.js:38
-msgid "About Jupyter Notebook"
+msgid "About Jupyter NbClassic"
 msgstr "Jupyter Notebook について"
 
 #: notebook/static/notebook/js/about.js:47

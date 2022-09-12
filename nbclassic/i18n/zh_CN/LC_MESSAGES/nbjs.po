@@ -116,11 +116,11 @@ msgid "Select a file"
 msgstr "选择文件"
 
 #: notebook/static/notebook/js/about.js:14
-msgid "You are using Jupyter notebook."
+msgid "You are using Jupyter NbClassic."
 msgstr "您正在使用 Jupyter Notebook。"
 
 #: notebook/static/notebook/js/about.js:16
-msgid "The version of the notebook server is: "
+msgid "The version of the Jupyter server is: "
 msgstr "该 notebook 服务的版本是："
 
 #: notebook/static/notebook/js/about.js:22
@@ -148,7 +148,7 @@ msgid "Cannot find sys_info!"
 msgstr "找不到 sys_info！"
 
 #: notebook/static/notebook/js/about.js:38
-msgid "About Jupyter Notebook"
+msgid "About Jupyter NbClassic"
 msgstr "关于 Jupyter Notebook"
 
 #: notebook/static/notebook/js/about.js:47
