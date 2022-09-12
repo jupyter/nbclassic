@@ -21,7 +21,7 @@ Noteworthy Updates in NbClassic
 
 
 - Providing backwards compatibility with the  `jupyter_notebook_config.py` file
-    - With the goal of allowing NbClassic to be installed along with Notebook 7, the release of NbClassic v0.4 included changing the project name from `notebook` to `nbclassic`. In changing the 'name' attribute to be `nbclassic`, the traitlet behavior changed and resulted in the configuration file which was previously named `jupyter_notebook_config`, to be named `jupyter_nbclassic_config`. However, this was updated to manually set the file name to `jupyter_notebook_config`. With this, the configuration file is picked up whether Notebook or NbClassic are installed. 
+    - With the goal of allowing NbClassic to be installed along with Notebook 7, the release of NbClassic 0.4 included changing the project name from `notebook` to `nbclassic`. In changing the 'name' attribute to be `nbclassic`, the traitlet behavior changed and resulted in the configuration file which was previously named `jupyter_notebook_config`, to be named `jupyter_nbclassic_config`. However, this was updated to manually set the file name to `jupyter_notebook_config`. With this, the configuration file is picked up whether Notebook or NbClassic are installed. 
 
 - Endpoints in NbClassic
     - NbClassic handlers have been updated to account for Notebook 7 being installed (`Handlers under nbclassic if notebook 7 is found`_). If so, the resources from nbclassic will be served under the ``/nbclassic/`` URL subpath, so as to not interfere  with those resources being served by Jupyter Notebook.
@@ -33,10 +33,10 @@ NbClassic Developer FAQ
 
 1. Where should I submit my issue?
 
-    The Jupyter Notebook v6.4.x will only be taking security fixes, you can follow
+    The Jupyter Notebook 6.4.x will only be taking security fixes, you can follow
     these guidelines to `report a vulnerability`_.
 
-    For Notebook v6.5.x, as it is intended to be end of life and will receive only
+    For Notebook 6.5.x, as it is intended to be end of life and will receive only
     bug and security fixes, issues of this type in the frontend should be reported in
     the `jupyter/nbclassic`_ repository, bug and security issues for the server can be
     submitted in the `jupyter/notebook`_ repository. 
@@ -45,7 +45,7 @@ NbClassic Developer FAQ
     submitted to the `jupyter/nbclassic`_ repository, while server issues can be
     reported to the `jupyter_server/jupyter_server`_ repository.
 
-    Notebook v7.x issues would require closer consideration as they could be
+    Notebook 7.x issues would require closer consideration as they could be
     reported in the `jupyter/notebook`_, `jupyterlab/jupyterlab`_, or
     `jupyter_server/jupyter_server`_ repositories depending on the issue.
 
