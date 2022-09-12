@@ -101,6 +101,12 @@ def _wait_for_multiple(driver, locator_type, locator, timeout, wait_for_n, visib
     return wait.until(multiple_found)
 
 
+class TimeoutError(Exception):
+
+    def get_result(self):
+        return None if not self.args else self.args[0]
+
+
 class CellTypeError(ValueError):
 
     def __init__(self, message=""):
@@ -150,35 +156,13 @@ class NotebookFrontend:
         """Wait until the notebook interface is loaded and the kernel started"""
         # wait_for_selector(self.browser, '.cell')
         self.tree_page.locator('.cell')
-        # TODO: Refactor/fix
-        # time.sleep(10)
 
-        # TODO refactor/remove
-        TIMEOUT = 30
-        begin = datetime.datetime.now()
-        while (datetime.datetime.now() - begin).seconds < TIMEOUT:
-            condition = (self.is_jupyter_defined()
-                         and self.is_notebook_defined()
-                         and self.is_kernel_running())
-            if condition:
-                print(f'@@@ !! :::: {condition}')
-                break
-            time.sleep(.1)
-        else:
-            raise Exception('Error waiting for notebook/kernel startup!')
+        def check_is_kernel_running():
+            return (self.is_jupyter_defined()
+                    and self.is_notebook_defined()
+                    and self.is_kernel_running())
 
-        # begin = datetime.datetime.now()
-        # while (datetime.datetime.now() - begin).seconds < 100:
-        #     while not self.is_kernel_running():
-        #         print(self.is_kernel_running())
-        #         time.sleep(.1)
-        #     else:
-        #         print("Kernel running!")
-        # else:
-        #     raise Exception('Kernel not running!')
-        # WebDriverWait(self.browser, 10).until(
-        #     lambda drvr: self.is_kernel_running()
-        # )
+        self._wait_for_condition(check_is_kernel_running)
 
     @property
     def body(self):
@@ -285,23 +269,30 @@ class NotebookFrontend:
     def get_cell_output(self, index=0, output='.output_subarea'):
         return self.cells[index].as_element().query_selector(output)  # Find cell child elements
 
-    def wait_for_cell_output(self, index=0, timeout=10):
-        # return WebDriverWait(self.browser, timeout).until(
-        #     lambda b: self.get_cell_output(index)
-        # )
-        # self.tree_page.pause()
-
+    def _wait_for_condition(self, check_func, timeout=30, period=.1):
+        """Wait for check_func to return a truthy value, return it or raise an exception upon timeout"""
         # TODO refactor/remove
-        TIMEOUT = 30
+
         begin = datetime.datetime.now()
-        while (datetime.datetime.now() - begin).seconds < TIMEOUT:
-            condition = self.editor_page.query_selector_all('.output_subarea')
+        while (datetime.datetime.now() - begin).seconds < timeout:
+            condition = check_func()
             if condition:
-                print(f'@@@ !! :::: {condition}')
-                break
-            time.sleep(.1)
+                return condition
+            time.sleep(period)
         else:
-            raise Exception('Error waiting for editor page!')
+            try:
+                condition
+            except NameError:
+                raise TimeoutError()
+            raise TimeoutError(condition)
+
+    def wait_for_cell_output(self, index=0, timeout=10):
+        # TODO refactor/remove
+
+        def cell_output_check():
+            return self.editor_page.query_selector_all('.output_subarea')
+
+        self._wait_for_condition(cell_output_check)
 
         return self.get_cell_output()
 
