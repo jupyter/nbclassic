@@ -272,13 +272,13 @@ class NotebookApp(
         # Default routes
         # Order matters. The first handler to match the URL will handle the request.
         handlers = []
-        # Add a redirect from /notebooks to /edit
+        # Add a redirect from /notebooks to /files
         # for opening non-ipynb files in edit mode.
         handlers.append(
             (
                 rf"/{self.file_url_prefix}/((?!.*\.ipynb($|\?)).*)",
                 RedirectHandler,
-                {"url": self.serverapp.base_url+"edit/{0}"}
+                {"url": self.serverapp.base_url+"files/{0}"}
             )
         )
 
