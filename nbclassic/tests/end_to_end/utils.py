@@ -524,7 +524,6 @@ def shift(browser, k):
 
 def cmdtrl(page, key):
     """Send key combination Ctrl+(key) or Command+(key) for MacOS"""
-    print(f"@@@@ key: {key}")
     if os.uname()[0] == "Darwin":
         page.keyboard.press("Meta+{}".format(key))
     else:

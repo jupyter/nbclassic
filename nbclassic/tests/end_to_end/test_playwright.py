@@ -27,15 +27,15 @@ def test_execute_code(notebook_frontend):
     notebook_frontend.press("Shift+Enter", EDITOR_PAGE)
     outputs = notebook_frontend.wait_for_cell_output(0)
     assert outputs.inner_text().strip() == '11'
-    notebook_frontend.delete_cell(index=1)
 
-    # # Execute cell with Ctrl-Enter
-    # notebook.edit_cell(index=0, content='a=12; print(a)')
-    # clear_outputs()
-    # cmdtrl(notebook.browser, Keys.ENTER)
-    # outputs = notebook.wait_for_cell_output(0)
-    # assert outputs[0].text == '12'
-    #
+    # TODO fix for platform-independent execute logic (mac uses meta+enter)
+    # Execute cell with Ctrl-Enter (or equivalent)
+    notebook_frontend.edit_cell(index=0, content='a=12; print(a)')
+    clear_outputs()
+    notebook_frontend.press("Control+Enter", EDITOR_PAGE)
+    outputs = notebook_frontend.wait_for_cell_output(0)
+    assert outputs.inner_text().strip() == '12'
+
     # # Execute cell with toolbar button
     # notebook.edit_cell(index=0, content='a=13; print(a)')
     # clear_outputs()
