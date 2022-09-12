@@ -151,7 +151,22 @@ class NotebookFrontend:
         # wait_for_selector(self.browser, '.cell')
         self.tree_page.locator('.cell')
         # TODO: Refactor/fix
-        time.sleep(10)
+        # time.sleep(10)
+
+        # TODO refactor/remove
+        TIMEOUT = 30
+        begin = datetime.datetime.now()
+        while (datetime.datetime.now() - begin).seconds < TIMEOUT:
+            condition = (self.is_jupyter_defined()
+                         and self.is_notebook_defined()
+                         and self.is_kernel_running())
+            if condition:
+                print(f'@@@ !! :::: {condition}')
+                break
+            time.sleep(.1)
+        else:
+            raise Exception('Error waiting for notebook/kernel startup!')
+
         # begin = datetime.datetime.now()
         # while (datetime.datetime.now() - begin).seconds < 100:
         #     while not self.is_kernel_running():
@@ -373,9 +388,36 @@ class NotebookFrontend:
     def trigger_keydown(self, keys):
         trigger_keystrokes(self.body, keys)
 
+    def is_jupyter_defined(self):
+        """Checks that the Jupyter object is defined on the frontend"""
+        return self.evaluate(
+            "() => {"
+            "  try {"
+            "    return Jupyter != false;"
+            "  } catch (e) {"
+            "    return false;"
+            "  }"
+            "}",
+            page=EDITOR_PAGE
+        )
+
+    def is_notebook_defined(self):
+        """Checks that the Jupyter.notebook object is defined on the frontend"""
+        return self.evaluate(
+            "() => {"
+            "  try {"
+            "    return Jupyter.notebook != false;"
+            "  } catch (e) {"
+            "    return false;"
+            "  }"
+            "}",
+            page=EDITOR_PAGE
+        )
+
     def is_kernel_running(self):
         return self.evaluate(
-            "() => { return Jupyter.notebook.kernel && Jupyter.notebook.kernel.is_connected() }"
+            "() => { return Jupyter.notebook.kernel && Jupyter.notebook.kernel.is_connected() }",
+            page=EDITOR_PAGE
         )
 
     def clear_cell_output(self, index):
