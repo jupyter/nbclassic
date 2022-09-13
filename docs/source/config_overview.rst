@@ -5,11 +5,11 @@ Configuration Overview
 
 Beyond the default configuration settings, you can configure a rich array of
 options to suit your workflow. Here are areas that are commonly configured
-when using Jupyter Notebook:
+when using Jupyter NbClassic:
 
     - :ref:`Jupyter's common configuration system <configure_common>`
-    - :ref:`Notebook server <configure_nbserver>`
-    - :ref:`Notebook front-end client <configure_nbclient>`
+    - :ref:`NbClassic server <configure_nbserver>`
+    - :ref:`NbClassic front-end client <configure_nbclient>`
     - :ref:`Notebook extensions <configure_nbextensions>`
 
 Let's look at highlights of each area.
@@ -30,8 +30,8 @@ and editing settings is similar for all the Jupyter applications.
 
 .. _configure_nbserver:
 
-NbClassic server
----------------
+NbClassic Server
+----------------
 The NbClassic server runs the language kernel and communicates with the
 front-end NbClassic client (i.e. the familiar notebook interface).
 
@@ -51,7 +51,7 @@ front-end NbClassic client (i.e. the familiar notebook interface).
 
 .. _configure_nbclient:
 
-Notebook front-end client
+NbClassic front-end client
 -------------------------
 
 .. toctree::

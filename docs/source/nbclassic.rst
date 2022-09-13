@@ -86,7 +86,7 @@ endpoints provided by Jupyter Server.
 *Jupyter Server Extensions*
 - `Authoring a basic server extension <https://jupyter-server.readthedocs.io/en/latest/developers/extensions.html>`_
 
-**The jupyter/notebook Repository**: The original `jupyter/notebook`_` GitHub 
+**The jupyter/notebook Repository**: The original `jupyter/notebook`_ GitHub 
 repository now holds the codebase for the new Jupyter Notebook (version 7).
 
 .. _jupyter/notebook: https://github.com/jupyter/notebook
