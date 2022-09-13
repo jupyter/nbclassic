@@ -110,7 +110,7 @@ more about this.
 
 
 Starting the NbClassic server
-----------------------------
+-----------------------------
 
 You can start running a nbclassic server from the command line using the
 following command::
