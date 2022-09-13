@@ -30,18 +30,18 @@ and editing settings is similar for all the Jupyter applications.
 
 .. _configure_nbserver:
 
-Notebook server
+NbClassic server
 ---------------
-The Notebook server runs the language kernel and communicates with the
-front-end Notebook client (i.e. the familiar notebook interface).
+The NbClassic server runs the language kernel and communicates with the
+front-end NbClassic client (i.e. the familiar notebook interface).
 
-  - Configuring the Notebook server
+  - Configuring the NbClassic server
 
       To create a ``jupyter_notebook_config.py`` file in the ``.jupyter``
       directory, with all the defaults commented out, use the following
       command::
 
-            $ jupyter notebook --generate-config
+            $ jupyter nbclassic --generate-config
 
       :ref:`Command line arguments for configuration <config>` settings are documented in the configuration file and the user documentation.
       
