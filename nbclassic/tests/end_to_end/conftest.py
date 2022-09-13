@@ -101,7 +101,7 @@ def notebook_server():
 
 @pytest.fixture(scope='session')
 def playwright_browser(playwright):
-    # if os.environ.get('SAUCE_USERNAME'):   # TODO: Fix
+    # if os.environ.get('SAUCE_USERNAME'):   # TODO: Fix this
     #     driver = make_sauce_driver()
     if os.environ.get('JUPYTER_TEST_BROWSER') == 'chrome':
         browser = playwright.chromium.launch()
@@ -111,8 +111,8 @@ def playwright_browser(playwright):
 
     yield browser_context
 
-    # # Teardown
-    # browser.close()
+    # Teardown
+    browser.close()
 
 
 # @pytest.fixture(scope='module')

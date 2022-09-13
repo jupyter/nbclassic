@@ -1,11 +1,7 @@
 """Proof of concept for playwright testing, uses a reimplementation of test_execute_code"""
 
 
-from playwright.sync_api import Page, expect
-
-# TODO: Remove
-# from selenium.webdriver.common.keys import Keys
-from .utils import shift, cmdtrl, TREE_PAGE, EDITOR_PAGE
+from .utils import TREE_PAGE, EDITOR_PAGE
 
 
 def test_execute_code(notebook_frontend):
