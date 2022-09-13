@@ -181,14 +181,26 @@ class NotebookFrontend:
     def index(self, cell):
         return self.cells.index(cell)
 
-    def press(self, keycode, page):
+    def press(self, keycode, page, modifiers=None):
         if page == TREE_PAGE:
             specified_page = self.tree_page
         elif page == EDITOR_PAGE:
             specified_page = self.editor_page
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
-        specified_page.keyboard.press(keycode)
+
+        mods = ""
+        if modifiers is not None:
+            mods = "+".join(m for m in modifiers)
+
+        specified_page.keyboard.press(mods + "+" + keycode)
+
+    def get_platform_modifier_key(self):
+        """Jupyter Notebook uses different modifier keys on win (Control) vs mac (Meta)"""
+        if os.uname()[0] == "Darwin":
+            return "Meta"
+        else:
+            return "Control"
 
     def type(self, text, page):
         if page == TREE_PAGE:
@@ -349,7 +361,7 @@ class NotebookFrontend:
 
         # Select & delete anything already in the cell
         self.current_cell.press('Enter')
-        cmdtrl(self.editor_page, 'a')  # TODO: FIX
+        self.press('a', EDITOR_PAGE, [self.get_platform_modifier_key()])
         self.current_cell.press('Delete')
 
         for line_no, line in enumerate(content.splitlines()):
@@ -360,55 +372,55 @@ class NotebookFrontend:
         if render:
             self.execute_cell(self.current_index)
 
-    def execute_cell(self, cell_or_index=None):
-        if isinstance(cell_or_index, int):
-            index = cell_or_index
-        elif isinstance(cell_or_index, ElementHandle):
-            index = self.index(cell_or_index)
-        else:
-            raise TypeError("execute_cell only accepts an ElementHandle or an int")
-        self.focus_cell(index)
-        self.current_cell.press("Control+Enter")
+    # def execute_cell(self, cell_or_index=None):
+    #     if isinstance(cell_or_index, int):
+    #         index = cell_or_index
+    #     elif isinstance(cell_or_index, ElementHandle):
+    #         index = self.index(cell_or_index)
+    #     else:
+    #         raise TypeError("execute_cell only accepts an ElementHandle or an int")
+    #     self.focus_cell(index)
+    #     self.current_cell.press("Control+Enter")
 
-    def add_cell(self, index=-1, cell_type="code", content=""):
-        self.focus_cell(index)
-        self.current_cell.send_keys("b")
-        new_index = index + 1 if index >= 0 else index
-        if content:
-            self.edit_cell(index=index, content=content)
-        if cell_type != 'code':
-            self.convert_cell_type(index=new_index, cell_type=cell_type)
+    # def add_cell(self, index=-1, cell_type="code", content=""):
+    #     self.focus_cell(index)
+    #     self.current_cell.send_keys("b")
+    #     new_index = index + 1 if index >= 0 else index
+    #     if content:
+    #         self.edit_cell(index=index, content=content)
+    #     if cell_type != 'code':
+    #         self.convert_cell_type(index=new_index, cell_type=cell_type)
 
-    def add_and_execute_cell(self, index=-1, cell_type="code", content=""):
-        self.add_cell(index=index, cell_type=cell_type, content=content)
-        self.execute_cell(index)
+    # def add_and_execute_cell(self, index=-1, cell_type="code", content=""):
+    #     self.add_cell(index=index, cell_type=cell_type, content=content)
+    #     self.execute_cell(index)
 
     def delete_cell(self, index):
         self.focus_cell(index)
         self.to_command_mode()
         self.current_cell.type('dd')
 
-    def add_markdown_cell(self, index=-1, content="", render=True):
-        self.add_cell(index, cell_type="markdown")
-        self.edit_cell(index=index, content=content, render=render)
+    # def add_markdown_cell(self, index=-1, content="", render=True):
+    #     self.add_cell(index, cell_type="markdown")
+    #     self.edit_cell(index=index, content=content, render=render)
 
-    def append(self, *values, cell_type="code"):
-        for i, value in enumerate(values):
-            if isinstance(value, str):
-                self.add_cell(cell_type=cell_type,
-                              content=value)
-            else:
-                raise TypeError(f"Don't know how to add cell from {value!r}")
-
-    def extend(self, values):
-        self.append(*values)
-
-    def run_all(self):
-        for cell in self:
-            self.execute_cell(cell)
-
-    def trigger_keydown(self, keys):
-        trigger_keystrokes(self.body, keys)
+    # def append(self, *values, cell_type="code"):
+    #     for i, value in enumerate(values):
+    #         if isinstance(value, str):
+    #             self.add_cell(cell_type=cell_type,
+    #                           content=value)
+    #         else:
+    #             raise TypeError(f"Don't know how to add cell from {value!r}")
+    #
+    # def extend(self, values):
+    #     self.append(*values)
+    #
+    # def run_all(self):
+    #     for cell in self:
+    #         self.execute_cell(cell)
+    #
+    # def trigger_keydown(self, keys):
+    #     trigger_keystrokes(self.body, keys)
 
     def is_jupyter_defined(self):
         """Checks that the Jupyter object is defined on the frontend"""
@@ -522,12 +534,12 @@ class NotebookFrontend:
 #     trigger_keystrokes(browser, "shift-%s"%k)
 
 
-def cmdtrl(page, key):
-    """Send key combination Ctrl+(key) or Command+(key) for MacOS"""
-    if os.uname()[0] == "Darwin":
-        page.keyboard.press("Meta+{}".format(key))
-    else:
-        page.keyboard.press("Control+{}".format(key))
+# def cmdtrl(page, key):
+#     """Send key combination Ctrl+(key) or Command+(key) for MacOS"""
+#     if os.uname()[0] == "Darwin":
+#         page.keyboard.press("Meta+{}".format(key))
+#     else:
+#         page.keyboard.press("Control+{}".format(key))
 
 
 # def alt(browser, k):

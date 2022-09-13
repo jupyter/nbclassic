@@ -1,4 +1,4 @@
-"""Proof of concept for playwright testing, uses a reimplementation of test_execute_code"""
+"""Test basic cell execution methods, related shortcuts, and error modes"""
 
 
 from .utils import TREE_PAGE, EDITOR_PAGE
@@ -14,16 +14,19 @@ def test_execute_code(notebook_frontend):
     # Execute cell with Shift-Enter
     notebook_frontend.edit_cell(index=0, content='a=11; print(a)')
     notebook_frontend.clear_all_output()
-    notebook_frontend.press("Shift+Enter", EDITOR_PAGE)
+    notebook_frontend.press("Enter", EDITOR_PAGE, ["Shift"])
     outputs = notebook_frontend.wait_for_cell_output(0)
     assert outputs.inner_text().strip() == '11'
     notebook_frontend.delete_cell(1)  # Shift+Enter adds a cell
 
-    # TODO fix for platform-independent execute logic (mac uses meta+enter)
     # Execute cell with Ctrl-Enter (or equivalent)
     notebook_frontend.edit_cell(index=0, content='a=12; print(a)')
     notebook_frontend.clear_all_output()
-    notebook_frontend.press("Control+Enter", EDITOR_PAGE)
+    notebook_frontend.press(
+        "Enter",
+        EDITOR_PAGE,
+        modifiers=[notebook_frontend.get_platform_modifier_key()]
+    )
     outputs = notebook_frontend.wait_for_cell_output(0)
     assert outputs.inner_text().strip() == '12'
 
