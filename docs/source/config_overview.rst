@@ -3,6 +3,12 @@
 Configuration Overview
 ======================
 
+As NbClassic is a Jupyter Server Extension that is intended as an intermediary project while users
+migrate from Notebook 6 to Notebook 7, this document makes references to configuration
+files carried over from the classic Jupyter Notebook which will be executed when running
+nbclassic. For more general documentation regarding the Jupyter Server that NbClassic
+uses please visit the `Jupyter Server documentation <https://jupyter-server.readthedocs.io/en/latest/index.html>`_.
+
 Beyond the default configuration settings, you can configure a rich array of
 options to suit your workflow. Here are areas that are commonly configured
 when using Jupyter NbClassic:
@@ -52,7 +58,7 @@ front-end NbClassic client (i.e. the familiar notebook interface).
 .. _configure_nbclient:
 
 NbClassic front-end client
--------------------------
+--------------------------
 
 .. toctree::
    :maxdepth: 2

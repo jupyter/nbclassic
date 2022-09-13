@@ -16,13 +16,9 @@ serving HTTP requests.
 
 This document describes how you can
 :ref:`secure a jupyter server <notebook_server_security>` and how to
-:ref:`run it on a public interface <notebook_public_server>`. As NbClassic is
-Jupyter Server Extension that is intended as an intermediary project while users
-migrate from Notebook 6 to Notebook 7, this document makes references to configuration
-files carried over from the classic Jupyter Notebook which will be executed when running
-nbclassic. For more general documentation regarding the Jupyter Server that NbClassic
-uses please visit the `Jupyter Server documentation <https://jupyter-server.readthedocs.io/en/latest/index.html>`_,
-specifically the section on `Running a public Jupyter Server <https://jupyter-server.readthedocs.io/en/latest/operators/public-server.html>`_.
+:ref:`run it on a public interface <notebook_public_server>`.
+For general documentation on Jupyter Server, please visit the section on
+`Running a public Jupyter Server <https://jupyter-server.readthedocs.io/en/latest/operators/public-server.html>`_.
 
 .. important::
 
@@ -380,6 +376,9 @@ server.
 
 Known issues
 ------------
+
+Below are issues previously reported Notebook server issues and may be  applicable to 
+the Jupyter Server package that provides NbClassic's server.
 
 Proxies
 ~~~~~~~
