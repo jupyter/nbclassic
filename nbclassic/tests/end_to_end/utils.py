@@ -125,7 +125,6 @@ class NotebookFrontend:
         # Define tree and editor attributes
         self.tree_page = browser_data[TREE_PAGE]
         self.editor_page = self._open_notebook_editor_page()
-        self.page = self.tree_page  # TODO remove/refactor this away
 
         # Do some needed frontend setup
         self._wait_for_start()
@@ -234,9 +233,8 @@ class NotebookFrontend:
 
         This is most easily done by using js directly.
         """
-        self.evaluate("window.onbeforeunload = null;", page=TREE_PAGE)
-        # Refactor this call, we can't call Jupyter.notebook on the /tree page during construction
-        # self.page.evaluate("Jupyter.notebook.set_autosave_interval(0)")
+        self.evaluate("window.onbeforeunload = null;", page=EDITOR_PAGE)
+        self.evaluate("Jupyter.notebook.set_autosave_interval(0)", page=EDITOR_PAGE)
 
     def to_command_mode(self):
         """Changes us into command mode on currently focused cell"""
