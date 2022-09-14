@@ -19,6 +19,8 @@ BROWSER = 'BROWSER'
 TREE_PAGE = 'TREE_PAGE'
 EDITOR_PAGE = 'EDITOR_PAGE'
 SERVER_INFO = 'SERVER_INFO'
+# Other constants
+CELL_OUTPUT_SELECTOR = '.output_subarea'
 
 
 # def wait_for_selector(driver, selector, timeout=10, visible=False, single=False, wait_for_n=1, obscures=False):
@@ -115,8 +117,10 @@ class CellTypeError(ValueError):
 
 class NotebookFrontend:
 
+    # Some constants for users of the class
     TREE_PAGE = TREE_PAGE
     EDITOR_PAGE = EDITOR_PAGE
+    CELL_OUTPUT_SELECTOR = CELL_OUTPUT_SELECTOR
 
     def __init__(self, browser_data):
         # Keep a reference to source data
@@ -313,7 +317,7 @@ class NotebookFrontend:
     # def get_cell_contents(self, index=0, selector='div .CodeMirror-code'):
     #     return self.cells[index].find_element_by_css_selector(selector).text
 
-    def get_cell_output(self, index=0, output='.output_subarea'):
+    def get_cell_output(self, index=0, output=CELL_OUTPUT_SELECTOR):
         return self.cells[index].as_element().query_selector(output)  # Find cell child elements
 
     def _wait_for_condition(self, check_func, timeout=30, period=.1):
@@ -329,13 +333,17 @@ class NotebookFrontend:
         else:
             raise TimeoutError()
 
-    def wait_for_cell_output(self, index=0, timeout=10):
-        # TODO refactor/remove
+    def wait_for_cell_output(self, index=0, timeout=3):
+        if not self.cells:
+            raise Exception('Error, no cells exist!')
 
-        def cell_output_check():
-            return self.editor_page.query_selector_all('.output_subarea')
-
-        self._wait_for_condition(cell_output_check)
+        milliseconds_to_seconds = 1000
+        cell = self.cells[index].as_element()
+        try:
+            cell.wait_for_selector(CELL_OUTPUT_SELECTOR, timeout=timeout * milliseconds_to_seconds)
+        except Exception:
+            # None were found / timeout
+            pass
 
         return self.get_cell_output(index=index)
 
