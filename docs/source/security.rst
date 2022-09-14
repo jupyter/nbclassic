@@ -1,21 +1,21 @@
 
 .. _server_security:
 
-Security in the Jupyter notebook server
-=======================================
+Security in the Jupyter NbClassic server
+========================================
 
-Since access to the Jupyter notebook server means access to running arbitrary code,
-it is important to restrict access to the notebook server.
-For this reason, notebook 4.3 introduces token-based authentication that is **on by default**.
+Since access to the Jupyter NbClassic server means access to running arbitrary code,
+it is important to restrict access to the NbClassic server.
+For this reason, notebook 4.3 introduced token-based authentication that is **on by default**.
 
 .. note::
 
-    If you enable a password for your notebook server,
+    If you enable a password for your NbClassic server,
     token authentication is not enabled by default,
-    and the behavior of the notebook server is unchanged from versions earlier than 4.3.
+    and the behavior of the NbClassic server is unchanged from versions earlier than 4.3.
 
 When token authentication is enabled, the notebook uses a token to authenticate requests.
-This token can be provided to login to the notebook server in three ways:
+This token can be provided to login to the NbClassic server in three ways:
 
 - in the ``Authorization`` header, e.g.::
 
@@ -27,15 +27,15 @@ This token can be provided to login to the notebook server in three ways:
 
 - In the password field of the login form that will be shown to you if you are not logged in.
 
-When you start a notebook server with token authentication enabled (default),
+When you start an NbClassic server with token authentication enabled (default),
 a token is generated to use for authentication.
 This token is logged to the terminal, so that you can copy/paste the URL into your browser::
 
-    [I 11:59:16.597 NotebookApp] The Jupyter Notebook is running at:
-    http://localhost:8888/?token=c8de56fa4deed24899803e93c227592aef6538f93025fe01
+    [I 2022-09-13 09:33:16.916 ServerApp] Jupyter Server 1.18.1 is running at:
+    [I 2022-09-13 09:33:16.916 ServerApp] http://localhost:8888/tree?token=c8de56fa4deed24899803e93c227592aef6538f93025fe01
 
 
-If the notebook server is going to open your browser automatically
+If the NbClassic server is going to open your browser automatically
 (the default, unless ``--no-browser`` has been passed),
 an *additional* token is generated for launching the browser.
 This additional token can be used only once,
@@ -45,7 +45,7 @@ the token is discarded and a cookie is set in your browser.
 
 At any later time, you can see the tokens and URLs for all of your running servers with :command:`jupyter notebook list`::
 
-    $ jupyter notebook list
+    $ jupyter nbclassic list
     Currently running servers:
     http://localhost:8888/?token=abc... :: /home/you/notebooks
     https://0.0.0.0:9999/?token=123... :: /tmp/public
@@ -64,12 +64,10 @@ Alternatives to token authentication
 
 If a generated token doesn't work well for you,
 you can set a password for your notebook.
-:command:`jupyter notebook password` will prompt you for a password,
-and store the hashed password in your :file:`jupyter_notebook_config.json`.
+:command:`jupyter nbclassic password` will prompt you for a password,
+and store the hashed password in your :file:`jupyter_server_config.json`.
 
-.. versionadded:: 5.0
-
-    :command:`jupyter notebook password` command is added.
+The :command:`jupyter nbclassic password` command is available.
 
 
 It is possible to disable authentication altogether by setting the token and password to empty strings,
@@ -77,8 +75,8 @@ but this is **NOT RECOMMENDED**, unless authentication or access restrictions ar
 
 .. sourcecode:: python
 
-    c.NotebookApp.token = ''
-    c.NotebookApp.password = ''
+    c.ServerApp.token = ''
+    c.ServerApp.password = ''
 
 
 .. _notebook_security:

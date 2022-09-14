@@ -1,14 +1,14 @@
-====================
-The Jupyter Notebook
-====================
+==================
+Jupyter NbClassic
+==================
 
-* `Installation <https://jupyter.readthedocs.io/en/latest/install.html>`_
-* `Starting the Notebook <https://jupyter.readthedocs.io/en/latest/running.html>`_
+:ref:`Getting Started <NbClassicUsage>`
 
 .. toctree::
    :maxdepth: 1
    :caption: User Documentation
 
+   nbclassic
    notebook
    ui_components
    examples/Notebook/examples_index.rst
@@ -33,6 +33,7 @@ The Jupyter Notebook
    :caption: Contributor Documentation
 
    contributing
+   nbclassic_dev_faq
    development_faq
 
 .. toctree::
