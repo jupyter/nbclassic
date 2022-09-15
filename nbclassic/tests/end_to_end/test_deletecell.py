@@ -26,33 +26,33 @@ def test_delete_cells(notebook_frontend):
     for cell in range(0, 3):
         assert cell_is_deletable(notebook_frontend, cell)
 
-    return  # TODO, finish remaining
-
-    notebook.set_cell_metadata(0, 'deletable', 'false')
-    notebook.set_cell_metadata(1, 'deletable', 0
+    notebook_frontend.set_cell_metadata(0, 'deletable', 'false')
+    notebook_frontend.set_cell_metadata(1, 'deletable', 0
     )
-    assert not cell_is_deletable(notebook, 0)
-    assert cell_is_deletable(notebook, 1)
-    assert cell_is_deletable(notebook, 2)
+    assert not cell_is_deletable(notebook_frontend, 0)
+    assert cell_is_deletable(notebook_frontend, 1)
+    assert cell_is_deletable(notebook_frontend, 2)
 
     # Try to delete cell a (should not be deleted)
-    notebook.delete_cell(0)
-    assert notebook.get_cells_contents() == [a, b, c]
+    notebook_frontend.delete_cell(0)
+    assert notebook_frontend.get_cells_contents() == [a, b, c]
 
     # Try to delete cell b (should succeed)
-    notebook.delete_cell(1)
-    assert notebook.get_cells_contents() == [a, c]
+    notebook_frontend.delete_cell(1)
+    assert notebook_frontend.get_cells_contents() == [a, c]
 
     # Try to delete cell c (should succeed)
-    notebook.delete_cell(1)
-    assert notebook.get_cells_contents() == [a]
+    notebook_frontend.delete_cell(1)
+    assert notebook_frontend.get_cells_contents() == [a]
 
     # Change the deletable state of cell a
-    notebook.set_cell_metadata(0, 'deletable', 'true')
+    notebook_frontend.set_cell_metadata(0, 'deletable', 'true')
 
     # Try to delete cell a (should succeed)
-    notebook.delete_cell(0)
-    assert len(notebook.cells) == 1 # it contains an empty cell
+    notebook_frontend.delete_cell(0)
+    assert len(notebook_frontend.cells) == 1 # it contains an empty cell
+
+    return  # TODO, finish remaining
 
     # Make sure copied cells are deletable
     notebook.edit_cell(index=0, content=a)

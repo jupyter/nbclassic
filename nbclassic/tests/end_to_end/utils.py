@@ -365,10 +365,10 @@ class NotebookFrontend:
 
         return self.get_cell_output(index=index)
 
-    # def set_cell_metadata(self, index, key, value):
-    #     JS = f'Jupyter.notebook.get_cell({index}).metadata.{key} = {value}'
-    #     return self.browser.execute_script(JS)
-    #
+    def set_cell_metadata(self, index, key, value):
+        JS = f'Jupyter.notebook.get_cell({index}).metadata.{key} = {value}'
+        return self.evaluate(JS, page=EDITOR_PAGE)
+
     # def get_cell_type(self, index=0):
     #     JS = f'return Jupyter.notebook.get_cell({index}).cell_type'
     #     return self.browser.execute_script(JS)
