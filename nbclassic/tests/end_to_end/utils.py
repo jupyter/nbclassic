@@ -368,7 +368,7 @@ class NotebookFrontend:
         return self.evaluate(JS, page=EDITOR_PAGE)
 
     def get_cell_contents(self, index=0, selector='div .CodeMirror-code'):
-        return self.cells[index].query_selector(selector).text
+        return self.cells[index].query_selector(selector).inner_text()
 
     def get_cell_output(self, index=0, output=CELL_OUTPUT_SELECTOR):
         return self.cells[index].as_element().query_selector(output)  # Find cell child elements
