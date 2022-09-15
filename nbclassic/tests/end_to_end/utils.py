@@ -115,6 +115,10 @@ class CellTypeError(ValueError):
         self.message = message
 
 
+class FrontendError(Exception):
+    pass
+
+
 class NotebookFrontend:
 
     # Some constants for users of the class
@@ -196,8 +200,9 @@ class NotebookFrontend:
         mods = ""
         if modifiers is not None:
             mods = "+".join(m for m in modifiers)
+            mods += "+"
 
-        specified_page.keyboard.press(mods + "+" + keycode)
+        specified_page.keyboard.press(mods + keycode)
 
     def type(self, text, page):
         if page == TREE_PAGE:
@@ -217,6 +222,26 @@ class NotebookFrontend:
 
     def type_active(self, text):
         self.current_cell.type(text)
+
+    def try_click_selector(self, selector, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+        elem = specified_page.locator(selector)
+
+        elem.click()
+
+    # def wait_for_selector(self, selector, page):
+    #     if page == TREE_PAGE:
+    #         specified_page = self.tree_page
+    #     elif page == EDITOR_PAGE:
+    #         specified_page = self.editor_page
+    #     else:
+    #         raise Exception('Error, provide a valid page to evaluate from!')
+    #     elem = specified_page.locator(selector)
 
     def get_platform_modifier_key(self):
         """Jupyter Notebook uses different modifier keys on win (Control) vs mac (Meta)"""
@@ -408,15 +433,15 @@ class NotebookFrontend:
         if render:
             self.execute_cell(self.current_index)
 
-    # def execute_cell(self, cell_or_index=None):
-    #     if isinstance(cell_or_index, int):
-    #         index = cell_or_index
-    #     elif isinstance(cell_or_index, ElementHandle):
-    #         index = self.index(cell_or_index)
-    #     else:
-    #         raise TypeError("execute_cell only accepts an ElementHandle or an int")
-    #     self.focus_cell(index)
-    #     self.current_cell.press("Control+Enter")
+    def execute_cell(self, cell_or_index=None):
+        if isinstance(cell_or_index, int):
+            index = cell_or_index
+        elif isinstance(cell_or_index, ElementHandle):
+            index = self.index(cell_or_index)
+        else:
+            raise TypeError("execute_cell only accepts an ElementHandle or an int")
+        self.focus_cell(index)
+        self.current_cell.press("Control+Enter")
 
     def add_cell(self, index=-1, cell_type="code", content=""):
         # TODO fix/respect cell_type arg
