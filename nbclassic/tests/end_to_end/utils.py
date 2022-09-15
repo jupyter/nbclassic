@@ -126,6 +126,13 @@ class NotebookFrontend:
     EDITOR_PAGE = EDITOR_PAGE
     CELL_OUTPUT_SELECTOR = CELL_OUTPUT_SELECTOR
 
+    CELL_INDEX = 'INDEX'
+    CELL_TEXT = 'TEXT'
+    _CELL_DATA_FORMAT = {
+        CELL_INDEX: None,  # int
+        CELL_TEXT: None,  # str
+    }
+
     def __init__(self, browser_data):
         # Keep a reference to source data
         self._browser_data = browser_data
@@ -371,7 +378,16 @@ class NotebookFrontend:
         return self.cells[index].query_selector(selector).inner_text()
 
     def get_cell_output(self, index=0, output=CELL_OUTPUT_SELECTOR):
-        return self.cells[index].as_element().query_selector(output)  # Find cell child elements
+        cell = self.cells[index].as_element().query_selector(output)  # Find cell child elements
+
+        if cell is None:
+            return None
+
+        cell_data = dict(self._CELL_DATA_FORMAT)
+        cell_data[self.CELL_INDEX] = index
+        cell_data[self.CELL_TEXT] = cell.inner_text()
+
+        return cell_data
 
     def _wait_for_condition(self, check_func, timeout=30, period=.1):
         """Wait for check_func to return a truthy value, return it or raise an exception upon timeout"""

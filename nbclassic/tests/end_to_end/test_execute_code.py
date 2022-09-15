@@ -9,14 +9,14 @@ def test_execute_code(notebook_frontend):
     notebook_frontend.edit_cell(index=0, content='a=10; print(a)')
     notebook_frontend.evaluate("Jupyter.notebook.get_cell(0).execute();", page=EDITOR_PAGE)
     outputs = notebook_frontend.wait_for_cell_output(0)
-    assert outputs.inner_text().strip() == '10'  # TODO fix/encapsulate inner_text
+    assert outputs[notebook_frontend.CELL_TEXT].strip() == '10'  # TODO fix/encapsulate inner_text
 
     # Execute cell with Shift-Enter
     notebook_frontend.edit_cell(index=0, content='a=11; print(a)')
     notebook_frontend.clear_all_output()
     notebook_frontend.press("Enter", EDITOR_PAGE, ["Shift"])
     outputs = notebook_frontend.wait_for_cell_output(0)
-    assert outputs.inner_text().strip() == '11'
+    assert outputs[notebook_frontend.CELL_TEXT].strip() == '11'
     notebook_frontend.delete_cell(1)  # Shift+Enter adds a cell
 
     # Execute cell with Ctrl-Enter (or equivalent)
@@ -28,14 +28,14 @@ def test_execute_code(notebook_frontend):
         modifiers=[notebook_frontend.get_platform_modifier_key()]
     )
     outputs = notebook_frontend.wait_for_cell_output(0)
-    assert outputs.inner_text().strip() == '12'
+    assert outputs[notebook_frontend.CELL_TEXT].strip() == '12'
 
     # Execute cell with toolbar button
     notebook_frontend.edit_cell(index=0, content='a=13; print(a)')
     notebook_frontend.clear_all_output()
     notebook_frontend.click_toolbar_execute_btn()
     outputs = notebook_frontend.wait_for_cell_output(0)
-    assert outputs.inner_text().strip() == '13'
+    assert outputs[notebook_frontend.CELL_TEXT].strip() == '13'
     notebook_frontend.delete_cell(1)  # Toolbar execute button adds a cell
 
     # Set up two cells to test stopping on error
@@ -63,4 +63,4 @@ def test_execute_code(notebook_frontend):
             cell1.execute();
         """, page=EDITOR_PAGE)
     outputs = notebook_frontend.wait_for_cell_output(1)
-    assert outputs.inner_text().strip() == '14'
+    assert outputs[notebook_frontend.CELL_TEXT].strip() == '14'
