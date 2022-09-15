@@ -330,17 +330,17 @@ class NotebookFrontend:
     #     self.to_command_mode()
     #     for i in range(final_index - initial_index):
     #         shift(self.browser, 'j')
-    #
-    # def find_and_replace(self, index=0, find_txt='', replace_txt=''):
-    #     self.focus_cell(index)
-    #     self.to_command_mode()
-    #     self.body.send_keys('f')
-    #     wait_for_selector(self.browser, "#find-and-replace", single=True)
-    #     self.browser.find_element_by_id("findreplace_allcells_btn").click()
-    #     self.browser.find_element_by_id("findreplace_find_inp").send_keys(find_txt)
-    #     self.browser.find_element_by_id("findreplace_replace_inp").send_keys(replace_txt)
-    #     self.browser.find_element_by_id("findreplace_replaceall_btn").click()
-    #
+
+    def find_and_replace(self, index=0, find_txt='', replace_txt=''):
+        self.focus_cell(index)
+        self.to_command_mode()
+        self.press('f', EDITOR_PAGE)
+        self.editor_page.locator('#find-and-replace')
+        self.editor_page.locator('#findreplace_allcells_btn').click()
+        self.editor_page.locator('#findreplace_find_inp').type(find_txt)
+        self.editor_page.locator('#findreplace_replace_inp').type(replace_txt)
+        self.editor_page.locator('#findreplace_replaceall_btn').click()
+
     # def convert_cell_type(self, index=0, cell_type="code"):
     #     # TODO add check to see if it is already present
     #     self.focus_cell(index)
