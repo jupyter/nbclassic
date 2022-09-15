@@ -5,7 +5,7 @@ from .utils import TREE_PAGE, EDITOR_PAGE
 
 
 def cell_is_deletable(notebook, index):
-    JS = f'return Jupyter.notebook.get_cell({index}).is_deletable();'
+    JS = f'() => {{ return Jupyter.notebook.get_cell({index}).is_deletable(); }}'
     return notebook.evaluate(JS, EDITOR_PAGE)
 
 
@@ -23,9 +23,10 @@ def test_delete_cells(notebook_frontend):
 
     # Validate initial state
     assert notebook_frontend.get_cells_contents() == [a, b, c]
-    return
     for cell in range(0, 3):
-        assert cell_is_deletable(notebook, cell)
+        assert cell_is_deletable(notebook_frontend, cell)
+
+    return  # TODO, finish remaining
 
     notebook.set_cell_metadata(0, 'deletable', 'false')
     notebook.set_cell_metadata(1, 'deletable', 0
