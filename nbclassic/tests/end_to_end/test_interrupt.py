@@ -32,8 +32,6 @@ def test_interrupt(notebook_frontend):
 
     notebook_frontend.edit_cell(index=0, content=text)
 
-    # return  # TODO, finish remaining
-
     for interrupt_method in (interrupt_from_menu, interrupt_from_keyboard):
         notebook_frontend.clear_cell_output(0)
         notebook_frontend.to_command_mode()
