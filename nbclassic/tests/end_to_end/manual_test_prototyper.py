@@ -1,4 +1,11 @@
-"""Test basic cell execution methods, related shortcuts, and error modes"""
+"""Test basic cell execution methods, related shortcuts, and error modes
+
+Run this manually:
+    # Normal pytest run
+    pytest nbclassic/tests/end_to_end/test_interrupt.py
+    # with playwright debug (run and poke around in the web console)
+    PWDEBUG=1 pytest -s nbclassic/tests/end_to_end/test_interrupt.py
+"""
 
 
 from .utils import TREE_PAGE, EDITOR_PAGE
