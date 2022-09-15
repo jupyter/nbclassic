@@ -19,11 +19,6 @@ def interrupt_from_keyboard(notebook_frontend):
 
 def test_interrupt(notebook_frontend):
     """ Test the interrupt function using both the button in the Kernel menu and the keyboard shortcut "ii"
-
-        Having trouble accessing the Interrupt message when execution is halted. I am assuming that the
-        message does not lie in the "outputs" field of the cell's JSON object. Using a timeout work-around for
-        test with an infinite loop. We know the interrupt function is working if this test passes.
-        Hope this is a good start.
     """
 
     text = ('import time\n'
