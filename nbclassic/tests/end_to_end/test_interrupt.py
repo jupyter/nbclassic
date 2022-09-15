@@ -36,4 +36,4 @@ def test_interrupt(notebook_frontend):
 
         # Wait for an output to appear
         output = notebook_frontend.wait_for_cell_output(0)
-        assert 'KeyboardInterrupt' in output.inner_text()
+        assert 'KeyboardInterrupt' in output[notebook_frontend.CELL_TEXT]
