@@ -52,17 +52,15 @@ def test_delete_cells(notebook_frontend):
     notebook_frontend.delete_cell(0)
     assert len(notebook_frontend.cells) == 1 # it contains an empty cell
 
-    return  # TODO, finish remaining
-
     # Make sure copied cells are deletable
-    notebook.edit_cell(index=0, content=a)
-    notebook.set_cell_metadata(0, 'deletable', 'false')
-    assert not cell_is_deletable(notebook, 0)
-    notebook.to_command_mode()
-    notebook.current_cell.send_keys('cv')
-    assert len(notebook.cells) == 2
-    assert cell_is_deletable(notebook, 1)
+    notebook_frontend.edit_cell(index=0, content=a)
+    notebook_frontend.set_cell_metadata(0, 'deletable', 'false')
+    assert not cell_is_deletable(notebook_frontend, 0)
+    notebook_frontend.to_command_mode()
+    notebook_frontend.type_active('cv')
+    assert len(notebook_frontend.cells) == 2
+    assert cell_is_deletable(notebook_frontend, 1)
 
-    notebook.set_cell_metadata(0, 'deletable', 'true')  # to perform below test, remove all the cells
-    remove_all_cells(notebook)
-    assert len(notebook.cells) == 1    # notebook should create one automatically on empty notebook
+    notebook_frontend.set_cell_metadata(0, 'deletable', 'true')  # to perform below test, remove all the cells
+    notebook_frontend.delete_all_cells()
+    assert len(notebook_frontend.cells) == 1    # notebook should create one automatically on empty notebook

@@ -199,13 +199,6 @@ class NotebookFrontend:
 
         specified_page.keyboard.press(mods + "+" + keycode)
 
-    def get_platform_modifier_key(self):
-        """Jupyter Notebook uses different modifier keys on win (Control) vs mac (Meta)"""
-        if os.uname()[0] == "Darwin":
-            return "Meta"
-        else:
-            return "Control"
-
     def type(self, text, page):
         if page == TREE_PAGE:
             specified_page = self.tree_page
@@ -214,6 +207,23 @@ class NotebookFrontend:
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
         specified_page.keyboard.type(text)
+
+    def press_active(self, keycode, modifiers=None):
+        mods = ""
+        if modifiers is not None:
+            mods = "+".join(m for m in modifiers)
+
+        self.current_cell.press(mods + "+" + keycode)
+
+    def type_active(self, text):
+        self.current_cell.type(text)
+
+    def get_platform_modifier_key(self):
+        """Jupyter Notebook uses different modifier keys on win (Control) vs mac (Meta)"""
+        if os.uname()[0] == "Darwin":
+            return "Meta"
+        else:
+            return "Control"
 
     def evaluate(self, text, page):
         if page == TREE_PAGE:
