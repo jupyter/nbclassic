@@ -19,7 +19,7 @@ INITIAL_CELLS = ['print("a")', 'print("b")', 'print("c")']
 
 def test_delete_cells(notebook_frontend):
     a, b, c = INITIAL_CELLS
-    notebook = prefill_notebook(INITIAL_CELLS)
+    notebook.populate(INITIAL_CELLS)
 
     # Validate initial state
     assert notebook.get_cells_contents() == [a, b, c]

@@ -244,7 +244,7 @@ class NotebookFrontend:
         for _ in range(len(self.cells)):
             self.delete_cell(0)
 
-    def populate_notebook(self, cell_texts):
+    def populate(self, cell_texts):
         """Delete all cells, then add cells using the list of specified cell_texts"""
         self.delete_all_cells()
 

@@ -16,5 +16,5 @@ def test_do_something(notebook_frontend):
     notebook_frontend.editor_page.pause()
     cell_texts = ['aa = 1', 'bb = 2', 'cc = 3']
     a, b, c = cell_texts
-    notebook_frontend.populate_notebook(cell_texts)
+    notebook_frontend.populate(cell_texts)
     notebook_frontend._pause()
