@@ -327,13 +327,13 @@ class NotebookFrontend:
     #
     # def wait_for_element_availability(self, element):
     #     _wait_for(self.browser, By.CLASS_NAME, element, visible=True)
-    #
-    # def get_cells_contents(self):
-    #     JS = 'return Jupyter.notebook.get_cells().map(function(c) {return c.get_text();})'
-    #     return self.browser.execute_script(JS)
-    #
-    # def get_cell_contents(self, index=0, selector='div .CodeMirror-code'):
-    #     return self.cells[index].find_element_by_css_selector(selector).text
+
+    def get_cells_contents(self):
+        JS = '() => { return Jupyter.notebook.get_cells().map(function(c) {return c.get_text();}) }'
+        return self.evaluate(JS, page=EDITOR_PAGE)
+
+    def get_cell_contents(self, index=0, selector='div .CodeMirror-code'):
+        return self.cells[index].query_selector(selector).text
 
     def get_cell_output(self, index=0, output=CELL_OUTPUT_SELECTOR):
         return self.cells[index].as_element().query_selector(output)  # Find cell child elements

@@ -17,4 +17,5 @@ def test_do_something(notebook_frontend):
     cell_texts = ['aa = 1', 'bb = 2', 'cc = 3']
     a, b, c = cell_texts
     notebook_frontend.populate(cell_texts)
+    assert notebook_frontend.get_cells_contents() == [a, b, c]
     notebook_frontend._pause()
