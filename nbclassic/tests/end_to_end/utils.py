@@ -225,6 +225,9 @@ class NotebookFrontend:
 
         return specified_page.evaluate(text)
 
+    def _pause(self):
+        self.editor_page.pause()
+
     def clear_all_output(self):
         return self.evaluate(
             "Jupyter.notebook.clear_all_output();",
@@ -234,6 +237,21 @@ class NotebookFrontend:
     def clear_cell_output(self, index):
         JS = f'Jupyter.notebook.clear_output({index})'
         self.evaluate(JS, page=EDITOR_PAGE)
+
+    def delete_all_cells(self):
+        # Note: After deleting all cells, a single default cell will remain
+
+        for _ in range(len(self.cells)):
+            self.delete_cell(0)
+
+    def populate_notebook(self, cell_texts):
+        """Delete all cells, then add cells using the list of specified cell_texts"""
+        self.delete_all_cells()
+
+        for _ in range(len(cell_texts) - 1):  # Remove 1, there will already be 1 default cell
+            self.add_cell()
+        for index, txt in enumerate(cell_texts):
+            self.edit_cell(None, index, txt)
 
     def click_toolbar_execute_btn(self):
         execute_button = self.editor_page.locator(
@@ -390,14 +408,17 @@ class NotebookFrontend:
     #     self.focus_cell(index)
     #     self.current_cell.press("Control+Enter")
 
-    # def add_cell(self, index=-1, cell_type="code", content=""):
-    #     self.focus_cell(index)
-    #     self.current_cell.send_keys("b")
-    #     new_index = index + 1 if index >= 0 else index
-    #     if content:
-    #         self.edit_cell(index=index, content=content)
-    #     if cell_type != 'code':
-    #         self.convert_cell_type(index=new_index, cell_type=cell_type)
+    def add_cell(self, index=-1, cell_type="code", content=""):
+        # TODO fix/respect cell_type arg
+        self.focus_cell(index)
+        self.current_cell.press("b")
+        new_index = index + 1 if index >= 0 else index
+        if content:
+            self.edit_cell(index=index, content=content)
+        # TODO fix this
+        if cell_type != 'code':
+            raise NotImplementedError('Error, non code cell_type is a TODO!')
+            # self.convert_cell_type(index=new_index, cell_type=cell_type)
 
     # def add_and_execute_cell(self, index=-1, cell_type="code", content=""):
     #     self.add_cell(index=index, cell_type=cell_type, content=content)
