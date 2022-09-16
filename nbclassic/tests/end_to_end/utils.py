@@ -147,16 +147,16 @@ class NotebookFrontend:
         self.current_cell = None  # Defined/used below  # TODO refactor/remove
 
     # def __len__(self):
-    #     return len(self.cells)
+    #     return len(self._cells)
     #
     # def __getitem__(self, key):
-    #     return self.cells[key]
+    #     return self._cells[key]
     #
     # def __setitem__(self, key, item):
     #     if isinstance(key, int):
     #         self.edit_cell(index=key, content=item, render=False)
     #     # TODO: re-add slicing support, handle general python slicing behaviour
-    #     # includes: overwriting the entire self.cells object if you do
+    #     # includes: overwriting the entire self._cells object if you do
     #     # self[:] = []
     #     # elif isinstance(key, slice):
     #     #     indices = (self.index(cell) for cell in self[key])
@@ -164,7 +164,7 @@ class NotebookFrontend:
     #     #         self.edit_cell(index=k, content=v, render=False)
     #
     # def __iter__(self):
-    #     return (cell for cell in self.cells)
+    #     return (cell for cell in self._cells)
 
     def _wait_for_start(self):
         """Wait until the notebook interface is loaded and the kernel started"""
@@ -183,18 +183,31 @@ class NotebookFrontend:
         return self.editor_page.locator("body")
 
     @property
-    def cells(self):
+    def _cells(self):
         """Gets all cells once they are visible.
 
         """
         return self.editor_page.query_selector_all(".cell")
 
     @property
+    def cells(self):
+        """Gets all cells once they are visible."""
+        # self.cells is now a list of dicts containing info per-cell
+        # (self._cells returns cell objects, should not be used externally)
+
+        cell_dicts = [
+            {self.CELL_INDEX: index, self.CELL_TEXT: cell.inner_text()}
+            for index, cell in enumerate(self._cells)
+        ]
+
+        return cell_dicts
+
+    @property
     def current_index(self):
         return self.index(self.current_cell)
 
     def index(self, cell):
-        return self.cells.index(cell)
+        return self._cells.index(cell)
 
     def press(self, keycode, page, modifiers=None):
         if page == TREE_PAGE:
@@ -283,7 +296,7 @@ class NotebookFrontend:
     def delete_all_cells(self):
         # Note: After deleting all cells, a single default cell will remain
 
-        for _ in range(len(self.cells)):
+        for _ in range(len(self._cells)):
             self.delete_cell(0)
 
     def populate(self, cell_texts):
@@ -320,7 +333,7 @@ class NotebookFrontend:
                                            "Jupyter.notebook.get_edit_index())) }", page=EDITOR_PAGE)
 
     def focus_cell(self, index=0):
-        cell = self.cells[index]
+        cell = self._cells[index]
         cell.click()
         self.to_command_mode()
         self.current_cell = cell
@@ -344,7 +357,7 @@ class NotebookFrontend:
     # def convert_cell_type(self, index=0, cell_type="code"):
     #     # TODO add check to see if it is already present
     #     self.focus_cell(index)
-    #     cell = self.cells[index]
+    #     cell = self._cells[index]
     #     if cell_type == "markdown":
     #         self.current_cell.send_keys("m")
     #     elif cell_type == "raw":
@@ -375,10 +388,10 @@ class NotebookFrontend:
         return self.evaluate(JS, page=EDITOR_PAGE)
 
     def get_cell_contents(self, index=0, selector='div .CodeMirror-code'):
-        return self.cells[index].query_selector(selector).inner_text()
+        return self._cells[index].query_selector(selector).inner_text()
 
     def get_cell_output(self, index=0, output=CELL_OUTPUT_SELECTOR):
-        cell = self.cells[index].as_element().query_selector(output)  # Find cell child elements
+        cell = self._cells[index].as_element().query_selector(output)  # Find cell child elements
 
         if cell is None:
             return None
@@ -403,11 +416,11 @@ class NotebookFrontend:
             raise TimeoutError()
 
     def wait_for_cell_output(self, index=0, timeout=3):
-        if not self.cells:
+        if not self._cells:
             raise Exception('Error, no cells exist!')
 
         milliseconds_to_seconds = 1000
-        cell = self.cells[index].as_element()
+        cell = self._cells[index].as_element()
         try:
             cell.wait_for_selector(CELL_OUTPUT_SELECTOR, timeout=timeout * milliseconds_to_seconds)
         except Exception:
