@@ -195,6 +195,7 @@ class NotebookFrontend:
         # self.cells is now a list of dicts containing info per-cell
         # (self._cells returns cell objects, should not be used externally)
 
+        # This mirrors the self._CELL_DATA_FORMAT
         cell_dicts = [
             {self.CELL_INDEX: index, self.CELL_TEXT: cell.inner_text()}
             for index, cell in enumerate(self._cells)
