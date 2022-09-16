@@ -21,7 +21,7 @@ var rjs_config = {
     text: 'components/requirejs-text/text',
     bootstrap: 'components/bootstrap/dist/js/bootstrap.min',
     bootstraptour: 'components/bootstrap-tour/build/js/bootstrap-tour.min',
-    "jquery-ui": 'components/jquery-ui/jquery-ui.min',
+    "jquery-ui": 'components/jquery-ui/dist/jquery-ui.min',
     moment: 'components/moment/min/moment-with-locales',
     codemirror: 'components/codemirror',
     xterm: 'components/xterm.js/index',
