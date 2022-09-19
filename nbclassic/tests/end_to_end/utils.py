@@ -284,6 +284,27 @@ class NotebookFrontend:
     def _pause(self):
         self.editor_page.pause()
 
+    def wait_for_tag(self, tag, page=None, cell_index=None):
+        if cell_index is None and page is None:
+            raise FrontendError('Provide a page or cell to wait from!')
+        if cell_index is not None and page is not None:
+            raise FrontendError('Provide only one of [page, cell] to wait from!')
+
+        result = None
+        if page is not None:
+            if page == TREE_PAGE:
+                specified_page = self.tree_page
+            elif page == EDITOR_PAGE:
+                specified_page = self.editor_page
+            else:
+                raise Exception('Error, provide a valid page to evaluate from!')
+
+            result = specified_page.locator(tag)
+        if cell_index is not None:
+            result = self._cells[cell_index].wait_for_selector(tag)
+
+        return result
+
     def clear_all_output(self):
         return self.evaluate(
             "Jupyter.notebook.clear_all_output();",
@@ -498,14 +519,14 @@ class NotebookFrontend:
     #     self.add_cell(index, cell_type="markdown")
     #     self.edit_cell(index=index, content=content, render=render)
 
-    # def append(self, *values, cell_type="code"):
-    #     for i, value in enumerate(values):
-    #         if isinstance(value, str):
-    #             self.add_cell(cell_type=cell_type,
-    #                           content=value)
-    #         else:
-    #             raise TypeError(f"Don't know how to add cell from {value!r}")
-    #
+    def append(self, *values, cell_type="code"):
+        for value in values:
+            if isinstance(value, str):
+                self.add_cell(cell_type=cell_type,
+                              content=value)
+            else:
+                raise TypeError(f"Don't know how to add cell from {value!r}")
+
     # def extend(self, values):
     #     self.append(*values)
     #
