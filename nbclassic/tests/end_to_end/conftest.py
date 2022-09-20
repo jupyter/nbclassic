@@ -15,7 +15,7 @@ from testpath.tempdir import TemporaryDirectory
 
 import nbformat
 from nbformat.v4 import new_notebook, new_code_cell
-from .utils import NotebookFrontend, BROWSER, TREE_PAGE, SERVER_INFO
+from .utils import NotebookFrontend, BROWSER, BROWSER_RAW, TREE_PAGE, SERVER_INFO
 
 
 def _wait_for_server(proc, info_file_path):
@@ -107,9 +107,9 @@ def playwright_browser(playwright):
         browser = playwright.chromium.launch()
     else:
         browser = playwright.firefox.launch()
-    browser_context = browser.new_context()
+    # browser_context = browser.new_context()
 
-    yield browser_context
+    yield browser
 
     # Teardown
     browser.close()
@@ -131,6 +131,8 @@ def playwright_browser(playwright):
 
 @pytest.fixture(scope='module')
 def authenticated_browser_data(playwright_browser, notebook_server):
+    browser_raw = playwright_browser
+    playwright_browser = browser_raw.new_context()
     playwright_browser.jupyter_server_info = notebook_server
     tree_page = playwright_browser.new_page()
     tree_page.goto("{url}?token={token}".format(**notebook_server))
@@ -139,6 +141,7 @@ def authenticated_browser_data(playwright_browser, notebook_server):
         BROWSER: playwright_browser,
         TREE_PAGE: tree_page,
         SERVER_INFO: notebook_server,
+        BROWSER_RAW: browser_raw,
     }
 
     return auth_browser_data
@@ -167,3 +170,49 @@ def notebook_frontend(authenticated_browser_data):
 #         return Notebook(selenium_driver)
 #
 #     return inner
+
+
+@pytest.fixture
+def prefill_notebook(playwright_browser, notebook_server):
+    browser_raw = playwright_browser
+    playwright_browser = browser_raw.new_context()
+    # playwright_browser is the browser_context,
+    # notebook_server is the server with directories
+
+    # the return of function inner takes in a dictionary of strings to populate cells
+    def inner(cells):
+        cells = [new_code_cell(c) if isinstance(c, str) else c
+                 for c in cells]
+        # new_notebook is an nbformat function that is imported so that it can create a
+        # notebook that is formatted as it needs to be 
+        nb = new_notebook(cells=cells)
+
+        # Create temporary file directory and store it's reference as well as the path
+        fd, path = mkstemp(dir=notebook_server['nbdir'], suffix='.ipynb')
+
+        # Open the file and write the format onto the file
+        with open(fd, 'w', encoding='utf-8') as f:
+            nbformat.write(nb, f)
+
+        # Grab the name of the file
+        fname = os.path.basename(path)
+
+        # Add the notebook server as a property of the playwright browser with the name jupyter_server_info
+        playwright_browser.jupyter_server_info = notebook_server
+        # Open a new page in the browser and refer to it as the tree page
+        tree_page = playwright_browser.new_page()
+
+        # Navigate that page to the base URL page AKA the tree page
+        tree_page.goto("{url}?token={token}".format(**notebook_server))
+
+        auth_browser_data = {
+            BROWSER: playwright_browser,
+            TREE_PAGE: tree_page,
+            SERVER_INFO: notebook_server,
+            BROWSER_RAW: browser_raw
+        }
+
+        return NotebookFrontend.new_notebook_frontend(auth_browser_data, existing_file_name=fname)
+
+    # Return the function that will take in the dict of code strings
+    return inner

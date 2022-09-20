@@ -19,6 +19,7 @@ BROWSER = 'BROWSER'
 TREE_PAGE = 'TREE_PAGE'
 EDITOR_PAGE = 'EDITOR_PAGE'
 SERVER_INFO = 'SERVER_INFO'
+BROWSER_RAW = 'BROWSER_RAW'
 # Other constants
 CELL_OUTPUT_SELECTOR = '.output_subarea'
 
@@ -133,13 +134,13 @@ class NotebookFrontend:
         CELL_TEXT: None,  # str
     }
 
-    def __init__(self, browser_data):
+    def __init__(self, browser_data, existing_file_name=None):
         # Keep a reference to source data
         self._browser_data = browser_data
 
         # Define tree and editor attributes
         self.tree_page = browser_data[TREE_PAGE]
-        self.editor_page = self._open_notebook_editor_page()
+        self.editor_page = self._open_notebook_editor_page(existing_file_name)
 
         # Do some needed frontend setup
         self._wait_for_start()
@@ -548,16 +549,24 @@ class NotebookFrontend:
             page=EDITOR_PAGE
         )
 
-    def _open_notebook_editor_page(self):
-        tree_page = self.tree_page
+    def wait_for_kernel_ready(self):
+        self.tree_page.locator(".kernel_idle_icon")
 
-        # Simulate a user opening a new notebook/kernel
-        new_dropdown_element = tree_page.locator('#new-dropdown-button')
-        new_dropdown_element.click()
-        kernel_name = 'kernel-python3'
-        kernel_selector = f'#{kernel_name} a'
-        new_notebook_element = tree_page.locator(kernel_selector)
-        new_notebook_element.click()
+    def _open_notebook_editor_page(self, existing_file_name=None):
+        tree_page = self.tree_page
+        
+        if existing_file_name is not None:
+            existing_notebook = tree_page.locator('div.list_item:nth-child(4) > div:nth-child(1) > a:nth-child(3)')
+            existing_notebook.click()
+            self.tree_page.reload()  # TODO: FIX this, page count does not update to 2
+        else:
+            # Simulate a user opening a new notebook/kernel
+            new_dropdown_element = tree_page.locator('#new-dropdown-button')
+            new_dropdown_element.click()
+            kernel_name = 'kernel-python3'
+            kernel_selector = f'#{kernel_name} a'
+            new_notebook_element = tree_page.locator(kernel_selector)
+            new_notebook_element.click()
 
         def wait_for_new_page():
             return [pg for pg in self._browser_data[BROWSER].pages if 'tree' not in pg.url]
@@ -569,7 +578,7 @@ class NotebookFrontend:
 
     # TODO: Refactor/consider removing this
     @classmethod
-    def new_notebook_frontend(cls, browser_data, kernel_name='kernel-python3'):
+    def new_notebook_frontend(cls, browser_data, kernel_name='kernel-python3', existing_file_name=None):
         browser = browser_data[BROWSER]
         tree_page = browser_data[TREE_PAGE]
         server_info = browser_data[SERVER_INFO]
@@ -577,7 +586,7 @@ class NotebookFrontend:
         # with new_window(page):
         # select_kernel(tree_page, kernel_name=kernel_name)  # TODO this is terrible, remove it
         # tree_page.pause()
-        instance = cls(browser_data)
+        instance = cls(browser_data, existing_file_name)
 
         return instance
 
