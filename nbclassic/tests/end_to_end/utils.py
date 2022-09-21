@@ -4,7 +4,7 @@ import time
 from contextlib import contextmanager
 from os.path import join as pjoin
 
-from playwright.sync_api import ElementHandle
+from playwright.sync_api import ElementHandle, JSHandle
 
 # from selenium.webdriver import ActionChains
 # from selenium.webdriver.common.by import By
@@ -377,32 +377,34 @@ class NotebookFrontend:
         self.editor_page.locator('#findreplace_replace_inp').type(replace_txt)
         self.editor_page.locator('#findreplace_replaceall_btn').click()
 
-    # def convert_cell_type(self, index=0, cell_type="code"):
-    #     # TODO add check to see if it is already present
-    #     self.focus_cell(index)
-    #     cell = self._cells[index]
-    #     if cell_type == "markdown":
-    #         self.current_cell.send_keys("m")
-    #     elif cell_type == "raw":
-    #         self.current_cell.send_keys("r")
-    #     elif cell_type == "code":
-    #         self.current_cell.send_keys("y")
-    #     else:
-    #         raise CellTypeError(f"{cell_type} is not a valid cell type,use 'code', 'markdown', or 'raw'")
-    #
-    #     self.wait_for_stale_cell(cell)
-    #     self.focus_cell(index)
-    #     return self.current_cell
-    #
-    # def wait_for_stale_cell(self, cell):
-    #     """ This is needed to switch a cell's mode and refocus it, or to render it.
-    #
-    #     Warning: there is currently no way to do this when changing between
-    #     markdown and raw cells.
-    #     """
-    #     wait = WebDriverWait(self.browser, 10)
-    #     element = wait.until(EC.staleness_of(cell))
-    #
+    def convert_cell_type(self, index=0, cell_type="code"):
+        # TODO add check to see if it is already present
+        self.focus_cell(index)
+        cell = self._cells[index]
+        if cell_type == "markdown":
+            self.current_cell.press("m")
+        elif cell_type == "raw":
+            self.current_cell.press("r")
+        elif cell_type == "code":
+            self.current_cell.press("y")
+        else:
+            raise CellTypeError(f"{cell_type} is not a valid cell type,use 'code', 'markdown', or 'raw'")
+
+        self._wait_for_stale_cell(cell)
+        self.focus_cell(index)
+        return self.current_cell
+
+    def _wait_for_stale_cell(self, cell):
+        """ This is needed to switch a cell's mode and refocus it, or to render it.
+
+        Warning: there is currently no way to do this when changing between
+        markdown and raw cells.
+        """
+        # wait = WebDriverWait(self.browser, 10)
+        # element = wait.until(EC.staleness_of(cell))
+
+        cell.wait_for_element_state('hidden')
+
     # def wait_for_element_availability(self, element):
     #     _wait_for(self.browser, By.CLASS_NAME, element, visible=True)
 
@@ -483,12 +485,13 @@ class NotebookFrontend:
             self.editor_page.keyboard.press("Enter")
             self.editor_page.keyboard.type(line)
         if render:
-            self.execute_cell(self.current_index)
+            self.execute_cell(index)
 
     def execute_cell(self, cell_or_index=None):
         if isinstance(cell_or_index, int):
             index = cell_or_index
         elif isinstance(cell_or_index, ElementHandle):
+            # TODO: This probably doesn't work, fix/check
             index = self.index(cell_or_index)
         else:
             raise TypeError("execute_cell only accepts an ElementHandle or an int")
@@ -504,8 +507,8 @@ class NotebookFrontend:
             self.edit_cell(index=index, content=content)
         # TODO fix this
         if cell_type != 'code':
-            raise NotImplementedError('Error, non code cell_type is a TODO!')
-            # self.convert_cell_type(index=new_index, cell_type=cell_type)
+            # raise NotImplementedError('Error, non code cell_type is a TODO!')
+            self.convert_cell_type(index=new_index, cell_type=cell_type)
 
     # def add_and_execute_cell(self, index=-1, cell_type="code", content=""):
     #     self.add_cell(index=index, cell_type=cell_type, content=content)
@@ -516,9 +519,9 @@ class NotebookFrontend:
         self.to_command_mode()
         self.current_cell.type('dd')
 
-    # def add_markdown_cell(self, index=-1, content="", render=True):
-    #     self.add_cell(index, cell_type="markdown")
-    #     self.edit_cell(index=index, content=content, render=render)
+    def add_markdown_cell(self, index=-1, content="", render=True):
+        self.add_cell(index, cell_type="markdown")
+        self.edit_cell(index=index, content=content, render=render)
 
     def append(self, *values, cell_type="code"):
         for value in values:
