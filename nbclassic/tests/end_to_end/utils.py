@@ -472,10 +472,10 @@ class NotebookFrontend:
     # def get_cell_type(self, index=0):
     #     JS = f'return Jupyter.notebook.get_cell({index}).cell_type'
     #     return self.browser.execute_script(JS)
-    #
-    # def set_cell_input_prompt(self, index, prmpt_val):
-    #     JS = f'Jupyter.notebook.get_cell({index}).set_input_prompt({prmpt_val})'
-    #     self.browser.execute_script(JS)
+
+    def set_cell_input_prompt(self, index, prmpt_val):
+        JS = f'Jupyter.notebook.get_cell({index}).set_input_prompt({prmpt_val})'
+        self.evaluate(JS, page=EDITOR_PAGE)
 
     # TODO refactor this, it's terrible
     def edit_cell(self, cell=None, index=0, content="", render=False):
