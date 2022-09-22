@@ -469,9 +469,9 @@ class NotebookFrontend:
         JS = f'Jupyter.notebook.get_cell({index}).metadata.{key} = {value}'
         return self.evaluate(JS, page=EDITOR_PAGE)
 
-    # def get_cell_type(self, index=0):
-    #     JS = f'return Jupyter.notebook.get_cell({index}).cell_type'
-    #     return self.browser.execute_script(JS)
+    def get_cell_type(self, index=0):
+        JS = f'() => {{ return Jupyter.notebook.get_cell({index}).cell_type }}'
+        return self.evaluate(JS, page=EDITOR_PAGE)
 
     def set_cell_input_prompt(self, index, prmpt_val):
         JS = f'Jupyter.notebook.get_cell({index}).set_input_prompt({prmpt_val})'
@@ -486,15 +486,17 @@ class NotebookFrontend:
         self.focus_cell(index)
 
         # Select & delete anything already in the cell
-        self.current_cell.press('Enter')
+        self.press('Enter', EDITOR_PAGE)
         self.press('a', EDITOR_PAGE, [self.get_platform_modifier_key()])
-        self.current_cell.press('Delete')
+        self.press('Delete', EDITOR_PAGE)
 
-        for line_no, line in enumerate(content.splitlines()):
-            if line_no != 0:
-                self.editor_page.keyboard.press("Enter")
-            self.editor_page.keyboard.press("Enter")
-            self.editor_page.keyboard.type(line)
+        self.type(content, page=EDITOR_PAGE)
+        # TODO cleanup
+        # for line_no, line in enumerate(content.splitlines()):
+        #     if line_no != 0:
+        #         self.editor_page.keyboard.press("Enter")
+        #     self.editor_page.keyboard.press("Enter")
+        #     self.editor_page.keyboard.type(line)
         if render:
             self.execute_cell(index)
 
