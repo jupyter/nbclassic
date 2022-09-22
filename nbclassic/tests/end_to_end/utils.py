@@ -306,6 +306,17 @@ class NotebookFrontend:
 
         return result
 
+    def _locate(self, selector, page):
+        result = None
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+
+        return specified_page.locator(selector)
+
     def clear_all_output(self):
         return self.evaluate(
             "Jupyter.notebook.clear_all_output();",
