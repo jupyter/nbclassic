@@ -239,8 +239,9 @@ class NotebookFrontend:
         mods = ""
         if modifiers is not None:
             mods = "+".join(m for m in modifiers)
+            mods += "+"
 
-        self.current_cell.press(mods + "+" + keycode)
+        self.current_cell.press(mods + keycode)
 
     def type_active(self, text):
         self.current_cell.type(text)
