@@ -167,13 +167,6 @@ class NotebookApp(
     def nbextensions_path(self):
         """The path to look for Javascript notebook extensions"""
         path = self.extra_nbextensions_path + jupyter_path('nbextensions')
-        # FIXME: remove IPython nbextensions path after a migration period
-        try:
-            from IPython.paths import get_ipython_dir
-        except ImportError:
-            pass
-        else:
-            path.append(os.path.join(get_ipython_dir(), 'nbextensions'))
         return path
 
     # Local path to static files directory.
