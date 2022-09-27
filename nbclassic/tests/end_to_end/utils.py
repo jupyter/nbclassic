@@ -120,6 +120,58 @@ class FrontendError(Exception):
     pass
 
 
+class FrontendElement:
+
+    def __init__(self, item):
+        # item should be a JSHandle, locator or ElementHandle
+        self._raw = item
+        self._element = item
+        self._bool = True  # Was the item created successfully?
+
+        # We need either a locator or an ElementHandle for most ops, obtain it
+        if item is None:
+            self._bool = False
+        elif not isinstance(item, ElementHandle) and isinstance(item, JSHandle):
+            as_element = item.as_element()
+            if as_element:
+                self._element = as_element
+            else:
+                self._bool = False
+
+    def __bool__(self):
+        """Returns True if construction succeeded"""
+        return self._bool
+
+    def click(self):
+        return self._element.click()
+
+    def get_inner_text(self):
+        return self._element.inner_text()
+
+    def get_attribute(self, attribute):
+        return self._element.get_attribute(attribute)
+
+    def locate(self, selector):
+        element = self._element
+
+        if hasattr(element, 'locator'):
+            result = element.locator(selector)
+        elif hasattr(element, 'query_selector'):
+            result = element.query_selector(selector)
+        else:
+            result = None
+
+        return FrontendElement(result)
+
+    def wait_for_state(self, state):
+        if hasattr(self._element, 'wait_for_element_state'):
+            self._element.wait_for_element_state(state)
+        elif hasattr(self._element, 'wait_for'):
+            self._element.wait_for(state)
+        else:
+            raise Exception('Unable to wait for state!')
+
+
 class NotebookFrontend:
 
     # Some constants for users of the class
@@ -257,14 +309,14 @@ class NotebookFrontend:
 
         elem.click()
 
-    # def wait_for_selector(self, selector, page):
-    #     if page == TREE_PAGE:
-    #         specified_page = self.tree_page
-    #     elif page == EDITOR_PAGE:
-    #         specified_page = self.editor_page
-    #     else:
-    #         raise Exception('Error, provide a valid page to evaluate from!')
-    #     elem = specified_page.locator(selector)
+    def wait_for_selector(self, selector, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+        return FrontendElement(specified_page.wait_for_selector(selector))
 
     def get_platform_modifier_key(self):
         """Jupyter Notebook uses different modifier keys on win (Control) vs mac (Meta)"""
@@ -285,6 +337,16 @@ class NotebookFrontend:
 
     def _pause(self):
         self.editor_page.pause()
+
+    def locate(self, selector, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to locate from!')
+
+        return FrontendElement(specified_page.locator(selector))
 
     def wait_for_tag(self, tag, page=None, cell_index=None):
         if cell_index is None and page is None:
