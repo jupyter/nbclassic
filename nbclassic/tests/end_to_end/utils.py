@@ -131,7 +131,9 @@ class FrontendElement:
         # We need either a locator or an ElementHandle for most ops, obtain it
         if item is None:
             self._bool = False
-        elif not isinstance(item, ElementHandle) and isinstance(item, JSHandle):
+        if hasattr(item, 'count') and item.count() == 0:
+            self._bool = False
+        if not isinstance(item, ElementHandle) and isinstance(item, JSHandle):
             as_element = item.as_element()
             if as_element:
                 self._element = as_element
@@ -150,6 +152,14 @@ class FrontendElement:
 
     def get_attribute(self, attribute):
         return self._element.get_attribute(attribute)
+
+    def get_computed_property(self, prop_name):
+        js = ("(element) => { return window.getComputedStyle(element)"
+              f".getPropertyValue('{prop_name}') }}")
+        return self._element.evaluate(js)
+
+    def evaluate(self, text):
+        return self._element.evaluate(text)
 
     def locate(self, selector):
         element = self._element
@@ -221,9 +231,6 @@ class NotebookFrontend:
 
     def _wait_for_start(self):
         """Wait until the notebook interface is loaded and the kernel started"""
-        # wait_for_selector(self.browser, '.cell')
-        self.tree_page.locator('.cell')
-
         def check_is_kernel_running():
             return (self.is_jupyter_defined()
                     and self.is_notebook_defined()
@@ -366,6 +373,49 @@ class NotebookFrontend:
         result = specified_page.locator(selector)
         element_list = [FrontendElement(result.nth(index)) for index in range(result.count())]
         return element_list
+
+    def wait_for_frame(self, count=None, name=None, page=None):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to wait for frame from!')
+
+        if name is not None:
+            def frame_wait():
+                frames = [f for f in specified_page.frames if f.name == name]
+                return frames
+        if count is not None:
+            def frame_wait():
+                frames = [f for f in specified_page.frames]
+                return len(frames) >= count
+
+        self._wait_for_condition(frame_wait)
+
+    def locate_in_frame(self, selector, page, frame_name=None, frame_index=None):
+        if frame_name is None and frame_index is None:
+            raise Exception('Error, must provide a frame name or frame index!')
+        if frame_name is not None and frame_index is not None:
+            raise Exception('Error, provide only one either frame name or frame index!')
+
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to locate in frame from!')
+
+        if frame_name is not None:
+            frame_matches = [f for f in specified_page.frames if f.name == frame_name]
+            if not frame_matches:
+                raise Exception('No frames found!')
+            frame = frame_matches[0]
+        if frame_index is not None:
+            frame = specified_page.frames[frame_index]
+
+        element = frame.wait_for_selector(selector)
+        return FrontendElement(element)
 
     def wait_for_tag(self, tag, page=None, cell_index=None):
         if cell_index is None and page is None:
@@ -601,9 +651,9 @@ class NotebookFrontend:
             # raise NotImplementedError('Error, non code cell_type is a TODO!')
             self.convert_cell_type(index=new_index, cell_type=cell_type)
 
-    # def add_and_execute_cell(self, index=-1, cell_type="code", content=""):
-    #     self.add_cell(index=index, cell_type=cell_type, content=content)
-    #     self.execute_cell(index)
+    def add_and_execute_cell(self, index=-1, cell_type="code", content=""):
+        self.add_cell(index=index, cell_type=cell_type, content=content)
+        self.execute_cell(index)
 
     def delete_cell(self, index):
         self.focus_cell(index)
@@ -688,7 +738,7 @@ class NotebookFrontend:
 
         new_pages = self._wait_for_condition(wait_for_new_page)
         editor_page = new_pages[0]
-
+        editor_page.wait_for_selector('.cell')
         return editor_page
 
     # TODO: Refactor/consider removing this
