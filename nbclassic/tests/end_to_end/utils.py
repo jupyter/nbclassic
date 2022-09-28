@@ -326,6 +326,12 @@ class NotebookFrontend:
             return "Control"
 
     def evaluate(self, text, page):
+        """Run some Javascript on the frontend in the given page
+
+        :param text: JS to evaluate
+        :param page: Page (str constant) to evaluate JS in
+        :return: The result of the evaluated JS
+        """
         if page == TREE_PAGE:
             specified_page = self.tree_page
         elif page == EDITOR_PAGE:
@@ -370,6 +376,7 @@ class NotebookFrontend:
         return result
 
     def _locate(self, selector, page):
+        """Find an frontend element by selector (Tag, CSS, XPath etc.)"""
         result = None
         if page == TREE_PAGE:
             specified_page = self.tree_page
@@ -381,6 +388,7 @@ class NotebookFrontend:
         return specified_page.locator(selector)
 
     def clear_all_output(self):
+        """Clear cell outputs"""
         return self.evaluate(
             "Jupyter.notebook.clear_all_output();",
             page=EDITOR_PAGE
@@ -540,7 +548,6 @@ class NotebookFrontend:
         JS = f'Jupyter.notebook.get_cell({index}).set_input_prompt({prmpt_val})'
         self.evaluate(JS, page=EDITOR_PAGE)
 
-    # TODO refactor this, it's terrible
     def edit_cell(self, cell=None, index=0, content="", render=False):
         """Set the contents of a cell to *content*, by cell object or by index
         """
@@ -554,12 +561,6 @@ class NotebookFrontend:
         self.press('Delete', EDITOR_PAGE)
 
         self.type(content, page=EDITOR_PAGE)
-        # TODO cleanup
-        # for line_no, line in enumerate(content.splitlines()):
-        #     if line_no != 0:
-        #         self.editor_page.keyboard.press("Enter")
-        #     self.editor_page.keyboard.press("Enter")
-        #     self.editor_page.keyboard.type(line)
         if render:
             self.execute_cell(index)
 
