@@ -71,6 +71,6 @@ def test_dualmode_execute(prefill_notebook):
     validate_dualmode_state(notebook_frontend, 'edit', base_index + 1)
 
     # Notebook will now have 8 cells, the index of the last cell will be 7
-    assert len(notebook_frontend.cells) == 8  # Cells where added
+    assert len(notebook_frontend.cells) == 8  # Cells were added
     notebook_frontend.focus_cell(7)
     validate_dualmode_state(notebook_frontend, 'command', 7)
