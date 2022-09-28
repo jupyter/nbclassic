@@ -1,7 +1,7 @@
 """Test basic cell execution methods, related shortcuts, and error modes"""
 
 
-from .utils import TREE_PAGE, EDITOR_PAGE
+from .utils import EDITOR_PAGE
 
 
 def test_execute_code(notebook_frontend):
@@ -9,7 +9,7 @@ def test_execute_code(notebook_frontend):
     notebook_frontend.edit_cell(index=0, content='a=10; print(a)')
     notebook_frontend.evaluate("Jupyter.notebook.get_cell(0).execute();", page=EDITOR_PAGE)
     outputs = notebook_frontend.wait_for_cell_output(0)
-    assert outputs[notebook_frontend.CELL_TEXT].strip() == '10'  # TODO fix/encapsulate inner_text
+    assert outputs[notebook_frontend.CELL_TEXT].strip() == '10'
 
     # Execute cell with Shift-Enter
     notebook_frontend.edit_cell(index=0, content='a=11; print(a)')
