@@ -354,6 +354,19 @@ class NotebookFrontend:
 
         return FrontendElement(specified_page.locator(selector))
 
+    def locate_all(self, selector, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to locate from!')
+
+        # Get a locator, make a list of FrontendElement's for each match
+        result = specified_page.locator(selector)
+        element_list = [FrontendElement(result.nth(index)) for index in range(result.count())]
+        return element_list
+
     def wait_for_tag(self, tag, page=None, cell_index=None):
         if cell_index is None and page is None:
             raise FrontendError('Provide a page or cell to wait from!')
@@ -375,6 +388,7 @@ class NotebookFrontend:
 
         return result
 
+    # TODO remove this
     def _locate(self, selector, page):
         """Find an frontend element by selector (Tag, CSS, XPath etc.)"""
         result = None
