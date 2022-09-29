@@ -2,6 +2,42 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.4
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.3...04aaebfb1427167973f5c54a67e3637a9c77134b))
+
+### Enhancements made
+
+- Stop looking in the old IPython directory for nbextensions [#153](https://github.com/jupyter/nbclassic/pull/153) ([@minrk](https://github.com/minrk))
+- Handlers under nbclassic if notebook 7 is found  [#141](https://github.com/jupyter/nbclassic/pull/141) ([@echarles](https://github.com/echarles))
+
+### Bugs fixed
+
+- Fix resource display when redirecting from /notebooks/* [#148](https://github.com/jupyter/nbclassic/pull/148) ([@echarles](https://github.com/echarles))
+- Rename duplicate entrypoints [#138](https://github.com/jupyter/nbclassic/pull/138) ([@echarles](https://github.com/echarles))
+- Point nbclassic at the classic jupyter_notebook_config path [#137](https://github.com/jupyter/nbclassic/pull/137) ([@Zsailer](https://github.com/Zsailer))
+
+### Maintenance and upkeep improvements
+
+- Updating JS Dependencies [#152](https://github.com/jupyter/nbclassic/pull/152) ([@RRosio](https://github.com/RRosio))
+- Get the notebook version from notebook._version [#133](https://github.com/jupyter/nbclassic/pull/133) ([@echarles](https://github.com/echarles))
+
+### Documentation improvements
+
+- Updating documentation for nbclassic [#134](https://github.com/jupyter/nbclassic/pull/134) ([@RRosio](https://github.com/RRosio))
+
+### Other merged PRs
+
+- UI: About box to display nbclassic instead of notebook [#147](https://github.com/jupyter/nbclassic/pull/147) ([@echarles](https://github.com/echarles))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-07-12&to=2022-09-29&type=c))
+
+[@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-07-12..2022-09-29&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Ajtpio+updated%3A2022-07-12..2022-09-29&type=Issues) | [@minrk](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aminrk+updated%3A2022-07-12..2022-09-29&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2022-07-12..2022-09-29&type=Issues) | [@Zsailer](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3AZsailer+updated%3A2022-07-12..2022-09-29&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.3
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.2...00f26ca5ff980705dd05d87328e04820e30ee2d8))
@@ -29,8 +65,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-07-06&to=2022-07-12&type=c))
 
 [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-07-06..2022-07-12&type=Issues) | [@kevin-bates](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Akevin-bates+updated%3A2022-07-06..2022-07-12&type=Issues) | [@minrk](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aminrk+updated%3A2022-07-06..2022-07-12&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.2
 
