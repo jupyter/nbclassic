@@ -35,7 +35,7 @@ def _wait_for_server(proc, info_file_path):
     raise RuntimeError("Didn't find %s in 30 seconds", info_file_path)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def notebook_server():
     info = {}
     with TemporaryDirectory() as td:
@@ -99,7 +99,7 @@ def notebook_server():
 #     return driver
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def playwright_browser(playwright):
     # if os.environ.get('SAUCE_USERNAME'):   # TODO: Fix this
     #     driver = make_sauce_driver()
@@ -129,7 +129,7 @@ def playwright_browser(playwright):
 #     authenticated_browser.switch_to.window(tree_wh)
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def authenticated_browser_data(playwright_browser, notebook_server):
     browser_raw = playwright_browser
     playwright_browser = browser_raw.new_context()
@@ -147,7 +147,7 @@ def authenticated_browser_data(playwright_browser, notebook_server):
     return auth_browser_data
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def notebook_frontend(authenticated_browser_data):
     # tree_wh = authenticated_browser.current_window_handle
     yield NotebookFrontend.new_notebook_frontend(authenticated_browser_data)
@@ -172,7 +172,7 @@ def notebook_frontend(authenticated_browser_data):
 #     return inner
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def prefill_notebook(playwright_browser, notebook_server):
     browser_raw = playwright_browser
     playwright_browser = browser_raw.new_context()
