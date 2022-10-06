@@ -28,7 +28,9 @@ var rjs_config = {
     "xtermjs-fit": 'components/xterm.js-fit/index',
     "jquery-typeahead": 'components/jquery-typeahead/dist/jquery.typeahead.min',
     contents: 'empty:',
-    custom: 'empty:',
+    custom: 'empty:',   
+    'custom-preload': 'empty:',
+
   },
   map: { // for backward compatibility
     "*": {
@@ -60,6 +62,7 @@ var rjs_config = {
 
   exclude: [
     "custom/custom",
+    "custom/custom-preload",
   ]
 };
 

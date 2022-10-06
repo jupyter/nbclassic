@@ -38,6 +38,7 @@ requirejs([
     'tree/js/shutdownbutton',
     'auth/js/loginwidget',
     'bidi/bidi',
+    'custom-preload'
 ], function(
     $,
     contents_service,
