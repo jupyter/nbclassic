@@ -14,10 +14,8 @@ def test_insert_cell(prefill_notebook):
     notebook_frontend.focus_cell(2)
     notebook_frontend.convert_cell_type(2, "markdown")
 
-    notebook_frontend.editor_page.pause()
     # insert code cell above
     notebook_frontend.press_active("a")
-    notebook_frontend.editor_page.pause()
     assert notebook_frontend.get_cell_contents(2).replace('\u200b', '') == ""
     # ^TODO: Why are there NBSP's in here? Might be empty cells only?
     assert notebook_frontend.get_cell_type(2) == "code"
