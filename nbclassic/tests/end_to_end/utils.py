@@ -719,9 +719,9 @@ class NotebookFrontend:
 
     def _open_notebook_editor_page(self, existing_file_name=None):
         tree_page = self.tree_page
-        
+
         if existing_file_name is not None:
-            existing_notebook = tree_page.locator('div.list_item:nth-child(4) > div:nth-child(1) > a:nth-child(3)')
+            existing_notebook = tree_page.locator(f"text={existing_file_name}")
             existing_notebook.click()
             self.tree_page.reload()  # TODO: FIX this, page count does not update to 2
         else:
@@ -738,7 +738,6 @@ class NotebookFrontend:
 
         new_pages = self._wait_for_condition(wait_for_new_page)
         editor_page = new_pages[0]
-        editor_page.wait_for_selector('.cell')
         return editor_page
 
     # TODO: Refactor/consider removing this
