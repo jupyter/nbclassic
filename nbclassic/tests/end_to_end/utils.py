@@ -763,6 +763,16 @@ class NotebookFrontend:
     def get_server_info(self):
         return self._browser_data[SERVER_INFO]['url']
 
+    def navigate_to(self, page, partial_url):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+
+        specified_page.goto(self._browser_data[SERVER_INFO]['url'] + partial_url)
+
     # TODO: Refactor/consider removing this
     @classmethod
     def new_notebook_frontend(cls, browser_data, kernel_name='kernel-python3', existing_file_name=None):
