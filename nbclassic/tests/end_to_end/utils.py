@@ -436,7 +436,7 @@ class NotebookFrontend:
         if cell_index is not None:
             result = self._cells[cell_index].wait_for_selector(tag)
 
-        return result
+        return FrontendElement(result)
 
     # TODO remove this
     def _locate(self, selector, page):

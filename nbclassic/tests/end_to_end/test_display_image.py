@@ -2,6 +2,8 @@
 
 The effect of shape metadata is validated, using Image(retina=True)
 """
+
+
 import re
 
 
@@ -36,7 +38,6 @@ def validate_img(notebook_frontend, cell_index, image_fmt, retina):
 
     # Find the image element that was just displayed
     img_element = notebook_frontend.wait_for_tag("img", cell_index=cell_index)
-    # TODO refactor img element access/encapsulate
 
     # Check image format
     src = img_element.get_attribute("src")
