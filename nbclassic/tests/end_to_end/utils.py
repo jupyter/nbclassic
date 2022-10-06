@@ -176,6 +176,9 @@ class FrontendElement:
     def type(self, text):
         return self._element.type(text)
 
+    def press(self, key):
+        return self._element.press(key)
+
     def wait_for_state(self, state):
         if hasattr(self._element, 'wait_for_element_state'):
             self._element.wait_for_element_state(state)
