@@ -31,18 +31,13 @@ def test_buffered_cells_execute_in_order(prefill_notebook):
     notebook_frontend.evaluate("() => IPython.notebook.kernel.stop_channels();", page=EDITOR_PAGE)
     # k == 1
     notebook_frontend.execute_cell(1)
-    notebook_frontend._pause()
     # k == 2
     notebook_frontend.execute_cell(2)
-    notebook_frontend._pause()
     # k == 6
     notebook_frontend.execute_cell(3)
-    notebook_frontend._pause()
     # k == 7
     notebook_frontend.execute_cell(2)
-    notebook_frontend._pause()
     notebook_frontend.execute_cell(4)
-    notebook_frontend._pause()
     notebook_frontend.evaluate("() => IPython.notebook.kernel.reconnect();", page=EDITOR_PAGE)
     notebook_frontend.wait_for_kernel_ready()
 
