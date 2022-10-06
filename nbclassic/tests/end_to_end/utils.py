@@ -173,6 +173,9 @@ class FrontendElement:
 
         return FrontendElement(result)
 
+    def type(self, text):
+        return self._element.type(text)
+
     def wait_for_state(self, state):
         if hasattr(self._element, 'wait_for_element_state'):
             self._element.wait_for_element_state(state)
