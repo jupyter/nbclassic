@@ -740,6 +740,29 @@ class NotebookFrontend:
         editor_page = new_pages[0]
         return editor_page
 
+    def get_page_url(self, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+
+        return specified_page.url
+    
+    def go_back(self, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+
+        return specified_page.go_back()
+
+    def get_server_info(self):
+        return self._browser_data[SERVER_INFO]['url']
+
     # TODO: Refactor/consider removing this
     @classmethod
     def new_notebook_frontend(cls, browser_data, kernel_name='kernel-python3', existing_file_name=None):
