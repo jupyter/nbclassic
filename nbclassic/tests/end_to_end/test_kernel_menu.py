@@ -1,7 +1,7 @@
 """Test kernel menu"""
 
 
-from .utils import TREE_PAGE, EDITOR_PAGE
+from .utils import EDITOR_PAGE
 
 
 restart_selectors = [
@@ -41,8 +41,7 @@ def test_menu_items(notebook_frontend):
         # Confirm shutdown
         notebook_frontend.wait_for_selector(confirm_selector, EDITOR_PAGE).click()
 
-        # TODO refactor _wait_for_condition call
-        notebook_frontend._wait_for_condition(lambda: not notebook_frontend.is_kernel_running())
+        notebook_frontend.wait_for_condition(lambda: not notebook_frontend.is_kernel_running())
 
         # Restart
         # (can't click the menu while a modal dialog is fading out)
@@ -51,6 +50,4 @@ def test_menu_items(notebook_frontend):
         kernel_menu.click()
 
         notebook_frontend.wait_for_selector(menu_item, EDITOR_PAGE).click()
-        # wait_for_selector(browser, menu_item, visible=True, single=True).click()
-        # TODO refactor _wait_for_condition call
-        notebook_frontend._wait_for_condition(lambda: notebook_frontend.is_kernel_running())
+        notebook_frontend.wait_for_condition(lambda: notebook_frontend.is_kernel_running())
