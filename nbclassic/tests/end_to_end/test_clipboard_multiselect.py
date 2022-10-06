@@ -9,7 +9,7 @@ def test_clipboard_multiselect(prefill_notebook):
     notebook = prefill_notebook(['', '1', '2', '3', '4', '5a', '6b', '7c', '8d'])
 
     assert notebook.get_cells_contents() == ['', '1', '2', '3', '4', '5a', '6b', '7c', '8d']
-    
+
     # Copy the first 3 cells
     # Paste the values copied from the first three cells into the last 3 cells 
 
@@ -29,16 +29,15 @@ def test_clipboard_multiselect(prefill_notebook):
 
     assert notebook.get_cells_contents() == ['', '1', '2', '3', '4', '5a', '1', '2', '3']
 
-
     # Select the last four cells, cut them and paste them below the first cell
-    
+
     # Select the last 4 cells
     notebook.select_cell_range(5, 8)
 
     # Click Edit button and the select cut button
     notebook.try_click_selector('#editlink', page=EDITOR_PAGE)
     notebook.try_click_selector('//*[@id="cut_cell"]/a', page=EDITOR_PAGE)
-    
+
     # Select the first cell
     notebook.select_cell_range(0, 0)
 
