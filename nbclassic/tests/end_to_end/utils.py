@@ -236,7 +236,7 @@ class NotebookFrontend:
                     and self.is_notebook_defined()
                     and self.is_kernel_running())
 
-        self._wait_for_condition(check_is_kernel_running)
+        self.wait_for_condition(check_is_kernel_running)
 
     @property
     def body(self):
@@ -391,7 +391,7 @@ class NotebookFrontend:
                 frames = [f for f in specified_page.frames]
                 return len(frames) >= count
 
-        self._wait_for_condition(frame_wait)
+        self.wait_for_condition(frame_wait)
 
     def locate_in_frame(self, selector, page, frame_name=None, frame_index=None):
         if frame_name is None and frame_index is None:
@@ -573,7 +573,7 @@ class NotebookFrontend:
 
         return cell_data
 
-    def _wait_for_condition(self, check_func, timeout=30, period=.1):
+    def wait_for_condition(self, check_func, timeout=30, period=.1):
         """Wait for check_func to return a truthy value, return it or raise an exception upon timeout"""
         # TODO refactor/remove
 
@@ -736,7 +736,7 @@ class NotebookFrontend:
         def wait_for_new_page():
             return [pg for pg in self._browser_data[BROWSER].pages if 'tree' not in pg.url]
 
-        new_pages = self._wait_for_condition(wait_for_new_page)
+        new_pages = self.wait_for_condition(wait_for_new_page)
         editor_page = new_pages[0]
         return editor_page
 
