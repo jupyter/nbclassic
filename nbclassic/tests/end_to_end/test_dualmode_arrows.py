@@ -76,11 +76,9 @@ def test_dualmode_arrows(notebook_frontend):
     notebook_frontend.to_command_mode()
     assert notebook_frontend.get_cells_contents() == ["0 edit #1", "1", "2", "3", "4", "5 edit #1, #2 and #3"]
 
-
     # Tests in edit mode.
     # First, erase the previous content and then setup the cells to test the keys to move up.
-    [notebook_frontend._locate(".fa-cut.fa", page=EDITOR_PAGE).click() for i in range(6)]
-    # TODO^ Remove _locate/encapsulate element access
+    [notebook_frontend.locate(".fa-cut.fa", page=EDITOR_PAGE).click() for i in range(6)]
     [notebook_frontend.press("b", page=EDITOR_PAGE) for i in range(2)]
     notebook_frontend.press("a", page=EDITOR_PAGE)
     notebook_frontend.press("Enter", page=EDITOR_PAGE)

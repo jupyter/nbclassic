@@ -21,11 +21,10 @@ def test_multiselect(prefill_notebook):
     notebook_frontend.focus_cell(0)
     assert n_selected_cells() == 1
 
-    # TODO: refactor _locate and encapsulate playwright element access
     # Check that only one cell is selected according to CSS classes as well
-    selected_css = notebook_frontend._locate(
+    selected_css = notebook_frontend.locate_all(
         '.cell.jupyter-soft-selected, .cell.selected', EDITOR_PAGE)
-    assert selected_css.count() == 1
+    assert len(selected_css) == 1
 
     # Extend the selection down one
     extend_selection_by(1)

@@ -21,7 +21,7 @@ def test_dualmode_clipboard(prefill_notebook):
     notebook_frontend.press("x", EDITOR_PAGE)  # Cut
     validate_dualmode_state(notebook_frontend, 'command', 1)
     assert notebook_frontend.get_cell_contents(1) == b  # Cell 2 is now where cell 1 was
-    assert len(notebook_frontend.cells) == num_cells-1  # A cell was removed
+    assert len(notebook_frontend.cells) == num_cells - 1  # A cell was removed
 
     notebook_frontend.focus_cell(2)
     notebook_frontend.press("v", EDITOR_PAGE)  # Paste

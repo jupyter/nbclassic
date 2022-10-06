@@ -120,6 +120,68 @@ class FrontendError(Exception):
     pass
 
 
+class FrontendElement:
+
+    def __init__(self, item):
+        # item should be a JSHandle, locator or ElementHandle
+        self._raw = item
+        self._element = item
+        self._bool = True  # Was the item created successfully?
+
+        # We need either a locator or an ElementHandle for most ops, obtain it
+        if item is None:
+            self._bool = False
+        if hasattr(item, 'count') and item.count() == 0:
+            self._bool = False
+        if not isinstance(item, ElementHandle) and isinstance(item, JSHandle):
+            as_element = item.as_element()
+            if as_element:
+                self._element = as_element
+            else:
+                self._bool = False
+
+    def __bool__(self):
+        """Returns True if construction succeeded"""
+        return self._bool
+
+    def click(self):
+        return self._element.click()
+
+    def get_inner_text(self):
+        return self._element.inner_text()
+
+    def get_attribute(self, attribute):
+        return self._element.get_attribute(attribute)
+
+    def get_computed_property(self, prop_name):
+        js = ("(element) => { return window.getComputedStyle(element)"
+              f".getPropertyValue('{prop_name}') }}")
+        return self._element.evaluate(js)
+
+    def evaluate(self, text):
+        return self._element.evaluate(text)
+
+    def locate(self, selector):
+        element = self._element
+
+        if hasattr(element, 'locator'):
+            result = element.locator(selector)
+        elif hasattr(element, 'query_selector'):
+            result = element.query_selector(selector)
+        else:
+            result = None
+
+        return FrontendElement(result)
+
+    def wait_for_state(self, state):
+        if hasattr(self._element, 'wait_for_element_state'):
+            self._element.wait_for_element_state(state)
+        elif hasattr(self._element, 'wait_for'):
+            self._element.wait_for(state)
+        else:
+            raise Exception('Unable to wait for state!')
+
+
 class NotebookFrontend:
 
     # Some constants for users of the class
@@ -169,9 +231,6 @@ class NotebookFrontend:
 
     def _wait_for_start(self):
         """Wait until the notebook interface is loaded and the kernel started"""
-        # wait_for_selector(self.browser, '.cell')
-        self.tree_page.locator('.cell')
-
         def check_is_kernel_running():
             return (self.is_jupyter_defined()
                     and self.is_notebook_defined()
@@ -257,14 +316,14 @@ class NotebookFrontend:
 
         elem.click()
 
-    # def wait_for_selector(self, selector, page):
-    #     if page == TREE_PAGE:
-    #         specified_page = self.tree_page
-    #     elif page == EDITOR_PAGE:
-    #         specified_page = self.editor_page
-    #     else:
-    #         raise Exception('Error, provide a valid page to evaluate from!')
-    #     elem = specified_page.locator(selector)
+    def wait_for_selector(self, selector, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+        return FrontendElement(specified_page.wait_for_selector(selector))
 
     def get_platform_modifier_key(self):
         """Jupyter Notebook uses different modifier keys on win (Control) vs mac (Meta)"""
@@ -274,6 +333,12 @@ class NotebookFrontend:
             return "Control"
 
     def evaluate(self, text, page):
+        """Run some Javascript on the frontend in the given page
+
+        :param text: JS to evaluate
+        :param page: Page (str constant) to evaluate JS in
+        :return: The result of the evaluated JS
+        """
         if page == TREE_PAGE:
             specified_page = self.tree_page
         elif page == EDITOR_PAGE:
@@ -285,6 +350,72 @@ class NotebookFrontend:
 
     def _pause(self):
         self.editor_page.pause()
+
+    def locate(self, selector, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to locate from!')
+
+        return FrontendElement(specified_page.locator(selector))
+
+    def locate_all(self, selector, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to locate from!')
+
+        # Get a locator, make a list of FrontendElement's for each match
+        result = specified_page.locator(selector)
+        element_list = [FrontendElement(result.nth(index)) for index in range(result.count())]
+        return element_list
+
+    def wait_for_frame(self, count=None, name=None, page=None):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to wait for frame from!')
+
+        if name is not None:
+            def frame_wait():
+                frames = [f for f in specified_page.frames if f.name == name]
+                return frames
+        if count is not None:
+            def frame_wait():
+                frames = [f for f in specified_page.frames]
+                return len(frames) >= count
+
+        self._wait_for_condition(frame_wait)
+
+    def locate_in_frame(self, selector, page, frame_name=None, frame_index=None):
+        if frame_name is None and frame_index is None:
+            raise Exception('Error, must provide a frame name or frame index!')
+        if frame_name is not None and frame_index is not None:
+            raise Exception('Error, provide only one either frame name or frame index!')
+
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to locate in frame from!')
+
+        if frame_name is not None:
+            frame_matches = [f for f in specified_page.frames if f.name == frame_name]
+            if not frame_matches:
+                raise Exception('No frames found!')
+            frame = frame_matches[0]
+        if frame_index is not None:
+            frame = specified_page.frames[frame_index]
+
+        element = frame.wait_for_selector(selector)
+        return FrontendElement(element)
 
     def wait_for_tag(self, tag, page=None, cell_index=None):
         if cell_index is None and page is None:
@@ -307,7 +438,9 @@ class NotebookFrontend:
 
         return result
 
+    # TODO remove this
     def _locate(self, selector, page):
+        """Find an frontend element by selector (Tag, CSS, XPath etc.)"""
         result = None
         if page == TREE_PAGE:
             specified_page = self.tree_page
@@ -319,6 +452,7 @@ class NotebookFrontend:
         return specified_page.locator(selector)
 
     def clear_all_output(self):
+        """Clear cell outputs"""
         return self.evaluate(
             "Jupyter.notebook.clear_all_output();",
             page=EDITOR_PAGE
@@ -478,7 +612,6 @@ class NotebookFrontend:
         JS = f'Jupyter.notebook.get_cell({index}).set_input_prompt({prmpt_val})'
         self.evaluate(JS, page=EDITOR_PAGE)
 
-    # TODO refactor this, it's terrible
     def edit_cell(self, cell=None, index=0, content="", render=False):
         """Set the contents of a cell to *content*, by cell object or by index
         """
@@ -492,12 +625,6 @@ class NotebookFrontend:
         self.press('Delete', EDITOR_PAGE)
 
         self.type(content, page=EDITOR_PAGE)
-        # TODO cleanup
-        # for line_no, line in enumerate(content.splitlines()):
-        #     if line_no != 0:
-        #         self.editor_page.keyboard.press("Enter")
-        #     self.editor_page.keyboard.press("Enter")
-        #     self.editor_page.keyboard.type(line)
         if render:
             self.execute_cell(index)
 
@@ -524,9 +651,9 @@ class NotebookFrontend:
             # raise NotImplementedError('Error, non code cell_type is a TODO!')
             self.convert_cell_type(index=new_index, cell_type=cell_type)
 
-    # def add_and_execute_cell(self, index=-1, cell_type="code", content=""):
-    #     self.add_cell(index=index, cell_type=cell_type, content=content)
-    #     self.execute_cell(index)
+    def add_and_execute_cell(self, index=-1, cell_type="code", content=""):
+        self.add_cell(index=index, cell_type=cell_type, content=content)
+        self.execute_cell(index)
 
     def delete_cell(self, index):
         self.focus_cell(index)
@@ -592,9 +719,9 @@ class NotebookFrontend:
 
     def _open_notebook_editor_page(self, existing_file_name=None):
         tree_page = self.tree_page
-        
+
         if existing_file_name is not None:
-            existing_notebook = tree_page.locator('div.list_item:nth-child(4) > div:nth-child(1) > a:nth-child(3)')
+            existing_notebook = tree_page.locator(f"text={existing_file_name}")
             existing_notebook.click()
             self.tree_page.reload()  # TODO: FIX this, page count does not update to 2
         else:
@@ -611,7 +738,6 @@ class NotebookFrontend:
 
         new_pages = self._wait_for_condition(wait_for_new_page)
         editor_page = new_pages[0]
-
         return editor_page
 
     # TODO: Refactor/consider removing this
