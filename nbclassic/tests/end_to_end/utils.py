@@ -121,9 +121,22 @@ class FrontendError(Exception):
 
 
 class FrontendElement:
+    """Performs high level tasks on frontend interface components
+
+    FrontendElement serves these goals:
+    - Offers some abstraction/hiding of the underlying testing
+      library (with the goal of making future refactors easier
+      through providing a single point of reimplementation via
+      this utility class rather than exposing implementation
+      details of the web library to individual tests)
+    - Unifies disparate library syntax for common functionalities
+
+    Blah blah blah
+
+    """
 
     def __init__(self, item):
-        # item should be a JSHandle, locator or ElementHandle
+        # "item" should be a JSHandle, locator or ElementHandle
         self._raw = item
         self._element = item
         self._bool = True  # Was the item created successfully?
@@ -142,6 +155,7 @@ class FrontendElement:
 
     def __bool__(self):
         """Returns True if construction succeeded"""
+        # We can debug on failures by deferring bad inits and testing for them here
         return self._bool
 
     def click(self):
@@ -189,6 +203,26 @@ class FrontendElement:
 
 
 class NotebookFrontend:
+    """Performs high level Notebook tasks for automated testing.
+
+    NotebookFrontend serves these goals:
+    - Drives high level application tasks for testing
+    - Offers some encapsulation of the underlying testing
+      library, to allow test writers to focus their efforts
+      on application features rather than implementation
+      details for any given testing task
+
+    Things to talk about
+
+    - class design (editor_page, tree_page)
+        - Designed to support a full notebook application,
+          consisting of a single tree page and editor page
+        - Note, not designed around multi-notebook/editor page
+          usage scenarios...
+    - evaluate calls
+    - Possible future improvements, current limitations, etc
+        - Known bad things, blah blah
+    """
 
     # Some constants for users of the class
     TREE_PAGE = TREE_PAGE
@@ -203,6 +237,11 @@ class NotebookFrontend:
     }
 
     def __init__(self, browser_data, existing_file_name=None):
+        """Start the Notebook app via the web UI or from a file.
+
+        :param browser_data: Interfacing object to the web UI
+        :param str existing_file_name: An existing notebook filename to open
+        """
         # Keep a reference to source data
         self._browser_data = browser_data
 
