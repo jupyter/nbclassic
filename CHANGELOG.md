@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.5
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.4...3196dc6f8e1be0748662bfef11d397326b7ef0ea))
+
+### Bugs fixed
+
+- fix: display the correct about box if jupyter notebook command is used [#156](https://github.com/jupyter/nbclassic/pull/156) ([@echarles](https://github.com/echarles))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-09-29&to=2022-10-07&type=c))
+
+[@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-09-29..2022-10-07&type=Issues) | [@lneves12](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Alneves12+updated%3A2022-09-29..2022-10-07&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.4
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.3...04aaebfb1427167973f5c54a67e3637a9c77134b))
@@ -35,8 +51,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-07-12&to=2022-09-29&type=c))
 
 [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-07-12..2022-09-29&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Ajtpio+updated%3A2022-07-12..2022-09-29&type=Issues) | [@minrk](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aminrk+updated%3A2022-07-12..2022-09-29&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2022-07-12..2022-09-29&type=Issues) | [@Zsailer](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3AZsailer+updated%3A2022-07-12..2022-09-29&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.3
 
