@@ -77,8 +77,9 @@ def test_notification(notebook_frontend):
         )
         notebook_frontend.wait_for_selector("#notification_test", page=EDITOR_PAGE)
 
-        assert widget_has_class(notebook_frontend, "test", level), f"{level}: class is correct"
-        assert widget_message(notebook_frontend, "test") == f"test {level}", f"{level}: message is correct"
+        assert widget_has_class(notebook_frontend, "test", level), f"{level}: class is incorrect"
+        #notebook_frontend.editor_page.pause()
+        assert widget_message(notebook_frontend, "test") == f"test {level}", f"{level}: message is incorrect"
 
     # test message timeout
     notebook_frontend.evaluate(
@@ -90,9 +91,10 @@ def test_notification(notebook_frontend):
     )
     notebook_frontend.wait_for_selector("#notification_test", page=EDITOR_PAGE)
 
-    assert widget_message(notebook_frontend, "test") == "test timeout", "timeout: message is correct"
-    notebook_frontend.wait_for_selector("#notification_test", page=EDITOR_PAGE)#, obscures=True)
-    assert widget_message(notebook_frontend, "test") == "", "timeout: message was cleared"
+    assert widget_message(notebook_frontend, "test") == "test timeout", "timeout: message is incorrect"
+
+    notebook_frontend.wait_for_selector("#notification_test", EDITOR_PAGE, state='hidden')
+    assert widget_message(notebook_frontend, "test") == "", "timeout: message was not cleared"
 
     # test click callback
     notebook_frontend.evaluate(
@@ -106,16 +108,17 @@ def test_notification(notebook_frontend):
         """,
         page=EDITOR_PAGE
     )
-    notebook_frontend.wait_for_selector("#notification_test", page=EDITOR_PAGE)
+    notebook_frontend.locate("#notification_test", page=EDITOR_PAGE)
 
     assert widget_message(notebook_frontend, "test") == "test click", "callback: message is correct"
 
-    notebook_frontend.browser.locate("notification_test", page=EDITOR_PAGE).click()
+    notebook_frontend.locate("#notification_test", page=EDITOR_PAGE).click()
     notebook_frontend.wait_for_condition(
         lambda: notebook_frontend.evaluate(
             '() => { return IPython.notification_area.widget("test")._clicked; }', page=EDITOR_PAGE
         )
     )
-    notebook_frontend.wait_for_selector("#notification_test", page=EDITOR_PAGE)#, obscures=True)
+    notebook_frontend.locate("#notification_test", page=EDITOR_PAGE)#, obscures=True)
 
-    assert widget_message(notebook_frontend, "test") == "", "callback: message was cleared"
+    notebook_frontend.wait_for_selector("#notification_test", EDITOR_PAGE, state='hidden')
+    assert widget_message(notebook_frontend, "test") == "", "callback: message was not cleared"
