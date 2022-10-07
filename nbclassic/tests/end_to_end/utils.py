@@ -322,13 +322,16 @@ class NotebookFrontend:
 
         elem.click()
 
-    def wait_for_selector(self, selector, page):
+    def wait_for_selector(self, selector, page, state=None):
         if page == TREE_PAGE:
             specified_page = self.tree_page
         elif page == EDITOR_PAGE:
             specified_page = self.editor_page
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
+        if state is not None:
+            return FrontendElement(specified_page.wait_for_selector(selector, state=state))
+            
         return FrontendElement(specified_page.wait_for_selector(selector))
 
     def get_platform_modifier_key(self):
