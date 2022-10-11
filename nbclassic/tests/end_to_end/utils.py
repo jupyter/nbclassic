@@ -209,9 +209,14 @@ class NotebookFrontend:
     def _wait_for_start(self):
         """Wait until the notebook interface is loaded and the kernel started"""
         def check_is_kernel_running():
-            return (self.is_jupyter_defined()
-                    and self.is_notebook_defined()
-                    and self.is_kernel_running())
+            try:
+                status = (self.is_jupyter_defined()
+                        and self.is_notebook_defined()
+                        and self.is_kernel_running())
+            except Exception:
+                return False
+
+            return status
 
         self.wait_for_condition(check_is_kernel_running)
 
@@ -814,7 +819,7 @@ def validate_dualmode_state(notebook, mode, index):
     if mode != 'command' and mode != 'edit':
         raise Exception('An unknown mode was send: mode = "%s"'%mode)  # An unknown mode is send
 
-    #validate mode
+    # validate mode
     assert mode == keyboard_mode  # keyboard mode is correct
 
     if mode == 'command':
