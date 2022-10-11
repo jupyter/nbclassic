@@ -97,6 +97,7 @@ def authenticated_browser_data(playwright_browser, notebook_server):
     tree_page = playwright_browser.new_page()
     tree_page.goto("{url}?token={token}".format(**notebook_server))
 
+    # TODO: fix this mess, BROWSER_RAW naming etc.
     auth_browser_data = {
         BROWSER: playwright_browser,
         TREE_PAGE: tree_page,

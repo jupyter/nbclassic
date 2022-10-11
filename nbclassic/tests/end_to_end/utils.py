@@ -4,6 +4,12 @@ The primary utilities are:
     * NotebookFrontend
     * FrontendElement
 
+Users should use these utilities to write their tests,
+and avoid calling the underlying testing library directly.
+If you need to do something that isn't currently available,
+try to build it onto the utility classes instead of using
+playwright functionality/objects directly.
+
 This module was converted and refactored from the older
 selenium test suite.
 """
