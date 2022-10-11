@@ -10,7 +10,7 @@ requirejs([
     'use strict';
     $('#notebook_about').click(function () {
         // The baseUrlPrefix is only injected in the document by nbclassic.
-        const is_nbclassic = document.baseUrlPrefix !== undefined;
+        var is_nbclassic = document.baseUrlPrefix !== undefined;
         // use underscore template to auto html escape
         if (sys_info) {
           var text = '';
