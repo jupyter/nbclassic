@@ -3,12 +3,7 @@
 
 from tkinter import E
 from urllib.parse import quote
-from .utils import EDITOR_PAGE
-
-
-# TODO: TEST TIMESOUT WHEN NOT RUN IN DEBUG MODE: DUE TO wait_for_selector('.cell') CALL IN _open_notebook_editor_page
-        # WHEN IN DEBUG MODE, HAVE TO RELOAD THE PAGE FOR THE .cell SELECTOR TO BE PICKED UP
-        # determine when to wait for the selector.....
+from .utils import EDITOR_PAGE, TREE_PAGE
 
 # TODO: REWORK from polling => async
 def check_display_name(nb, nbname):
@@ -16,7 +11,7 @@ def check_display_name(nb, nbname):
     count_check = 0
 
     while not display_updated and count_check < 5:
-        displayed_name = nb.editor_page.query_selector('#notebook_name').as_element().inner_text()
+        displayed_name = nb.locate('#notebook_name', page=EDITOR_PAGE).get_inner_text()
         if displayed_name + '.ipynb' == nbname:
             display_updated = True
         count_check += 1
@@ -54,14 +49,15 @@ def test_save(notebook_frontend):
     notebook_frontend.wait_for_selector('.item_link', page=EDITOR_PAGE)
 
     hrefs_nonmatch = []
-    all_links = notebook_frontend.editor_page.query_selector_all('a.item_link')
+    all_links = notebook_frontend.locate_all('a.item_link', page=EDITOR_PAGE)
+    
     for link in all_links:
-        href = link.as_element().get_attribute('href')
+        href = link.get_attribute('href')
+
         if escaped_name in href:
-            print("Opening", href)
             href = href.split('/a@b/')
-            notebook_frontend.editor_page.goto(notebook_frontend._browser_data['SERVER_INFO']['url'] + href[1])
-            notebook_frontend.editor_page.wait_for_selector('.cell')
+            notebook_frontend.navigate_to(page=EDITOR_PAGE, partial_url=href[1])
+            notebook_frontend.wait_for_selector('.cell', page=EDITOR_PAGE)
             break
         hrefs_nonmatch.append(href)
     else:
@@ -72,5 +68,4 @@ def test_save(notebook_frontend):
 
     notebook_frontend.edit_cell(index=0, content="")
     notebook_frontend.delete_all_cells()
-    print(f"the cell contents after delete_all_cells are: {notebook_frontend.get_cells_contents()}")
     
