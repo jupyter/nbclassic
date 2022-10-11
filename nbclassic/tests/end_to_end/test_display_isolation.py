@@ -5,7 +5,7 @@ from the rest of the document.
 """
 
 
-from .utils import EDITOR_PAGE, TREE_PAGE
+from .utils import EDITOR_PAGE
 
 
 def test_display_isolation(notebook_frontend):
@@ -17,7 +17,7 @@ def test_display_isolation(notebook_frontend):
         isolated_svg(notebook_frontend)
     finally:
         # Ensure we switch from iframe back to default content even if test fails
-        notebook_frontend.editor_page.main_frame # TODO:
+        notebook_frontend._editor_page.main_frame  # TODO:
 
 
 def isolated_html(notebook):
