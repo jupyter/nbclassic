@@ -9,10 +9,10 @@ from .utils import TREE_PAGE, EDITOR_PAGE
 def get_rendered_contents(nb):
     # TODO: Encapsulate element access/refactor so we're not accessing playwright element objects
     cl = ["text_cell", "render"]
-    rendered_cells = [cell.query_selector(".text_cell_render")
-                      for cell in nb._cells
+    rendered_cells = [cell.locate(".text_cell_render")
+                      for cell in nb.cells
                       if all([c in cell.get_attribute("class") for c in cl])]
-    return [x.inner_html().strip()
+    return [x.get_inner_html().strip()
             for x in rendered_cells
             if x is not None]
 

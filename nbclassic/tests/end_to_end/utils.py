@@ -151,6 +151,9 @@ class FrontendElement:
     def get_inner_text(self):
         return self._element.inner_text()
 
+    def get_inner_html(self):
+        return self._element.inner_html()
+
     def get_attribute(self, attribute):
         return self._element.get_attribute(attribute)
 
