@@ -17,7 +17,7 @@ def test_kernels_buffer_without_conn(prefill_notebook):
     notebook_frontend.wait_for_kernel_ready()
 
     outputs = notebook_frontend.wait_for_cell_output(0)
-    assert outputs[notebook_frontend.CELL_TEXT].strip() == '3'
+    assert outputs.get_inner_text().strip() == '3'
 
 
 def test_buffered_cells_execute_in_order(prefill_notebook):
@@ -42,4 +42,4 @@ def test_buffered_cells_execute_in_order(prefill_notebook):
     notebook_frontend.wait_for_kernel_ready()
 
     outputs = notebook_frontend.wait_for_cell_output(4)
-    assert outputs[notebook_frontend.CELL_TEXT].strip() == '7'
+    assert outputs.get_inner_text().strip() == '7'

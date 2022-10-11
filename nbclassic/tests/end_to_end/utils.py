@@ -122,11 +122,12 @@ class FrontendError(Exception):
 
 class FrontendElement:
 
-    def __init__(self, item):
+    def __init__(self, item, user_data=None):
         # item should be a JSHandle, locator or ElementHandle
         self._raw = item
         self._element = item
         self._bool = True  # Was the item created successfully?
+        self._user_data = {} if user_data is None else user_data
 
         # We need either a locator or an ElementHandle for most ops, obtain it
         if item is None:
@@ -187,6 +188,9 @@ class FrontendElement:
         else:
             raise Exception('Unable to wait for state!')
 
+    def get_user_data(self):
+        return self._user_data
+
 
 class NotebookFrontend:
 
@@ -194,13 +198,6 @@ class NotebookFrontend:
     TREE_PAGE = TREE_PAGE
     EDITOR_PAGE = EDITOR_PAGE
     CELL_OUTPUT_SELECTOR = CELL_OUTPUT_SELECTOR
-
-    CELL_INDEX = 'INDEX'
-    CELL_TEXT = 'TEXT'
-    _CELL_DATA_FORMAT = {
-        CELL_INDEX: None,  # int
-        CELL_TEXT: None,  # str
-    }
 
     def __init__(self, browser_data, existing_file_name=None):
         # Keep a reference to source data
@@ -258,16 +255,12 @@ class NotebookFrontend:
     @property
     def cells(self):
         """Gets all cells once they are visible."""
-        # self.cells is now a list of dicts containing info per-cell
-        # (self._cells returns cell objects, should not be used externally)
-
-        # This mirrors the self._CELL_DATA_FORMAT
-        cell_dicts = [
-            {self.CELL_INDEX: index, self.CELL_TEXT: cell.inner_text()}
+        cells = [
+            FrontendElement(cell, user_data={'index': index})
             for index, cell in enumerate(self._cells)
         ]
 
-        return cell_dicts
+        return cells
 
     @property
     def current_index(self):
@@ -576,11 +569,9 @@ class NotebookFrontend:
         if cell is None:
             return None
 
-        cell_data = dict(self._CELL_DATA_FORMAT)
-        cell_data[self.CELL_INDEX] = index
-        cell_data[self.CELL_TEXT] = cell.inner_text()
+        element = FrontendElement(cell, user_data={'index': index})
 
-        return cell_data
+        return element
 
     def wait_for_condition(self, check_func, timeout=30, period=.1):
         """Wait for check_func to return a truthy value, return it or raise an exception upon timeout"""
