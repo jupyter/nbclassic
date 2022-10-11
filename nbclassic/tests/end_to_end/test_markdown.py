@@ -3,7 +3,7 @@
 
 from nbformat.v4 import new_markdown_cell
 
-from .utils import TREE_PAGE, EDITOR_PAGE
+from .utils import EDITOR_PAGE
 
 
 def get_rendered_contents(nb):
