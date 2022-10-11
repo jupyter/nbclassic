@@ -1,6 +1,7 @@
 """Test multiselect toggle
 
-TODO: This changes the In []: label preceding the cell, what's the purpose of this?
+TODO: This changes the In []: label preceding the cell,
+      what's the purpose of this? Update the docstring
 """
 
 
@@ -9,9 +10,9 @@ def test_prompt_numbers(prefill_notebook):
 
     def get_prompt():
         return (
-            notebook_frontend._cells[0].query_selector('.input')
-            .query_selector('.input_prompt')
-            .inner_html().strip()
+            notebook_frontend.cells[0].locate('.input')
+            .locate('.input_prompt')
+            .get_inner_html().strip()
         )
 
     def set_prompt(value):
