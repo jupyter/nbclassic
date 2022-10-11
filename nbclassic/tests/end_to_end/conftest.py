@@ -1,3 +1,6 @@
+"""Fixtures for pytest/playwright end_to_end tests."""
+
+
 import os
 import json
 import sys

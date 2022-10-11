@@ -1,3 +1,14 @@
+"""Utility module for end to end testing.
+
+The primary utilities are:
+    * NotebookFrontend
+    * FrontendElement
+
+This module was converted and refactored from the older
+selenium test suite.
+"""
+
+
 import datetime
 import os
 import time
@@ -797,20 +808,20 @@ def validate_dualmode_state(notebook, mode, index):
     # validate selected cell
     JS = "() => { return Jupyter.notebook.get_selected_cells_indices(); }"
     cell_index = notebook.evaluate(JS, EDITOR_PAGE)
-    assert cell_index == [index] #only the index cell is selected
+    assert cell_index == [index]  # only the index cell is selected
 
     if mode != 'command' and mode != 'edit':
-        raise Exception('An unknown mode was send: mode = "%s"'%mode) #An unknown mode is send
+        raise Exception('An unknown mode was send: mode = "%s"'%mode)  # An unknown mode is send
 
     #validate mode
-    assert mode == keyboard_mode #keyboard mode is correct
+    assert mode == keyboard_mode  # keyboard mode is correct
 
     if mode == 'command':
-        assert is_focused_on(None) #no focused cells
+        assert is_focused_on(None)  # no focused cells
 
-        assert is_only_cell_edit(None) #no cells in edit mode
+        assert is_only_cell_edit(None)  # no cells in edit mode
 
     elif mode == 'edit':
-        assert is_focused_on(index) #The specified cell is focused
+        assert is_focused_on(index)  # The specified cell is focused
 
-        assert is_only_cell_edit(index) #The specified cell is the only one in edit mode
+        assert is_only_cell_edit(index)  # The specified cell is the only one in edit mode
