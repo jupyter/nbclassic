@@ -1,17 +1,8 @@
 import datetime
 import os
 import time
-from contextlib import contextmanager
-from os.path import join as pjoin
 
 from playwright.sync_api import ElementHandle, JSHandle
-
-# from selenium.webdriver import ActionChains
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver.common.keys import Keys
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.support import expected_conditions as EC
-# from selenium.webdriver.remote.webelement import WebElement
 
 
 # Key constants for browser_data
@@ -22,86 +13,6 @@ SERVER_INFO = 'SERVER_INFO'
 BROWSER_RAW = 'BROWSER_RAW'
 # Other constants
 CELL_OUTPUT_SELECTOR = '.output_subarea'
-
-
-# def wait_for_selector(driver, selector, timeout=10, visible=False, single=False, wait_for_n=1, obscures=False):
-#     if wait_for_n > 1:
-#         return _wait_for_multiple(
-#             driver, By.CSS_SELECTOR, selector, timeout, wait_for_n, visible)
-#     return _wait_for(driver, By.CSS_SELECTOR, selector, timeout, visible, single, obscures)
-#
-#
-# def wait_for_tag(driver, tag, timeout=10, visible=False, single=False, wait_for_n=1, obscures=False):
-#     if wait_for_n > 1:
-#         return _wait_for_multiple(
-#             driver, By.TAG_NAME, tag, timeout, wait_for_n, visible)
-#     return _wait_for(driver, By.TAG_NAME, tag, timeout, visible, single, obscures)
-#
-#
-# def wait_for_xpath(driver, xpath, timeout=10, visible=False, single=False, wait_for_n=1, obscures=False):
-#     if wait_for_n > 1:
-#         return _wait_for_multiple(
-#             driver, By.XPATH, xpath, timeout, wait_for_n, visible)
-#     return _wait_for(driver, By.XPATH, xpath, timeout, visible, single, obscures)
-#
-#
-# def wait_for_script_to_return_true(driver, script, timeout=10):
-#     WebDriverWait(driver, timeout).until(lambda d: d.execute_script(script))
-#
-#
-# def _wait_for(driver, locator_type, locator, timeout=10, visible=False, single=False, obscures=False):
-#     """Waits `timeout` seconds for the specified condition to be met. Condition is
-#     met if any matching element is found. Returns located element(s) when found.
-#
-#     Args:
-#         driver: Selenium web driver instance
-#         locator_type: type of locator (e.g. By.CSS_SELECTOR or By.TAG_NAME)
-#         locator: name of tag, class, etc. to wait for
-#         timeout: how long to wait for presence/visibility of element
-#         visible: if True, require that element is not only present, but visible
-#         single: if True, return a single element, otherwise return a list of matching
-#         elements
-#         obscures: if True, waits until the element becomes invisible
-#     """
-#     wait = WebDriverWait(driver, timeout)
-#     if obscures:
-#         conditional = EC.invisibility_of_element_located
-#     elif single:
-#         if visible:
-#             conditional = EC.visibility_of_element_located
-#         else:
-#             conditional = EC.presence_of_element_located
-#     else:
-#         if visible:
-#             conditional = EC.visibility_of_all_elements_located
-#         else:
-#             conditional = EC.presence_of_all_elements_located
-#     return wait.until(conditional((locator_type, locator)))
-#
-#
-# def _wait_for_multiple(driver, locator_type, locator, timeout, wait_for_n, visible=False):
-#     """Waits until `wait_for_n` matching elements to be present (or visible).
-#     Returns located elements when found.
-#
-#     Args:
-#         driver: Selenium web driver instance
-#         locator_type: type of locator (e.g. By.CSS_SELECTOR or By.TAG_NAME)
-#         locator: name of tag, class, etc. to wait for
-#         timeout: how long to wait for presence/visibility of element
-#         wait_for_n: wait until this number of matching elements are present/visible
-#         visible: if True, require that elements are not only present, but visible
-#     """
-#     wait = WebDriverWait(driver, timeout)
-#
-#     def multiple_found(driver):
-#         elements = driver.find_elements(locator_type, locator)
-#         if visible:
-#             elements = [e for e in elements if e.is_displayed()]
-#         if len(elements) < wait_for_n:
-#             return False
-#         return elements
-#
-#     return wait.until(multiple_found)
 
 
 class TimeoutError(Exception):
@@ -253,26 +164,6 @@ class NotebookFrontend:
         self._wait_for_start()
         self.disable_autosave_and_onbeforeunload()  # TODO fix/refactor
         self.current_cell = None  # Defined/used below  # TODO refactor/remove
-
-    # def __len__(self):
-    #     return len(self._cells)
-    #
-    # def __getitem__(self, key):
-    #     return self._cells[key]
-    #
-    # def __setitem__(self, key, item):
-    #     if isinstance(key, int):
-    #         self.edit_cell(index=key, content=item, render=False)
-    #     # TODO: re-add slicing support, handle general python slicing behaviour
-    #     # includes: overwriting the entire self._cells object if you do
-    #     # self[:] = []
-    #     # elif isinstance(key, slice):
-    #     #     indices = (self.index(cell) for cell in self[key])
-    #     #     for k, v in zip(indices, item):
-    #     #         self.edit_cell(index=k, content=v, render=False)
-    #
-    # def __iter__(self):
-    #     return (cell for cell in self._cells)
 
     def _wait_for_start(self):
         """Wait until the notebook interface is loaded and the kernel started"""
@@ -714,16 +605,6 @@ class NotebookFrontend:
             else:
                 raise TypeError(f"Don't know how to add cell from {value!r}")
 
-    # def extend(self, values):
-    #     self.append(*values)
-    #
-    # def run_all(self):
-    #     for cell in self:
-    #         self.execute_cell(cell)
-    #
-    # def trigger_keydown(self, keys):
-    #     trigger_keystrokes(self.body, keys)
-
     def is_jupyter_defined(self):
         """Checks that the Jupyter object is defined on the frontend"""
         return self.evaluate(
@@ -815,99 +696,12 @@ class NotebookFrontend:
 
         specified_page.goto(self._browser_data[SERVER_INFO]['url'] + partial_url)
 
-    # TODO: Refactor/consider removing this
+    # TODO: Refactor/consider removing this (legacy cruft)
     @classmethod
     def new_notebook_frontend(cls, browser_data, kernel_name='kernel-python3', existing_file_name=None):
-        browser = browser_data[BROWSER]
-        tree_page = browser_data[TREE_PAGE]
-        server_info = browser_data[SERVER_INFO]
-
-        # with new_window(page):
-        # select_kernel(tree_page, kernel_name=kernel_name)  # TODO this is terrible, remove it
-        # tree_page.pause()
         instance = cls(browser_data, existing_file_name)
 
         return instance
-
-
-# # TODO: refactor/remove this
-# def select_kernel(page, kernel_name='kernel-python3'):
-#     """Clicks the "new" button and selects a kernel from the options.
-#     """
-#     # wait = WebDriverWait(browser, 10)
-#     # new_button = wait.until(EC.element_to_be_clickable((By.ID, "new-dropdown-button")))
-#     new_button = page.locator('#new-dropdown-button')
-#     new_button.click()
-#     kernel_selector = f'#{kernel_name} a'
-#     # kernel = wait_for_selector(page, kernel_selector, single=True)
-#     kernel = page.locator(kernel_selector)
-#     kernel.click()
-
-
-# @contextmanager
-# def new_window(browser):
-#     """Contextmanager for switching to & waiting for a window created.
-#
-#     This context manager gives you the ability to create a new window inside
-#     the created context and it will switch you to that new window.
-#
-#     Usage example:
-#
-#         from nbclassic.tests.selenium.utils import new_window, Notebook
-#
-#         ⋮ # something that creates a browser object
-#
-#         with new_window(browser):
-#             select_kernel(browser, kernel_name=kernel_name)
-#         nb = Notebook(browser)
-#
-#     """
-#     initial_window_handles = browser.window_handles
-#     yield
-#     new_window_handles = [window for window in browser.window_handles
-#                           if window not in initial_window_handles]
-#     if not new_window_handles:
-#         raise Exception("No new windows opened during context")
-#     browser.switch_to.window(new_window_handles[0])
-
-
-# def shift(browser, k):
-#     """Send key combination Shift+(k)"""
-#     trigger_keystrokes(browser, "shift-%s"%k)
-
-
-# def cmdtrl(page, key):
-#     """Send key combination Ctrl+(key) or Command+(key) for MacOS"""
-#     if os.uname()[0] == "Darwin":
-#         page.keyboard.press("Meta+{}".format(key))
-#     else:
-#         page.keyboard.press("Control+{}".format(key))
-
-
-# def alt(browser, k):
-#     """Send key combination Alt+(k)"""
-#     trigger_keystrokes(browser, 'alt-%s'%k)
-#
-#
-# def trigger_keystrokes(browser, *keys):
-#     """ Send the keys in sequence to the browser.
-#     Handles following key combinations
-#     1. with modifiers eg. 'control-alt-a', 'shift-c'
-#     2. just modifiers eg. 'alt', 'esc'
-#     3. non-modifiers eg. 'abc'
-#     Modifiers : http://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html
-#     """
-#     for each_key_combination in keys:
-#         keys = each_key_combination.split('-')
-#         if len(keys) > 1:  # key has modifiers eg. control, alt, shift
-#             modifiers_keys = [getattr(Keys, x.upper()) for x in keys[:-1]]
-#             ac = ActionChains(browser)
-#             for i in modifiers_keys: ac = ac.key_down(i)
-#             ac.send_keys(keys[-1])
-#             for i in modifiers_keys[::-1]: ac = ac.key_up(i)
-#             ac.perform()
-#         else:              # single key stroke. Check if modifier eg. "up"
-#             browser.send_keys(getattr(Keys, keys[0].upper(), keys[0]))
 
 
 def validate_dualmode_state(notebook, mode, index):
