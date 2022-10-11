@@ -1,8 +1,7 @@
 """Test kernel interrupt"""
 
 
-# from .utils import wait_for_selector
-from .utils import TREE_PAGE, EDITOR_PAGE
+from .utils import EDITOR_PAGE
 
 
 def interrupt_from_menu(notebook_frontend):
@@ -36,4 +35,4 @@ def test_interrupt(notebook_frontend):
 
         # Wait for an output to appear
         output = notebook_frontend.wait_for_cell_output(0)
-        assert 'KeyboardInterrupt' in output[notebook_frontend.CELL_TEXT]
+        assert 'KeyboardInterrupt' in output.get_inner_text()

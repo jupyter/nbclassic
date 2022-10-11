@@ -122,11 +122,12 @@ class FrontendError(Exception):
 
 class FrontendElement:
 
-    def __init__(self, item):
+    def __init__(self, item, user_data=None):
         # item should be a JSHandle, locator or ElementHandle
         self._raw = item
         self._element = item
         self._bool = True  # Was the item created successfully?
+        self._user_data = {} if user_data is None else user_data
 
         # We need either a locator or an ElementHandle for most ops, obtain it
         if item is None:
@@ -173,6 +174,12 @@ class FrontendElement:
 
         return FrontendElement(result)
 
+    def type(self, text):
+        return self._element.type(text)
+
+    def press(self, key):
+        return self._element.press(key)
+
     def wait_for_state(self, state):
         if hasattr(self._element, 'wait_for_element_state'):
             self._element.wait_for_element_state(state)
@@ -181,6 +188,9 @@ class FrontendElement:
         else:
             raise Exception('Unable to wait for state!')
 
+    def get_user_data(self):
+        return self._user_data
+
 
 class NotebookFrontend:
 
@@ -188,13 +198,6 @@ class NotebookFrontend:
     TREE_PAGE = TREE_PAGE
     EDITOR_PAGE = EDITOR_PAGE
     CELL_OUTPUT_SELECTOR = CELL_OUTPUT_SELECTOR
-
-    CELL_INDEX = 'INDEX'
-    CELL_TEXT = 'TEXT'
-    _CELL_DATA_FORMAT = {
-        CELL_INDEX: None,  # int
-        CELL_TEXT: None,  # str
-    }
 
     def __init__(self, browser_data, existing_file_name=None):
         # Keep a reference to source data
@@ -236,7 +239,7 @@ class NotebookFrontend:
                     and self.is_notebook_defined()
                     and self.is_kernel_running())
 
-        self._wait_for_condition(check_is_kernel_running)
+        self.wait_for_condition(check_is_kernel_running)
 
     @property
     def body(self):
@@ -252,16 +255,12 @@ class NotebookFrontend:
     @property
     def cells(self):
         """Gets all cells once they are visible."""
-        # self.cells is now a list of dicts containing info per-cell
-        # (self._cells returns cell objects, should not be used externally)
-
-        # This mirrors the self._CELL_DATA_FORMAT
-        cell_dicts = [
-            {self.CELL_INDEX: index, self.CELL_TEXT: cell.inner_text()}
+        cells = [
+            FrontendElement(cell, user_data={'index': index})
             for index, cell in enumerate(self._cells)
         ]
 
-        return cell_dicts
+        return cells
 
     @property
     def current_index(self):
@@ -316,13 +315,16 @@ class NotebookFrontend:
 
         elem.click()
 
-    def wait_for_selector(self, selector, page):
+    def wait_for_selector(self, selector, page, state=None):
         if page == TREE_PAGE:
             specified_page = self.tree_page
         elif page == EDITOR_PAGE:
             specified_page = self.editor_page
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
+        if state is not None:
+            return FrontendElement(specified_page.wait_for_selector(selector, state=state))
+            
         return FrontendElement(specified_page.wait_for_selector(selector))
 
     def get_platform_modifier_key(self):
@@ -391,7 +393,7 @@ class NotebookFrontend:
                 frames = [f for f in specified_page.frames]
                 return len(frames) >= count
 
-        self._wait_for_condition(frame_wait)
+        self.wait_for_condition(frame_wait)
 
     def locate_in_frame(self, selector, page, frame_name=None, frame_index=None):
         if frame_name is None and frame_index is None:
@@ -567,13 +569,11 @@ class NotebookFrontend:
         if cell is None:
             return None
 
-        cell_data = dict(self._CELL_DATA_FORMAT)
-        cell_data[self.CELL_INDEX] = index
-        cell_data[self.CELL_TEXT] = cell.inner_text()
+        element = FrontendElement(cell, user_data={'index': index})
 
-        return cell_data
+        return element
 
-    def _wait_for_condition(self, check_func, timeout=30, period=.1):
+    def wait_for_condition(self, check_func, timeout=30, period=.1):
         """Wait for check_func to return a truthy value, return it or raise an exception upon timeout"""
         # TODO refactor/remove
 
@@ -736,9 +736,42 @@ class NotebookFrontend:
         def wait_for_new_page():
             return [pg for pg in self._browser_data[BROWSER].pages if 'tree' not in pg.url]
 
-        new_pages = self._wait_for_condition(wait_for_new_page)
+        new_pages = self.wait_for_condition(wait_for_new_page)
         editor_page = new_pages[0]
         return editor_page
+
+    def get_page_url(self, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+
+        return specified_page.url
+    
+    def go_back(self, page):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+
+        return specified_page.go_back()
+
+    def get_server_info(self):
+        return self._browser_data[SERVER_INFO]['url']
+
+    def navigate_to(self, page, partial_url):
+        if page == TREE_PAGE:
+            specified_page = self.tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self.editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+
+        specified_page.goto(self._browser_data[SERVER_INFO]['url'] + partial_url)
 
     # TODO: Refactor/consider removing this
     @classmethod

@@ -48,7 +48,6 @@ def isolated_html(notebook):
 
     # The non-isolated styling will have affected the output of other cells
     test_div = notebook.locate('#test', page=EDITOR_PAGE)
-    notebook.editor_page.pause()
     assert test_div.get_computed_property('color') == red
 
     # The isolated div will be in an iframe, only that element will be blue
