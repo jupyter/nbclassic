@@ -1,4 +1,4 @@
-"""Utility module for end to end testing.
+"""Utility module for end_to_end testing.
 
 The primary utilities are:
     * NotebookFrontend
@@ -153,9 +153,9 @@ class NotebookFrontend:
       details for any given testing task
 
     NotebookFrontend holds a tree_page (Jupyter file browser), and
-    an editor_page, with the goal of allowing test writers to drive
-    any desired application tasks, with the option of selecting a
-    page in most methods.
+    an editor_page (a Python 3 notebook editor page), with the goal
+    of allowing test writers to drive any desired application tasks,
+    with the option of selecting a page in most methods.
 
     Many tasks are accomplished by using the evaluate method to run
     frontend Jupyter Javascript code on a selected page.
@@ -167,13 +167,8 @@ class NotebookFrontend:
     writers. FrontendElement holds (private) handles to the underlying
     browser/context.
 
-    - class design (editor_page, tree_page)
-        - Designed to support a full notebook application,
-          consisting of a single tree page and editor page
-        - Note, not designed around multi-notebook/editor page
-          usage scenarios...
-    - evaluate calls
-    - Possible future improvements, current limitations, etc
+    TODO:
+    Possible future improvements, current limitations, etc
         - Known bad things, blah blah
     """
 
