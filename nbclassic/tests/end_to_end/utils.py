@@ -198,8 +198,8 @@ class NotebookFrontend:
         self._browser_data = browser_data
 
         # Define tree and editor attributes
-        self.tree_page = browser_data[TREE_PAGE]
-        self.editor_page = self._open_notebook_editor_page(existing_file_name)
+        self._tree_page = browser_data[TREE_PAGE]
+        self._editor_page = self._open_notebook_editor_page(existing_file_name)
 
         # Do some needed frontend setup
         self._wait_for_start()
@@ -222,12 +222,12 @@ class NotebookFrontend:
 
     @property
     def body(self):
-        return self.editor_page.locator("body")
+        return self._editor_page.locator("body")
 
     @property
     def _cells(self):
         """Return a list of the current Notebook cells."""
-        return self.editor_page.query_selector_all(".cell")
+        return self._editor_page.query_selector_all(".cell")
 
     @property
     def cells(self):
@@ -254,9 +254,9 @@ class NotebookFrontend:
         :param modifiers: A list of modifier keycode strings to press
         """
         if page == TREE_PAGE:
-            specified_page = self.tree_page
+            specified_page = self._tree_page
         elif page == EDITOR_PAGE:
-            specified_page = self.editor_page
+            specified_page = self._editor_page
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
 
@@ -270,9 +270,9 @@ class NotebookFrontend:
     def type(self, text, page):
         """Mimics a user typing the given text on the specified page"""
         if page == TREE_PAGE:
-            specified_page = self.tree_page
+            specified_page = self._tree_page
         elif page == EDITOR_PAGE:
-            specified_page = self.editor_page
+            specified_page = self._editor_page
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
         specified_page.keyboard.type(text)
@@ -293,9 +293,9 @@ class NotebookFrontend:
     def try_click_selector(self, selector, page):
         """Attempts to find and click an element with the selector on the given page"""
         if page == TREE_PAGE:
-            specified_page = self.tree_page
+            specified_page = self._tree_page
         elif page == EDITOR_PAGE:
-            specified_page = self.editor_page
+            specified_page = self._editor_page
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
         elem = specified_page.locator(selector)
@@ -305,9 +305,9 @@ class NotebookFrontend:
     def wait_for_selector(self, selector, page, state=None):
         """Wait for the given selector (in the given state) on the specified page"""
         if page == TREE_PAGE:
-            specified_page = self.tree_page
+            specified_page = self._tree_page
         elif page == EDITOR_PAGE:
-            specified_page = self.editor_page
+            specified_page = self._editor_page
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
         if state is not None:
@@ -330,23 +330,23 @@ class NotebookFrontend:
         :return: The result of the evaluated JS
         """
         if page == TREE_PAGE:
-            specified_page = self.tree_page
+            specified_page = self._tree_page
         elif page == EDITOR_PAGE:
-            specified_page = self.editor_page
+            specified_page = self._editor_page
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
 
         return specified_page.evaluate(text)
 
     def _pause(self):
-        self.editor_page.pause()
+        self._editor_page.pause()
 
     def locate(self, selector, page):
         """Find an element matching selector on the given page"""
         if page == TREE_PAGE:
-            specified_page = self.tree_page
+            specified_page = self._tree_page
         elif page == EDITOR_PAGE:
-            specified_page = self.editor_page
+            specified_page = self._editor_page
         else:
             raise Exception('Error, provide a valid page to locate from!')
 
@@ -355,9 +355,9 @@ class NotebookFrontend:
     def locate_all(self, selector, page):
         """Find a list of elements matching the selector on the given page"""
         if page == TREE_PAGE:
-            specified_page = self.tree_page
+            specified_page = self._tree_page
         elif page == EDITOR_PAGE:
-            specified_page = self.editor_page
+            specified_page = self._editor_page
         else:
             raise Exception('Error, provide a valid page to locate from!')
 
@@ -369,9 +369,9 @@ class NotebookFrontend:
     def wait_for_frame(self, count=None, name=None, page=None):
         """Waits for availability of a frame with the given name"""
         if page == TREE_PAGE:
-            specified_page = self.tree_page
+            specified_page = self._tree_page
         elif page == EDITOR_PAGE:
-            specified_page = self.editor_page
+            specified_page = self._editor_page
         else:
             raise Exception('Error, provide a valid page to wait for frame from!')
 
@@ -394,9 +394,9 @@ class NotebookFrontend:
             raise Exception('Error, provide only one either frame name or frame index!')
 
         if page == TREE_PAGE:
-            specified_page = self.tree_page
+            specified_page = self._tree_page
         elif page == EDITOR_PAGE:
-            specified_page = self.editor_page
+            specified_page = self._editor_page
         else:
             raise Exception('Error, provide a valid page to locate in frame from!')
 
@@ -421,9 +421,9 @@ class NotebookFrontend:
         result = None
         if page is not None:
             if page == TREE_PAGE:
-                specified_page = self.tree_page
+                specified_page = self._tree_page
             elif page == EDITOR_PAGE:
-                specified_page = self.editor_page
+                specified_page = self._editor_page
             else:
                 raise Exception('Error, provide a valid page to evaluate from!')
 
@@ -438,9 +438,9 @@ class NotebookFrontend:
         """Find an frontend element by selector (Tag, CSS, XPath etc.)"""
         result = None
         if page == TREE_PAGE:
-            specified_page = self.tree_page
+            specified_page = self._tree_page
         elif page == EDITOR_PAGE:
-            specified_page = self.editor_page
+            specified_page = self._editor_page
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
 
@@ -475,7 +475,7 @@ class NotebookFrontend:
 
     def click_toolbar_execute_btn(self):
         """Mimics a user pressing the execute button in the UI"""
-        execute_button = self.editor_page.locator(
+        execute_button = self._editor_page.locator(
             "button["
                 "data-jupyter-action="
                     "'jupyter-notebook:run-cell-and-select-next'"
@@ -516,11 +516,11 @@ class NotebookFrontend:
         self.focus_cell(index)
         self.to_command_mode()
         self.press('f', EDITOR_PAGE)
-        self.editor_page.locator('#find-and-replace')
-        self.editor_page.locator('#findreplace_allcells_btn').click()
-        self.editor_page.locator('#findreplace_find_inp').type(find_txt)
-        self.editor_page.locator('#findreplace_replace_inp').type(replace_txt)
-        self.editor_page.locator('#findreplace_replaceall_btn').click()
+        self._editor_page.locator('#find-and-replace')
+        self._editor_page.locator('#findreplace_allcells_btn').click()
+        self._editor_page.locator('#findreplace_find_inp').type(find_txt)
+        self._editor_page.locator('#findreplace_replace_inp').type(replace_txt)
+        self._editor_page.locator('#findreplace_replaceall_btn').click()
 
     def convert_cell_type(self, index=0, cell_type="code"):
         # TODO add check to see if it is already present
@@ -698,15 +698,15 @@ class NotebookFrontend:
         )
 
     def wait_for_kernel_ready(self):
-        self.tree_page.locator(".kernel_idle_icon")
+        self._tree_page.locator(".kernel_idle_icon")
 
     def _open_notebook_editor_page(self, existing_file_name=None):
-        tree_page = self.tree_page
+        tree_page = self._tree_page
 
         if existing_file_name is not None:
             existing_notebook = tree_page.locator(f"text={existing_file_name}")
             existing_notebook.click()
-            self.tree_page.reload()  # TODO: FIX this, page count does not update to 2
+            self._tree_page.reload()  # TODO: FIX this, page count does not update to 2
         else:
             # Simulate a user opening a new notebook/kernel
             new_dropdown_element = tree_page.locator('#new-dropdown-button')
@@ -725,9 +725,9 @@ class NotebookFrontend:
 
     def get_page_url(self, page):
         if page == TREE_PAGE:
-            specified_page = self.tree_page
+            specified_page = self._tree_page
         elif page == EDITOR_PAGE:
-            specified_page = self.editor_page
+            specified_page = self._editor_page
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
 
@@ -735,9 +735,9 @@ class NotebookFrontend:
     
     def go_back(self, page):
         if page == TREE_PAGE:
-            specified_page = self.tree_page
+            specified_page = self._tree_page
         elif page == EDITOR_PAGE:
-            specified_page = self.editor_page
+            specified_page = self._editor_page
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
 
@@ -748,9 +748,9 @@ class NotebookFrontend:
 
     def navigate_to(self, page, partial_url):
         if page == TREE_PAGE:
-            specified_page = self.tree_page
+            specified_page = self._tree_page
         elif page == EDITOR_PAGE:
-            specified_page = self.editor_page
+            specified_page = self._editor_page
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
 
