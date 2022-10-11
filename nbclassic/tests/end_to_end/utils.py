@@ -1,17 +1,25 @@
+"""Utility module for end_to_end testing.
+
+The primary utilities are:
+    * NotebookFrontend
+    * FrontendElement
+
+Users should use these utilities to write their tests,
+and avoid calling the underlying testing library directly.
+If you need to do something that isn't currently available,
+try to build it onto the utility classes instead of using
+playwright functionality/objects directly.
+
+This module was converted and refactored from the older
+selenium test suite.
+"""
+
+
 import datetime
 import os
 import time
-from contextlib import contextmanager
-from os.path import join as pjoin
 
 from playwright.sync_api import ElementHandle, JSHandle
-
-# from selenium.webdriver import ActionChains
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver.common.keys import Keys
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.support import expected_conditions as EC
-# from selenium.webdriver.remote.webelement import WebElement
 
 
 # Key constants for browser_data
@@ -22,86 +30,6 @@ SERVER_INFO = 'SERVER_INFO'
 BROWSER_RAW = 'BROWSER_RAW'
 # Other constants
 CELL_OUTPUT_SELECTOR = '.output_subarea'
-
-
-# def wait_for_selector(driver, selector, timeout=10, visible=False, single=False, wait_for_n=1, obscures=False):
-#     if wait_for_n > 1:
-#         return _wait_for_multiple(
-#             driver, By.CSS_SELECTOR, selector, timeout, wait_for_n, visible)
-#     return _wait_for(driver, By.CSS_SELECTOR, selector, timeout, visible, single, obscures)
-#
-#
-# def wait_for_tag(driver, tag, timeout=10, visible=False, single=False, wait_for_n=1, obscures=False):
-#     if wait_for_n > 1:
-#         return _wait_for_multiple(
-#             driver, By.TAG_NAME, tag, timeout, wait_for_n, visible)
-#     return _wait_for(driver, By.TAG_NAME, tag, timeout, visible, single, obscures)
-#
-#
-# def wait_for_xpath(driver, xpath, timeout=10, visible=False, single=False, wait_for_n=1, obscures=False):
-#     if wait_for_n > 1:
-#         return _wait_for_multiple(
-#             driver, By.XPATH, xpath, timeout, wait_for_n, visible)
-#     return _wait_for(driver, By.XPATH, xpath, timeout, visible, single, obscures)
-#
-#
-# def wait_for_script_to_return_true(driver, script, timeout=10):
-#     WebDriverWait(driver, timeout).until(lambda d: d.execute_script(script))
-#
-#
-# def _wait_for(driver, locator_type, locator, timeout=10, visible=False, single=False, obscures=False):
-#     """Waits `timeout` seconds for the specified condition to be met. Condition is
-#     met if any matching element is found. Returns located element(s) when found.
-#
-#     Args:
-#         driver: Selenium web driver instance
-#         locator_type: type of locator (e.g. By.CSS_SELECTOR or By.TAG_NAME)
-#         locator: name of tag, class, etc. to wait for
-#         timeout: how long to wait for presence/visibility of element
-#         visible: if True, require that element is not only present, but visible
-#         single: if True, return a single element, otherwise return a list of matching
-#         elements
-#         obscures: if True, waits until the element becomes invisible
-#     """
-#     wait = WebDriverWait(driver, timeout)
-#     if obscures:
-#         conditional = EC.invisibility_of_element_located
-#     elif single:
-#         if visible:
-#             conditional = EC.visibility_of_element_located
-#         else:
-#             conditional = EC.presence_of_element_located
-#     else:
-#         if visible:
-#             conditional = EC.visibility_of_all_elements_located
-#         else:
-#             conditional = EC.presence_of_all_elements_located
-#     return wait.until(conditional((locator_type, locator)))
-#
-#
-# def _wait_for_multiple(driver, locator_type, locator, timeout, wait_for_n, visible=False):
-#     """Waits until `wait_for_n` matching elements to be present (or visible).
-#     Returns located elements when found.
-#
-#     Args:
-#         driver: Selenium web driver instance
-#         locator_type: type of locator (e.g. By.CSS_SELECTOR or By.TAG_NAME)
-#         locator: name of tag, class, etc. to wait for
-#         timeout: how long to wait for presence/visibility of element
-#         wait_for_n: wait until this number of matching elements are present/visible
-#         visible: if True, require that elements are not only present, but visible
-#     """
-#     wait = WebDriverWait(driver, timeout)
-#
-#     def multiple_found(driver):
-#         elements = driver.find_elements(locator_type, locator)
-#         if visible:
-#             elements = [e for e in elements if e.is_displayed()]
-#         if len(elements) < wait_for_n:
-#             return False
-#         return elements
-#
-#     return wait.until(multiple_found)
 
 
 class TimeoutError(Exception):
@@ -121,9 +49,28 @@ class FrontendError(Exception):
 
 
 class FrontendElement:
+    """Performs high level tasks on frontend interface components
+
+    FrontendElement serves these goals:
+    - Offers some abstraction/hiding of the underlying testing
+      library (with the goal of making future refactors easier
+      through providing a single point of reimplementation via
+      this utility class rather than exposing implementation
+      details of the web library to individual tests)
+    - Unifies disparate library syntax for common functionalities
+
+    FrontendElement wraps JSHandle, Locator and ElementHandle from
+    playwright, and provides a unified endpoint for test writers
+    to grab attributes, inner text, find child elements etc.
+    """
 
     def __init__(self, item, user_data=None):
-        # item should be a JSHandle, locator or ElementHandle
+        """Wrap a frontend item.
+
+        :param item: JSHandle, Locator or ElementHandle
+        :param user_data: Mainly intended to hold cell data (like cell index),
+            pass a dict in and put what you want inside.
+        """
         self._raw = item
         self._element = item
         self._bool = True  # Was the item created successfully?
@@ -143,6 +90,7 @@ class FrontendElement:
 
     def __bool__(self):
         """Returns True if construction succeeded"""
+        # (Quick/dirty )We can debug on failures by deferring bad inits and testing for them here
         return self._bool
 
     def click(self):
@@ -166,6 +114,7 @@ class FrontendElement:
         return self._element.evaluate(text)
 
     def locate(self, selector):
+        """Locate child elements with the given selector"""
         element = self._element
 
         if hasattr(element, 'locator'):
@@ -178,12 +127,15 @@ class FrontendElement:
         return FrontendElement(result)
 
     def type(self, text):
+        """Sends the given text as key presses to the element"""
         return self._element.type(text)
 
     def press(self, key):
+        """Send a key press to the element"""
         return self._element.press(key)
 
     def wait_for_state(self, state):
+        """Used to check for hidden, etc."""
         if hasattr(self._element, 'wait_for_element_state'):
             self._element.wait_for_element_state(state)
         elif hasattr(self._element, 'wait_for'):
@@ -192,10 +144,39 @@ class FrontendElement:
             raise Exception('Unable to wait for state!')
 
     def get_user_data(self):
+        """Currently this is an unmanaged user data area, use it as you please"""
         return self._user_data
 
 
 class NotebookFrontend:
+    """Performs high level Notebook tasks for automated testing.
+
+    NotebookFrontend serves these goals:
+    - Drives high level application tasks for testing
+    - Offers some encapsulation of the underlying testing
+      library, to allow test writers to focus their efforts
+      on application features rather than implementation
+      details for any given testing task
+
+    NotebookFrontend holds a tree_page (Jupyter file browser), and
+    an editor_page (a Python 3 notebook editor page), with the goal
+    of allowing test writers to drive any desired application tasks,
+    with the option of selecting a page in most methods.
+
+    Many tasks are accomplished by using the evaluate method to run
+    frontend Jupyter Javascript code on a selected page.
+
+    A cells property returns a list of the current notebook cells.
+
+    Other design notes: This class works together with FrontendElement
+    to abstract the testing library implementation away from test
+    writers. FrontendElement holds (private) handles to the underlying
+    browser/context.
+
+    TODO:
+    Possible future improvements, current limitations, etc
+        - Known bad things, blah blah
+    """
 
     # Some constants for users of the class
     TREE_PAGE = TREE_PAGE
@@ -203,6 +184,16 @@ class NotebookFrontend:
     CELL_OUTPUT_SELECTOR = CELL_OUTPUT_SELECTOR
 
     def __init__(self, browser_data, existing_file_name=None):
+        """Start the Notebook app via the web UI or from a file.
+
+        If an existing_file_name is provided, the web interface
+        looks for and clicks the notebook entry in the tree page.
+        If not, the web interface will start a new Python3 notebook
+        from the kernel selection menu.
+
+        :param browser_data: Interfacing object to the web UI
+        :param str existing_file_name: An existing notebook filename to open
+        """
         # Keep a reference to source data
         self._browser_data = browser_data
 
@@ -214,26 +205,6 @@ class NotebookFrontend:
         self._wait_for_start()
         self.disable_autosave_and_onbeforeunload()  # TODO fix/refactor
         self.current_cell = None  # Defined/used below  # TODO refactor/remove
-
-    # def __len__(self):
-    #     return len(self._cells)
-    #
-    # def __getitem__(self, key):
-    #     return self._cells[key]
-    #
-    # def __setitem__(self, key, item):
-    #     if isinstance(key, int):
-    #         self.edit_cell(index=key, content=item, render=False)
-    #     # TODO: re-add slicing support, handle general python slicing behaviour
-    #     # includes: overwriting the entire self._cells object if you do
-    #     # self[:] = []
-    #     # elif isinstance(key, slice):
-    #     #     indices = (self.index(cell) for cell in self[key])
-    #     #     for k, v in zip(indices, item):
-    #     #         self.edit_cell(index=k, content=v, render=False)
-    #
-    # def __iter__(self):
-    #     return (cell for cell in self._cells)
 
     def _wait_for_start(self):
         """Wait until the notebook interface is loaded and the kernel started"""
@@ -250,14 +221,12 @@ class NotebookFrontend:
 
     @property
     def _cells(self):
-        """Gets all cells once they are visible.
-
-        """
+        """Return a list of the current Notebook cells."""
         return self.editor_page.query_selector_all(".cell")
 
     @property
     def cells(self):
-        """Gets all cells once they are visible."""
+        """User facing cell list, gives a list of FrontendElement's"""
         cells = [
             FrontendElement(cell, user_data={'index': index})
             for index, cell in enumerate(self._cells)
@@ -273,6 +242,12 @@ class NotebookFrontend:
         return self._cells.index(cell)
 
     def press(self, keycode, page, modifiers=None):
+        """Press a key on the specified page
+
+        :param str keycode: The keycode value, see MDN
+        :param str page: The page name to run on
+        :param modifiers: A list of modifier keycode strings to press
+        """
         if page == TREE_PAGE:
             specified_page = self.tree_page
         elif page == EDITOR_PAGE:
@@ -288,6 +263,7 @@ class NotebookFrontend:
         specified_page.keyboard.press(mods + keycode)
 
     def type(self, text, page):
+        """Mimics a user typing the given text on the specified page"""
         if page == TREE_PAGE:
             specified_page = self.tree_page
         elif page == EDITOR_PAGE:
@@ -297,6 +273,7 @@ class NotebookFrontend:
         specified_page.keyboard.type(text)
 
     def press_active(self, keycode, modifiers=None):
+        """Press a key on the current_cell"""
         mods = ""
         if modifiers is not None:
             mods = "+".join(m for m in modifiers)
@@ -305,9 +282,11 @@ class NotebookFrontend:
         self.current_cell.press(mods + keycode)
 
     def type_active(self, text):
+        """Mimics a user typing the given text on the current_cell"""
         self.current_cell.type(text)
 
     def try_click_selector(self, selector, page):
+        """Attempts to find and click an element with the selector on the given page"""
         if page == TREE_PAGE:
             specified_page = self.tree_page
         elif page == EDITOR_PAGE:
@@ -319,6 +298,7 @@ class NotebookFrontend:
         elem.click()
 
     def wait_for_selector(self, selector, page, state=None):
+        """Wait for the given selector (in the given state) on the specified page"""
         if page == TREE_PAGE:
             specified_page = self.tree_page
         elif page == EDITOR_PAGE:
@@ -327,7 +307,7 @@ class NotebookFrontend:
             raise Exception('Error, provide a valid page to evaluate from!')
         if state is not None:
             return FrontendElement(specified_page.wait_for_selector(selector, state=state))
-            
+
         return FrontendElement(specified_page.wait_for_selector(selector))
 
     def get_platform_modifier_key(self):
@@ -357,6 +337,7 @@ class NotebookFrontend:
         self.editor_page.pause()
 
     def locate(self, selector, page):
+        """Find an element matching selector on the given page"""
         if page == TREE_PAGE:
             specified_page = self.tree_page
         elif page == EDITOR_PAGE:
@@ -367,6 +348,7 @@ class NotebookFrontend:
         return FrontendElement(specified_page.locator(selector))
 
     def locate_all(self, selector, page):
+        """Find a list of elements matching the selector on the given page"""
         if page == TREE_PAGE:
             specified_page = self.tree_page
         elif page == EDITOR_PAGE:
@@ -380,6 +362,7 @@ class NotebookFrontend:
         return element_list
 
     def wait_for_frame(self, count=None, name=None, page=None):
+        """Waits for availability of a frame with the given name"""
         if page == TREE_PAGE:
             specified_page = self.tree_page
         elif page == EDITOR_PAGE:
@@ -399,6 +382,7 @@ class NotebookFrontend:
         self.wait_for_condition(frame_wait)
 
     def locate_in_frame(self, selector, page, frame_name=None, frame_index=None):
+        """Finds an element inside a frame"""
         if frame_name is None and frame_index is None:
             raise Exception('Error, must provide a frame name or frame index!')
         if frame_name is not None and frame_index is not None:
@@ -423,6 +407,7 @@ class NotebookFrontend:
         return FrontendElement(element)
 
     def wait_for_tag(self, tag, page=None, cell_index=None):
+        """Waits for availability of a given tag on the page"""
         if cell_index is None and page is None:
             raise FrontendError('Provide a page or cell to wait from!')
         if cell_index is not None and page is not None:
@@ -457,13 +442,14 @@ class NotebookFrontend:
         return specified_page.locator(selector)
 
     def clear_all_output(self):
-        """Clear cell outputs"""
+        """Clear all cell outputs"""
         return self.evaluate(
             "Jupyter.notebook.clear_all_output();",
             page=EDITOR_PAGE
         )
 
     def clear_cell_output(self, index):
+        """Clear single cell output"""
         JS = f'Jupyter.notebook.clear_output({index})'
         self.evaluate(JS, page=EDITOR_PAGE)
 
@@ -483,6 +469,7 @@ class NotebookFrontend:
             self.edit_cell(None, index, txt)
 
     def click_toolbar_execute_btn(self):
+        """Mimics a user pressing the execute button in the UI"""
         execute_button = self.editor_page.locator(
             "button["
                 "data-jupyter-action="
@@ -507,6 +494,7 @@ class NotebookFrontend:
                                            "Jupyter.notebook.get_edit_index())) }", page=EDITOR_PAGE)
 
     def focus_cell(self, index=0):
+        """Mimic a user focusing on the given cell"""
         cell = self._cells[index]
         cell.click()
         self.to_command_mode()
@@ -519,6 +507,7 @@ class NotebookFrontend:
             self.press('j', EDITOR_PAGE, ['Shift'])
 
     def find_and_replace(self, index=0, find_txt='', replace_txt=''):
+        """Uses Jupyter's find and replace"""
         self.focus_cell(index)
         self.to_command_mode()
         self.press('f', EDITOR_PAGE)
@@ -551,22 +540,19 @@ class NotebookFrontend:
         Warning: there is currently no way to do this when changing between
         markdown and raw cells.
         """
-        # wait = WebDriverWait(self.browser, 10)
-        # element = wait.until(EC.staleness_of(cell))
-
         cell.wait_for_element_state('hidden')
 
-    # def wait_for_element_availability(self, element):
-    #     _wait_for(self.browser, By.CLASS_NAME, element, visible=True)
-
     def get_cells_contents(self):
+        """Get a list of the text inside each cell"""
         JS = '() => { return Jupyter.notebook.get_cells().map(function(c) {return c.get_text();}) }'
         return self.evaluate(JS, page=EDITOR_PAGE)
 
     def get_cell_contents(self, index=0, selector='div .CodeMirror-code'):
+        """Get the text inside a given cell"""
         return self._cells[index].query_selector(selector).inner_text()
 
     def get_cell_output(self, index=0, output=CELL_OUTPUT_SELECTOR):
+        """Get the cell output for a given cell"""
         cell = self._cells[index].as_element().query_selector(output)  # Find cell child elements
 
         if cell is None:
@@ -590,6 +576,7 @@ class NotebookFrontend:
             raise TimeoutError()
 
     def wait_for_cell_output(self, index=0, timeout=3):
+        """Waits for the cell to finish executing and return the cell output"""
         if not self._cells:
             raise Exception('Error, no cells exist!')
 
@@ -649,9 +636,7 @@ class NotebookFrontend:
         new_index = index + 1 if index >= 0 else index
         if content:
             self.edit_cell(index=index, content=content)
-        # TODO fix this
         if cell_type != 'code':
-            # raise NotImplementedError('Error, non code cell_type is a TODO!')
             self.convert_cell_type(index=new_index, cell_type=cell_type)
 
     def add_and_execute_cell(self, index=-1, cell_type="code", content=""):
@@ -674,16 +659,6 @@ class NotebookFrontend:
                               content=value)
             else:
                 raise TypeError(f"Don't know how to add cell from {value!r}")
-
-    # def extend(self, values):
-    #     self.append(*values)
-    #
-    # def run_all(self):
-    #     for cell in self:
-    #         self.execute_cell(cell)
-    #
-    # def trigger_keydown(self, keys):
-    #     trigger_keystrokes(self.body, keys)
 
     def is_jupyter_defined(self):
         """Checks that the Jupyter object is defined on the frontend"""
@@ -776,99 +751,12 @@ class NotebookFrontend:
 
         specified_page.goto(self._browser_data[SERVER_INFO]['url'] + partial_url)
 
-    # TODO: Refactor/consider removing this
+    # TODO: Refactor/consider removing this (legacy cruft)
     @classmethod
     def new_notebook_frontend(cls, browser_data, kernel_name='kernel-python3', existing_file_name=None):
-        browser = browser_data[BROWSER]
-        tree_page = browser_data[TREE_PAGE]
-        server_info = browser_data[SERVER_INFO]
-
-        # with new_window(page):
-        # select_kernel(tree_page, kernel_name=kernel_name)  # TODO this is terrible, remove it
-        # tree_page.pause()
         instance = cls(browser_data, existing_file_name)
 
         return instance
-
-
-# # TODO: refactor/remove this
-# def select_kernel(page, kernel_name='kernel-python3'):
-#     """Clicks the "new" button and selects a kernel from the options.
-#     """
-#     # wait = WebDriverWait(browser, 10)
-#     # new_button = wait.until(EC.element_to_be_clickable((By.ID, "new-dropdown-button")))
-#     new_button = page.locator('#new-dropdown-button')
-#     new_button.click()
-#     kernel_selector = f'#{kernel_name} a'
-#     # kernel = wait_for_selector(page, kernel_selector, single=True)
-#     kernel = page.locator(kernel_selector)
-#     kernel.click()
-
-
-# @contextmanager
-# def new_window(browser):
-#     """Contextmanager for switching to & waiting for a window created.
-#
-#     This context manager gives you the ability to create a new window inside
-#     the created context and it will switch you to that new window.
-#
-#     Usage example:
-#
-#         from nbclassic.tests.selenium.utils import new_window, Notebook
-#
-#         ⋮ # something that creates a browser object
-#
-#         with new_window(browser):
-#             select_kernel(browser, kernel_name=kernel_name)
-#         nb = Notebook(browser)
-#
-#     """
-#     initial_window_handles = browser.window_handles
-#     yield
-#     new_window_handles = [window for window in browser.window_handles
-#                           if window not in initial_window_handles]
-#     if not new_window_handles:
-#         raise Exception("No new windows opened during context")
-#     browser.switch_to.window(new_window_handles[0])
-
-
-# def shift(browser, k):
-#     """Send key combination Shift+(k)"""
-#     trigger_keystrokes(browser, "shift-%s"%k)
-
-
-# def cmdtrl(page, key):
-#     """Send key combination Ctrl+(key) or Command+(key) for MacOS"""
-#     if os.uname()[0] == "Darwin":
-#         page.keyboard.press("Meta+{}".format(key))
-#     else:
-#         page.keyboard.press("Control+{}".format(key))
-
-
-# def alt(browser, k):
-#     """Send key combination Alt+(k)"""
-#     trigger_keystrokes(browser, 'alt-%s'%k)
-#
-#
-# def trigger_keystrokes(browser, *keys):
-#     """ Send the keys in sequence to the browser.
-#     Handles following key combinations
-#     1. with modifiers eg. 'control-alt-a', 'shift-c'
-#     2. just modifiers eg. 'alt', 'esc'
-#     3. non-modifiers eg. 'abc'
-#     Modifiers : http://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html
-#     """
-#     for each_key_combination in keys:
-#         keys = each_key_combination.split('-')
-#         if len(keys) > 1:  # key has modifiers eg. control, alt, shift
-#             modifiers_keys = [getattr(Keys, x.upper()) for x in keys[:-1]]
-#             ac = ActionChains(browser)
-#             for i in modifiers_keys: ac = ac.key_down(i)
-#             ac.send_keys(keys[-1])
-#             for i in modifiers_keys[::-1]: ac = ac.key_up(i)
-#             ac.perform()
-#         else:              # single key stroke. Check if modifier eg. "up"
-#             browser.send_keys(getattr(Keys, keys[0].upper(), keys[0]))
 
 
 def validate_dualmode_state(notebook, mode, index):
@@ -921,20 +809,20 @@ def validate_dualmode_state(notebook, mode, index):
     # validate selected cell
     JS = "() => { return Jupyter.notebook.get_selected_cells_indices(); }"
     cell_index = notebook.evaluate(JS, EDITOR_PAGE)
-    assert cell_index == [index] #only the index cell is selected
+    assert cell_index == [index]  # only the index cell is selected
 
     if mode != 'command' and mode != 'edit':
-        raise Exception('An unknown mode was send: mode = "%s"'%mode) #An unknown mode is send
+        raise Exception('An unknown mode was send: mode = "%s"'%mode)  # An unknown mode is send
 
     #validate mode
-    assert mode == keyboard_mode #keyboard mode is correct
+    assert mode == keyboard_mode  # keyboard mode is correct
 
     if mode == 'command':
-        assert is_focused_on(None) #no focused cells
+        assert is_focused_on(None)  # no focused cells
 
-        assert is_only_cell_edit(None) #no cells in edit mode
+        assert is_only_cell_edit(None)  # no cells in edit mode
 
     elif mode == 'edit':
-        assert is_focused_on(index) #The specified cell is focused
+        assert is_focused_on(index)  # The specified cell is focused
 
-        assert is_only_cell_edit(index) #The specified cell is the only one in edit mode
+        assert is_only_cell_edit(index)  # The specified cell is the only one in edit mode
