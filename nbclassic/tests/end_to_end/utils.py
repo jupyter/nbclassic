@@ -23,11 +23,11 @@ from playwright.sync_api import ElementHandle, JSHandle
 
 
 # Key constants for browser_data
-BROWSER = 'BROWSER'
+BROWSER_CONTEXT = 'BROWSER_CONTEXT'
 TREE_PAGE = 'TREE_PAGE'
 EDITOR_PAGE = 'EDITOR_PAGE'
 SERVER_INFO = 'SERVER_INFO'
-BROWSER_RAW = 'BROWSER_RAW'
+BROWSER_OBJ = 'BROWSER_OBJ'
 # Other constants
 CELL_OUTPUT_SELECTOR = '.output_subarea'
 
@@ -717,7 +717,7 @@ class NotebookFrontend:
             new_notebook_element.click()
 
         def wait_for_new_page():
-            return [pg for pg in self._browser_data[BROWSER].pages if 'tree' not in pg.url]
+            return [pg for pg in self._browser_data[BROWSER_CONTEXT].pages if 'tree' not in pg.url]
 
         new_pages = self.wait_for_condition(wait_for_new_page)
         editor_page = new_pages[0]
