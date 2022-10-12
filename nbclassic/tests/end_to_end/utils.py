@@ -23,11 +23,11 @@ from playwright.sync_api import ElementHandle, JSHandle
 
 
 # Key constants for browser_data
-BROWSER = 'BROWSER'
+BROWSER_CONTEXT = 'BROWSER_CONTEXT'
 TREE_PAGE = 'TREE_PAGE'
 EDITOR_PAGE = 'EDITOR_PAGE'
 SERVER_INFO = 'SERVER_INFO'
-BROWSER_RAW = 'BROWSER_RAW'
+BROWSER_OBJ = 'BROWSER_OBJ'
 # Other constants
 CELL_OUTPUT_SELECTOR = '.output_subarea'
 
@@ -209,9 +209,14 @@ class NotebookFrontend:
     def _wait_for_start(self):
         """Wait until the notebook interface is loaded and the kernel started"""
         def check_is_kernel_running():
-            return (self.is_jupyter_defined()
-                    and self.is_notebook_defined()
-                    and self.is_kernel_running())
+            try:
+                status = (self.is_jupyter_defined()
+                        and self.is_notebook_defined()
+                        and self.is_kernel_running())
+            except Exception:
+                return False
+
+            return status
 
         self.wait_for_condition(check_is_kernel_running)
 
@@ -712,7 +717,7 @@ class NotebookFrontend:
             new_notebook_element.click()
 
         def wait_for_new_page():
-            return [pg for pg in self._browser_data[BROWSER].pages if 'tree' not in pg.url]
+            return [pg for pg in self._browser_data[BROWSER_CONTEXT].pages if 'tree' not in pg.url]
 
         new_pages = self.wait_for_condition(wait_for_new_page)
         editor_page = new_pages[0]
@@ -814,7 +819,7 @@ def validate_dualmode_state(notebook, mode, index):
     if mode != 'command' and mode != 'edit':
         raise Exception('An unknown mode was send: mode = "%s"'%mode)  # An unknown mode is send
 
-    #validate mode
+    # validate mode
     assert mode == keyboard_mode  # keyboard mode is correct
 
     if mode == 'command':
