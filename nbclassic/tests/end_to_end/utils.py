@@ -158,8 +158,8 @@ class NotebookFrontend:
       on application features rather than implementation
       details for any given testing task
 
-    NotebookFrontend holds a tree_page (Jupyter file browser), and
-    an editor_page (a Python 3 notebook editor page), with the goal
+    NotebookFrontend holds a _tree_page (Jupyter file browser), and
+    an _editor_page (a Python 3 notebook editor page), with the goal
     of allowing test writers to drive any desired application tasks,
     with the option of selecting a page in most methods.
 
@@ -170,7 +170,7 @@ class NotebookFrontend:
 
     Other design notes: This class works together with FrontendElement
     to abstract the testing library implementation away from test
-    writers. FrontendElement holds (private) handles to the underlying
+    writers. NotebookFrontend holds (private) handles to the underlying
     browser/context.
 
     TODO:
@@ -203,7 +203,7 @@ class NotebookFrontend:
 
         # Do some needed frontend setup
         self._wait_for_start()
-        self.disable_autosave_and_onbeforeunload()  # TODO fix/refactor
+        self.disable_autosave_and_onbeforeunload()
         self.current_cell = None  # Defined/used below  # TODO refactor/remove
 
     def _wait_for_start(self):
