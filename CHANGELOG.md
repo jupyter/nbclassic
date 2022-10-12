@@ -2,6 +2,30 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.6
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.5...638141b299d2cbaae2062239c8db6ae6fd83e762))
+
+### New features added
+
+- Adds new file custom-preload that is loaded in a different order than custom.js before the main.js script is executed [#155](https://github.com/jupyter/nbclassic/pull/155) ([@lneves12](https://github.com/lneves12))
+
+### Bugs fixed
+
+- Use `var` instead of `const` to ensure js-test succeed [#159](https://github.com/jupyter/nbclassic/pull/159) ([@echarles](https://github.com/echarles))
+
+### Documentation improvements
+
+- add badge for documentation [#160](https://github.com/jupyter/nbclassic/pull/160) ([@RRosio](https://github.com/RRosio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-10-07&to=2022-10-12&type=c))
+
+[@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-10-07..2022-10-12&type=Issues) | [@lneves12](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Alneves12+updated%3A2022-10-07..2022-10-12&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2022-10-07..2022-10-12&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.5
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.4...3196dc6f8e1be0748662bfef11d397326b7ef0ea))
@@ -15,8 +39,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-09-29&to=2022-10-07&type=c))
 
 [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-09-29..2022-10-07&type=Issues) | [@lneves12](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Alneves12+updated%3A2022-09-29..2022-10-07&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.4
 
