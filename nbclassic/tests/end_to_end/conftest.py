@@ -16,7 +16,7 @@ from testpath.tempdir import TemporaryDirectory
 
 import nbformat
 from nbformat.v4 import new_notebook, new_code_cell
-from .utils import NotebookFrontend, BROWSER, BROWSER_RAW, TREE_PAGE, SERVER_INFO
+from .utils import NotebookFrontend, BROWSER_CONTEXT, BROWSER_OBJ, TREE_PAGE, SERVER_INFO
 
 
 def _wait_for_server(proc, info_file_path):
@@ -75,13 +75,10 @@ def notebook_server():
 
 @pytest.fixture(scope='function')
 def playwright_browser(playwright):
-    # if os.environ.get('SAUCE_USERNAME'):   # TODO: Fix this
-    #     driver = make_sauce_driver()
     if os.environ.get('JUPYTER_TEST_BROWSER') == 'chrome':
         browser = playwright.chromium.launch()
     else:
         browser = playwright.firefox.launch()
-    # browser_context = browser.new_context()
 
     yield browser
 
@@ -91,18 +88,17 @@ def playwright_browser(playwright):
 
 @pytest.fixture(scope='function')
 def authenticated_browser_data(playwright_browser, notebook_server):
-    browser_raw = playwright_browser
-    playwright_browser = browser_raw.new_context()
-    playwright_browser.jupyter_server_info = notebook_server
-    tree_page = playwright_browser.new_page()
+    browser_obj = playwright_browser
+    browser_context = browser_obj.new_context()
+    browser_context.jupyter_server_info = notebook_server
+    tree_page = browser_context.new_page()
     tree_page.goto("{url}?token={token}".format(**notebook_server))
 
-    # TODO: fix this mess, BROWSER_RAW naming etc.
     auth_browser_data = {
-        BROWSER: playwright_browser,
+        BROWSER_CONTEXT: browser_context,
         TREE_PAGE: tree_page,
         SERVER_INFO: notebook_server,
-        BROWSER_RAW: browser_raw,
+        BROWSER_OBJ: browser_obj,
     }
 
     return auth_browser_data
@@ -110,15 +106,13 @@ def authenticated_browser_data(playwright_browser, notebook_server):
 
 @pytest.fixture(scope='function')
 def notebook_frontend(authenticated_browser_data):
-    # tree_wh = authenticated_browser.current_window_handle
     yield NotebookFrontend.new_notebook_frontend(authenticated_browser_data)
-    # authenticated_browser.switch_to.window(tree_wh)
 
 
 @pytest.fixture(scope='function')
 def prefill_notebook(playwright_browser, notebook_server):
-    browser_raw = playwright_browser
-    playwright_browser = browser_raw.new_context()
+    browser_obj = playwright_browser
+    browser_context = browser_obj.new_context()
     # playwright_browser is the browser_context,
     # notebook_server is the server with directories
 
@@ -141,18 +135,18 @@ def prefill_notebook(playwright_browser, notebook_server):
         fname = os.path.basename(path)
 
         # Add the notebook server as a property of the playwright browser with the name jupyter_server_info
-        playwright_browser.jupyter_server_info = notebook_server
+        browser_context.jupyter_server_info = notebook_server
         # Open a new page in the browser and refer to it as the tree page
-        tree_page = playwright_browser.new_page()
+        tree_page = browser_context.new_page()
 
         # Navigate that page to the base URL page AKA the tree page
         tree_page.goto("{url}?token={token}".format(**notebook_server))
 
         auth_browser_data = {
-            BROWSER: playwright_browser,
+            BROWSER_CONTEXT: browser_context,
             TREE_PAGE: tree_page,
             SERVER_INFO: notebook_server,
-            BROWSER_RAW: browser_raw
+            BROWSER_OBJ: browser_obj
         }
 
         return NotebookFrontend.new_notebook_frontend(auth_browser_data, existing_file_name=fname)
