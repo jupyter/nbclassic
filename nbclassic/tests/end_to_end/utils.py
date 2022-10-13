@@ -20,6 +20,7 @@ import os
 import time
 
 from playwright.sync_api import ElementHandle, JSHandle
+from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
 
 # Key constants for browser_data
@@ -96,8 +97,17 @@ class FrontendElement:
     def click(self):
         return self._element.click()
 
+      # DEBUG: Playwright Timeout Error when calling inner_text
     def get_inner_text(self):
-        return self._element.inner_text()
+        count = 0
+        while count < 2:
+            try:
+                count += 1
+                innerText = self._element.inner_text()
+                return innerText
+            except PlaywrightTimeoutError: 
+                print('Timeout grabbing the inner text of an element')
+        return None
 
     def get_inner_html(self):
         return self._element.inner_html()
