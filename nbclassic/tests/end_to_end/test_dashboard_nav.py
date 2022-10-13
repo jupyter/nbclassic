@@ -1,5 +1,8 @@
+"""Test navigation to directory links"""
+
+
 import os
-from .utils import EDITOR_PAGE, TREE_PAGE
+from .utils import  TREE_PAGE
 from jupyter_server.utils import url_path_join
 pjoin = os.path.join
 
@@ -11,12 +14,14 @@ def url_in_tree(nb, url=None):
     tree_url = url_path_join(nb.get_server_info(), 'tree')
     return True if tree_url in url else False
 
+
 def get_list_items(nb):
     """
     Gets list items from a directory listing page
     """
 
-    link_items = nb.locate_all('.item_link', page=TREE_PAGE)
+    notebook_list = nb.locate('#notebook_list', page=TREE_PAGE)
+    link_items = notebook_list.locate_all('.item_link')
 
     return [{
         'link': a.get_attribute('href'),

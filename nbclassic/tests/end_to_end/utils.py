@@ -113,6 +113,14 @@ class FrontendElement:
     def evaluate(self, text):
         return self._element.evaluate(text)
 
+    def wait_for(self, state):
+        if hasattr(self._element, 'wait_for_element_state'):
+            return self._element.wait_for_element_state(state=state)
+        elif hasattr(self._element, 'wait_for'):
+            return self._element.wait_for(state=state)
+        else:
+            raise FrontendError('Could not wait for state on element')
+
     def locate(self, selector):
         """Locate child elements with the given selector"""
         element = self._element
@@ -122,9 +130,26 @@ class FrontendElement:
         elif hasattr(element, 'query_selector'):
             result = element.query_selector(selector)
         else:
+            # TODO: FIX these - Raise exception or return None
             result = None
 
         return FrontendElement(result)
+
+    def locate_all(self, selector):
+        """Locate all child elements with the given selector"""
+        element = self._element
+
+        if hasattr(element, 'query_selector_all'):
+            matches = element.query_selector_all(selector)
+            element_list = [FrontendElement(item) for item in matches]
+        elif hasattr(element, 'locator'):
+            matches = element.locator(selector)
+            element_list = [FrontendElement(matches.nth(index)) for index in range(matches.count())]
+        else:
+            # TODO: FIX these - Raise exception or return None
+            element_list = None
+
+        return element_list
 
     def type(self, text):
         """Sends the given text as key presses to the element"""
@@ -133,15 +158,6 @@ class FrontendElement:
     def press(self, key):
         """Send a key press to the element"""
         return self._element.press(key)
-
-    def wait_for_state(self, state):
-        """Used to check for hidden, etc."""
-        if hasattr(self._element, 'wait_for_element_state'):
-            self._element.wait_for_element_state(state)
-        elif hasattr(self._element, 'wait_for'):
-            self._element.wait_for(state)
-        else:
-            raise Exception('Unable to wait for state!')
 
     def get_user_data(self):
         """Currently this is an unmanaged user data area, use it as you please"""
