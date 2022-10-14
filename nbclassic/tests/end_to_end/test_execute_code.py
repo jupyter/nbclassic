@@ -9,6 +9,7 @@ def test_execute_code(notebook_frontend):
     notebook_frontend.edit_cell(index=0, content='a=10; print(a)')
     notebook_frontend.evaluate("Jupyter.notebook.get_cell(0).execute();", page=EDITOR_PAGE)
     outputs = notebook_frontend.wait_for_cell_output(0)
+    outputs.wait_for('visible')
     assert outputs.get_inner_text().strip() == '10'
 
     # Execute cell with Shift-Enter
@@ -16,6 +17,7 @@ def test_execute_code(notebook_frontend):
     notebook_frontend.clear_all_output()
     notebook_frontend.press("Enter", EDITOR_PAGE, ["Shift"])
     outputs = notebook_frontend.wait_for_cell_output(0)
+    outputs.wait_for('visible')
     assert outputs.get_inner_text().strip() == '11'
     notebook_frontend.delete_cell(1)  # Shift+Enter adds a cell
 
@@ -28,6 +30,7 @@ def test_execute_code(notebook_frontend):
         modifiers=[notebook_frontend.get_platform_modifier_key()]
     )
     outputs = notebook_frontend.wait_for_cell_output(0)
+    outputs.wait_for('visible')
     assert outputs.get_inner_text().strip() == '12'
 
     # Execute cell with toolbar button
@@ -35,6 +38,7 @@ def test_execute_code(notebook_frontend):
     notebook_frontend.clear_all_output()
     notebook_frontend.click_toolbar_execute_btn()
     outputs = notebook_frontend.wait_for_cell_output(0)
+    outputs.wait_for('visible')
     assert outputs.get_inner_text().strip() == '13'
     notebook_frontend.delete_cell(1)  # Toolbar execute button adds a cell
 
@@ -52,6 +56,7 @@ def test_execute_code(notebook_frontend):
         cell1.execute();
     """, page=EDITOR_PAGE)
     outputs = notebook_frontend.wait_for_cell_output(0)
+    outputs.wait_for('visible')
     assert notebook_frontend.get_cell_output(1) is None
 
     # Execute a cell with stop_on_error=false
@@ -63,4 +68,5 @@ def test_execute_code(notebook_frontend):
             cell1.execute();
         """, page=EDITOR_PAGE)
     outputs = notebook_frontend.wait_for_cell_output(1)
+    outputs.wait_for('visible')
     assert outputs.get_inner_text().strip() == '14'

@@ -36,9 +36,15 @@ def test_save_notebook_as(notebook_frontend):
     locator_element = notebook_frontend.locate_and_focus('//input[@data-testid="save-as"]', page=EDITOR_PAGE)
     locator_element.wait_for('visible')
 
+    modal_footer = notebook_frontend.locate('.modal-footer', page=EDITOR_PAGE)
+    modal_footer.wait_for('visible')
+    
     notebook_frontend.insert_text('new_notebook.ipynb', page=EDITOR_PAGE)
 
-    notebook_frontend.try_click_selector('//html//body//div[8]//div//div//div[3]//button[2]', page=EDITOR_PAGE)
+    save_btn = modal_footer.locate('text=Save')
+    save_btn.wait_for('visible')
+    save_btn.click()
+    # notebook_frontend.try_click_selector('//html//body//div[8]//div//div//div[3]//button[2]', page=EDITOR_PAGE)
 
     locator_element.wait_for('hidden')
 
