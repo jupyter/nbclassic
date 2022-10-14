@@ -25,7 +25,7 @@ def test_cancel_restart_or_shutdown(notebook_frontend):
         notebook_frontend.wait_for_selector(cancel_selector, EDITOR_PAGE).click()
 
         modal = notebook_frontend.wait_for_selector('.modal-backdrop', EDITOR_PAGE)
-        modal.wait_for_state('hidden')
+        modal.wait_for('hidden')
 
         assert notebook_frontend.is_kernel_running()
 
@@ -46,7 +46,7 @@ def test_menu_items(notebook_frontend):
         # Restart
         # (can't click the menu while a modal dialog is fading out)
         modal = notebook_frontend.wait_for_selector('.modal-backdrop', EDITOR_PAGE)
-        modal.wait_for_state('hidden')
+        modal.wait_for('hidden')
         kernel_menu.click()
 
         notebook_frontend.wait_for_selector(menu_item, EDITOR_PAGE).click()

@@ -1,17 +1,8 @@
-from os import rename
-from tkinter import E
-from webbrowser import get
-from .utils import EDITOR_PAGE, TREE_PAGE
-import time
+"""Test readonly notebook saved and renamed"""
 
 
-def check_for_rename(nb, selector, page, new_name):
-    check_count = 0
-    nb_name = nb.locate(selector, page)
-    while nb_name != new_name and check_count <= 5:
-        nb_name = nb.locate(selector, page)
-        check_count += 1
-    return nb_name
+from .utils import EDITOR_PAGE
+
 
 def save_as(nb):
     JS = '() => Jupyter.notebook.save_notebook_as()'
@@ -25,6 +16,7 @@ def set_notebook_name(nb, name):
     JS = f'() => Jupyter.notebook.rename("{name}")'
     nb.evaluate(JS, page=EDITOR_PAGE)
 
+
 def test_save_notebook_as(notebook_frontend):
     notebook_frontend.edit_cell(index=0, content='a=10; print(a)')
     notebook_frontend.wait_for_kernel_ready()
@@ -36,13 +28,21 @@ def test_save_notebook_as(notebook_frontend):
 
     # Wait for Save As modal, save
     save_as(notebook_frontend)
-    notebook_frontend.wait_for_selector('.save-message', page=EDITOR_PAGE)
 
-    inp = notebook_frontend.wait_for_selector('//input[@data-testid="save-as"]', page=EDITOR_PAGE)
-    inp.type('new_notebook.ipynb')
+    # Wait for modal to pop up
+    notebook_frontend.wait_for_selector('//input[@data-testid="save-as"]', page=EDITOR_PAGE)
+
+    # TODO: Add a function for locator assertions to FrontendElement
+    locator_element = notebook_frontend.locate_and_focus('//input[@data-testid="save-as"]', page=EDITOR_PAGE)
+    locator_element.wait_for('visible')
+
+    notebook_frontend.insert_text('new_notebook.ipynb', page=EDITOR_PAGE)
+
     notebook_frontend.try_click_selector('//html//body//div[8]//div//div//div[3]//button[2]', page=EDITOR_PAGE)
 
-    check_for_rename(notebook_frontend, '#notebook_name', page=EDITOR_PAGE, new_name="new_notebook.ipynb")
+    locator_element.wait_for('hidden')
+
+    notebook_frontend.locate('#notebook_name', page=EDITOR_PAGE)
 
     # Test that the name changed
     assert get_notebook_name(notebook_frontend) == "new_notebook.ipynb"

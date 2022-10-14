@@ -20,6 +20,7 @@ import os
 import time
 
 from playwright.sync_api import ElementHandle, JSHandle
+from playwright.sync_api import expect
 
 
 # Key constants for browser_data
@@ -113,6 +114,14 @@ class FrontendElement:
     def evaluate(self, text):
         return self._element.evaluate(text)
 
+    def wait_for(self, state):
+        if hasattr(self._element, 'wait_for_element_state'):
+            return self._element.wait_for_element_state(state=state)
+        elif hasattr(self._element, 'wait_for'):
+            return self._element.wait_for(state=state)
+        else:
+            raise FrontendError('Could not wait for state on element')
+
     def locate(self, selector):
         """Locate child elements with the given selector"""
         element = self._element
@@ -122,9 +131,26 @@ class FrontendElement:
         elif hasattr(element, 'query_selector'):
             result = element.query_selector(selector)
         else:
+            # TODO: FIX these - Raise exception or return None
             result = None
 
         return FrontendElement(result)
+
+    def locate_all(self, selector):
+        """Locate all child elements with the given selector"""
+        element = self._element
+
+        if hasattr(element, 'query_selector_all'):
+            matches = element.query_selector_all(selector)
+            element_list = [FrontendElement(item) for item in matches]
+        elif hasattr(element, 'locator'):
+            matches = element.locator(selector)
+            element_list = [FrontendElement(matches.nth(index)) for index in range(matches.count())]
+        else:
+            # TODO: FIX these - Raise exception or return None
+            element_list = None
+
+        return element_list
 
     def type(self, text):
         """Sends the given text as key presses to the element"""
@@ -133,15 +159,6 @@ class FrontendElement:
     def press(self, key):
         """Send a key press to the element"""
         return self._element.press(key)
-
-    def wait_for_state(self, state):
-        """Used to check for hidden, etc."""
-        if hasattr(self._element, 'wait_for_element_state'):
-            self._element.wait_for_element_state(state)
-        elif hasattr(self._element, 'wait_for'):
-            self._element.wait_for(state)
-        else:
-            raise Exception('Unable to wait for state!')
 
     def get_user_data(self):
         """Currently this is an unmanaged user data area, use it as you please"""
@@ -277,6 +294,17 @@ class NotebookFrontend:
             raise Exception('Error, provide a valid page to evaluate from!')
         specified_page.keyboard.type(text)
 
+    def insert_text(self, text, page):
+        """ """
+        if page == TREE_PAGE:
+            specified_page = self._tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self._editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+
+        specified_page.keyboard.insert_text(text)
+
     def press_active(self, keycode, modifiers=None):
         """Press a key on the current_cell"""
         mods = ""
@@ -365,6 +393,19 @@ class NotebookFrontend:
         result = specified_page.locator(selector)
         element_list = [FrontendElement(result.nth(index)) for index in range(result.count())]
         return element_list
+
+    def locate_and_focus(self, selector, page):
+        """Find selector in page and focus"""
+        if page == TREE_PAGE:
+            specified_page = self._tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self._editor_page
+        else:
+            raise Exception('Error, provide a valid page to locate from!')
+
+        locator = specified_page.locator(selector)
+        expect(locator).to_be_focused()
+        return FrontendElement(locator)
 
     def wait_for_frame(self, count=None, name=None, page=None):
         """Waits for availability of a frame with the given name"""
@@ -580,7 +621,7 @@ class NotebookFrontend:
         else:
             raise TimeoutError()
 
-    def wait_for_cell_output(self, index=0, timeout=3):
+    def wait_for_cell_output(self, index=0, timeout=30):
         """Waits for the cell to finish executing and return the cell output"""
         if not self._cells:
             raise Exception('Error, no cells exist!')
