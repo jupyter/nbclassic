@@ -621,7 +621,7 @@ class NotebookFrontend:
         else:
             raise TimeoutError()
 
-    def wait_for_cell_output(self, index=0, timeout=3):
+    def wait_for_cell_output(self, index=0, timeout=30):
         """Waits for the cell to finish executing and return the cell output"""
         if not self._cells:
             raise Exception('Error, no cells exist!')
