@@ -22,7 +22,7 @@ def get_list_items(nb):
         'link': a.get_attribute('href'),
         'label': a.get_inner_text(),
         'element': a,
-    } for a in link_items if a.get_inner_text() != '..' and 'ipynb' not in a.get_inner_text()]
+    } for a in link_items if a.get_inner_text() != '..']
 
 
 def test_navigation(notebook_frontend):
@@ -30,7 +30,7 @@ def test_navigation(notebook_frontend):
     link_elements = get_list_items(notebook_frontend)
 
     def check_links(nb, list_of_link_elements):
-        if not list_of_link_elements or len(list_of_link_elements) < 1:
+        if len(list_of_link_elements) < 1:
             return False
 
         for item in list_of_link_elements:
