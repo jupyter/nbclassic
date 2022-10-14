@@ -20,6 +20,7 @@ import os
 import time
 
 from playwright.sync_api import ElementHandle, JSHandle
+from playwright.sync_api import expect
 
 
 # Key constants for browser_data
@@ -293,6 +294,17 @@ class NotebookFrontend:
             raise Exception('Error, provide a valid page to evaluate from!')
         specified_page.keyboard.type(text)
 
+    def insert_text(self, text, page):
+        """ """
+        if page == TREE_PAGE:
+            specified_page = self._tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self._editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+
+        specified_page.keyboard.insert_text(text)
+
     def press_active(self, keycode, modifiers=None):
         """Press a key on the current_cell"""
         mods = ""
@@ -381,6 +393,19 @@ class NotebookFrontend:
         result = specified_page.locator(selector)
         element_list = [FrontendElement(result.nth(index)) for index in range(result.count())]
         return element_list
+
+    def locate_and_focus(self, selector, page):
+        """Find selector in page and focus"""
+        if page == TREE_PAGE:
+            specified_page = self._tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self._editor_page
+        else:
+            raise Exception('Error, provide a valid page to locate from!')
+
+        locator = specified_page.locator(selector)
+        expect(locator).to_be_focused()
+        return FrontendElement(locator)
 
     def wait_for_frame(self, count=None, name=None, page=None):
         """Waits for availability of a frame with the given name"""
