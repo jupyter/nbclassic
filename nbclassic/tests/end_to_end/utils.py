@@ -404,6 +404,7 @@ class NotebookFrontend:
             raise Exception('Error, provide a valid page to locate from!')
 
         locator = specified_page.locator(selector)
+        locator.focus()
         expect(locator).to_be_focused()
         return FrontendElement(locator)
 
@@ -559,8 +560,10 @@ class NotebookFrontend:
         self.press('f', EDITOR_PAGE)
         self._editor_page.locator('#find-and-replace')
         self._editor_page.locator('#findreplace_allcells_btn').click()
-        self._editor_page.locator('#findreplace_find_inp').type(find_txt)
-        self._editor_page.locator('#findreplace_replace_inp').type(replace_txt)
+        self.locate_and_focus('#findreplace_find_inp', page=EDITOR_PAGE)
+        self._editor_page.keyboard.insert_text(find_txt)
+        self.locate_and_focus('#findreplace_replace_inp', page=EDITOR_PAGE)
+        self._editor_page.keyboard.insert_text(replace_txt)
         self._editor_page.locator('#findreplace_replaceall_btn').click()
 
     def convert_cell_type(self, index=0, cell_type="code"):
