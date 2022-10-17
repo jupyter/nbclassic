@@ -10,10 +10,12 @@ define([
 ], function($, IPython, dialog, utils, i18n) {
     "use strict";
     
-    var KernelSelector = function(selector, notebook) {
+    var KernelSelector = function(selector, notebook, options) {
+        options = options || {};
         var that = this;
         this.selector = selector;
         this.notebook = notebook;
+        this.base_url_prefix = options.base_url_prefix;
         this.notebook.set_kernelselector(this);
         this.events = notebook.events;
         this.current_selection = null;
@@ -307,7 +309,7 @@ define([
         that.notebook.contents.new_untitled(parent, {type: "notebook"}).then(
             function (data) {
                 var url = utils.url_path_join(
-                    that.notebook.base_url, 'notebooks',
+                    that.notebook.base_url, that.base_url_prefix,  'notebooks',
                     utils.encode_uri_components(data.path)
                 );
                 url += "?kernel_name=" + kernel_name;

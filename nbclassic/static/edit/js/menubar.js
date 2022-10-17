@@ -55,7 +55,7 @@ define([
             editor.contents.new_untitled(parent, {type: "file"}).then(
                 function (data) {
                     w.location = utils.url_path_join(
-                        that.base_url_prefix, that.base_url, 'edit', utils.encode_uri_components(data.path)
+                        that.base_url, that.base_url_prefix, 'edit', utils.encode_uri_components(data.path)
                     );
                 },
                 function(error) {

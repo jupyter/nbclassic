@@ -85,7 +85,7 @@ define([
         this.contents.new_untitled(dir_path, {type: "notebook"}).then(
             function (data) {
                 var url = utils.url_path_join(
-                    that.base_url_prefix, that.base_url, 'notebooks',
+                    that.base_url, that.base_url_prefix, 'notebooks',
                     utils.encode_uri_components(data.path)
                 );
                 if (kernel_name) {

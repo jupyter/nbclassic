@@ -178,7 +178,7 @@ define([
             var parent = utils.url_path_split(that.notebook.notebook_path)[0];
             window.open(
                 utils.url_path_join(
-                    that.base_url_prefix, that.base_url, 'tree',
+                    that.base_url, that.base_url_prefix, 'tree',
                     utils.encode_uri_components(parent)
                 ), IPython._target);
         });
