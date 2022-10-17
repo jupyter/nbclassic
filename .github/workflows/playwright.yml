@@ -34,10 +34,7 @@ jobs:
 
     - name: Install Python dependencies
       run: |
-        python -m pip install -U pip setuptools wheel
-        pip install pytest-playwright
-        playwright install
-        pip install .[test]
+        python tools/install_pydeps.py
 
     - name: Run Tests
       run: |
