@@ -87,7 +87,7 @@ class FrontendElement:
                 self._element = as_element
             else:
                 self._bool = False
-        if isinstance(item, ElementHandle):
+        if isinstance(item, FrontendElement):
             self._raw = item
             self._element = item._element
             self._bool = item._bool
