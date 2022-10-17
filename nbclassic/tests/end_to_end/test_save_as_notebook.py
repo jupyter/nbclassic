@@ -2,6 +2,7 @@
 
 
 from .utils import EDITOR_PAGE
+from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
 
 def save_as(nb):
@@ -35,7 +36,7 @@ def test_save_notebook_as(notebook_frontend):
     notebook_frontend.insert_text('new_notebook.ipynb', page=EDITOR_PAGE)
     notebook_frontend.try_click_selector('//html//body//div[8]//div//div//div[3]//button[2]', page=EDITOR_PAGE)
     
-    locator_element.wait_for('hidden')
+    locator_element.expect_not_to_be_visible()
 
     assert get_notebook_name(notebook_frontend) == "new_notebook.ipynb"
     assert "new_notebook.ipynb" in notebook_frontend.get_page_url(page=EDITOR_PAGE)
