@@ -55,9 +55,8 @@ def test_execute_code(notebook_frontend):
         cell0.execute();
         cell1.execute();
     """, page=EDITOR_PAGE)
-    outputs = notebook_frontend.wait_for_cell_output(0)
-    outputs.wait_for('visible')
-    assert notebook_frontend.get_cell_output(1) is None
+    outputs = notebook_frontend.get_cell_output(0)
+    outputs.expect_not_to_be_visible()
 
     # Execute a cell with stop_on_error=false
     notebook_frontend.clear_all_output()

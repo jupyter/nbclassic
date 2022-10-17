@@ -164,7 +164,7 @@ class FrontendElement:
         """Currently this is an unmanaged user data area, use it as you please"""
         return self._user_data
 
-    def expect_to_not_be_visible(self):
+    def expect_not_to_be_visible(self):
         try:
             expect(self._element).not_to_be_visible()
         except ValueError as err:
@@ -608,14 +608,9 @@ class NotebookFrontend:
 
     def get_cell_output(self, index=0, output=CELL_OUTPUT_SELECTOR):
         """Get the cell output for a given cell"""
-        cell = self._cells[index].as_element().query_selector(output)  # Find cell child elements
+        cell = self._cells[index].as_element().locator(output)  # Find cell child elements
 
-        if cell is None:
-            return None
-
-        element = FrontendElement(cell, user_data={'index': index})
-
-        return element
+        return FrontendElement(cell, user_data={'index': index})
 
     def wait_for_condition(self, check_func, timeout=30, period=.1):
         """Wait for check_func to return a truthy value, return it or raise an exception upon timeout"""
