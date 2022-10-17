@@ -45,7 +45,7 @@ def test_menu_items(notebook_frontend):
 
         # Restart
         # (can't click the menu while a modal dialog is fading out)
-        modal = notebook_frontend.wait_for_selector('.modal-backdrop', EDITOR_PAGE)
+        modal = notebook_frontend.locate('.modal-backdrop', EDITOR_PAGE)
         modal.wait_for('hidden')
         kernel_menu.click()
 
