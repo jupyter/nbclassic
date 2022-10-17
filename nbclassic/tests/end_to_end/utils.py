@@ -608,7 +608,7 @@ class NotebookFrontend:
 
     def get_cell_output(self, index=0, output=CELL_OUTPUT_SELECTOR):
         """Get the cell output for a given cell"""
-        cell = self._cells[index].as_element().locator(output)  # Find cell child elements
+        cell = self._cells[index].locate(output)  # Find cell child elements
 
         return FrontendElement(cell, user_data={'index': index})
 
