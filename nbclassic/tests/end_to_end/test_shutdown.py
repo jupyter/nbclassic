@@ -11,4 +11,4 @@ def test_shutdown(prefill_notebook):
     notebook_frontend.execute_cell(0)
 
     assert not notebook_frontend.is_kernel_running()
-    assert notebook_frontend.get_cell_output() == None
+    assert not notebook_frontend.get_cell_output()
