@@ -36,11 +36,7 @@ def test_save_notebook_as(notebook_frontend):
     notebook_frontend.insert_text('new_notebook.ipynb', page=EDITOR_PAGE)
     notebook_frontend.try_click_selector('//html//body//div[8]//div//div//div[3]//button[2]', page=EDITOR_PAGE)
     
-    try:
-        locator_element.wait_for('hidden')
-    except PlaywrightTimeoutError:
-        print("There was a timeout error with Playwright in test_save_notebook_as")
-        pass
+    locator_element.expect_not_to_be_visible()
 
     assert get_notebook_name(notebook_frontend) == "new_notebook.ipynb"
     assert "new_notebook.ipynb" in notebook_frontend.get_page_url(page=EDITOR_PAGE)
