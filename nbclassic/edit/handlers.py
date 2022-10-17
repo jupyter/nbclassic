@@ -13,7 +13,7 @@ from jupyter_server.extension.handler import (
     ExtensionHandlerJinjaMixin
 )
 
-from nbclassic import url_prefix_notebook
+from nbclassic import nbclassic_path
 
 
 class EditorHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHandler):
@@ -35,5 +35,5 @@ class EditorHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHa
 
 
 default_handlers = [
-    (r"{}/edit{}".format(url_prefix_notebook(), path_regex), EditorHandler),
+    (r"{}/edit{}".format(nbclassic_path(), path_regex), EditorHandler),
 ]

@@ -7,7 +7,7 @@ import asyncio
 import inspect
 import concurrent.futures
 
-from nbclassic import url_prefix_notebook
+from nbclassic import nbclassic_path
 
 from traitlets.utils.importstring import import_item
 from tornado import web, gen
@@ -15,8 +15,6 @@ from tornado import web, gen
 from jupyter_server.utils import url2path
 from jupyter_server.base.handlers import JupyterHandler
 from jupyter_server.services.config import ConfigManager
-
-from nbclassic import url_prefix_notebook
 
 from . import tools
 
@@ -108,5 +106,5 @@ class BundlerHandler(JupyterHandler):
 
 
 default_handlers = [
-    (r"%s/bundle/(.*)" % url_prefix_notebook(), BundlerHandler)
+    (r"%s/bundle/(.*)" % nbclassic_path(), BundlerHandler)
 ]

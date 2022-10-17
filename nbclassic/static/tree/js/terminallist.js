@@ -20,7 +20,7 @@ define([
          *      Dictionary of keyword arguments.
          *          base_url: string
          */
-         this.base_url_prefix = options.base_url_prefix;
+         this.nbclassic_path = options.nbclassic_path;
          this.base_url = options.base_url || utils.get_body_data("baseUrl");
         this.element_name = options.element_name || 'running';
         this.selector = selector;

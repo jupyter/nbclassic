@@ -104,7 +104,7 @@ requirejs([
     var common_options = {
         ws_url : utils.get_body_data("wsUrl"),
         base_url : utils.get_body_data("baseUrl"),
-        base_url_prefix: document.baseUrlPrefix || "",
+        nbclassic_path: document.nbclassicPath || "",
         notebook_path : utils.get_body_data("notebookPath"),
         notebook_name : utils.get_body_data('notebookName')
     };

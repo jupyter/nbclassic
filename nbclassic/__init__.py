@@ -55,7 +55,7 @@ DEFAULT_TEMPLATE_PATH_LIST = [
 ]
 
 
-def url_prefix_notebook():
+def nbclassic_path():
     if NOTEBOOK_V7_DETECTED:
         return "/nbclassic"
     return ""
