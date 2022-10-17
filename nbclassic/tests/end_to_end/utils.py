@@ -13,8 +13,7 @@ playwright functionality/objects directly.
 This module was converted and refactored from the older
 selenium test suite.
 """
-
-
+import copy
 import datetime
 import os
 import time
@@ -88,6 +87,12 @@ class FrontendElement:
                 self._element = as_element
             else:
                 self._bool = False
+        if isinstance(item, ElementHandle):
+            self._raw = item
+            self._element = item._element
+            self._bool = item._bool
+            self._user_data = copy.deepcopy(item._user_data)
+            self._user_data.update(user_data)
 
     def __bool__(self):
         """Returns True if construction succeeded"""
@@ -608,7 +613,7 @@ class NotebookFrontend:
 
     def get_cell_output(self, index=0, output=CELL_OUTPUT_SELECTOR):
         """Get the cell output for a given cell"""
-        cell = self._cells[index].locate(output)  # Find cell child elements
+        cell = self.cells[index].locate(output)  # Find cell child elements
 
         return FrontendElement(cell, user_data={'index': index})
 
