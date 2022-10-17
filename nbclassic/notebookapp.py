@@ -274,6 +274,16 @@ class NotebookApp(
                 {"url": self.serverapp.base_url+"files/{0}"}
             )
         )
+        # Add a redirect from /nbclassic to /nbclassic/tree
+        # if both notebook>=7 and nbclassic are installed.
+        if url_prefix_notebook() == "/nbclassic":
+            handlers.append(
+                (
+                    rf"/{self.serverapp.base_url}/nbclassic",
+                    RedirectHandler,
+                    {"url": self.serverapp.base_url+"nbclassic/tree"}
+                )
+            )
 
         # load extra services specified by users before default handlers
         for service in self.settings['extra_services']:
