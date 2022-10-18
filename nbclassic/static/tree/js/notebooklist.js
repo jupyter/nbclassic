@@ -120,6 +120,7 @@ define([
         }
         this.notebooks_list = [];
         this.sessions = {};
+        this.nbclassic_path = options.nbclassic_path;
         this.base_url = options.base_url || utils.get_body_data("baseUrl");
         this.notebook_path = options.notebook_path || utils.get_body_data("notebookPath");
         this.initial_notebook_path = this.notebook_path;
@@ -170,7 +171,7 @@ define([
                 var w = window.open('', IPython._target);
                 that.contents.new_untitled(that.notebook_path || '', {type: 'file', ext: '.txt'}).then(function(data) {
                     w.location = utils.url_path_join(
-                        that.base_url, 'edit',
+                        that.base_url, that.nbclassic_path, 'edit',
                         utils.encode_uri_components(data.path)
                     );
                 }).catch(function (e) {
@@ -384,7 +385,7 @@ define([
         var breadcrumb = $('.breadcrumb');
         breadcrumb.empty();
         var list_item = $('<li/>');
-        var root_url = utils.url_path_join(that.base_url, '/tree');
+        var root_url = utils.url_path_join(that.base_url, that.nbclassic_path, '/tree');
         var root = $('<li/>').append(
             $("<a/>")
             .attr('href', root_url)
@@ -402,7 +403,7 @@ define([
                 window.history.pushState(
                     {path: path},
                     'Home',
-                    utils.url_path_join(that.base_url, 'tree')
+                    utils.url_path_join(that.base_url, that.nbclassic_path, 'tree')
                 );
                 that.update_location(path);
                 return false;
@@ -415,6 +416,7 @@ define([
             var path = path_parts.join('/');
             var url = utils.url_path_join(
                 that.base_url,
+                that.nbclassic_path,
                 '/tree',
                 utils.encode_uri_components(path)
             );
@@ -906,6 +908,7 @@ define([
             .attr('href',
                 utils.url_path_join(
                     this.base_url,
+                    this.nbclassic_path,
                     uri_prefix,
                     utils.encode_uri_components(model.path)
                 )
@@ -929,6 +932,7 @@ define([
                     path: model.path
                 }, model.path, utils.url_path_join(
                     that.base_url,
+                    that.nbclassic_path,
                     'tree',
                     utils.encode_uri_components(model.path)
                 ));

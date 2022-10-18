@@ -546,7 +546,7 @@ msgid "Opens in a new window"
 msgstr "Opent in een nieuw venster"
 
 #: notebook/templates/notebook.html:319
-msgid "About Jupyter Notebook"
+msgid "About Jupyter NbClassic"
 msgstr "Over Jupyter Notebook"
 
 #: notebook/templates/notebook.html:319

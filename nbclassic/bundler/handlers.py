@@ -3,12 +3,18 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 
-from ipython_genutils.importstring import import_item
+import asyncio
+import inspect
+import concurrent.futures
+
+from nbclassic import nbclassic_path
+
+from traitlets.utils.importstring import import_item
 from tornado import web, gen
 
 from jupyter_server.utils import url2path
-from nbclassic.base.handlers import IPythonHandler
-from nbclassic.services.config import ConfigManager
+from jupyter_server.base.handlers import JupyterHandler
+from jupyter_server.services.config import ConfigManager
 
 from . import tools
 
@@ -30,7 +36,7 @@ def maybe_future(obj):
         return f
 
 
-class BundlerHandler(IPythonHandler):
+class BundlerHandler(JupyterHandler):
     def initialize(self):
         """Make tools module available on the handler instance for compatibility
         with existing bundler API and ease of reference."""
@@ -98,8 +104,7 @@ class BundlerHandler(IPythonHandler):
         # finish the request
         yield maybe_future(bundler_mod.bundle(self, model))
 
-_bundler_id_regex = r'(?P<bundler_id>[A-Za-z0-9_]+)'
 
 default_handlers = [
-    (r"/bundle/(.*)", BundlerHandler)
+    (r"%s/bundle/(.*)" % nbclassic_path(), BundlerHandler)
 ]

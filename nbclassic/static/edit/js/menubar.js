@@ -28,6 +28,7 @@ define([
          *          file_path : string
          */
         options = options || {};
+        this.nbclassic_path = options.nbclassic_path;
         this.base_url = options.base_url || utils.get_body_data("baseUrl");
         this.selector = selector;
         this.editor = options.editor;
@@ -54,7 +55,7 @@ define([
             editor.contents.new_untitled(parent, {type: "file"}).then(
                 function (data) {
                     w.location = utils.url_path_join(
-                        that.base_url, 'edit', utils.encode_uri_components(data.path)
+                        that.base_url, that.nbclassic_path, 'edit', utils.encode_uri_components(data.path)
                     );
                 },
                 function(error) {

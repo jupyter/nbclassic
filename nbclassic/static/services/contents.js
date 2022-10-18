@@ -23,7 +23,8 @@ define(function(requirejs) {
          *      Dictionary of keyword arguments.
          *          base_url: string
          */
-        this.base_url = options.base_url;
+         this.nbclassic_path = options.nbclassic_path;
+         this.base_url = options.base_url;
     };
 
     /** Error type */

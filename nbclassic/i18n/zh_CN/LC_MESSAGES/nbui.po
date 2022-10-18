@@ -535,7 +535,7 @@ msgid "Opens in a new window"
 msgstr "在新窗口打开"
 
 #: notebook/templates/notebook.html:319
-msgid "About Jupyter Notebook"
+msgid "About Jupyter NbClassic"
 msgstr "关于本程序"
 
 #: notebook/templates/notebook.html:319

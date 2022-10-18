@@ -127,11 +127,11 @@ msgid "Select a file"
 msgstr "Выберите файл"
 
 #: notebook/static/notebook/js/about.js:14
-msgid "You are using Jupyter notebook."
+msgid "You are using Jupyter NbClassic."
 msgstr "Вы используете блокнот Jupyter."
 
 #: notebook/static/notebook/js/about.js:16
-msgid "The version of the notebook server is: "
+msgid "The version of the Jupyter server is: "
 msgstr "Версия сервера блокнотов: "
 
 #: notebook/static/notebook/js/about.js:22
@@ -161,7 +161,7 @@ msgid "Cannot find sys_info!"
 msgstr "Невозможно найти sys_info!"
 
 #: notebook/static/notebook/js/about.js:38
-msgid "About Jupyter Notebook"
+msgid "About Jupyter NbClassic"
 msgstr "О блокноте Jupyter"
 
 #: notebook/static/notebook/js/about.js:47

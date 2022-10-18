@@ -1,22 +1,24 @@
 .. _working_remotely:
 
-Running a notebook server
-=========================
+Running a Jupyter Server with NbClassic
+=======================================
 
 
-The :doc:`Jupyter notebook <notebook>` web application is based on a
-server-client structure.  The notebook server uses a :ref:`two-process kernel
+The :doc:`Jupyter NbClassic <nbclassic>` web application is based on a
+server-client structure.  Jupyter server uses a :ref:`two-process kernel
 architecture <ipython:ipythonzmq>` based on ZeroMQ_, as well as Tornado_ for
 serving HTTP requests.
 
 .. note::
-   By default, a notebook server runs locally at 127.0.0.1:8888
+   By default, running nbclassic will start a jupyter server which runs locally at 127.0.0.1:8888
    and is accessible only from `localhost`. You may access the
-   notebook server from the browser using `http://127.0.0.1:8888`.
+   server from the browser using `http://127.0.0.1:8888`.
 
 This document describes how you can
-:ref:`secure a notebook server <notebook_server_security>` and how to
+:ref:`secure a jupyter server <notebook_server_security>` and how to
 :ref:`run it on a public interface <notebook_public_server>`.
+For general documentation on Jupyter Server, please visit the section on
+`Running a public Jupyter Server <https://jupyter-server.readthedocs.io/en/latest/operators/public-server.html>`_.
 
 .. important::
 
@@ -25,7 +27,7 @@ This document describes how you can
     only be done by someone who wants remote access to their personal machine.
     Even so, doing this requires a thorough understanding of the set-ups
     limitations and security implications. If you allow multiple users to
-    access a notebook server as it is described in this document, their
+    access a jupyter server as it is described in this document, their
     commands may collide, clobber and overwrite each other.
 
     If you want a multi-user server, the official solution is  JupyterHub_.
@@ -44,11 +46,11 @@ This document describes how you can
 
 .. _notebook_server_security:
 
-Securing a notebook server
---------------------------
+Securing a Jupyter server Running with NbClassic
+------------------------------------------------
 
-You can protect your notebook server with a simple single password. As of notebook
-5.0 this can be done automatically. To set up a password manually you can configure the
+You can protect your jupyter server with a simple single password. As of notebook
+5.0 this could be done automatically. To set up a password manually you can configure the
 :attr:`NotebookApp.password` setting in :file:`jupyter_notebook_config.py`.
 
 
@@ -66,7 +68,7 @@ is your Jupyter folder located in your home directory:
 If you don't already have a Jupyter folder, or if your Jupyter folder doesn't contain
 a notebook configuration file, run the following command::
 
-  $ jupyter notebook --generate-config
+  $ jupyter nbclassic --generate-config
 
 This command will create the Jupyter folder if necessary, and create notebook
 configuration file, :file:`jupyter_notebook_config.py`, in this folder.
@@ -89,17 +91,17 @@ The ability to change the password at first login time may be disabled by
 integrations by setting the ``--NotebookApp.allow_password_change=False``
 
 
-Starting at notebook version 5.0, you can enter and store a password for your
-notebook server with a single command. :command:`jupyter notebook password` will
+Starting at notebook version 5.0, you could enter and store a password for your
+notebook server with a single command. This applies to NbClassic, :command:`jupyter nbclassic password` will
 prompt you for your password and record the hashed password in your
-:file:`jupyter_notebook_config.json`.
+:file:`jupyter_server_config.json`.
 
 .. code-block:: bash
 
-    $ jupyter notebook password
+    $ jupyter nbclassic password
     Enter password:  ****
     Verify password: ****
-    [NotebookPasswordApp] Wrote hashed password to /Users/you/.jupyter/jupyter_notebook_config.json
+    [JupyterPasswordApp] Wrote hashed password to /Users/you/.jupyter/jupyter_server_config.json
 
 This can be used to reset a lost password; or if you believe your credentials
 have been leaked and desire to change your password. Changing your password will
@@ -139,7 +141,7 @@ directory, ``~/.jupyter``, e.g.::
 
     c.NotebookApp.password = u'sha1:67c9e60bb8b6:9ffede0825894254b2e042ea597d771089e11aed'
 
-Automatic password setup will store the hash in ``jupyter_notebook_config.json``
+Automatic password setup will store the hash in ``jupyter_server_config.json``
 while this method stores the hash in ``jupyter_notebook_config.py``. The ``.json``
 configuration options take precedence over the ``.py`` one, thus the manual
 password may not take effect if the Json file has a password set.
@@ -158,11 +160,11 @@ browser.
    The Open Web Application Security Project (`OWASP`_) website is a good resource
    on general security issues and web practices.
 
-You can start the notebook to communicate via a secure protocol mode by setting
+You can start nbclassic to communicate via a secure protocol mode by setting
 the ``certfile`` option to your self-signed certificate, i.e. ``mycert.pem``,
 with the command::
 
-    $ jupyter notebook --certfile=mycert.pem --keyfile mykey.key
+    $ jupyter nbclassic --certfile=mycert.pem --keyfile mykey.key
 
 .. tip::
 
@@ -185,12 +187,12 @@ public server.
 
 .. _notebook_public_server:
 
-Running a public notebook server
---------------------------------
+Running a public Jupyter server with NbClassic
+----------------------------------------------
 
 If you want to access your notebook server remotely via a web browser,
 you can do so by running a public notebook server. For optimal security
-when running a public notebook server, you should first secure the
+when running a public jupyter server, you should first secure the
 server with a password and SSL/HTTPS as described in
 :ref:`notebook_server_security`.
 
@@ -200,7 +202,7 @@ Start by creating a certificate file and a hashed password, as explained in
 If you don't already have one, create a
 config file for the notebook using the following command line::
 
-  $ jupyter notebook --generate-config
+  $ jupyter nbclassic --generate-config
 
 In the ``~/.jupyter`` directory, edit the notebook config file,
 ``jupyter_notebook_config.py``.  By default, the notebook config file has
@@ -220,7 +222,7 @@ following::
      # It is a good idea to set a known, fixed port for server access
      c.NotebookApp.port = 9999
 
-You can then start the notebook using the ``jupyter notebook`` command.
+You can then start the notebook using the ``jupyter nbclassic`` command.
 
 .. _using-lets-encrypt:
 
@@ -239,7 +241,7 @@ certificate with a few configuration changes. Here are the steps:
 
    .. code-block:: bash
 
-       $ jupyter notebook --generate-config
+       $ jupyter nbclassic --generate-config
 
 4. In the ``~/.jupyter`` directory, edit the notebook config file,
 ``jupyter_notebook_config.py``.  By default, the notebook config file has
@@ -259,7 +261,7 @@ following::
      # It is a good idea to set a known, fixed port for server access
      c.NotebookApp.port = 9999
 
-You can then start the notebook using the ``jupyter notebook`` command.
+You can then start NbClassic using the ``jupyter nbclassic`` command.
 
 .. important::
 
@@ -282,13 +284,13 @@ domain.
 Firewall Setup
 ~~~~~~~~~~~~~~
 
-To function correctly, the firewall on the computer running the jupyter
-notebook server must be configured to allow connections from client
+To function correctly, the firewall on the computer running NbClassic's
+jupyter server must be configured to allow connections from client
 machines on the access port ``c.NotebookApp.port`` set in
-:file:`jupyter_notebook_config.py` to allow connections to the
+:file:`jupyter_Notebook_config.py` to allow connections to the
 web interface.  The firewall must also allow connections from
 127.0.0.1 (localhost) on ports from 49152 to 65535.
-These ports are used by the server to communicate with the notebook kernels.
+These ports are used by the server to communicate with the nbclassic kernels.
 The kernel communication ports are chosen randomly by ZeroMQ, and may require
 multiple connections per kernel, so a large range of ports must be accessible.
 
@@ -353,7 +355,7 @@ simply by specifying a Gateway url via the following command-line option:
 
     .. code-block:: bash
 
-        $ jupyter notebook --gateway-url=http://my-gateway-server:8888
+        $ jupyter nbclassic --gateway-url=http://my-gateway-server:8888
 
 the environment:
 
@@ -369,17 +371,20 @@ or in :file:`jupyter_notebook_config.py`:
 
 When provided, all kernel specifications will be retrieved from the specified Gateway server and all
 kernels will be managed by that server.  This option enables the ability to target kernel processes
-against managed clusters while allowing for the notebook's management to remain local to the Notebook
+against managed clusters while allowing for the notebook's management to remain local to the NbClassic
 server.
 
 Known issues
 ------------
 
+Below are issues previously reported Notebook server issues and may be  applicable to 
+the Jupyter Server package that provides NbClassic's server.
+
 Proxies
 ~~~~~~~
 
 When behind a proxy, especially if your system or browser is set to autodetect
-the proxy, the notebook web application might fail to connect to the server's
+the proxy, the nbclassic web application might fail to connect to the server's
 websockets, and present you with a warning at startup. In this case, you need
 to configure your system not to use the proxy for the server's address.
 
@@ -426,7 +431,7 @@ actually modify your CSP header to look more like this:
 Docker CMD
 ~~~~~~~~~~
 
-Using ``jupyter notebook`` as a
+Using ``jupyter nbclassic`` as a
 `Docker CMD <https://docs.docker.com/engine/reference/builder/#cmd>`_ results in
 kernels repeatedly crashing, likely due to a lack of `PID reaping
 <https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/>`_.
@@ -441,4 +446,4 @@ Dockerfile `ENTRYPOINT`::
   ENTRYPOINT ["/usr/bin/tini", "--"]
 
   EXPOSE 8888
-  CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0"]
+  CMD ["jupyter", "nbclassic", "--port=8888", "--no-browser", "--ip=0.0.0.0"]

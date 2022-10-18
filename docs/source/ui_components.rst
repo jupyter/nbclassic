@@ -10,7 +10,7 @@ different Notebook modes.
 Notebook Dashboard
 -------------------
 
-When you launch ``jupyter notebook`` the first page that you encounter is the
+When you launch ``jupyter nbclassic`` the first page that you encounter is the
 Notebook Dashboard.
 
 .. image:: ./_static/images/jupyter-notebook-dashboard.png

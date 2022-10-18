@@ -38,6 +38,7 @@ requirejs([
     'tree/js/shutdownbutton',
     'auth/js/loginwidget',
     'bidi/bidi',
+    'custom-preload'
 ], function(
     $,
     contents_service,
@@ -73,6 +74,7 @@ requirejs([
 
     var common_options = {
         base_url: utils.get_body_data("baseUrl"),
+        nbclassic_path: document.nbclassicPath || "",
         notebook_path: utils.get_body_data("notebookPath"),
     };
     var cfg = new config.ConfigSection('tree', common_options);

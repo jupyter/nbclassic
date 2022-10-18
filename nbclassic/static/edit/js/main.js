@@ -15,6 +15,7 @@ requirejs([
     'edit/js/notificationarea',
     'bidi/bidi',
     'auth/js/loginwidget', 
+    'custom-preload'
 ], function(
     $,
     contents_service,

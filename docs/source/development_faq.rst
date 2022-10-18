@@ -7,4 +7,4 @@ Developer FAQ
 
 .. code-block:: bash
 
-    python -m pip install notebook --pre --upgrade
+    python -m pip install nbclassic --pre --upgrade

@@ -49,7 +49,7 @@ def get_reference_patterns(abs_nb_path, version):
     """
     notebook = nbformat.read(abs_nb_path, version)
     referenced_list = []
-    for cell in nbclassic.cells:
+    for cell in notebook.cells:
         references = get_cell_reference_patterns(cell)
         if references:
             referenced_list = referenced_list + references

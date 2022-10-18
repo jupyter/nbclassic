@@ -65,12 +65,6 @@ from setupbase import (
 )
 
 
-data_files = [
-    ('share/applications', ['jupyter-nbclassic.desktop']),
-    ('share/icons/hicolor/scalable/apps', ['nbclassic.svg']),
- ]
-
-
 setup_args = dict(
     name            = name,
     description     = "A web-based notebook environment for interactive computing",
@@ -87,7 +81,6 @@ for more information.
     version         = version,
     packages        = find_packages(),
     package_data    = find_package_data(),
-    data_files      = data_files,
     author          = 'Jupyter Development Team',
     author_email    = 'jupyter@googlegroups.com',
     url             = 'http://jupyter.org',
@@ -130,7 +123,7 @@ for more information.
     ],
     extras_require = {
         'test': ['pytest', 'coverage', 'requests', 'testpath',
-                 'nbval', 'selenium', 'pytest-playwright', 'pytest-cov', 'pytest_tornasync'],
+                 'nbval', 'selenium==4.1.5', 'pytest-playwright', 'pytest-cov', 'pytest_tornasync'],
         'docs': ['sphinx', 'nbsphinx', 'sphinxcontrib_github_alt',
                  'sphinx_rtd_theme', 'myst-parser'],
         'test:sys_platform != "win32"': ['requests-unixsocket'],
@@ -140,9 +133,9 @@ for more information.
     entry_points = {
         'console_scripts': [
             'jupyter-nbclassic = nbclassic.notebookapp:main',
-            'jupyter-nbextension = nbclassic.nbextensions:main',
-            'jupyter-serverextension = nbclassic.serverextensions:main',
-            'jupyter-bundlerextension = nbclassic.bundler.bundlerextensions:main',
+            'jupyter-nbclassic-extension = nbclassic.nbextensions:main',
+            'jupyter-nbclassic-serverextension = nbclassic.serverextensions:main',
+            'jupyter-nbclassic-bundlerextension = nbclassic.bundler.bundlerextensions:main',
         ]
     },
 )
