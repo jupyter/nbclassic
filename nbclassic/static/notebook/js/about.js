@@ -9,8 +9,8 @@ requirejs([
 ], function ($, dialog, i18n, _, IPython) {
     'use strict';
     $('#notebook_about').click(function () {
-        // The baseUrlPrefix is only injected in the document by nbclassic.
-        var is_nbclassic = document.baseUrlPrefix !== undefined;
+        // The nbclassicPath is only injected in the document by nbclassic.
+        var is_nbclassic = document.nbclassicPath !== undefined;
         // use underscore template to auto html escape
         if (sys_info) {
           var text = '';

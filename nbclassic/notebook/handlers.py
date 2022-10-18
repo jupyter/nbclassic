@@ -22,7 +22,7 @@ from jupyter_server.extension.handler import (
 from jupyter_server.base.handlers import JupyterHandler
 HTTPError = web.HTTPError
 
-from nbclassic import url_prefix_notebook
+from nbclassic import nbclassic_path
 
 
 def get_frontend_exporters():
@@ -114,5 +114,5 @@ class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, Jupyter
 
 
 default_handlers = [
-    (r"{}/notebooks{}".format(url_prefix_notebook(), path_regex), NotebookHandler),
+    (r"{}/notebooks{}".format(nbclassic_path(), path_regex), NotebookHandler),
 ]

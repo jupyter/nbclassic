@@ -16,7 +16,7 @@ import nbclassic
 from nbclassic import (
     DEFAULT_STATIC_FILES_PATH,
     DEFAULT_TEMPLATE_PATH_LIST,
-    url_prefix_notebook
+    nbclassic_path
 )
 
 from nbclassic._version import __version__
@@ -118,7 +118,7 @@ class NotebookApp(
     extension_url = "/tree"
     subcommands = {}
 
-    default_url = Unicode("%s/tree" % url_prefix_notebook()).tag(config=True)
+    default_url = Unicode("%s/tree" % nbclassic_path()).tag(config=True)
 
     # Override the default open_Browser trait in ExtensionApp,
     # setting it to True.
@@ -194,7 +194,7 @@ class NotebookApp(
         nbui = gettext.translation('nbui', localedir=os.path.join(
             base_dir, 'nbclassic/i18n'), fallback=True)
         self.jinja2_env.install_gettext_translations(nbui, newstyle=False)
-        self.jinja2_env.globals.update(base_url_prefix=url_prefix_notebook)
+        self.jinja2_env.globals.update(nbclassic_path=nbclassic_path)
 
     def _link_jupyter_server_extension(self, serverapp):
         # Monkey-patch Jupyter Server's and nbclassic's static path list to include

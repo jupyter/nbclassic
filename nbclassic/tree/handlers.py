@@ -17,7 +17,7 @@ from jupyter_server.extension.handler import (
 from jupyter_server.base.handlers import path_regex
 from jupyter_server.utils import url_path_join, url_escape
 
-from nbclassic import url_prefix_notebook
+from nbclassic import nbclassic_path
 
 
 class TreeHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHandler):
@@ -84,6 +84,6 @@ class TreeHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHand
 
 
 default_handlers = [
-    (r"{}/tree{}".format(url_prefix_notebook(), path_regex), TreeHandler),
-    (r"%s/tree" % url_prefix_notebook(), TreeHandler),
+    (r"{}/tree{}".format(nbclassic_path(), path_regex), TreeHandler),
+    (r"%s/tree" % nbclassic_path(), TreeHandler),
 ]

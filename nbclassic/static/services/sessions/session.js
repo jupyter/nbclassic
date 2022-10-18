@@ -36,7 +36,7 @@ define([
             name: options.kernel_name
         };
 
-        this.base_url_prefix = options.base_url_prefix;
+        this.nbclassic_path = options.nbclassic_path;
         this.base_url = options.base_url;
         this.ws_url = options.ws_url;
         this.session_service_url = utils.url_path_join(this.base_url, 'api/sessions');

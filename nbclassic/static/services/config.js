@@ -8,7 +8,7 @@ function(utils) {
     "use strict";
     var ConfigSection = function(section_name, options) {
         this.section_name = section_name;
-        this.base_url_prefix = options.base_url_prefix;
+        this.nbclassic_path = options.nbclassic_path;
         this.base_url = options.base_url;
         this.data = {};
         

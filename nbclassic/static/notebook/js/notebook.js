@@ -90,7 +90,7 @@ define([
         this.config.loaded.then(this.validate_config.bind(this));
         this.class_config = new configmod.ConfigWithDefaults(this.config, 
                                         Notebook.options_default, 'Notebook');
-        this.base_url_prefix = options.base_url_prefix;
+        this.nbclassic_path = options.nbclassic_path;
         this.base_url = options.base_url;
         this.notebook_path = options.notebook_path;
         this.notebook_name = options.notebook_name;
