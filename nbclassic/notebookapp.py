@@ -276,10 +276,10 @@ class NotebookApp(
         )
         # Add a redirect from /nbclassic to /nbclassic/tree
         # if both notebook>=7 and nbclassic are installed.
-        if url_prefix_notebook() == "/nbclassic":
+        if len(nbclassic_path()) > 0:
             handlers.append(
                 (
-                    rf"/{self.serverapp.base_url}/nbclassic",
+                    rf"/nbclassic",
                     RedirectHandler,
                     {"url": self.serverapp.base_url+"nbclassic/tree"}
                 )
