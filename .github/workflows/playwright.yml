@@ -38,5 +38,4 @@ jobs:
 
     - name: Run Individual Tests
       run: |
-        pytest -sv nbclassic/tests/end_to_end/test_execute_code.py
-        pytest -sv nbclassic/tests/end_to_end/test_buffering.py
+        pytest -sv nbclassic/tests/end_to_end
