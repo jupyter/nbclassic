@@ -36,10 +36,7 @@ jobs:
       run: |
         python tools/install_pydeps.py
 
-    - name: Run Test A
+    - name: Run Individual Tests
       run: |
         pytest -sv nbclassic/tests/end_to_end/test_execute_code.py
-
-    - name: Run Test B
-      run: |
         pytest -sv nbclassic/tests/end_to_end/test_buffering.py
