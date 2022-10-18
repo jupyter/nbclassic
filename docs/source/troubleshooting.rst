@@ -14,16 +14,16 @@ Jupyter fails to start
 
 * Have you `installed it <https://jupyter.org/install.html>`__? ;-)
 * If you're using a menu shortcut or Anaconda launcher to start it, try
-  opening a terminal or command prompt and running the command ``jupyter notebook``.
+  opening a terminal or command prompt and running the command ``jupyter nbclassic``.
 * If it can't find ``jupyter``,
   you may need to configure your ``PATH`` environment variable.
   If you don't know what that means, and don't want to find out,
   just (re)install Anaconda with the default settings,
   and it should set up PATH correctly.
-* If Jupyter gives an error that it can't find ``notebook``,
+* If Jupyter gives an error that it can't find ``nbclassic``,
   check with pip or conda that the ``notebook`` package is installed.
-* Try running ``jupyter-notebook`` (with a hyphen). This should normally be the
-  same as ``jupyter notebook`` (with a space), but if there's any difference,
+* Try running ``jupyter-nbclassic`` (with a hyphen). This should normally be the
+  same as ``jupyter nbclassic`` (with a space), but if there's any difference,
   the version with the hyphen is the 'real' launcher, and the other one wraps
   that.
 

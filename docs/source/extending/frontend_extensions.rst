@@ -205,7 +205,7 @@ Installing and enabling extensions
 
 You can install your nbextension with the command::
 
-    jupyter nbextension install path/to/my_extension/ [--user|--sys-prefix]
+    jupyter nbclassic-extension install path/to/my_extension/ [--user|--sys-prefix]
 
 The default installation is system-wide. You can use ``--user`` to do a
 per-user installation, or ``--sys-prefix`` to install to Python's prefix (e.g.
@@ -219,7 +219,7 @@ rather than copying it, so there's no need to reinstall after changes.
 To use your extension, you'll also need to **enable** it, which tells the
 notebook interface to load it. You can do that with another command::
 
-    jupyter nbextension enable my_extension/main [--sys-prefix][--section='common']
+    jupyter nbclassic-extension enable my_extension/main [--sys-prefix][--section='common']
 
 The argument refers to the Javascript module containing your
 ``load_ipython_extension`` function, which is ``my_extension/main.js`` in this

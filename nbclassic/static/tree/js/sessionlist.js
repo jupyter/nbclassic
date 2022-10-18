@@ -21,6 +21,7 @@ define([
          */
         this.events = options.events;
         this.sessions = {};
+        this.nbclassic_path = options.nbclassic_path;
         this.base_url = options.base_url || utils.get_body_data("baseUrl");
 
         // Add collapse arrows.

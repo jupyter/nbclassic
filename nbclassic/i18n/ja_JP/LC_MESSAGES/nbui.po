@@ -540,7 +540,7 @@ msgid "Opens in a new window"
 msgstr "新しいウィンドウで開く"
 
 #: notebook/templates/notebook.html:319
-msgid "About Jupyter Notebook"
+msgid "About Jupyter NbClassic"
 msgstr "Jupyter Notebook について"
 
 #: notebook/templates/notebook.html:319

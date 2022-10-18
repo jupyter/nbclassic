@@ -8,6 +8,7 @@ requirejs([
     'auth/js/loginwidget',
     'services/config',
     'terminal/js/terminado',
+    'custom-preload'
 ], function(
     $,
     utils,
@@ -22,6 +23,7 @@ requirejs([
 
     var common_options = {
         base_url : utils.get_body_data("baseUrl"),
+        nbclassic_path: document.nbclassicPath || ""
     };
 
     var config = new configmod.ConfigSection('terminal', common_options);

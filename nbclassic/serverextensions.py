@@ -157,7 +157,7 @@ flags['python'] = flags['py']
 
 class ToggleServerExtensionApp(BaseExtensionApp):
     """A base class for enabling/disabling extensions"""
-    name = "jupyter serverextension enable/disable"
+    name = "jupyter nbclassic-serverextension enable/disable"
     description = "Enable/disable a server extension using frontend configuration files."
 
     flags = flags
@@ -212,31 +212,31 @@ class ToggleServerExtensionApp(BaseExtensionApp):
 
 class EnableServerExtensionApp(ToggleServerExtensionApp):
     """An App that enables (and validates) Server Extensions"""
-    name = "jupyter serverextension enable"
+    name = "jupyter nbclassic-serverextension enable"
     description = """
     Enable a serverextension in configuration.
 
     Usage
-        jupyter serverextension enable [--system|--sys-prefix]
+        jupyter nbclassic-serverextension enable [--system|--sys-prefix]
     """
     _toggle_value = True
 
 
 class DisableServerExtensionApp(ToggleServerExtensionApp):
     """An App that disables Server Extensions"""
-    name = "jupyter serverextension disable"
+    name = "jupyter nbclassic-serverextension disable"
     description = """
     Disable a serverextension in configuration.
 
     Usage
-        jupyter serverextension disable [--system|--sys-prefix]
+        jupyter nbclassic-serverextension disable [--system|--sys-prefix]
     """
     _toggle_value = False
 
 
 class ListServerExtensionsApp(BaseExtensionApp):
     """An App that lists (and validates) Server Extensions"""
-    name = "jupyter serverextension list"
+    name = "jupyter nbclassic-serverextension list"
     version = __version__
     description = "List all server extensions known by the configuration system"
 
@@ -265,15 +265,15 @@ class ListServerExtensionsApp(BaseExtensionApp):
 
 
 _examples = """
-jupyter serverextension list                        # list all configured server extensions
-jupyter serverextension enable --py <packagename>   # enable all server extensions in a Python package
-jupyter serverextension disable --py <packagename>  # disable all server extensions in a Python package
+jupyter nbclassic-serverextension list                        # list all configured server extensions
+jupyter nbclassic-serverextension enable --py <packagename>   # enable all server extensions in a Python package
+jupyter nbclassic-serverextension disable --py <packagename>  # disable all server extensions in a Python package
 """
 
 
 class ServerExtensionApp(BaseExtensionApp):
     """Root level server extension app"""
-    name = "jupyter serverextension"
+    name = "jupyter nbclassic-serverextension"
     version = __version__
     description = "Work with Jupyter server extensions"
     examples = _examples

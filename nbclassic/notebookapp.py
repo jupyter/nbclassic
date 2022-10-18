@@ -9,14 +9,14 @@ from __future__ import absolute_import, print_function
 import os
 import gettext
 import warnings
-import gettext
 
 from tornado.web import RedirectHandler
 
 import nbclassic
 from nbclassic import (
     DEFAULT_STATIC_FILES_PATH,
-    DEFAULT_TEMPLATE_PATH_LIST
+    DEFAULT_TEMPLATE_PATH_LIST,
+    nbclassic_path
 )
 
 from nbclassic._version import __version__
@@ -107,7 +107,7 @@ class NotebookApp(
     NotebookAppTraits,
 ):
 
-    name = 'nbclassic'
+    name = "nbclassic"
     version = __version__
     description = _i18n("""The Jupyter HTML Notebook.
 
@@ -118,7 +118,7 @@ class NotebookApp(
     extension_url = "/tree"
     subcommands = {}
 
-    default_url = Unicode("/tree").tag(config=True)
+    default_url = Unicode("%s/tree" % nbclassic_path()).tag(config=True)
 
     # Override the default open_Browser trait in ExtensionApp,
     # setting it to True.
@@ -131,6 +131,14 @@ class NotebookApp(
         (ServerApp.browser) configuration option.
         """
     ).tag(config=True)
+
+    # Load configuration from classic notebook config file
+    # for backwards compatibility
+    config_file_name = Unicode(
+        "jupyter_notebook_config",
+        config=True,
+        help="Specify a config file to load."
+    )
 
     static_custom_path = List(Unicode(),
                               help=_i18n(
@@ -159,13 +167,6 @@ class NotebookApp(
     def nbextensions_path(self):
         """The path to look for Javascript notebook extensions"""
         path = self.extra_nbextensions_path + jupyter_path('nbextensions')
-        # FIXME: remove IPython nbextensions path after a migration period
-        try:
-            from IPython.paths import get_ipython_dir
-        except ImportError:
-            pass
-        else:
-            path.append(os.path.join(get_ipython_dir(), 'nbextensions'))
         return path
 
     # Local path to static files directory.
@@ -193,16 +194,9 @@ class NotebookApp(
         nbui = gettext.translation('nbui', localedir=os.path.join(
             base_dir, 'nbclassic/i18n'), fallback=True)
         self.jinja2_env.install_gettext_translations(nbui, newstyle=False)
+        self.jinja2_env.globals.update(nbclassic_path=nbclassic_path)
 
     def _link_jupyter_server_extension(self, serverapp):
-        # Monkeypatch the IPython handler to pull templates from the "correct"
-        # Jinja Environment, namespaced by "notebook".
-        def get_template(self, name):
-            """Return the jinja template object for a given name"""
-            return self.settings['notebook_jinja2_env'].get_template(name)
-
-        nbclassic.base.handlers.IPythonHandler.get_template = get_template
-
         # Monkey-patch Jupyter Server's and nbclassic's static path list to include
         # the classic notebooks static folder.
 
@@ -258,6 +252,7 @@ class NotebookApp(
         )
         self.settings.update(**settings)
 
+
     def initialize_handlers(self):
         """Load the (URL pattern, handler) tuples for each component."""
         # Tornado adds two types of "Routers" to the web application, 1) the
@@ -270,13 +265,13 @@ class NotebookApp(
         # Default routes
         # Order matters. The first handler to match the URL will handle the request.
         handlers = []
-        # Add a redirect from /notebooks to /edit
+        # Add a redirect from /notebooks to /files
         # for opening non-ipynb files in edit mode.
         handlers.append(
             (
                 rf"/{self.file_url_prefix}/((?!.*\.ipynb($|\?)).*)",
                 RedirectHandler,
-                {"url": self.serverapp.base_url+"edit/{0}"}
+                {"url": self.serverapp.base_url+"files/{0}"}
             )
         )
 

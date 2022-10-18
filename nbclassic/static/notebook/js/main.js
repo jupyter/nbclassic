@@ -53,7 +53,8 @@ requirejs([
     'notebook/js/searchandreplace',
     'notebook/js/clipboard',
     'bidi/bidi',
-    'notebook/js/celltoolbarpresets/tags'
+    'notebook/js/celltoolbarpresets/tags',
+    'custom-preload'
 ], function(
     $,
     contents_service,
@@ -103,6 +104,7 @@ requirejs([
     var common_options = {
         ws_url : utils.get_body_data("wsUrl"),
         base_url : utils.get_body_data("baseUrl"),
+        nbclassic_path: document.nbclassicPath || "",
         notebook_path : utils.get_body_data("notebookPath"),
         notebook_name : utils.get_body_data('notebookName')
     };
@@ -167,7 +169,7 @@ requirejs([
         keyboard_manager: keyboard_manager});
     notification_area.init_notification_widgets();
     var kernel_selector = new kernelselector.KernelSelector(
-        '#kernel_logo_widget', notebook);
+        '#kernel_logo_widget', notebook, common_options);
     searchandreplace.load(keyboard_manager);
 
     $('body').append('<div id="fonttest"><pre><span id="test1">x</span>'+

@@ -43,7 +43,7 @@ You can also use the installer from the `Node.js website <https://nodejs.org>`_.
 
 
 Installing the Jupyter NbClassic
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Once you have installed the dependencies mentioned above, use the following
 steps::
@@ -71,7 +71,7 @@ If you are working in development mode, you will see that your version of Jupyte
 Troubleshooting the Installation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you do not see that your Jupyter NbClassic is not running on dev mode, it's possible that you are
+If you do not see that your Jupyter NbClassic is running on dev mode, it's possible that you are
 running other instances of Jupyter NbClassic. You can try the following steps:
 
 1. Uninstall all instances of the NbClassic package. These include any installations you made using

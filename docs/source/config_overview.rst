@@ -3,13 +3,19 @@
 Configuration Overview
 ======================
 
+As NbClassic is a Jupyter Server Extension that is intended as an intermediary project while users
+migrate from Notebook 6 to Notebook 7, this document makes references to configuration
+files carried over from the classic Jupyter Notebook which will be executed when running
+nbclassic. For more general documentation regarding the Jupyter Server that NbClassic
+uses please visit the `Jupyter Server documentation <https://jupyter-server.readthedocs.io/en/latest/index.html>`_.
+
 Beyond the default configuration settings, you can configure a rich array of
 options to suit your workflow. Here are areas that are commonly configured
-when using Jupyter Notebook:
+when using Jupyter NbClassic:
 
     - :ref:`Jupyter's common configuration system <configure_common>`
-    - :ref:`Notebook server <configure_nbserver>`
-    - :ref:`Notebook front-end client <configure_nbclient>`
+    - :ref:`NbClassic server <configure_nbserver>`
+    - :ref:`NbClassic front-end client <configure_nbclient>`
     - :ref:`Notebook extensions <configure_nbextensions>`
 
 Let's look at highlights of each area.
@@ -30,30 +36,29 @@ and editing settings is similar for all the Jupyter applications.
 
 .. _configure_nbserver:
 
-Notebook server
----------------
-The Notebook server runs the language kernel and communicates with the
-front-end Notebook client (i.e. the familiar notebook interface).
+NbClassic Server
+----------------
+The NbClassic server runs the language kernel and communicates with the
+front-end NbClassic client (i.e. the familiar notebook interface).
 
-  - Configuring the Notebook server
+  - Configuring the NbClassic server
 
       To create a ``jupyter_notebook_config.py`` file in the ``.jupyter``
       directory, with all the defaults commented out, use the following
       command::
 
-            $ jupyter notebook --generate-config
+            $ jupyter nbclassic --generate-config
 
-        :ref:`Command line arguments for configuration <config>` settings are
-        documented in the configuration file and the user documentation.
-
+      :ref:`Command line arguments for configuration <config>` settings are documented in the configuration file and the user documentation.
+      
   - :ref:`Running a Notebook server <working_remotely>`
   - Related: `Configuring a language kernel <https://ipython.readthedocs.io/en/latest/install/kernel_install.html>`_
     to run in the Notebook server enables your server to run other languages, like R or Julia.
 
 .. _configure_nbclient:
 
-Notebook front-end client
--------------------------
+NbClassic front-end client
+--------------------------
 
 .. toctree::
    :maxdepth: 2

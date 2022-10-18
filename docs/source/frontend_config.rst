@@ -1,15 +1,15 @@
 .. _frontend_config:
 
-Configuring the notebook frontend
+Configuring the NbClassic frontend
 =================================
 
 .. note::
 
-    The ability to configure the notebook frontend UI and preferences is
+    The ability to configure the nbclassic frontend UI and preferences is
     still a work in progress.
 
 This document is a rough explanation on how you can persist some configuration
-options for the notebook JavaScript.
+options for the nbclassic JavaScript.
 
 There is no exhaustive list of all the configuration options as most options
 are passed down to other libraries, which means that non valid
