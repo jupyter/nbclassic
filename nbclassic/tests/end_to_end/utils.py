@@ -753,7 +753,7 @@ class NotebookFrontend:
         )
 
     def wait_for_kernel_ready(self):
-        self._tree_page.wait_for_selector(".kernel_idle_icon")
+        self._editor_page.wait_for_selector(".kernel_idle_icon")
 
     def _open_notebook_editor_page(self, existing_file_name=None):
         tree_page = self._tree_page
