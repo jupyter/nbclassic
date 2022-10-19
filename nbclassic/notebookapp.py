@@ -195,6 +195,7 @@ class NotebookApp(
             base_dir, 'nbclassic/i18n'), fallback=True)
         self.jinja2_env.install_gettext_translations(nbui, newstyle=False)
         self.jinja2_env.globals.update(nbclassic_path=nbclassic_path)
+        self.jinja2_env.globals.update(nbclassic_tree=url_path_join(self.serverapp.base_url, nbclassic_path(), "tree"))
 
     def _link_jupyter_server_extension(self, serverapp):
         # Monkey-patch Jupyter Server's and nbclassic's static path list to include
