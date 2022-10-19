@@ -1,7 +1,10 @@
 """Test basic cell execution methods, related shortcuts, and error modes"""
 
 
-from .utils import EDITOR_PAGE
+import re
+import time
+
+from .utils import CELL_OUTPUT_SELECTOR, EDITOR_PAGE
 
 
 def test_execute_code(notebook_frontend):
@@ -58,13 +61,23 @@ def test_execute_code(notebook_frontend):
     assert notebook_frontend.get_cell_output(0) is None
 
     # Execute a cell with stop_on_error=false
+    # .......................................
+    # Make sure the previous eval call finished by checking for kernel_idle_icon
+    notebook_frontend.locate(".kernel_idle_icon", EDITOR_PAGE).wait_for('visible')
     notebook_frontend.clear_all_output()
+    # Make sure clear cell output call is finished
+    notebook_frontend.wait_for_condition(lambda: len([item for item in notebook_frontend.locate_all(CELL_OUTPUT_SELECTOR, EDITOR_PAGE)]) == 0, period=5)
     notebook_frontend.evaluate("""
             var cell0 = Jupyter.notebook.get_cell(0);
             var cell1 = Jupyter.notebook.get_cell(1);
             cell0.execute(false);
             cell1.execute();
-        """, page=EDITOR_PAGE)
+    """, page=EDITOR_PAGE)
+    # Make sure the previous eval call finished by checking for kernel_idle_icon
+    notebook_frontend.locate(".kernel_idle_icon", EDITOR_PAGE).wait_for('visible')
+    if notebook_frontend.locate(".kernel_busy_icon", EDITOR_PAGE).is_visible():
+        # If kernel is busy, wait for it to finish
+        notebook_frontend.locate(".kernel_idle_icon", EDITOR_PAGE).wait_for('visible')
     outputs = notebook_frontend.wait_for_cell_output(1)
     outputs.wait_for('visible')
     assert outputs.get_inner_text().strip() == '14'

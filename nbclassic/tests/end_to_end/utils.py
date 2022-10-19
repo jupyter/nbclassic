@@ -175,6 +175,15 @@ class FrontendElement:
         except ValueError as err:
             raise Exception('Cannot expect not_to_be_visible on this type!') from err
 
+    def expect_to_have_text(self, text):
+        try:
+            expect(self._element).to_have_text(text)
+        except ValueError as err:
+            raise Exception('Cannot expect to have text on this type!') from err
+
+    def is_visible(self):
+        return self._element.is_visible()
+
 
 class NotebookFrontend:
     """Performs high level Notebook tasks for automated testing.
