@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu, macos]
+        os: [macos]
         python-version: [ '3.7', '3.8', '3.9', '3.10']
     steps:
     - name: Checkout
@@ -36,6 +36,6 @@ jobs:
       run: |
         python tools/install_pydeps.py
 
-    - name: Run Tests
+    - name: Run Individual Tests
       run: |
         pytest -sv nbclassic/tests/end_to_end
