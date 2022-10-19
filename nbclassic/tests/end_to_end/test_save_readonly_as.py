@@ -47,12 +47,15 @@ def test_save_readonly_as(notebook_frontend):
     save_btn.click()
     # notebook_frontend.try_click_selector('//html//body//div[8]//div//div//div[3]//button[2]', page=EDITOR_PAGE)
 
-    locator_element.expect_not_to_be_visible()
+    # locator_element.expect_not_to_be_visible()
+    notebook_frontend.wait_for_condition(
+        lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
+    )
 
-    notebook_frontend.locate('#notebook_name', page=EDITOR_PAGE)
+    # notebook_frontend.locate('#notebook_name', page=EDITOR_PAGE)
 
-    # Test that the name changed
-    assert get_notebook_name(notebook_frontend) == "new_notebook.ipynb"
+    # # Test that the name changed
+    # assert get_notebook_name(notebook_frontend) == "new_notebook.ipynb"
 
     # Test that address bar was updated
     assert "new_notebook.ipynb" in notebook_frontend.get_page_url(page=EDITOR_PAGE)
