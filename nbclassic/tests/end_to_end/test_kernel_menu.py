@@ -49,4 +49,8 @@ def test_menu_items(notebook_frontend):
         kernel_menu.click()
 
         notebook_frontend.wait_for_selector(menu_item, EDITOR_PAGE).click()
-        notebook_frontend.wait_for_condition(lambda: notebook_frontend.is_kernel_running())
+        notebook_frontend.wait_for_condition(
+            lambda: notebook_frontend.is_kernel_running(),
+            timeout=120,
+            period=5
+        )
