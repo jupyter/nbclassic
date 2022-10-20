@@ -2,6 +2,30 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.7
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.6...964941a4428cfbb385b5f8f557496582cf4d88d0))
+
+### New features added
+
+- Fix/nbclassic base url [#168](https://github.com/jupyter/nbclassic/pull/168) ([@mcrutch](https://github.com/mcrutch))
+
+### Enhancements made
+
+- Add a redirect from /nbclassic to /nbclassic/tree if both notebook>=7 if both notebook>=7 and nbclassic are installed [#166](https://github.com/jupyter/nbclassic/pull/166) ([@echarles](https://github.com/echarles))
+
+### Bugs fixed
+
+- Allow NBClassic to work with NB7 and ServerApp.base_url [#165](https://github.com/jupyter/nbclassic/pull/165) ([@mcrutch](https://github.com/mcrutch))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-10-12&to=2022-10-20&type=c))
+
+[@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-10-12..2022-10-20&type=Issues) | [@mcrutch](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Amcrutch+updated%3A2022-10-12..2022-10-20&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.6
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.5...638141b299d2cbaae2062239c8db6ae6fd83e762))
@@ -23,8 +47,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-10-07&to=2022-10-12&type=c))
 
 [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-10-07..2022-10-12&type=Issues) | [@lneves12](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Alneves12+updated%3A2022-10-07..2022-10-12&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2022-10-07..2022-10-12&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.5
 
