@@ -17,6 +17,7 @@ import copy
 import datetime
 import os
 import time
+import traceback
 
 from playwright.sync_api import ElementHandle, JSHandle
 from playwright.sync_api import expect
@@ -126,6 +127,9 @@ class FrontendElement:
             return self._element.wait_for(state=state)
         else:
             raise FrontendError('Could not wait for state on element')
+
+    def focus(self):
+        self._element.focus()
 
     def locate(self, selector):
         """Locate child elements with the given selector"""
@@ -425,7 +429,11 @@ class NotebookFrontend:
 
         locator = specified_page.locator(selector)
         locator.focus()
-        expect(locator).to_be_focused()
+        self.wait_for_condition(
+            lambda: expect(locator).to_be_focused(timeout=1000),
+            timeout=120,
+            period=5
+        )
         return FrontendElement(locator)
 
     def wait_for_frame(self, count=None, name=None, page=None):
@@ -580,10 +588,22 @@ class NotebookFrontend:
         self.press('f', EDITOR_PAGE)
         self._editor_page.locator('#find-and-replace')
         self._editor_page.locator('#findreplace_allcells_btn').click()
-        self.locate_and_focus('#findreplace_find_inp', page=EDITOR_PAGE)
-        self._editor_page.keyboard.insert_text(find_txt)
-        self.locate_and_focus('#findreplace_replace_inp', page=EDITOR_PAGE)
-        self._editor_page.keyboard.insert_text(replace_txt)
+        find_input = self.locate('#findreplace_find_inp', page=EDITOR_PAGE)
+        # find and replace fields are HTML input elements, use .value to get/set text
+        find_input.evaluate(f"(elem) => {{ elem.value = '{find_txt}'; return elem.value; }}")
+        self.wait_for_condition(
+            lambda: find_input.evaluate(
+                '(elem) => { return elem.value; }') == find_txt,
+            timeout=30,
+            period=5
+        )
+        rep_input = self.locate('#findreplace_replace_inp', page=EDITOR_PAGE)
+        rep_input.evaluate(f"(elem) => {{ elem.value = '{replace_txt}'; return elem.value; }}")
+        self.wait_for_condition(
+            lambda: rep_input.evaluate('(elem) => { return elem.value; }') == replace_txt,
+            timeout=30,
+            period=5
+        )
         self._editor_page.locator('#findreplace_replaceall_btn').click()
 
     def convert_cell_type(self, index=0, cell_type="code"):
@@ -637,10 +657,15 @@ class NotebookFrontend:
 
         begin = datetime.datetime.now()
         while (datetime.datetime.now() - begin).seconds < timeout:
-            condition = check_func()
-            if condition:
-                return condition
-            time.sleep(period)
+            try:
+                condition = check_func()
+                if condition:
+                    return condition
+                time.sleep(period)
+            except Exception as err:
+                # Log (print) exception and continue
+                traceback.print_exc()
+                print('\n[NotebookFrontend] Ignoring exception in wait_for_condition, read more above')
         else:
             raise TimeoutError()
 
