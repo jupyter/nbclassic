@@ -36,6 +36,6 @@ jobs:
       run: |
         python tools/install_pydeps.py
 
-    - name: Run Individual Tests
+    - name: Run Suite X Times
       run: |
-        pytest -sv nbclassic/tests/end_to_end
+        python tools/runsuite_repeat.py
