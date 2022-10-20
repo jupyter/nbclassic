@@ -1,6 +1,7 @@
 """Fixtures for pytest/playwright end_to_end tests."""
 
 
+import datetime
 import os
 import json
 import sys
@@ -75,10 +76,16 @@ def notebook_server():
 
 @pytest.fixture(scope='function')
 def playwright_browser(playwright):
-    if os.environ.get('JUPYTER_TEST_BROWSER') == 'chrome':
-        browser = playwright.chromium.launch()
-    else:
-        browser = playwright.firefox.launch()
+    start = datetime.datetime.now()
+    while (datetime.datetime.now() - start).seconds < 30:
+        try:
+            if os.environ.get('JUPYTER_TEST_BROWSER') == 'chrome':
+                browser = playwright.chromium.launch()
+            else:
+                browser = playwright.firefox.launch()
+            break
+        except Exception:
+            time.sleep(.2)
 
     yield browser
 
