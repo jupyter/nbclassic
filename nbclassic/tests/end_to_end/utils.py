@@ -429,11 +429,6 @@ class NotebookFrontend:
 
         locator = specified_page.locator(selector)
         locator.focus()
-        self.wait_for_condition(
-            lambda: expect(locator).to_be_focused(timeout=1000),
-            timeout=120,
-            period=5
-        )
         return FrontendElement(locator)
 
     def wait_for_frame(self, count=None, name=None, page=None):
