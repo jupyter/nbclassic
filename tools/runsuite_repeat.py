@@ -8,13 +8,12 @@ import time
 
 def run():
     for stepnum in range(10):
-        print(f'[RUNSUITE_REPEAT] {os.getcwd()} :: {[os.path.exists("nbclassic"), os.path.exists("nbclassic/tests"), os.path.exists("nbclassic/tests/end_to_end"), os.path.exists("tools/runsuite_repeat.py")]}')
         try:
-            proc = subprocess.run('pytest -sv tests/end_to_end')
+            proc = subprocess.run(['pytest', '-sv', 'nbclassic/tests/end_to_end'])
         except Exception:
-            print(f'\n[RUNSUITE_REPEAT] Run {stepnum} -> Exception')
+            print(f'\n[RUNSUITE_REPEAT] Exception -> Run {stepnum}\n')
             continue
-        print(f'\n[RUNSUITE_REPEAT] Run {stepnum} -> {"Success" if proc.returncode == 0 else proc.returncode}\n')
+        print(f'\n[RUNSUITE_REPEAT] {"Success" if proc.returncode == 0 else proc.returncode} -> Run {stepnum}\n')
 
 
 if __name__ == '__main__':
