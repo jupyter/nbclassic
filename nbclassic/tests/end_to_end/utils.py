@@ -216,7 +216,6 @@ class NotebookFrontend:
 
     TODO:
     Possible future improvements, current limitations, etc
-        - Known bad things, blah blah
     """
 
     # Some constants for users of the class

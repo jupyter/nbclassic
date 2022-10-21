@@ -36,6 +36,7 @@ def run():
     }
 
     for step_name, step_arglist in steps.items():
+        print(f"\n[INSTALL_PYDEPS] Attempt '{step_name}' -> Run '{' '.join(step_arglist)}'\n")
         attempt(step_arglist, max_attempts=3, name=step_name)
 
 
