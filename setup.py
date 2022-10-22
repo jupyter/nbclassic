@@ -123,7 +123,7 @@ for more information.
     ],
     extras_require = {
         'test': ['pytest', 'coverage', 'requests', 'testpath',
-                 'nbval', 'selenium==4.1.5', 'pytest', 'pytest-cov', 'pytest_tornasync'],
+                 'nbval', 'pytest-playwright', 'pytest-cov', 'pytest_tornasync'],
         'docs': ['sphinx', 'nbsphinx', 'sphinxcontrib_github_alt',
                  'sphinx_rtd_theme', 'myst-parser'],
         'test:sys_platform != "win32"': ['requests-unixsocket'],
