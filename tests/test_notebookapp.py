@@ -16,6 +16,31 @@ def notebooks(jp_create_notebook):
     return nbpaths
 
 
+config = pytest.mark.parametrize(
+    "jp_server_config",
+    [
+        {
+            "ServerApp": {
+                "contents_manager_class": "jupyter_server.services.contents.largefilemanager.LargeFileManager",
+                "jpserver_extensions": {
+                    "nbclassic": True,
+                    "notebook_shim": True
+                }
+            },
+        },
+        {
+            "ServerApp": {
+                "contents_manager_class": "jupyter_server.services.contents.largefilemanager.AsyncLargeFileManager",
+                "jpserver_extensions": {
+                    "nbclassic": True,
+                    "notebook_shim": True
+                }
+            },
+        }
+    ],
+)
+
+@config
 async def test_tree_handler(notebooks, jp_fetch):
     r = await jp_fetch('tree', 'nbclassic_test_notebooks')
     assert r.code == 200
@@ -27,6 +52,7 @@ async def test_tree_handler(notebooks, jp_fetch):
     assert "Clusters" in html
 
 
+@config
 async def test_notebook_handler(notebooks, jp_fetch):
     for nbpath in notebooks:
         r = await jp_fetch('notebooks', nbpath)
@@ -36,6 +62,14 @@ async def test_notebook_handler(notebooks, jp_fetch):
         assert "Menu" in html
         assert "Kernel" in html
         assert nbpath in html
+
+
+@config
+async def test_edit_handler(notebooks, jp_fetch):
+    r = await jp_fetch('edit', 'notebook1.ipynb')
+    assert r.code == 200
+    html = r.body.decode()
+    assert "<title>notebook1.ipynb" in html
 
 
 async def test_terminal_handler(jp_fetch):
