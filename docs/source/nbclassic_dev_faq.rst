@@ -80,7 +80,7 @@ pending to be merged into the `Jupyter-contrib/jupyter_nbextensions_configurator
 
     Once a release with this fix is available, users will be able to activate the extension with the following commands::
 
-    $ pip install jupyter_nbextensions_configurator
-    $ jupyter nbextension install --sys-prefix --py jupyter_nbextensions_configurator --overwrite
-    $ jupyter nbextension enable --sys-prefix --py jupyter_nbextensions_configurator
-    $ jupyter serverextension enable --sys-prefix --py jupyter_nbextensions_configurator
+    $ pip install 'jupyter_nbextensions_configurator @ git+https://github.com/datalayer-externals/jupyter-notebook-configurator.git@fix/nbclassic#egg=jupyter_nbextensions_configurator'
+    $ jupyter nbclassic-extension install --sys-prefix --py jupyter_nbextensions_configurator --overwrite
+    $ jupyter nbclassic-extension enable --sys-prefix --py jupyter_nbextensions_configurator
+    $ jupyter nbclassic-serverextension enable --sys-prefix --py jupyter_nbextensions_configurator
