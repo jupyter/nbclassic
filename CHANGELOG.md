@@ -2,6 +2,39 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.8
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.7...5749f00a36cb80cecc04b684715013e59b227a41))
+
+### Enhancements made
+
+- Playwright Testing Conversion [#170](https://github.com/jupyter/nbclassic/pull/170) ([@ericsnekbytes](https://github.com/ericsnekbytes))
+
+### Bugs fixed
+
+- Handle async and sync contents managers [#172](https://github.com/jupyter/nbclassic/pull/172) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Playwright port [#139](https://github.com/jupyter/nbclassic/pull/139) ([@ericsnekbytes](https://github.com/ericsnekbytes))
+
+### Documentation improvements
+
+- Documentation for the extensions configurator [#174](https://github.com/jupyter/nbclassic/pull/174) ([@echarles](https://github.com/echarles))
+- Updating contributing docs for playwright tests [#171](https://github.com/jupyter/nbclassic/pull/171) ([@RRosio](https://github.com/RRosio))
+
+### Other merged PRs
+
+- Update docs to remove install command [#173](https://github.com/jupyter/nbclassic/pull/173) ([@dleen](https://github.com/dleen))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-10-20&to=2022-11-03&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Ablink1073+updated%3A2022-10-20..2022-11-03&type=Issues) | [@dleen](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Adleen+updated%3A2022-10-20..2022-11-03&type=Issues) | [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-10-20..2022-11-03&type=Issues) | [@ericsnekbytes](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aericsnekbytes+updated%3A2022-10-20..2022-11-03&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2022-10-20..2022-11-03&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.7
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.6...964941a4428cfbb385b5f8f557496582cf4d88d0))
@@ -23,8 +56,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-10-12&to=2022-10-20&type=c))
 
 [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-10-12..2022-10-20&type=Issues) | [@mcrutch](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Amcrutch+updated%3A2022-10-12..2022-10-20&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.6
 
