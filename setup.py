@@ -13,8 +13,6 @@
 import os
 import sys
 
-name = "nbclassic"
-
 if sys.version_info < (3, 6):
     pip_message = 'This may be due to an out of date pip. Make sure you have pip >= 9.0.1.'
     try:
@@ -66,78 +64,6 @@ from setupbase import (
 
 
 setup_args = dict(
-    name            = name,
-    description     = "A web-based notebook environment for interactive computing",
-    long_description = """
-The Jupyter NbClassic is a web application that allows you to create and
-share documents that contain live code, equations, visualizations, and
-explanatory text. The NbClassic has support for multiple programming
-languages, sharing, and interactive widgets.
-
-Read `the documentation <https://jupyter-notebook.readthedocs.io>`_
-for more information.
-    """,
-    long_description_content_type = 'text/markdown',
-    version         = version,
-    packages        = find_packages(),
-    package_data    = find_package_data(),
-    author          = 'Jupyter Development Team',
-    author_email    = 'jupyter@googlegroups.com',
-    url             = 'http://jupyter.org',
-    license         = 'BSD',
-    platforms       = "Linux, Mac OS X, Windows",
-    keywords        = ['Interactive', 'Interpreter', 'Shell', 'Web'],
-    classifiers     = [
-        'Intended Audience :: Developers',
-        'Intended Audience :: System Administrators',
-        'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: BSD License',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.10',
-    ],
-    zip_safe = False,
-    install_requires = [
-        'jinja2',
-        'tornado>=6.1',
-        # pyzmq>=17 is not technically necessary,
-        # but hopefully avoids incompatibilities with Tornado 5. April 2018
-        'pyzmq>=17',
-        'argon2-cffi',
-        'traitlets>=4.2.1',
-        'jupyter_core>=4.6.1',
-        'jupyter_client>=6.1.1',
-        'ipython_genutils',
-        'jupyter_server>=1.8',
-        'nbformat',
-        'notebook_shim>=0.1.0',
-        'nbconvert>=5',
-        'nest-asyncio>=1.5',
-        'ipykernel', # bless IPython kernel for now
-        'Send2Trash>=1.8.0',
-        'terminado>=0.8.3',
-        'prometheus_client'
-    ],
-    extras_require = {
-        'test': ['pytest', 'coverage', 'requests', 'testpath',
-                 'nbval', 'pytest-playwright', 'pytest-cov', 'pytest_tornasync'],
-        'docs': ['sphinx', 'nbsphinx', 'sphinxcontrib_github_alt',
-                 'sphinx_rtd_theme', 'myst-parser'],
-        'test:sys_platform != "win32"': ['requests-unixsocket'],
-        'json-logging': ['json-logging']
-    },
-    python_requires = '>=3.7',
-    entry_points = {
-        'console_scripts': [
-            'jupyter-nbclassic = nbclassic.notebookapp:main',
-            'jupyter-nbclassic-extension = nbclassic.nbextensions:main',
-            'jupyter-nbclassic-serverextension = nbclassic.serverextensions:main',
-            'jupyter-nbclassic-bundlerextension = nbclassic.bundler.bundlerextensions:main',
-        ]
-    },
 )
 
 # Custom distutils/setuptools commands ----------
