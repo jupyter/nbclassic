@@ -82,5 +82,6 @@ def shim_notebook():
     from jupyter_server import utils
     sys.modules["notebook.utils"] = utils
 
-    base.handlers.IPythonHandler = base.handlers.JupyterHandler
+    from jupyter_server.base import handlers
+    base.handlers.IPythonHandler = handlers.JupyterHandler
     sys.modules["notebook.base.handlers.IPythonHandler"] = base.handlers.JupyterHandler
