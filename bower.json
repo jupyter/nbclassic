@@ -16,7 +16,7 @@
     "jquery-ui": "jquery/jquery-ui#~1.13.2",
     "marked": "~1.1.1",
     "MathJax": "^2.7.4",
-    "moment": "~2.19.3",
+    "moment": "~2.29.4",
     "react": "~16.0.0",
     "requirejs": "~2.2",
     "requirejs-text": "~2.0.15",
