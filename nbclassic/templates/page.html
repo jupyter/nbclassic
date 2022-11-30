@@ -139,7 +139,7 @@ dir="ltr">
 <div id="header" role="navigation" aria-label="{% trans %}Top Menu{% endtrans %}">
   <div id="header-container" class="container">
   <div id="ipython_notebook" class="nav navbar-brand"><a href="
-    {%- if nbclassic_tree|length > 0 -%}{{nbclassic_tree}}{%- else -%}{{default_url}}{%- endif -%}
+    <div id="ipython_notebook" class="nav navbar-brand"><a href="{{default_url}}
     {%- if logged_in and token -%}?token={{token}}{%- endif -%}" title='{% trans %}dashboard{% endtrans %}'>
       {% block logo %}<img src='{{static_url("base/images/logo.png") }}' alt='Jupyter Notebook'/>{% endblock %}
   </a></div>
