@@ -153,11 +153,6 @@ class NotebookApp(
                 DEFAULT_STATIC_FILES_PATH)
         ]
 
-    @property
-    def template_file_path(self):
-        """return extra paths + the default locations"""
-        return self.extra_template_paths + DEFAULT_TEMPLATE_PATH_LIST
-
     extra_nbextensions_path = List(Unicode(), config=True,
                                    help=_i18n(
                                        """extra paths to look for Javascript notebook extensions""")
@@ -169,21 +164,15 @@ class NotebookApp(
         path = self.extra_nbextensions_path + jupyter_path('nbextensions')
         return path
 
-    # Local path to static files directory.
-    static_paths = [DEFAULT_STATIC_FILES_PATH]
-
-    # Local path to templates directory.
-    template_paths = DEFAULT_TEMPLATE_PATH_LIST
-
     @property
     def static_paths(self):
         """Rename trait in jupyter_server."""
-        return [DEFAULT_STATIC_FILES_PATH]
+        return self.extra_static_paths  + [DEFAULT_STATIC_FILES_PATH]
 
     @property
     def template_paths(self):
         """Rename trait for Jupyter Server."""
-        return DEFAULT_TEMPLATE_PATH_LIST
+        return self.extra_template_paths + DEFAULT_TEMPLATE_PATH_LIST
 
     def _prepare_templates(self):
         super(NotebookApp, self)._prepare_templates()
