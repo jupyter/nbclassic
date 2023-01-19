@@ -21,7 +21,7 @@ def set_notebook_name(nb, name):
 def test_save_notebook_as(notebook_frontend):
     set_notebook_name(notebook_frontend, name="nb1.ipynb")
 
-    notebook_frontend.locate('#notebook_name', page=EDITOR_PAGE)
+    notebook_frontend.wait_for_selector('#notebook_name', page=EDITOR_PAGE)
 
     assert get_notebook_name(notebook_frontend) == "nb1.ipynb"
 
@@ -31,13 +31,16 @@ def test_save_notebook_as(notebook_frontend):
 
     # TODO: Add a function for locator assertions to FrontendElement
     dialog_element = notebook_frontend.locate_and_focus(".modal-footer", page=EDITOR_PAGE)
-    locator_element = dialog_element.locate('text=Save')
-    locator_element.wait_for('visible')
+    save_element = dialog_element.locate('text=Save')
+    save_element.wait_for('visible')
+
+    name_input_element = notebook_frontend.locate('.modal-body', page=EDITOR_PAGE).locate('.form-control')
+    name_input_element.click()
 
     notebook_frontend.insert_text('new_notebook.ipynb', page=EDITOR_PAGE)
-    locator_element.click()
+    save_element.click()
 
-    locator_element.expect_not_to_be_visible()
+    save_element.expect_not_to_be_visible()
 
     assert get_notebook_name(notebook_frontend) == "new_notebook.ipynb"
     assert "new_notebook.ipynb" in notebook_frontend.get_page_url(page=EDITOR_PAGE)
