@@ -34,20 +34,24 @@ def test_save_readonly_as(notebook_frontend):
     notebook_frontend.wait_for_selector('//input[@data-testid="save-as"]', page=EDITOR_PAGE)
 
     # TODO: Add a function for locator assertions to FrontendElement
-    locator_element = notebook_frontend.locate_and_focus('//input[@data-testid="save-as"]', page=EDITOR_PAGE)
-    locator_element.wait_for('visible')
+    dialog_element = notebook_frontend.locate_and_focus(".modal-footer", page=EDITOR_PAGE)
+    save_element = dialog_element.locate('text=Save')
+    save_element.wait_for('visible')
+    # locator_element = notebook_frontend.locate_and_focus('//input[@data-testid="save-as"]', page=EDITOR_PAGE)
+    # locator_element.wait_for('visible')
 
     modal_footer = notebook_frontend.locate('.modal-footer', page=EDITOR_PAGE)
     modal_footer.wait_for('visible')
-    
-    notebook_frontend.insert_text('new_notebook.ipynb', page=EDITOR_PAGE)
+
+    name_input_element = notebook_frontend.locate('.modal-body', page=EDITOR_PAGE).locate('.form-control')
+    name_input_element.click()
+    name_input_element.evaluate(f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}')
+    # notebook_frontend.insert_text('new_notebook.ipynb', page=EDITOR_PAGE)
 
     save_btn = modal_footer.locate('text=Save')
     save_btn.wait_for('visible')
     save_btn.click()
-    # notebook_frontend.try_click_selector('//html//body//div[8]//div//div//div[3]//button[2]', page=EDITOR_PAGE)
 
-    # locator_element.expect_not_to_be_visible()
     notebook_frontend.wait_for_condition(
         lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
     )

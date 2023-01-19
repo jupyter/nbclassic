@@ -37,7 +37,8 @@ def test_save_notebook_as(notebook_frontend):
     name_input_element = notebook_frontend.locate('.modal-body', page=EDITOR_PAGE).locate('.form-control')
     name_input_element.click()
 
-    notebook_frontend.insert_text('new_notebook.ipynb', page=EDITOR_PAGE)
+    name_input_element.evaluate(f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}')
+    # notebook_frontend.insert_text('new_notebook.ipynb', page=EDITOR_PAGE)
     save_element.click()
 
     save_element.expect_not_to_be_visible()
