@@ -45,7 +45,7 @@ def test_save(notebook_frontend):
     checkpoints = notebook_frontend.evaluate("() => Jupyter.notebook.checkpoints", page=EDITOR_PAGE)
     assert len(checkpoints) == 1
 
-    notebook_frontend.try_click_selector('#ipython_notebook a', page=EDITOR_PAGE)
+    notebook_frontend.try_click_selector('#ipython_notebook', page=EDITOR_PAGE)
     notebook_frontend.wait_for_selector('.item_link', page=EDITOR_PAGE)
 
     hrefs_nonmatch = []
