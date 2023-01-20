@@ -72,7 +72,7 @@ dependency of Notebook 7, and these front ends will be available
 through the following base URLs: JupyterLab at ``/lab``, Notebook 7 at 
 ``/tree``, and NbClassic at ``/nbclassic/tree``.
 
-**NbClassic and Notebook 6**
+**NbClassic and Notebook 6.5.x**
 
 As NbClassic provides the static assets for Notebook 6.5.x, while
 having both installed should cause no issues, the user interface provided
@@ -82,15 +82,31 @@ different servers. An NbClassic instance will be at a server with the
 different server with the ``/tree`` URL as well, presenting the same 
 static assets. When starting an instance of JupyterLab you will be able 
 to access the classic view of Notebook with NbClassic served on the same 
-server at the ``/tree`` URL. 
+server at ``/tree``. 
+
+**NbClassic and Notebook <= 6.4.x**
 
 When using NbClassic and Notebook <= 6.4.x you can expect that these UIs
 will not be only presented at different servers, meaning they will both 
-be available at their respective server under the ``/tree`` URL but they 
+be available at their respective server under ``/tree`` but they 
 may also differ as potential changes to the NbClassic UI will not be 
 reflected in Notebook versions <= 6.4.x. In this case as well, you would 
 be able to access the classic view of Notebook with NbClassic served on 
-the same server, at the ``/tree`` URL.
+the same server, at ``/tree``.
+
+**NbClassic and JupyterLab 3.x**
+
+When only JupyterLab 3.x is installed, then NbClassic does not have to be 
+explicitly installed as JupyterLab 3.x depends on it. They will run on 
+the same server, and are reachable via ``/tree`` for NbClassic and 
+``/lab`` for JupyterLab.
+
+**NbClassic and JupyterLab 4.x**
+
+When only JupyterLab 4.x is installed, then NbClassic has to be installed 
+explictly. They will run on the same server, and are reachable via 
+``/tree`` for NbClassic, and ``/lab`` for JupyterLab.
+
 
 .. _team-compass issue: https://github.com/jupyter/notebook-team-compass/issues/5#issuecomment-1085254000
 
