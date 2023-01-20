@@ -25,8 +25,12 @@ Noteworthy Updates in NbClassic
 
 - Endpoints in NbClassic
     - NbClassic handlers have been updated to account for Notebook 7 being installed (`Handlers under nbclassic if notebook 7 is found`_). If so, the resources from nbclassic will be served under the ``/nbclassic/`` URL subpath, so as to not interfere  with those resources being served by Jupyter Notebook.
+    - Redirecting from ``/tree`` to ``/nbclassic/tree`` if both Notebook 7 and NbClassic are installed (`PR #166`_).
 
 .. _`Handlers under nbclassic if notebook 7 is found`: https://github.com/jupyter/nbclassic/pull/141
+.. _`PR #166`: https://github.com/jupyter/nbclassic/pull/166
+
+
 
 NbClassic Developer FAQ
 -----------------------
