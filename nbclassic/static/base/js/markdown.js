@@ -6,7 +6,7 @@ define([
     'base/js/utils',
     'base/js/mathjaxutils',
     'base/js/security',
-    'components/marked/lib/marked',
+    'components/marked/lib/marked.umd',
     'codemirror/lib/codemirror',
 ], function($, utils, mathjaxutils, security, marked, CodeMirror){
     "use strict";
@@ -100,7 +100,7 @@ define([
             text = text_and_math[0];
             math = text_and_math[1];
         }
-        marked(text, { renderer: renderer }, function (err, html) {
+        marked.marked(text, { renderer: renderer }, function (err, html) {
             if(!err) {
                 if(options.with_math) {
                     html = mathjaxutils.replace_math(html, math);

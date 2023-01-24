@@ -11,7 +11,7 @@ define([
     'base/js/keyboard',
     'moment',
     'bidi/bidi',
-    'components/marked/lib/marked'
+    'components/marked/lib/marked.umd'
 ], function($, IPython, utils, i18n, dialog, events, keyboard, moment, bidi, marked) {
     "use strict";
 
@@ -544,7 +544,7 @@ define([
 	span12.empty();
 	that.contents.get(list_item.path, {"content": true}).then(
           function (data) {
-	    span12.append($('<div style="margin:auto;text-align:center;color:grey"/>').innerHTML = marked(data.content));
+	    span12.append($('<div style="margin:auto;text-align:center;color:grey"/>').innerHTML = marked.marked(data.content));
 	  },
           function(error) {
             span12.append(i18n.msg._("Server error: ") + error.message);

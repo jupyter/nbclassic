@@ -5,7 +5,7 @@ define([
     "jquery",
     "notebook/js/quickhelp",
     "base/js/dialog",
-    "components/marked/lib/marked"
+    "components/marked/lib/marked.umd"
 ], function (
     $,
     QH,
@@ -106,7 +106,7 @@ var KeyBindingList = createReactClass({
       });
       children.unshift(React.createElement('div', {className:'well', key:'disclamer', id:'short-key-binding-intro', dangerouslySetInnerHTML:
             {__html: 
-            marked(
+            marked.marked(
 
             "Here you can modify the keyboard shortcuts available in "+
             "command mode. Your changes will be stored for later sessions. "+
@@ -115,7 +115,7 @@ var KeyBindingList = createReactClass({
       }));
       children.push(React.createElement('div', {className:'well', key:'disclamer', id:'long-key-binding-intro', dangerouslySetInnerHTML:
             {__html: 
-            marked(
+            marked.marked(
 
             "This dialog allows you to modify the keyboard shortcuts available in command mode. "+ 
             "Any changes will be persisted between sessions and across environments. "+
