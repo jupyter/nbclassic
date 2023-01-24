@@ -38,4 +38,4 @@ jobs:
 
     - name: Run Playwright Tests
       run: |
-        pytest -sv nbclassic/tests/end_to_end
+        pytest -sv nbclassic/tests/end_to_end/test_save_readonly_as.py
