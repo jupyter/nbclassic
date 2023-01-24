@@ -6,7 +6,7 @@ define([
     'base/js/utils',
     'base/js/mathjaxutils',
     'base/js/security',
-    'components/marked/lib/marked',
+    'components/marked/lib/marked.umd',
     'codemirror/lib/codemirror',
 ], function($, utils, mathjaxutils, security, marked, CodeMirror){
     "use strict";
