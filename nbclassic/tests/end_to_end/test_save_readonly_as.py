@@ -43,7 +43,6 @@ def test_save_readonly_as(notebook_frontend):
     dialog_element = notebook_frontend.locate(".modal-footer", page=EDITOR_PAGE)
     dialog_element.focus()
 
-    notebook_frontend._editor_page.pause()
     print('[Test] Focus the notebook name input field, then click and modify its .value')
     name_input_element = notebook_frontend.wait_for_selector('.modal-body .form-control', page=EDITOR_PAGE)
     name_input_element.focus()
@@ -87,13 +86,11 @@ def test_save_readonly_as(notebook_frontend):
     else:
         print('[Test] Save button is hidden, continuing')
 
-    notebook_frontend._editor_page.pause()
     print('[Test] Test notebook name change')
     # locator_element.expect_not_to_be_visible()
     notebook_frontend.wait_for_condition(
         lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
     )
-    notebook_frontend._editor_page.pause()
 
     print('[Test] Test address bar')
     # Test that address bar was updated
