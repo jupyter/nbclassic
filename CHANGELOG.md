@@ -2,6 +2,46 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.0
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.8...51b475bdf94e01ce84913800b19559eaf49a7d24))
+
+### Enhancements made
+
+- Upgrade to marked 4.0.10 [#201](https://github.com/jupyter/nbclassic/pull/201) ([@echarles](https://github.com/echarles))
+
+### Bugs fixed
+
+- Ci test fixes round1 [#202](https://github.com/jupyter/nbclassic/pull/202) ([@ericsnekbytes](https://github.com/ericsnekbytes))
+- fix loading of static and template path config [#192](https://github.com/jupyter/nbclassic/pull/192) ([@minrk](https://github.com/minrk))
+- Add pytest_jupyter to the list of test deps [#190](https://github.com/jupyter/nbclassic/pull/190) ([@echarles](https://github.com/echarles))
+- Align setup.py and setup.cfg [#181](https://github.com/jupyter/nbclassic/pull/181) ([@echarles](https://github.com/echarles))
+
+### Maintenance and upkeep improvements
+
+- Ci test fixes round1 [#202](https://github.com/jupyter/nbclassic/pull/202) ([@ericsnekbytes](https://github.com/ericsnekbytes))
+- Remove duplicate notebook_shim from setup.cfg [#197](https://github.com/jupyter/nbclassic/pull/197) ([@frenzymadness](https://github.com/frenzymadness))
+- Upgrade moment javascript package [#186](https://github.com/jupyter/nbclassic/pull/186) ([@echarles](https://github.com/echarles))
+- Add dependabot config [#175](https://github.com/jupyter/nbclassic/pull/175) ([@blink1073](https://github.com/blink1073))
+
+### Documentation improvements
+
+- Update documentation [#196](https://github.com/jupyter/nbclassic/pull/196) ([@RRosio](https://github.com/RRosio))
+- Update the project URL [#194](https://github.com/jupyter/nbclassic/pull/194) ([@jtpio](https://github.com/jtpio))
+
+### Other merged PRs
+
+- Fix the jupyter server base.handlers import [#187](https://github.com/jupyter/nbclassic/pull/187) ([@echarles](https://github.com/echarles))
+- Revert pull request 168 [#184](https://github.com/jupyter/nbclassic/pull/184) ([@echarles](https://github.com/echarles))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-11-03&to=2023-01-25&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Ablink1073+updated%3A2022-11-03..2023-01-25&type=Issues) | [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-11-03..2023-01-25&type=Issues) | [@ericsnekbytes](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aericsnekbytes+updated%3A2022-11-03..2023-01-25&type=Issues) | [@frenzymadness](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Afrenzymadness+updated%3A2022-11-03..2023-01-25&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Ajtpio+updated%3A2022-11-03..2023-01-25&type=Issues) | [@kevin-bates](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Akevin-bates+updated%3A2022-11-03..2023-01-25&type=Issues) | [@minrk](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aminrk+updated%3A2022-11-03..2023-01-25&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2022-11-03..2023-01-25&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.8
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.7...5749f00a36cb80cecc04b684715013e59b227a41))
@@ -32,8 +72,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-10-20&to=2022-11-03&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Ablink1073+updated%3A2022-10-20..2022-11-03&type=Issues) | [@dleen](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Adleen+updated%3A2022-10-20..2022-11-03&type=Issues) | [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-10-20..2022-11-03&type=Issues) | [@ericsnekbytes](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aericsnekbytes+updated%3A2022-10-20..2022-11-03&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2022-10-20..2022-11-03&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.7
 
