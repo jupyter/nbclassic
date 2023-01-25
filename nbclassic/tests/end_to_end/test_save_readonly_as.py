@@ -23,7 +23,7 @@ def set_notebook_name(nb, name):
 
 
 def test_save_readonly_as(notebook_frontend):
-    print('[Test] Begin test_save_readonly_as body')
+    print('[Test] [test_save_readonly_as]')
     notebook_frontend.edit_cell(index=0, content='a=10; print(a)')
     notebook_frontend.wait_for_kernel_ready()
     notebook_frontend.wait_for_selector(".input", page=EDITOR_PAGE)
@@ -39,19 +39,10 @@ def test_save_readonly_as(notebook_frontend):
 
     # # Wait for modal to pop up
     print('[Test] Waiting for modal popup')
-    # notebook_frontend.wait_for_selector('//input[@data-testid="save-as"]', page=EDITOR_PAGE)
     notebook_frontend.wait_for_selector(".modal-footer", page=EDITOR_PAGE)
     dialog_element = notebook_frontend.locate(".modal-footer", page=EDITOR_PAGE)
     dialog_element.focus()
 
-    # TODO: Add a function for locator assertions to FrontendElement
-    # locator_element = notebook_frontend.locate_and_focus('//input[@data-testid="save-as"]', page=EDITOR_PAGE)
-    # locator_element.wait_for('visible')
-
-    # modal_footer = notebook_frontend.locate('.modal-footer', page=EDITOR_PAGE)
-    # modal_footer.wait_for('visible')
-
-    # notebook_frontend.insert_text('new_notebook.ipynb', page=EDITOR_PAGE)
     print('[Test] Focus the notebook name input field, then click and modify its .value')
     name_input_element = notebook_frontend.wait_for_selector('.modal-body .form-control', page=EDITOR_PAGE)
     name_input_element.focus()
@@ -63,14 +54,10 @@ def test_save_readonly_as(notebook_frontend):
         period=.25
     )
 
+    # Show the input field value
     print('[Test] Name input field contents:')
     print('[Test] ' + name_input_element.evaluate(f'(elem) => {{ return elem.value; }}'))
 
-    notebook_frontend._editor_page.pause()
-    # save_btn = modal_footer.locate('text=Save')
-    # save_btn.wait_for('visible')
-    # save_btn.click()
-    # notebook_frontend.try_click_selector('//html//body//div[8]//div//div//div[3]//button[2]', page=EDITOR_PAGE)
     print('[Test] Locate and click the save button')
     save_element = dialog_element.locate('text=Save')
     save_element.wait_for('visible')
@@ -82,10 +69,10 @@ def test_save_readonly_as(notebook_frontend):
     if save_element.is_visible():
         print('[Test] Save button visible, waiting for hidden...')
         try:
-            save_element.expect_not_to_be_visible()
+            save_element.expect_not_to_be_visible(timeout=30_000)
         except Exception as err:
             traceback.print_exc()
-            print('\n[Test] Failure waiting for save button hidden, see error above')
+            print('[Test] Failure waiting for save button hidden, see error above')
 
         if save_element.is_visible():
             try:
@@ -99,16 +86,12 @@ def test_save_readonly_as(notebook_frontend):
     else:
         print('[Test] Save button is hidden, continuing')
 
-    notebook_frontend._editor_page.pause()
+    print('[Test] Test notebook name change')
     # locator_element.expect_not_to_be_visible()
     notebook_frontend.wait_for_condition(
         lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
     )
 
-    # notebook_frontend.locate('#notebook_name', page=EDITOR_PAGE)
-
-    # # Test that the name changed
-    # assert get_notebook_name(notebook_frontend) == "new_notebook.ipynb"
-
+    print('[Test] Test address bar')
     # Test that address bar was updated
     assert "new_notebook.ipynb" in notebook_frontend.get_page_url(page=EDITOR_PAGE)
