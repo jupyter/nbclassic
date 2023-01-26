@@ -6,9 +6,6 @@ requires = [
 ]
 build-backend = "jupyter_packaging.build_api"
 
-[tool.hatch.build]
-artifacts = ["nbclassic/static"]
-
 [tool.check-manifest]
 ignore = ["tbump.toml", ".*"]
 
