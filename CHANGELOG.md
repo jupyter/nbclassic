@@ -2,6 +2,23 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.1
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.5.0...36d7ff3a81cc39f4d1291dd0e4b840033fc1be6d))
+
+### Bugs fixed
+
+- Add packages and package_data back in the setup_args [#206](https://github.com/jupyter/nbclassic/pull/206) ([@echarles](https://github.com/echarles))
+- Add static and templates as artifact for hatch build [#205](https://github.com/jupyter/nbclassic/pull/205) ([@echarles](https://github.com/echarles))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2023-01-25&to=2023-01-26&type=c))
+
+[@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2023-01-25..2023-01-26&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.5.0
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.4.8...51b475bdf94e01ce84913800b19559eaf49a7d24))
@@ -39,8 +56,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2022-11-03&to=2023-01-25&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Ablink1073+updated%3A2022-11-03..2023-01-25&type=Issues) | [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2022-11-03..2023-01-25&type=Issues) | [@ericsnekbytes](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aericsnekbytes+updated%3A2022-11-03..2023-01-25&type=Issues) | [@frenzymadness](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Afrenzymadness+updated%3A2022-11-03..2023-01-25&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Ajtpio+updated%3A2022-11-03..2023-01-25&type=Issues) | [@kevin-bates](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Akevin-bates+updated%3A2022-11-03..2023-01-25&type=Issues) | [@minrk](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aminrk+updated%3A2022-11-03..2023-01-25&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2022-11-03..2023-01-25&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.8
 
