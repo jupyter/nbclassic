@@ -77,7 +77,7 @@ def test_save_readonly_as(notebook_frontend):
         if save_element.is_visible():
             try:
                 print('[Test]')
-                print(notebook_frontend._editor_page.screenshot().hex())
+                print('/IMG/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
                 print('[Test]')
                 print('[Test] Save button still visible! Likely error...')
                 save_message_element = notebook_frontend.locate('.modal-body .save-message', page=EDITOR_PAGE)
