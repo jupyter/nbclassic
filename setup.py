@@ -64,6 +64,8 @@ from setupbase import (
 
 
 setup_args = dict(
+    packages        = find_packages(),
+    package_data    = find_package_data(),
 )
 
 # Custom distutils/setuptools commands ----------
