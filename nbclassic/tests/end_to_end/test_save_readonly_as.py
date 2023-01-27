@@ -53,12 +53,13 @@ def test_save_readonly_as(notebook_frontend):
     name_input_element.focus()
     name_input_element.click()
     print('/IMG/Before set field value/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
-    name_input_element.evaluate(f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}')
     notebook_frontend.wait_for_condition(
-        lambda: name_input_element.evaluate(f'(elem) => {{ return elem.value; }}') == 'new_notebook.ipynb',
+        lambda: name_input_element.evaluate(f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}') == 'new_notebook.ipynb',
         timeout=120,
         period=.25
     )
+    # '(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}'
+    print(f"""[Test] VALUE :: {'(elem) => {{ return elem.value; }}'}""")
     print('/IMG/After set field value/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
 
     # Show the input field value
