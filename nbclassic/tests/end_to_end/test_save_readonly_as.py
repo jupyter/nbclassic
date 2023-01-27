@@ -60,6 +60,7 @@ def test_save_readonly_as(notebook_frontend):
     )
     # '(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}'
     print(f"""[Test] VALUE :: {name_input_element.evaluate('(elem) => {{ return elem.value; }}')}""")
+    print(f"""[Test] INPUT_COUNT :: {name_input_element._element.count()}""")
     print('/IMG/After set field value/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
 
     # Show the input field value
