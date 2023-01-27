@@ -49,7 +49,8 @@ def test_save_readonly_as(notebook_frontend):
     dialog_element.focus()
 
     print('[Test] Focus the notebook name input field, then click and modify its .value')
-    name_input_element = notebook_frontend.wait_for_selector('.modal-body .form-control', page=EDITOR_PAGE)
+    notebook_frontend.wait_for_selector('.modal-body .form-control', page=EDITOR_PAGE)
+    name_input_element = notebook_frontend.locate('.modal-body .form-control')
     name_input_element.focus()
     name_input_element.click()
     print('/IMG/Before set field value/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
