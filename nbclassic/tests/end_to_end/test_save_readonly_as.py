@@ -99,6 +99,7 @@ def test_save_readonly_as(notebook_frontend):
         notebook_frontend.wait_for_condition(
             lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
         )
+        print(f'[Test] Notebook name: {get_notebook_name(notebook_frontend)}')
         print('[Test] Notebook name was changed!')
         return True
 
