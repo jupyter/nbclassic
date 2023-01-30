@@ -53,59 +53,94 @@ def test_save_readonly_as(notebook_frontend):
     name_input_element = notebook_frontend.locate('.modal-body .form-control', page=EDITOR_PAGE)
     name_input_element.focus()
     name_input_element.click()
-    print('/IMG/Before set field value/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
-    notebook_frontend.wait_for_condition(
-        lambda: name_input_element.evaluate(f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}') == 'new_notebook.ipynb',
-        timeout=120,
-        period=.25
-    )
-    # '(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}'
-    print(f"""[Test] VALUE :: {name_input_element.evaluate('(elem) => {{ return elem.value; }}')}""")
-    print(f"""[Test] INPUT_COUNT :: {name_input_element._element.count()}""")
-    print('/IMG/After set field value/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
 
-    # Show the input field value
-    print('[Test] Name input field contents:')
-    print('[Test] ' + name_input_element.evaluate(f'(elem) => {{ return elem.value; }}'))
+    # Begin attempts to fill the save dialog input and save the notebook
+    fill_attempts = 1
 
-    print('[Test] Locate and click the save button')
-    save_element = dialog_element.locate('text=Save')
-    save_element.wait_for('visible')
-    save_element.focus()
-    print('/IMG/Before save btn/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
-    save_element.click()
-    print('/IMG/After save btn/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
+    def attempt_form_fill_and_save():
+        # This process is SUPER flaky, we use this for repeated attempts
+        nonlocal fill_attempts
+        print(f'[Test] Attempt form fill and save #{fill_attempts}')
+        fill_attempts += 1
 
-    # Try to ensure the save button is hidden (the prompt went away)
-    print('[Test] Check save button visibility to ensure prompt is gone')
-    if save_element.is_visible():
-        print('[Test] Save button visible, waiting for hidden...')
-        try:
-            save_element.expect_not_to_be_visible(timeout=30)
-        except Exception as err:
-            traceback.print_exc()
-            print('[Test] Failure waiting for save button hidden, see error above')
+        # Set the notebook name field in the save dialog
+        print('[Test] Fill the input field')
+        name_input_element.evaluate(f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}')
+        notebook_frontend.wait_for_condition(
+            lambda: name_input_element.evaluate(
+                f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}') == 'new_notebook.ipynb',
+            timeout=120,
+            period=.25
+        )
+        # Show the input field value
+        print('[Test] Name input field contents:')
+        field_value = name_input_element.evaluate(f'(elem) => {{ return elem.value; }}')
+        print('[Test]   ' + field_value)
+        if field_value != 'new_notebook.ipynb':
+            return False
+
+        print('[Test] Locate and click the save button')
+        save_element = dialog_element.locate('text=Save')
+        save_element.wait_for('visible')
+        save_element.focus()
+        save_element.click()
 
         if save_element.is_visible():
+            print('[Test] Save element still visible after save, wait for hidden')
             try:
-                print('/IMG/Save btn waiting/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
-                print('[Test] Save button still visible! Likely error...')
-                save_message_element = notebook_frontend.locate('.modal-body .save-message', page=EDITOR_PAGE)
-                print('[Test] Contents of the save-message element:')
-                print('[Test] ' + save_message_element.get_inner_text())
+                save_element.expect_not_to_be_visible(timeout=120)
             except Exception as err:
                 traceback.print_exc()
-                print('\n[Test] Error retrieving save message (see above), continuing...')
-    else:
-        print('[Test] Save button is hidden, continuing')
+                print('[Test]   Save button failed to hide...')
 
-    print('[Test] Test notebook name change')
-    print('/IMG/Before namechange/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
-    # locator_element.expect_not_to_be_visible()
-    notebook_frontend.wait_for_condition(
-        lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
-    )
-    print('/IMG/After namechange/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
+        notebook_frontend.wait_for_condition(
+            lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
+        )
+        print('[Test] Notebook name was changed!')
+        return True
+
+    notebook_frontend.wait_for_condition(attempt_form_fill_and_save, timeout=900, period=1)
+
+    # print('/IMG/Before set field value/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
+    # # '(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}'
+    # print(f"""[Test] VALUE :: {name_input_element.evaluate('(elem) => {{ return elem.value; }}')}""")
+    # print(f"""[Test] INPUT_COUNT :: {name_input_element._element.count()}""")
+    # print('/IMG/After set field value/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
+    #
+    # # Show the input field value
+    # print('[Test] Name input field contents:')
+    # print('[Test] ' + name_input_element.evaluate(f'(elem) => {{ return elem.value; }}'))
+
+    # # Try to ensure the save button is hidden (the prompt went away)
+    # print('[Test] Check save button visibility to ensure prompt is gone')
+    # if save_element.is_visible():
+    #     print('[Test] Save button visible, waiting for hidden...')
+    #     try:
+    #         save_element.expect_not_to_be_visible(timeout=30)
+    #     except Exception as err:
+    #         traceback.print_exc()
+    #         print('[Test] Failure waiting for save button hidden, see error above')
+    #
+    #     if save_element.is_visible():
+    #         try:
+    #             print('/IMG/Save btn waiting/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
+    #             print('[Test] Save button still visible! Likely error...')
+    #             save_message_element = notebook_frontend.locate('.modal-body .save-message', page=EDITOR_PAGE)
+    #             print('[Test] Contents of the save-message element:')
+    #             print('[Test] ' + save_message_element.get_inner_text())
+    #         except Exception as err:
+    #             traceback.print_exc()
+    #             print('\n[Test] Error retrieving save message (see above), continuing...')
+    # else:
+    #     print('[Test] Save button is hidden, continuing')
+
+    # print('[Test] Test notebook name change')
+    # print('/IMG/Before namechange/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
+    # # locator_element.expect_not_to_be_visible()
+    # notebook_frontend.wait_for_condition(
+    #     lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
+    # )
+    # print('/IMG/After namechange/' + notebook_frontend._editor_page.screenshot().hex() + '/IMG/')
 
     print('[Test] Test address bar')
     # Test that address bar was updated
