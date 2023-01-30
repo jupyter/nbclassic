@@ -61,6 +61,9 @@ def test_save_readonly_as(notebook_frontend):
         # This process is SUPER flaky, we use this for repeated attempts
         nonlocal fill_attempts
         print(f'[Test] Attempt form fill and save #{fill_attempts}')
+        if fill_attempts >= 1 and get_notebook_name(notebook_frontend) == "new_notebook.ipynb":
+            print('[Test]   Success from previous save attempt!')
+            return True
         fill_attempts += 1
 
         # Set the notebook name field in the save dialog
