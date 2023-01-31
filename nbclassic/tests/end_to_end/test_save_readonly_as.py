@@ -68,7 +68,7 @@ def test_save_readonly_as(notebook_frontend):
             save_as(notebook_frontend)
             try:
                 name_input_element.wait_for('visible')
-            except Exception as err:
+            except PlaywrightTimeoutError as err:
                 print('[Test] Error waiting for save prompt')
                 return False
 
@@ -102,7 +102,7 @@ def test_save_readonly_as(notebook_frontend):
             print('[Test] Save element still visible after save, wait for hidden')
             try:
                 save_element.expect_not_to_be_visible(timeout=120)
-            except Exception as err:
+            except PlaywrightTimeoutError as err:
                 traceback.print_exc()
                 print('[Test]   Save button failed to hide...')
 
