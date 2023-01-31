@@ -21,7 +21,7 @@ def set_notebook_name(nb, name):
 def test_save_notebook_as(notebook_frontend):
     set_notebook_name(notebook_frontend, name="nb1.ipynb")
 
-    notebook_frontend.locate('#notebook_name', page=EDITOR_PAGE)
+    notebook_frontend.wait_for_selector('#notebook_name', page=EDITOR_PAGE)
 
     assert get_notebook_name(notebook_frontend) == "nb1.ipynb"
 
@@ -30,13 +30,18 @@ def test_save_notebook_as(notebook_frontend):
     notebook_frontend.wait_for_selector('.save-message', page=EDITOR_PAGE)
 
     # TODO: Add a function for locator assertions to FrontendElement
-    locator_element = notebook_frontend.locate_and_focus('//input[@data-testid="save-as"]', page=EDITOR_PAGE)
-    locator_element.wait_for('visible')
+    dialog_element = notebook_frontend.locate_and_focus(".modal-footer", page=EDITOR_PAGE)
+    save_element = dialog_element.locate('text=Save')
+    save_element.wait_for('visible')
 
-    notebook_frontend.insert_text('new_notebook.ipynb', page=EDITOR_PAGE)
-    notebook_frontend.try_click_selector('//html//body//div[8]//div//div//div[3]//button[2]', page=EDITOR_PAGE)
-    
-    locator_element.expect_not_to_be_visible()
+    name_input_element = notebook_frontend.locate('.modal-body', page=EDITOR_PAGE).locate('.form-control')
+    name_input_element.click()
+
+    name_input_element.evaluate(f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}')
+    # notebook_frontend.insert_text('new_notebook.ipynb', page=EDITOR_PAGE)
+    save_element.click()
+
+    save_element.expect_not_to_be_visible()
 
     assert get_notebook_name(notebook_frontend) == "new_notebook.ipynb"
     assert "new_notebook.ipynb" in notebook_frontend.get_page_url(page=EDITOR_PAGE)
