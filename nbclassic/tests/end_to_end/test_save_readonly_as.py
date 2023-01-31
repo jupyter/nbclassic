@@ -66,25 +66,17 @@ def test_save_readonly_as(notebook_frontend):
         # Make sure the save prompt is visible
         if not name_input_element.is_visible():
             save_as(notebook_frontend)
-            try:
-                name_input_element.wait_for('visible')
-            except PlaywrightTimeoutError as err:
-                print('[Test] Error waiting for save prompt')
-                return False
+            name_input_element.wait_for('visible')
 
         # Set the notebook name field in the save dialog
         print('[Test] Fill the input field')
         name_input_element.evaluate(f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}')
-        try:
-            notebook_frontend.wait_for_condition(
-                lambda: name_input_element.evaluate(
-                    f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}') == 'new_notebook.ipynb',
-                timeout=120,
-                period=.25
-            )
-        except TestingTimeout as err:
-            print('[Test]   Error filling input field!')
-            return False
+        notebook_frontend.wait_for_condition(
+            lambda: name_input_element.evaluate(
+                f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}') == 'new_notebook.ipynb',
+            timeout=120,
+            period=.25
+        )
         # Show the input field value
         print('[Test] Name input field contents:')
         field_value = name_input_element.evaluate(f'(elem) => {{ return elem.value; }}')
@@ -98,6 +90,8 @@ def test_save_readonly_as(notebook_frontend):
         save_element.focus()
         save_element.click()
 
+        # Application lag may cause the save dialog to linger,
+        # if it's visible wait for it to disappear before proceeding
         if save_element.is_visible():
             print('[Test] Save element still visible after save, wait for hidden')
             try:
@@ -106,18 +100,15 @@ def test_save_readonly_as(notebook_frontend):
                 traceback.print_exc()
                 print('[Test]   Save button failed to hide...')
 
-        try:
-            notebook_frontend.wait_for_condition(
-                lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
-            )
-        except TestingTimeout as err:
-            print('[Test]   Error waiting for notebook name change resulting from save procedure!')
-            return False
+        # Check if the save operation succeeded (by checking notebook name change)
+        notebook_frontend.wait_for_condition(
+            lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
+        )
         print(f'[Test] Notebook name: {get_notebook_name(notebook_frontend)}')
         print('[Test] Notebook name was changed!')
         return True
 
-    # Retry until timeout
+    # Retry until timeout (wait_for_condition retries upon func exception)
     notebook_frontend.wait_for_condition(attempt_form_fill_and_save, timeout=900, period=1)
 
     # Test that address bar was updated
