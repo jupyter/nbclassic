@@ -3,7 +3,7 @@
 
 import traceback
 
-from .utils import EDITOR_PAGE
+from .utils import EDITOR_PAGE, TimeoutError as TestingTimeout
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
 
@@ -50,26 +50,41 @@ def test_save_readonly_as(notebook_frontend):
     name_input_element.click()
 
     # Begin attempts to fill the save dialog input and save the notebook
-    fill_attempts = 1
+    fill_attempts = 0
 
     def attempt_form_fill_and_save():
-        # This process is SUPER flaky, we use this for repeated attempts
+        # Application behavior here is HIGHLY variable, we use this for repeated attempts
+        # ....................
+        # This may be a retry, check if the application state reflects a successful save operation
         nonlocal fill_attempts
-        print(f'[Test] Attempt form fill and save #{fill_attempts}')
-        if fill_attempts >= 1 and get_notebook_name(notebook_frontend) == "new_notebook.ipynb":
+        if fill_attempts and get_notebook_name(notebook_frontend) == "new_notebook.ipynb":
             print('[Test]   Success from previous save attempt!')
             return True
         fill_attempts += 1
+        print(f'[Test] Attempt form fill and save #{fill_attempts}')
+
+        # Make sure the save prompt is visible
+        if not name_input_element.is_visible():
+            save_as(notebook_frontend)
+            try:
+                name_input_element.wait_for('visible')
+            except Exception as err:
+                print('[Test] Error waiting for save prompt')
+                return False
 
         # Set the notebook name field in the save dialog
         print('[Test] Fill the input field')
         name_input_element.evaluate(f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}')
-        notebook_frontend.wait_for_condition(
-            lambda: name_input_element.evaluate(
-                f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}') == 'new_notebook.ipynb',
-            timeout=120,
-            period=.25
-        )
+        try:
+            notebook_frontend.wait_for_condition(
+                lambda: name_input_element.evaluate(
+                    f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}') == 'new_notebook.ipynb',
+                timeout=120,
+                period=.25
+            )
+        except TestingTimeout as err:
+            print('[Test]   Error filling input field!')
+            return False
         # Show the input field value
         print('[Test] Name input field contents:')
         field_value = name_input_element.evaluate(f'(elem) => {{ return elem.value; }}')
@@ -91,14 +106,18 @@ def test_save_readonly_as(notebook_frontend):
                 traceback.print_exc()
                 print('[Test]   Save button failed to hide...')
 
-        notebook_frontend.wait_for_condition(
-            lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
-        )
+        try:
+            notebook_frontend.wait_for_condition(
+                lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
+            )
+        except TestingTimeout as err:
+            print('[Test]   Error waiting for notebook name change resulting from save procedure!')
+            return False
         print(f'[Test] Notebook name: {get_notebook_name(notebook_frontend)}')
         print('[Test] Notebook name was changed!')
         return True
 
-    # Retry until timeout, this process is *very* flaky
+    # Retry until timeout
     notebook_frontend.wait_for_condition(attempt_form_fill_and_save, timeout=900, period=1)
 
     # Test that address bar was updated
