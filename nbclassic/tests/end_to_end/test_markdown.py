@@ -27,11 +27,11 @@ def test_markdown_cell(prefill_notebook):
         '<h1 id="Foo">Foo<a class="anchor-link" href="#Foo">¶</a></h1>',
         '<p><strong>Bar</strong></p>',
         '<p><em>Baz</em></p>',
-        '<pre><code>x = 1</code></pre>',
-        '<pre><code class="cm-s-ipython language-aaaa">x = 1</code></pre>',
+        '<pre><code>x = 1\n</code></pre>',
+        '<pre><code class="cm-s-ipython language-aaaa">x = 1\n</code></pre>',
         '<pre><code class="cm-s-ipython language-python">' +
         '<span class="cm-variable">s</span> <span class="cm-operator">=</span> <span class="cm-string">"$"</span>\n' +
-        '<span class="cm-variable">t</span> <span class="cm-operator">=</span> <span class="cm-string">"$"</span></code></pre>'
+        '<span class="cm-variable">t</span> <span class="cm-operator">=</span> <span class="cm-string">"$"</span>\n</code></pre>'
     ]
 
 
