@@ -137,6 +137,26 @@ dir="ltr">
 </noscript>
 
 <div id="header" role="navigation" aria-label="{% trans %}Top Menu{% endtrans %}">
+  <div  id="newsId" style="display: none">
+    <div class="alert alert-info" role="alert">
+      <div style="display: flex">
+        <div>
+          <span class="label label-warning">NEWS</span>
+          If you plan to upgrade to Notebook 7, read <a href="https://nbclassic.readthedocs.io/en/latest/nbclassic_to_notebook7.html" target="_top">https://nbclassic.readthedocs.io/en/latest/nbclassic_to_notebook7.html</a>
+          -
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          Notebook 6 / NbClassic extensions will not work on Notebook 7.
+        </div>
+        <div style="margin-left: auto;">
+          <a href="" onclick="alert('This message will not be shown anymore.'); return false;">
+            <button type="button" class="btn btn-default btn-xs" id="dontShowId">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Don't show anymore
+            </button>          
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="header-container" class="container">
   <div id="ipython_notebook" class="nav navbar-brand"><a href="
     <div id="ipython_notebook" class="nav navbar-brand"><a href="{{default_url}}
@@ -205,6 +225,16 @@ dir="ltr">
     }
   }
   _remove_token_from_url();
+  document.addEventListener('DOMContentLoaded', function () {
+    const newsId = document.querySelector('#newsId');
+    const dontShowId = document.querySelector('#dontShowId');
+    const showNbClassicNews = localStorage.getItem('showNbClassicNews');
+    dontShowId.addEventListener('click', () => {
+      localStorage.setItem('showNbClassicNews', false);
+      newsId.style.display = 'none';
+    });
+    if (!showNbClassicNews) newsId.style.display = 'inline';
+  });
 </script>
 </body>
 

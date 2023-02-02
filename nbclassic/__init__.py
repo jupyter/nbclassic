@@ -3,6 +3,20 @@ import sys
 from ._version import __version__
 
 
+print("""
+  _   _                   
+ | \ | | _____      _____ 
+ |  \| |/ _ \ \ /\ / / __|
+ | |\  |  __/\ V  V /\__ \\
+ |_| \_|\___| \_/\_/ |___/
+
+                                                                           
+If you plan to upgrade to Notebook 7, read https://nbclassic.readthedocs.io/en/latest/nbclassic_to_notebook7.html
+
+Notebook 6 / NbClassic extensions will not work on Notebook 7.
+""")
+
+
 # Packagers: modify this line if you store the notebook static files elsewhere
 DEFAULT_STATIC_FILES_PATH = os.path.join(os.path.dirname(__file__), "static")
 
