@@ -33,7 +33,7 @@ BROWSER_OBJ = 'BROWSER_OBJ'
 CELL_OUTPUT_SELECTOR = '.output_subarea'
 
 
-class TimeoutError(Exception):
+class EndToEndTimeout(Exception):
 
     def get_result(self):
         return None if not self.args else self.args[0]
@@ -179,6 +179,8 @@ class FrontendElement:
             expect(self._element).not_to_be_visible(timeout=timeout * seconds_to_milliseconds)
         except ValueError as err:
             raise Exception('Cannot expect not_to_be_visible on this type!') from err
+        except AssertionError as err:
+            raise EndToEndTimeout('Error waiting not_to_be_visible!') from err
 
     def expect_to_have_text(self, text):
         try:
@@ -392,6 +394,17 @@ class NotebookFrontend:
 
     def _pause(self):
         self._editor_page.pause()
+
+    def reload(self, page):
+        """Find an element matching selector on the given page"""
+        if page == TREE_PAGE:
+            specified_page = self._tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self._editor_page
+        else:
+            raise Exception('Error, provide a valid page to locate from!')
+
+        specified_page.reload()
 
     def locate(self, selector, page):
         """Find an element matching selector on the given page"""
@@ -662,7 +675,7 @@ class NotebookFrontend:
                 traceback.print_exc()
                 print('\n[NotebookFrontend] Ignoring exception in wait_for_condition, read more above')
         else:
-            raise TimeoutError()
+            raise EndToEndTimeout()
 
     def wait_for_cell_output(self, index=0, timeout=30):
         """Waits for the cell to finish executing and return the cell output"""
