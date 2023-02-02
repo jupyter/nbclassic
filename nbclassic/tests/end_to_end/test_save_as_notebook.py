@@ -1,4 +1,4 @@
-"""Test readonly notebook saved and renamed"""
+"""Test save-as functionality"""
 
 
 import traceback
