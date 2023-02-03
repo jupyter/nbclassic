@@ -325,6 +325,19 @@ class NotebookApp(
         router.add_rules(core_rules)
         router.add_rules(static_handlers)
         router.add_rules(final_rules)
+        print("""
+  _   _                   
+ | \ | | _____      _____ 
+ |  \| |/ _ \ \ /\ / / __|
+ | |\  |  __/\ V  V /\__ \\
+ |_| \_|\___| \_/\_/ |___/
+
+                                                                           
+If you plan to upgrade to Notebook 7, read https://nbclassic.readthedocs.io/en/latest/nbclassic_notebook.html
+
+Notebook 6 / NbClassic extensions will not work on Notebook 7.
+""")
+
 
 # -----------------------------------------------------------------------------
 # Main entry point
