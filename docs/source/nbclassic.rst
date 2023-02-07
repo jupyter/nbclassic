@@ -20,7 +20,7 @@ way to continue using the Jupyter Notebook 6 tech-stack as they
 transition to using the Jupyter Notebook 7. The NbClassic package
 intends to address that need.
 
-You can read more about the migration impacts and coexisence of 
+You can read more about the migration impacts and coexistence of 
 NbClassic and Notebook package on the :ref:`NbClassic and Notebook <_NbClassicNotebook>` 
 page.
 
