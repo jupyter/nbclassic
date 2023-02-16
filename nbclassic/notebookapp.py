@@ -326,16 +326,17 @@ class NotebookApp(
         router.add_rules(static_handlers)
         router.add_rules(final_rules)
         print("""
-  _   _                   
- | \ | | _____      _____ 
- |  \| |/ _ \ \ /\ / / __|
- | |\  |  __/\ V  V /\__ \\
- |_| \_|\___| \_/\_/ |___/
-
+  _   _          _      _
+ | | | |_ __  __| |__ _| |_ ___
+ | |_| | '_ \/ _` / _` |  _/ -_)
+  \___/| .__/\__,_\__,_|\__\___|
+       |_|
                                                                            
-If you plan to upgrade to Notebook 7, read https://nbclassic.readthedocs.io/en/latest/nbclassic_notebook.html
+Read the migration plan to Notebook 7 to learn about the new features and the actions to take if you are using extensions.
 
-Notebook 6 / NbClassic extensions will not work on Notebook 7.
+https://jupyter-notebook.readthedocs.io/en/latest/migrate_to_notebook7.html
+
+Please note that updating to Notebook 7 might break some of your extensions.
 """)
 
 
