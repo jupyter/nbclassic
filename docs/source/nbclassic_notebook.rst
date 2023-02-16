@@ -20,7 +20,7 @@ which will provide different user interfaces
 on the same server. When Notebook 7 is available, the NbClassic UI, will
 be served at the ``/nbclassic/tree`` base path rather than the 
 base path ``/tree`` used otherwise. If you are using Notebook 7 along 
-with NbClassic, you wil also have JupyterLab installed as it is a 
+with NbClassic, you will also have JupyterLab installed as it is a 
 dependency of Notebook 7, and these front ends will be available 
 through the following base paths: JupyterLab at ``/lab``, Notebook 7 at 
 ``/tree``, and NbClassic at ``/nbclassic/tree``.
