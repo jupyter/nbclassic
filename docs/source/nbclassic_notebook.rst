@@ -16,7 +16,7 @@ compatible with Notebook 7 and upwards.
 **NbClassic and Notebook 7**
 
 You can install NbClassic, Notebook 7 and JupyterLab, all three of
-which will be providing different user interfaces that will be available
+which will provide different user interfaces
 on the same server. When Notebook 7 is available, the NbClassic UI, will
 be served at the ``/nbclassic/tree`` base path rather than the 
 base path ``/tree`` used otherwise. If you are using Notebook 7 along 
