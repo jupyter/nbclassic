@@ -29,8 +29,8 @@ through the following base paths: JupyterLab at ``/lab``, Notebook 7 at
 
 As NbClassic provides the static assets for Notebook 6.5.x, while
 having both installed should cause no issues, the user interface provided
-by these two packages will be the same. These UIs would be available in
-different servers. An NbClassic instance will be at a server with the 
+by these two packages will be the same. These UIs will be served by
+different back end servers. An NbClassic instance will be at a server with the 
 ``/tree`` path and opening a Notebook 6.5.x instance will open on a 
 different server with the ``/tree`` path as well, presenting the same 
 static assets. When starting an instance of JupyterLab you will be able 
