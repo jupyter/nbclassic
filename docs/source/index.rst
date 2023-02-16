@@ -9,7 +9,6 @@ Jupyter NbClassic
    :caption: User Documentation
 
    nbclassic
-   nbclassic_notebook
    notebook
    ui_components
    examples/Notebook/examples_index.rst
