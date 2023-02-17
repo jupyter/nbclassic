@@ -84,3 +84,6 @@ Jupyter Notebook 7.
 **Porting Notebook 6 Extensions**: Work being done in parallel. 
 ou can find a helpful list of classical Notebook extensions and corresponding Jupyterlab extensions
 if available at the `Jupyterlab-contrib website <https://jupyterlab-contrib.github.io/migrate_from_classical.html>`_.
+
+.. _JEP #79: https://jupyter.org/enhancement-proposals/79-notebook-v7/notebook-v7.html
+
