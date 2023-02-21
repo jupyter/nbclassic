@@ -20,6 +20,7 @@ def get_list_items(nb):
     Gets list items from a directory listing page
     """
 
+    nb.wait_for_selector('#notebook_list .item_link', page=TREE_PAGE)
     notebook_list = nb.locate('#notebook_list', page=TREE_PAGE)
     link_items = notebook_list.locate_all('.item_link')
 
