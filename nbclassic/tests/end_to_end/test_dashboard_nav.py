@@ -32,7 +32,7 @@ def get_list_items(nb):
 
 
 def test_navigation(notebook_frontend):
-    print('[Test] [test_dashboard_nav]')
+    print('[Test] [test_dashboard_nav] Start!')
 
     print('[Test] Obtain list of elements')
     link_elements = get_list_items(notebook_frontend)
@@ -43,7 +43,7 @@ def test_navigation(notebook_frontend):
             raise Exception('Empty element list!')
 
         for item in list_of_link_elements:
-            print(f'[Test] check "{item["label"]}"')
+            print(f'[Test]   Check "{item["label"]}"')
             item["element"].click()
 
             assert url_in_tree(notebook_frontend)
