@@ -46,8 +46,12 @@ def test_navigation(notebook_frontend):
             print(f'[Test]   Check "{item["label"]}"')
             item["element"].click()
 
-            assert url_in_tree(notebook_frontend)
-            assert item["link"] in nb.get_page_url(page=TREE_PAGE)
+            notebook_frontend.wait_for_condition(
+                lambda: url_in_tree(notebook_frontend)
+            )
+            notebook_frontend.wait_for_condition(
+                lambda: item["link"] in nb.get_page_url(page=TREE_PAGE)
+            )
 
             new_links = get_list_items(nb)
             if len(new_links) > 0:
