@@ -797,27 +797,64 @@ class NotebookFrontend:
     def wait_for_kernel_ready(self):
         self._editor_page.wait_for_selector(".kernel_idle_icon")
 
-    def _open_notebook_editor_page(self, existing_file_name=None):
+    def get_editor_page_from_existing_notebook(self, existing_file_name):
         tree_page = self._tree_page
 
-        if existing_file_name is not None:
-            existing_notebook = tree_page.locator(f"text={existing_file_name}")
-            existing_notebook.click()
-            self._tree_page.reload()  # TODO: FIX this, page count does not update to 2
-        else:
-            # Simulate a user opening a new notebook/kernel
-            new_dropdown_element = tree_page.locator('#new-dropdown-button')
-            new_dropdown_element.click()
-            kernel_name = 'kernel-python3'
-            kernel_selector = f'#{kernel_name} a'
-            new_notebook_element = tree_page.locator(kernel_selector)
-            new_notebook_element.click()
+        # Find the link to the notebook file on the tree page
+        notebook_name_selector = f"text={existing_file_name}"
+        tree_page.wait_for_selector(notebook_name_selector)
+        # Click the existing notebook link on the tree page to open the editor
+        existing_notebook = tree_page.locator(notebook_name_selector)
+        existing_notebook.click()
+        self._tree_page.reload()  # TODO: FIX this, page count does not update to 2
+
+        def wait_for_new_page():
+            return [pg for pg in self._browser_data[BROWSER_CONTEXT].pages if 'tree' not in pg.url]
+
+        new_pages = self.wait_for_condition(
+            wait_for_new_page,
+            timeout=125,
+            period=1
+        )
+        editor_page = new_pages[0]
+
+        return editor_page
+
+    def get_new_editor_page(self):
+        tree_page = self._tree_page
+
+        # Simulate a user opening a new notebook/kernel
+        new_dropdown_element = tree_page.locator('#new-dropdown-button')
+        new_dropdown_element.click()
+        kernel_name = 'kernel-python3'
+        kernel_selector = f'#{kernel_name} a'
+        new_notebook_element = tree_page.locator(kernel_selector)
+        new_notebook_element.click()
 
         def wait_for_new_page():
             return [pg for pg in self._browser_data[BROWSER_CONTEXT].pages if 'tree' not in pg.url]
 
         new_pages = self.wait_for_condition(wait_for_new_page)
         editor_page = new_pages[0]
+
+        return editor_page
+
+    def _open_notebook_editor_page(self, existing_file_name=None):
+        tree_page = self._tree_page
+
+        if existing_file_name is not None:
+            editor_page = self.wait_for_condition(
+                lambda: self.get_editor_page_from_existing_notebook(existing_file_name),
+                timeout=500,
+                period=1
+            )
+        else:
+            editor_page = self.wait_for_condition(
+                lambda: self.get_new_editor_page(),
+                timeout=500,
+                period=1
+            )
+
         return editor_page
 
     def get_page_url(self, page):
