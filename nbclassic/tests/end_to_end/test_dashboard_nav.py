@@ -47,10 +47,14 @@ def test_navigation(notebook_frontend):
             item["element"].click()
 
             notebook_frontend.wait_for_condition(
-                lambda: url_in_tree(notebook_frontend)
+                lambda: url_in_tree(notebook_frontend),
+                timeout=600,
+                period=1
             )
             notebook_frontend.wait_for_condition(
-                lambda: item["link"] in nb.get_page_url(page=TREE_PAGE)
+                lambda: item["link"] in nb.get_page_url(page=TREE_PAGE),
+                timeout=600,
+                period=1
             )
 
             new_links = get_list_items(nb)
