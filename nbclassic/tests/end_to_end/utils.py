@@ -103,8 +103,9 @@ class FrontendElement:
     def click(self):
         return self._element.click()
 
-    def get_inner_text(self):
-        return self._element.inner_text()
+    def get_inner_text(self, timeout=30):
+        seconds_to_milliseconds = 1000
+        return self._element.inner_text(timeout=timeout * seconds_to_milliseconds)
 
     def get_inner_html(self):
         return self._element.inner_html()
@@ -866,7 +867,7 @@ class NotebookFrontend:
             raise Exception('Error, provide a valid page to evaluate from!')
 
         return specified_page.url
-    
+
     def go_back(self, page):
         if page == TREE_PAGE:
             specified_page = self._tree_page
