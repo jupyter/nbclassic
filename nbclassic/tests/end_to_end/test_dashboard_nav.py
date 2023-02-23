@@ -2,7 +2,6 @@
 
 
 import os
-import time
 
 from .utils import  TREE_PAGE
 from jupyter_server.utils import url_path_join
@@ -39,6 +38,7 @@ def test_navigation(notebook_frontend):
     print('[Test] Obtain list of elements')
     link_elements = get_list_items(notebook_frontend)
 
+    # Recursively traverse and check folder in the Jupyter root dir
     def check_links(nb, list_of_link_elements):
         print('[Test] Check links')
         if len(list_of_link_elements) < 1:
@@ -50,22 +50,18 @@ def test_navigation(notebook_frontend):
                 # Skip notebook files in the temp dir
                 continue
 
-            print(f'URL1 :: {nb.get_page_url(page=TREE_PAGE)}')
             item["element"].click()
 
-            print(f'URL2 :: {nb.get_page_url(page=TREE_PAGE)}')
             notebook_frontend.wait_for_condition(
                 lambda: url_in_tree(notebook_frontend),
                 timeout=600,
-                period=1
+                period=5
             )
-            # assert url_in_tree(notebook_frontend)
             notebook_frontend.wait_for_condition(
                 lambda: item["link"] in nb.get_page_url(page=TREE_PAGE),
                 timeout=600,
-                period=1
+                period=5
             )
-            # assert item["link"] in nb.get_page_url(page=TREE_PAGE)
 
             new_links = get_list_items(nb)
             if len(new_links) > 0:
