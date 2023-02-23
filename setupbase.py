@@ -347,9 +347,9 @@ class CompileBackendTranslation(Command):
 
 
     def run(self):
-        paths = glob('nbclassic/i18n/??_??')
+        paths = glob('nbclassic/i18n/*/LC_MESSAGES')
         for p in paths:
-            LANG = p[-5:]
+            LANG = p.split(os.path.sep)[-2]
             for component in ['nbclassic', 'nbui']:
                 run(['pybabel', 'compile',
                      '-D', component,
@@ -557,7 +557,7 @@ class CompileJS(Command):
         run(['node', 'tools/build-main.js', name])
 
     def build_jstranslation(self, trd):
-        lang = trd[-5:]
+        lang = trd.split(os.path.sep)[-2]
         run([
             pjoin('node_modules', '.bin', 'po2json'),
             '-p', '-F',
@@ -573,7 +573,7 @@ class CompileJS(Command):
         env['PATH'] = npm_path
         pool = ThreadPool()
         pool.map(self.build_main, self.apps)
-        pool.map(self.build_jstranslation, glob('nbclassic/i18n/??_??'))
+        pool.map(self.build_jstranslation, glob('nbclassic/i18n/*/LC_MESSAGES'))
         # update package data in case this created new files
         update_package_data(self.distribution)
 
