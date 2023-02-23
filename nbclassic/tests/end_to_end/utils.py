@@ -31,7 +31,7 @@ SERVER_INFO = 'SERVER_INFO'
 BROWSER_OBJ = 'BROWSER_OBJ'
 # Other constants
 CELL_OUTPUT_SELECTOR = '.output_subarea'
-
+SECONDS_TO_MILLISECONDS = 1000
 
 class EndToEndTimeout(Exception):
 
@@ -100,12 +100,11 @@ class FrontendElement:
         # (Quick/dirty )We can debug on failures by deferring bad inits and testing for them here
         return self._bool
 
-    def click(self):
-        return self._element.click()
+    def click(self, timeout=30):
+        return self._element.click(SECONDS_TO_MILLISECONDS)
 
     def get_inner_text(self, timeout=30):
-        seconds_to_milliseconds = 1000
-        return self._element.inner_text(timeout=timeout * seconds_to_milliseconds)
+        return self._element.inner_text(timeout=timeout * SECONDS_TO_MILLISECONDS)
 
     def get_inner_html(self):
         return self._element.inner_html()
@@ -175,9 +174,8 @@ class FrontendElement:
         return self._user_data
 
     def expect_not_to_be_visible(self, timeout=30):
-        seconds_to_milliseconds = 1000
         try:
-            expect(self._element).not_to_be_visible(timeout=timeout * seconds_to_milliseconds)
+            expect(self._element).not_to_be_visible(timeout=timeout * SECONDS_TO_MILLISECONDS)
         except ValueError as err:
             raise Exception('Cannot expect not_to_be_visible on this type!') from err
         except AssertionError as err:
