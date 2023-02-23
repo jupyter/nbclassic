@@ -2,6 +2,8 @@
 
 
 import os
+import time
+
 from .utils import  TREE_PAGE
 from jupyter_server.utils import url_path_join
 pjoin = os.path.join
@@ -48,8 +50,11 @@ def test_navigation(notebook_frontend):
                 # Skip notebook files in the temp dir
                 continue
 
+            print(f'URL1 :: {nb.get_page_url(page=TREE_PAGE)}')
             item["element"].click()
 
+            time.sleep(30)  # DEBUG
+            print(f'URL2 :: {nb.get_page_url(page=TREE_PAGE)}')
             notebook_frontend.wait_for_condition(
                 lambda: url_in_tree(notebook_frontend),
                 timeout=600,
