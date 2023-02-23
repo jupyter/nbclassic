@@ -86,6 +86,12 @@ def playwright_browser(playwright):
             break
         except Exception:
             time.sleep(.2)
+    else:
+        # You need to make sure the host machine has run `playwright install`
+        # to actually obtain the browser here/for this to work (you should be
+        # able to run the playwright binary after pip installing nbclassic
+        # with optional test extras)
+        raise Exception('Could not open browser! Did you `playwright install` on this machine?')
 
     yield browser
 
