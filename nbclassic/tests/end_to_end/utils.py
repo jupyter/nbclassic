@@ -101,7 +101,7 @@ class FrontendElement:
         return self._bool
 
     def click(self, timeout=30):
-        return self._element.click(SECONDS_TO_MILLISECONDS)
+        return self._element.click(timeout=SECONDS_TO_MILLISECONDS)
 
     def get_inner_text(self, timeout=30):
         return self._element.inner_text(timeout=timeout * SECONDS_TO_MILLISECONDS)
