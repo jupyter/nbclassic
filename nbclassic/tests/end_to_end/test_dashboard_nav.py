@@ -29,7 +29,7 @@ def get_list_items(nb):
         'link': a.get_attribute('href'),
         'label': a.get_inner_text(),
         'element': a,
-    } for a in link_items if a.get_inner_text(timeout=600) != '..']
+    } for a in link_items if a.get_inner_text() != '..']
 
 
 def test_navigation(notebook_frontend):
