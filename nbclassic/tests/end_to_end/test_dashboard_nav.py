@@ -44,6 +44,10 @@ def test_navigation(notebook_frontend):
 
         for item in list_of_link_elements:
             print(f'[Test]   Check "{item["label"]}"')
+            if 'Untitled.ipynb' in item["label"]:
+                # Skip notebook files in the temp dir
+                continue
+
             item["element"].click()
 
             # notebook_frontend.wait_for_condition(
