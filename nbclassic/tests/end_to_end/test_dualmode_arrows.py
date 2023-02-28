@@ -41,6 +41,9 @@ def test_dualmode_arrows(notebook_frontend):
     )
     notebook_frontend.press("Enter", page=EDITOR_PAGE)
     notebook_frontend.press("2", page=EDITOR_PAGE)
+    notebook_frontend.wait_for_condition(
+        lambda: notebook_frontend.get_cell_contents(index=2) == '2'
+    )
     notebook_frontend.to_command_mode()
     # ..................................................
     notebook_frontend.press("ArrowUp", page=EDITOR_PAGE)
@@ -49,6 +52,9 @@ def test_dualmode_arrows(notebook_frontend):
     )
     notebook_frontend.press("Enter", page=EDITOR_PAGE)
     notebook_frontend.press("1", page=EDITOR_PAGE)
+    notebook_frontend.wait_for_condition(
+        lambda: notebook_frontend.get_cell_contents(index=1) == '1'
+    )
     notebook_frontend.to_command_mode()
     # ............................................
     notebook_frontend.press("k", page=EDITOR_PAGE)
@@ -59,6 +65,9 @@ def test_dualmode_arrows(notebook_frontend):
         period=5
     )
     notebook_frontend.press("0", page=EDITOR_PAGE)
+    notebook_frontend.wait_for_condition(
+        lambda: notebook_frontend.get_cell_contents(index=0) == '0'
+    )
     notebook_frontend.to_command_mode()
     assert notebook_frontend.get_cells_contents() == ["0", "1", "2", ""]
 
