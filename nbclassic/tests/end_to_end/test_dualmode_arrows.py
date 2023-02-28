@@ -20,6 +20,18 @@ def test_dualmode_arrows(notebook_frontend):
             lambda: len(notebook_frontend.cells) == count
         )
 
+    def await_cell_edit_ready_state(cell_index):
+        notebook_frontend.wait_for_condition(
+            lambda: notebook_frontend.cells[cell_index].evaluate(JS_HAS_SELECTED) is True
+        )
+        notebook_frontend.press("Enter", page=EDITOR_PAGE)
+        notebook_frontend.wait_for_condition(
+            lambda: notebook_frontend.cells[cell_index].locate('.CodeMirror-focused').is_visible()
+        )
+        return True
+
+    # CodeMirror-focused
+
     # Use both "k" and up arrow keys to moving up and enter a value.
     # Once located on the top cell, use the up arrow keys to prove the top cell is still selected.
     # ............................................
@@ -42,9 +54,10 @@ def test_dualmode_arrows(notebook_frontend):
     notebook_frontend.press("k", page=EDITOR_PAGE)
     notebook_frontend.press("ArrowUp", page=EDITOR_PAGE)
     notebook_frontend.wait_for_condition(
-        lambda: notebook_frontend.cells[0].evaluate(JS_HAS_SELECTED) is True
+        lambda: await_cell_edit_ready_state(0),
+        timeout=330,
+        period=5
     )
-    notebook_frontend.press("Enter", page=EDITOR_PAGE)
     notebook_frontend.press("0", page=EDITOR_PAGE)
     notebook_frontend.to_command_mode()
     assert notebook_frontend.get_cells_contents() == ["0", "1", "2", ""]
