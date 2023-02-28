@@ -4,25 +4,46 @@
 from .utils import EDITOR_PAGE
 
 
+JS_HAS_SELECTED = "(element) => { return element.classList.contains('selected'); }"
+
+
 def test_dualmode_arrows(notebook_frontend):
 
     # Tests in command mode.
     # Setting up the cells to test the keys to move up.
     notebook_frontend.to_command_mode()
-    [notebook_frontend.press("b", page=EDITOR_PAGE) for i in range(3)]
+    count = 1
+    for _ in range(3):
+        count += 1
+        notebook_frontend.press("b", page=EDITOR_PAGE)
+        notebook_frontend.wait_for_condition(
+            lambda: len(notebook_frontend.cells) == count
+        )
 
     # Use both "k" and up arrow keys to moving up and enter a value.
     # Once located on the top cell, use the up arrow keys to prove the top cell is still selected.
+    # ............................................
     notebook_frontend.press("k", page=EDITOR_PAGE)
+    notebook_frontend.wait_for_condition(
+        lambda: notebook_frontend.cells[2].evaluate(JS_HAS_SELECTED) is True
+    )
     notebook_frontend.press("Enter", page=EDITOR_PAGE)
     notebook_frontend.press("2", page=EDITOR_PAGE)
     notebook_frontend.to_command_mode()
+    # ..................................................
     notebook_frontend.press("ArrowUp", page=EDITOR_PAGE)
+    notebook_frontend.wait_for_condition(
+        lambda: notebook_frontend.cells[1].evaluate(JS_HAS_SELECTED) is True
+    )
     notebook_frontend.press("Enter", page=EDITOR_PAGE)
     notebook_frontend.press("1", page=EDITOR_PAGE)
     notebook_frontend.to_command_mode()
+    # ............................................
     notebook_frontend.press("k", page=EDITOR_PAGE)
     notebook_frontend.press("ArrowUp", page=EDITOR_PAGE)
+    notebook_frontend.wait_for_condition(
+        lambda: notebook_frontend.cells[0].evaluate(JS_HAS_SELECTED) is True
+    )
     notebook_frontend.press("Enter", page=EDITOR_PAGE)
     notebook_frontend.press("0", page=EDITOR_PAGE)
     notebook_frontend.to_command_mode()
