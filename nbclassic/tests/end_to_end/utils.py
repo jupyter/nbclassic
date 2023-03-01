@@ -285,6 +285,12 @@ class NotebookFrontend:
     def current_index(self):
         return self.index(self.current_cell)
 
+    def sshot_edit(self):
+        return self.screenshot(EDITOR_PAGE)
+
+    def sshot_tree(self):
+        return self.screenshot(TREE_PAGE)
+
     def screenshot(self, page):
         """Returns bytes of a PNG screenshot of the page"""
         if page == TREE_PAGE:

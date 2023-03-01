@@ -24,13 +24,13 @@ def test_dualmode_arrows(notebook_frontend):
         notebook_frontend.wait_for_condition(
             lambda: notebook_frontend.cells[cell_index].evaluate(JS_HAS_SELECTED) is True
         )
-        print('/IMG/cell has selected/' + notebook_frontend.screenshot().hex() + '/IMG/')
+        print('/IMG/cell has selected/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
         notebook_frontend.press("Enter", page=EDITOR_PAGE)
-        print('/IMG/hit enter/' + notebook_frontend.screenshot().hex() + '/IMG/')
+        print('/IMG/hit enter/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
         notebook_frontend.wait_for_condition(
             lambda: notebook_frontend.cells[cell_index].locate('.CodeMirror-focused').is_visible()
         )
-        print('/IMG/codemirror focused/' + notebook_frontend.screenshot().hex() + '/IMG/')
+        print('/IMG/codemirror focused/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
         return True
 
     # CodeMirror-focused
@@ -60,22 +60,22 @@ def test_dualmode_arrows(notebook_frontend):
     )
     notebook_frontend.to_command_mode()
     # ............................................
-    print('/IMG/before_arrow_to_top/' + notebook_frontend.screenshot().hex() + '/IMG/')
+    print('/IMG/before_arrow_to_top/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
     notebook_frontend.press("k", page=EDITOR_PAGE)
     notebook_frontend.press("ArrowUp", page=EDITOR_PAGE)
-    print('/IMG/before_readycheck/' + notebook_frontend.screenshot().hex() + '/IMG/')
+    print('/IMG/before_readycheck/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
     notebook_frontend.wait_for_condition(
         lambda: await_cell_edit_ready_state(0),
         timeout=330,
         period=5
     )
-    print('/IMG/after_readycheck/' + notebook_frontend.screenshot().hex() + '/IMG/')
+    print('/IMG/after_readycheck/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
     notebook_frontend.press("0", page=EDITOR_PAGE)
-    print('/IMG/after_press0/' + notebook_frontend.screenshot().hex() + '/IMG/')
+    print('/IMG/after_press0/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
     notebook_frontend.wait_for_condition(
         lambda: notebook_frontend.get_cell_contents(index=0) == '0'
     )
-    print('/IMG/cell content is 0/' + notebook_frontend.screenshot().hex() + '/IMG/')
+    print('/IMG/cell content is 0/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
     notebook_frontend.to_command_mode()
     assert notebook_frontend.get_cells_contents() == ["0", "1", "2", ""]
 
