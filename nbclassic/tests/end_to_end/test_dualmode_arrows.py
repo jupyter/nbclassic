@@ -1,16 +1,18 @@
 """Tests arrow keys on both command and edit mode"""
 
 
-from .utils import EDITOR_PAGE
+from .utils import EDITOR_PAGE, EndToEndTimeout
 
 
 JS_HAS_SELECTED = "(element) => { return element.classList.contains('selected'); }"
 
 
 def test_dualmode_arrows(notebook_frontend):
+    print('[Test] [test_dualmode_arrows] Start!')
 
     # Tests in command mode.
     # Setting up the cells to test the keys to move up.
+    print('[Test] Add some cells')
     notebook_frontend.to_command_mode()
     count = 1
     for _ in range(3):
@@ -26,6 +28,13 @@ def test_dualmode_arrows(notebook_frontend):
         )
         print('/IMG/cell has selected/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
         if not notebook_frontend.cells[cell_index].locate('.CodeMirror-focused').is_visible():
+            try:
+                notebook_frontend.wait_for_condition(
+                    lambda: notebook_frontend.cells[cell_index].locate('.CodeMirror-focused').is_visible()
+                )
+            except EndToEndTimeout as err:
+                pass
+
             print('/IMG/Before enter pressed/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
             notebook_frontend.press("Enter", page=EDITOR_PAGE)
             print('/IMG/keypressed enter/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
@@ -35,11 +44,10 @@ def test_dualmode_arrows(notebook_frontend):
             print('/IMG/codemirror is focused/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
         return True
 
-    # CodeMirror-focused
-
     # Use both "k" and up arrow keys to moving up and enter a value.
     # Once located on the top cell, use the up arrow keys to prove the top cell is still selected.
     # ............................................
+    print('[Test] Go up and enter "2" in the cell')
     notebook_frontend.press("k", page=EDITOR_PAGE)
     notebook_frontend.wait_for_condition(
         lambda: await_cell_edit_ready_state(2),
@@ -52,6 +60,7 @@ def test_dualmode_arrows(notebook_frontend):
     )
     notebook_frontend.to_command_mode()
     # ..................................................
+    print('[Test] Go up and enter "1" in the cell')
     notebook_frontend.press("ArrowUp", page=EDITOR_PAGE)
     notebook_frontend.wait_for_condition(
         lambda: await_cell_edit_ready_state(1),
@@ -64,6 +73,7 @@ def test_dualmode_arrows(notebook_frontend):
     )
     notebook_frontend.to_command_mode()
     # ............................................
+    print('[Test] Go to top and enter "0" in the cell')
     print('/IMG/before_arrow_to_top/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
     notebook_frontend.press("k", page=EDITOR_PAGE)
     notebook_frontend.press("ArrowUp", page=EDITOR_PAGE)
@@ -84,6 +94,7 @@ def test_dualmode_arrows(notebook_frontend):
     assert notebook_frontend.get_cells_contents() == ["0", "1", "2", ""]
 
     # Use the "k" key on the top cell as well
+    print('[Test] On the top cell, go up again and then edit the cell')
     notebook_frontend.press("k", page=EDITOR_PAGE)
     notebook_frontend.wait_for_condition(
         lambda: await_cell_edit_ready_state(0),
@@ -95,12 +106,14 @@ def test_dualmode_arrows(notebook_frontend):
     assert notebook_frontend.get_cells_contents() == ["0 edit #1", "1", "2", ""]
 
     # Setting up the cells to test the keys to move down
+    print('[Test] Arrange/prepare cells')
     [notebook_frontend.press("j", page=EDITOR_PAGE) for i in range(3)]
     [notebook_frontend.press("a", page=EDITOR_PAGE) for i in range(2)]
     notebook_frontend.press("k", page=EDITOR_PAGE)
 
     # Use both "j" key and down arrow keys to moving down and enter a value.
     # Once located on the bottom cell, use the down arrow key to prove the bottom cell is still selected.
+    print('[Test] Go down and input cell values')
     notebook_frontend.press("ArrowDown", page=EDITOR_PAGE)
     notebook_frontend.wait_for_condition(
         lambda: await_cell_edit_ready_state(3),
@@ -129,6 +142,7 @@ def test_dualmode_arrows(notebook_frontend):
     assert notebook_frontend.get_cells_contents() == ["0 edit #1", "1", "2", "3", "4", "5"]
 
     # Use the "j" key on the top cell as well
+    print('[Test] Edit the last cell')
     notebook_frontend.press("j", page=EDITOR_PAGE)
     notebook_frontend.wait_for_condition(
         lambda: await_cell_edit_ready_state(5),
