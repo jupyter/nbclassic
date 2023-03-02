@@ -25,12 +25,14 @@ def test_dualmode_arrows(notebook_frontend):
             lambda: notebook_frontend.cells[cell_index].evaluate(JS_HAS_SELECTED) is True
         )
         print('/IMG/cell has selected/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
-        notebook_frontend.press("Enter", page=EDITOR_PAGE)
-        print('/IMG/hit enter/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
-        notebook_frontend.wait_for_condition(
-            lambda: notebook_frontend.cells[cell_index].locate('.CodeMirror-focused').is_visible()
-        )
-        print('/IMG/codemirror focused/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
+        if not notebook_frontend.cells[cell_index].locate('.CodeMirror-focused').is_visible():
+            print('/IMG/Before enter pressed/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
+            notebook_frontend.press("Enter", page=EDITOR_PAGE)
+            print('/IMG/keypressed enter/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
+            notebook_frontend.wait_for_condition(
+                lambda: notebook_frontend.cells[cell_index].locate('.CodeMirror-focused').is_visible()
+            )
+            print('/IMG/codemirror is focused/' + notebook_frontend.sshot_edit().hex() + '/IMG/')
         return True
 
     # CodeMirror-focused
