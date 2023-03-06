@@ -102,16 +102,17 @@ def test_dualmode_arrows(prefill_notebook):
     )
     # Type a 1 in edit mode, then arrow left (to the beginning of the cell)
     # and then up, which should then move to edit mode in the cell above
-    notebook_frontend.press("Digit1", page=EDITOR_PAGE)
+    print('[Test] Enter a "1" in the second cell')
+    notebook_frontend.press("1", page=EDITOR_PAGE)
     notebook_frontend.press("ArrowLeft", page=EDITOR_PAGE)
     notebook_frontend.press("ArrowUp", page=EDITOR_PAGE)
     notebook_frontend.wait_for_condition(
         lambda: notebook_frontend.cells[0].evaluate(JS_HAS_SELECTED) is True,
     )
     notebook_frontend.wait_for_condition(
-        lambda: notebook_frontend.get_cell_contents() == ['', '1', '', ''],
-        period=1
+        lambda: notebook_frontend.get_cells_contents() == ['', '1', '', ''],
     )
+
     print('[Test] Move to the top cell and edit')
     # Arrow up again while on the top cell, it should still be selected
     notebook_frontend.press("ArrowUp", page=EDITOR_PAGE)
@@ -119,6 +120,7 @@ def test_dualmode_arrows(prefill_notebook):
         lambda: notebook_frontend.cells[0].evaluate(JS_HAS_SELECTED) is True
     )
     # Enter a 0 in the top cell (we're still in edit mode)
+    print('[Test] Enter a "0" in the top cell')
     notebook_frontend.press("0", page=EDITOR_PAGE)
 
     # Move down, right, down, while the edit mode cursor is on the top cell,
@@ -130,6 +132,7 @@ def test_dualmode_arrows(prefill_notebook):
     notebook_frontend.press("ArrowRight", page=EDITOR_PAGE)
     notebook_frontend.press("ArrowDown", page=EDITOR_PAGE)
     # Put a 2 in the third cell
+    print('[Test] Enter a "2" in the third cell')
     notebook_frontend.press("2", page=EDITOR_PAGE)
 
     # Move down to the last cell, then down again while on the bottom cell
@@ -147,6 +150,7 @@ def test_dualmode_arrows(prefill_notebook):
     notebook_frontend.wait_for_condition(  # Ensure it's in edit mode
         lambda: notebook_frontend.cells[3].locate('.CodeMirror-focused'),
     )  # If it's not located, the FrontendElement will be Falsy
+    print('[Test] Enter a "3" in the fourth cell')
     notebook_frontend.press("3", page=EDITOR_PAGE)
     notebook_frontend.to_command_mode()
     print('[Test] Check the results match expectations')
