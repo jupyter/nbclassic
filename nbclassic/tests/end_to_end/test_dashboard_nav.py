@@ -3,7 +3,7 @@
 
 import os
 
-from .utils import  TREE_PAGE
+from .utils import TREE_PAGE
 from jupyter_server.utils import url_path_join
 pjoin = os.path.join
 
@@ -22,8 +22,8 @@ def get_list_items(nb):
     """
 
     nb.wait_for_selector('#notebook_list .item_link', page=TREE_PAGE)
-    notebook_list = nb.locate('#notebook_list', page=TREE_PAGE)
-    link_items = notebook_list.locate_all('.item_link')
+    # notebook_list = nb.locate('#notebook_list', page=TREE_PAGE)
+    link_items = nb.locate_all('#notebook_list .item_link', page=TREE_PAGE)
 
     return [{
         'link': a.get_attribute('href'),
@@ -44,12 +44,15 @@ def test_navigation(notebook_frontend):
         if len(list_of_link_elements) < 1:
             return
 
+        starting_parent_url = nb.get_page_url(page=TREE_PAGE)
         for item in list_of_link_elements:
             print(f'[Test]   Check "{item["label"]}"')
-            if 'Untitled.ipynb' in item["label"]:
+            if '.ipynb' in item["label"]:
+                print(f'[Test]     Skipping non-dir notebook file')
                 # Skip notebook files in the temp dir
                 continue
 
+            print(f'[Test]   Navigate/click item link')
             item["element"].click()
 
             notebook_frontend.wait_for_condition(
@@ -67,7 +70,11 @@ def test_navigation(notebook_frontend):
             if len(new_links) > 0:
                 check_links(nb, new_links)
 
+            print(f'[Test]   Go back to parent dir and wait for URL')
             nb.go_back(page=TREE_PAGE)
+            nb.wait_for_condition(
+                lambda: nb.get_page_url(page=TREE_PAGE) == starting_parent_url
+            )
 
         return
 
