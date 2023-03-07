@@ -45,6 +45,7 @@ def test_navigation(notebook_frontend):
             return
 
         starting_parent_url = nb.get_page_url(page=TREE_PAGE)
+        print(f'[Test]   Start URL at: "{starting_parent_url}"')
         for item in list_of_link_elements:
             print(f'[Test]   Check "{item["label"]}"')
             if '.ipynb' in item["label"]:
@@ -57,12 +58,12 @@ def test_navigation(notebook_frontend):
 
             notebook_frontend.wait_for_condition(
                 lambda: url_in_tree(notebook_frontend),
-                timeout=600,
+                timeout=300,
                 period=5
             )
             notebook_frontend.wait_for_condition(
                 lambda: item["link"] in nb.get_page_url(page=TREE_PAGE),
-                timeout=600,
+                timeout=300,
                 period=5
             )
 
@@ -73,7 +74,9 @@ def test_navigation(notebook_frontend):
             print(f'[Test]   Go back to parent dir and wait for URL')
             nb.go_back(page=TREE_PAGE)
             nb.wait_for_condition(
-                lambda: nb.get_page_url(page=TREE_PAGE) == starting_parent_url
+                lambda: nb.get_page_url(page=TREE_PAGE) == starting_parent_url,
+                timeout=300,
+                period=5
             )
 
         return
