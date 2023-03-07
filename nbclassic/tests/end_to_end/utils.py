@@ -285,6 +285,23 @@ class NotebookFrontend:
     def current_index(self):
         return self.index(self.current_cell)
 
+    def sshot_edit(self):
+        return self.screenshot(EDITOR_PAGE)
+
+    def sshot_tree(self):
+        return self.screenshot(TREE_PAGE)
+
+    def screenshot(self, page):
+        """Returns bytes of a PNG screenshot of the page"""
+        if page == TREE_PAGE:
+            specified_page = self._tree_page
+        elif page == EDITOR_PAGE:
+            specified_page = self._editor_page
+        else:
+            raise Exception('Error, provide a valid page to evaluate from!')
+
+        return specified_page.screenshot()
+
     def index(self, cell):
         return self._cells.index(cell)
 
