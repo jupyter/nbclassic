@@ -3,12 +3,13 @@
 
 import os
 
-from .utils import  TREE_PAGE
+from .utils import TREE_PAGE, EDITOR_PAGE
 from jupyter_server.utils import url_path_join
 pjoin = os.path.join
 
 
 def url_in_tree(nb, url=None):
+    """Ensure we're in the tree page somewhere (the file browser page)"""
     if url is None:
         url = nb.get_page_url(page=TREE_PAGE)
 
@@ -16,60 +17,120 @@ def url_in_tree(nb, url=None):
     return True if tree_url in url else False
 
 
-def get_list_items(nb):
-    """
-    Gets list items from a directory listing page
-    """
+def navigate_to_link(nb, item_text):
+    print(f'[Test]   Now navigating to "{item_text}"')
+    notebook_frontend = nb
 
-    nb.wait_for_selector('#notebook_list .item_link', page=TREE_PAGE)
-    notebook_list = nb.locate('#notebook_list', page=TREE_PAGE)
-    link_items = notebook_list.locate_all('.item_link')
-
-    return [{
-        'link': a.get_attribute('href'),
-        'label': a.get_inner_text(),
-        'element': a,
-    } for a in link_items if a.get_inner_text() != '..']
+    # Define a match finder func (this is easier
+    # to hook into for debugging than a listcomp)
+    def get_matches():
+        print(f'[Test]     Attempt to find matches...')
+        tree_page_items = [item for item in notebook_frontend.locate_all('#notebook_list .item_link', TREE_PAGE)]
+        if tree_page_items:
+            print(f'[Test]       Found!')
+        return [elem for elem in tree_page_items if elem.is_visible() and elem.get_inner_text().strip() == item_text]
+    # Get tree page item matching the item_text (the dir name/link element to navigate to)
+    matches = notebook_frontend.wait_for_condition(
+        lambda: get_matches(),
+        period=3
+    )
+    target_element = matches[0]
+    target_link = target_element.get_attribute("href")
+    target_element.click()
+    notebook_frontend.wait_for_condition(
+        lambda: not notebook_frontend.locate(
+            f'#notebook_list .item_link >> text="{item_text}"',
+            page=EDITOR_PAGE).is_visible()
+    )
+    print(f'[Test]     Check URL in tree')
+    notebook_frontend.wait_for_condition(
+        lambda: url_in_tree(notebook_frontend),
+        timeout=60,
+        period=5
+    )
+    print(f'[Test]     Check URL matches link')
+    print(f'[Test]       Item link: "{target_link}"')
+    print(f'[Test]       Current URL is: "{notebook_frontend.get_page_url(page=TREE_PAGE)}"')
+    notebook_frontend.wait_for_condition(
+        lambda: target_link in notebook_frontend.get_page_url(page=TREE_PAGE),
+        timeout=60,
+        period=5
+    )
+    print(f'[Test]     Passed!')
+    return notebook_frontend.get_page_url(page=TREE_PAGE)
 
 
 def test_navigation(notebook_frontend):
-    print('[Test] [test_dashboard_nav] Start!')
+    print('[Test] [test_dashboard_nav] Start! y2')
 
-    print('[Test] Obtain list of elements')
-    link_elements = get_list_items(notebook_frontend)
+    # NOTE: The paths used here are currently define in
+    # the server setup fixture (dirs/names are created there)
+    # TODO: Refactor to define those dirs/names here
 
-    # Recursively traverse and check folder in the Jupyter root dir
-    def check_links(nb, list_of_link_elements):
-        print('[Test] Check links')
-        if len(list_of_link_elements) < 1:
-            return
+    SUBDIR1 = 'sub ∂ir1'
+    SUBDIR2 = 'sub ∂ir2'
+    SUBDIR1A = 'sub ∂ir 1a'
+    SUBDIR1B = 'sub ∂ir 1b'
 
-        for item in list_of_link_elements:
-            print(f'[Test]   Check "{item["label"]}"')
-            if 'Untitled.ipynb' in item["label"]:
-                # Skip notebook files in the temp dir
-                continue
+    # Start at the root (tree) URL
+    print(f'[Test] Start at tree (root) URL')
+    tree_url = notebook_frontend.get_page_url(page=TREE_PAGE)
+    print(f'[Test]   URL is now at "{tree_url}"')
 
-            item["element"].click()
+    # Test navigation to first folder from root
+    print(f'[Test] Navigate to subdir1')
+    subdir1_url = navigate_to_link(notebook_frontend, SUBDIR1)
+    print(f'[Test]   URL is now at "{subdir1_url}"')
 
-            notebook_frontend.wait_for_condition(
-                lambda: url_in_tree(notebook_frontend),
-                timeout=600,
-                period=5
-            )
-            notebook_frontend.wait_for_condition(
-                lambda: item["link"] in nb.get_page_url(page=TREE_PAGE),
-                timeout=600,
-                period=5
-            )
+    # Test navigation to first subfolder (1a)
+    print(f'[Test] Navigate to subdir1a')
+    subdir1a_url = navigate_to_link(notebook_frontend, SUBDIR1A)
+    print(f'[Test]   URL is now at "{subdir1a_url}"')
+    notebook_frontend.go_back(page=TREE_PAGE)
+    notebook_frontend.wait_for_condition(
+        lambda: notebook_frontend.get_page_url(page=TREE_PAGE) == subdir1_url,
+        timeout=300,
+        period=5
+    )
+    notebook_frontend.go_back(page=TREE_PAGE)
+    notebook_frontend.wait_for_condition(
+        lambda: notebook_frontend.get_page_url(page=TREE_PAGE) == tree_url,
+        timeout=300,
+        period=5
+    )
+    # Wait for the links to update (subdir1a link should NOT be showing anymore)
+    notebook_frontend.wait_for_condition(
+        lambda: not notebook_frontend.locate(
+            f'#notebook_list .item_link >> text="{SUBDIR1A}"',
+            page=EDITOR_PAGE).is_visible()
+    )
 
-            new_links = get_list_items(nb)
-            if len(new_links) > 0:
-                check_links(nb, new_links)
+    # Test navigation to second folder from root
+    print(f'[Test] Navigate to subdir2')
+    subdir2_url = navigate_to_link(notebook_frontend, SUBDIR2)
+    print(f'[Test]   URL is now at "{subdir2_url}"')
+    # Wait for the links to update (subdir2 link should NOT be showing anymore)
+    notebook_frontend.wait_for_condition(
+        lambda: not notebook_frontend.locate(
+            f'#notebook_list .item_link >> text="{SUBDIR2}"',
+            page=EDITOR_PAGE).is_visible()
+    )
 
-            nb.go_back(page=TREE_PAGE)
+    # Test navigation to second subfolder (1b)
+    print(f'[Test] Navigate to subdir1b')
+    subdir1b_url = navigate_to_link(notebook_frontend, SUBDIR1B)
+    print(f'[Test]   URL is now at "{subdir1b_url}"')
+    notebook_frontend.go_back(page=TREE_PAGE)
+    notebook_frontend.wait_for_condition(
+        lambda: notebook_frontend.get_page_url(page=TREE_PAGE) == subdir2_url,
+        timeout=300,
+        period=5
+    )
+    notebook_frontend.go_back(page=TREE_PAGE)
+    notebook_frontend.wait_for_condition(
+        lambda: notebook_frontend.get_page_url(page=TREE_PAGE) == tree_url,
+        timeout=300,
+        period=5
+    )
 
-        return
-
-    check_links(notebook_frontend, link_elements)
     print('[Test] [test_dashboard_nav] Finished!')
