@@ -24,3 +24,4 @@ Alternatively, you can run Jupyter Server and visiting the `/tree` endpoint:
 ```
 > jupyter server
 ```
+
