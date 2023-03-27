@@ -418,7 +418,7 @@ class Bower(Command):
                 env=env
             )
             # Copy the CommonJS files to their JavaScript equivalent to ensure correct loading.
-            # shutil.copyfile(pjoin(self.bower_dir, "marked", "lib", "marked.cjs"), pjoin(self.bower_dir, "marked", "lib", "marked.js"))
+            shutil.copyfile(pjoin(self.bower_dir, "marked", "lib", "marked.cjs"), pjoin(self.bower_dir, "marked", "lib", "marked.js"))
         except OSError as e:
             print("Failed to run bower: %s" % e, file=sys.stderr)
             print("You can install js dependencies with `npm install`", file=sys.stderr)
