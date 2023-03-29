@@ -11,7 +11,7 @@ define([
     'base/js/keyboard',
     'moment',
     'bidi/bidi',
-    'components/marked/lib/marked.umd'
+    'components/marked/lib/marked'
 ], function($, IPython, utils, i18n, dialog, events, keyboard, moment, bidi, marked) {
     "use strict";
 

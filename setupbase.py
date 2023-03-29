@@ -145,7 +145,7 @@ def find_package_data():
         pjoin(components, "jquery-ui", "dist", "jquery-ui.min.js"),
         pjoin(components, "jquery-ui", "dist", "themes", "smoothness", "jquery-ui.min.css"),
         pjoin(components, "jquery-ui",  "dist", "themes", "smoothness", "images", "*"),
-        pjoin(components, "marked", "lib", "marked.umd.js"),
+        pjoin(components, "marked", "lib", "marked.js"),
         pjoin(components, "react", "react.production.min.js"),
         pjoin(components, "react", "react-dom.production.min.js"),
         pjoin(components, "requirejs", "require.js"),
@@ -417,6 +417,8 @@ class Bower(Command):
                 cwd=repo_root,
                 env=env
             )
+            # Copy the UMD files to their JavaScript equivalent to ensure correct loading.
+            shutil.copyfile(pjoin(self.bower_dir, "marked", "lib", "marked.umd.js"), pjoin(self.bower_dir, "marked", "lib", "marked.js"))
         except OSError as e:
             print("Failed to run bower: %s" % e, file=sys.stderr)
             print("You can install js dependencies with `npm install`", file=sys.stderr)
