@@ -2,6 +2,29 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.4
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.5.3...04ddbeffc4005eb25951ee9cceb2c6d542854cf6))
+
+### Bugs fixed
+
+- Copy marked.umd.js to marked.js and revert loading [#236](https://github.com/jupyter/nbclassic/pull/236) ([@echarles](https://github.com/echarles))
+- CI Test Fixed Round6a [#234](https://github.com/jupyter/nbclassic/pull/234) ([@ericsnekbytes](https://github.com/ericsnekbytes))
+- CI Test Fixes Round 5 [#232](https://github.com/jupyter/nbclassic/pull/232) ([@ericsnekbytes](https://github.com/ericsnekbytes))
+
+### Maintenance and upkeep improvements
+
+- CI Test Fixed Round6a [#234](https://github.com/jupyter/nbclassic/pull/234) ([@ericsnekbytes](https://github.com/ericsnekbytes))
+- CI Test Fixes Round 5 [#232](https://github.com/jupyter/nbclassic/pull/232) ([@ericsnekbytes](https://github.com/ericsnekbytes))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2023-03-06&to=2023-03-30&type=c))
+
+[@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2023-03-06..2023-03-30&type=Issues) | [@ericsnekbytes](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aericsnekbytes+updated%3A2023-03-06..2023-03-30&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.5.3
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.5.2...c0ced4f1472100f9de8e773af9b6cd6e254ce1be))
@@ -20,8 +43,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2023-02-18&to=2023-03-06&type=c))
 
 [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2023-02-18..2023-03-06&type=Issues) | [@ericsnekbytes](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aericsnekbytes+updated%3A2023-02-18..2023-03-06&type=Issues) | [@frenzymadness](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Afrenzymadness+updated%3A2023-02-18..2023-03-06&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2023-02-18..2023-03-06&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.5.2
 
