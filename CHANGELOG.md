@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.5
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.5.4...8313c3d32f382c712a6c6eae2953ca9157410215))
+
+### Merged PRs
+
+- Remove redirect from /notebooks to /files [#235](https://github.com/jupyter/nbclassic/pull/235) ([@mwouts](https://github.com/mwouts))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2023-03-30&to=2023-04-05&type=c))
+
+[@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2023-03-30..2023-04-05&type=Issues) | [@matthew-brett](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Amatthew-brett+updated%3A2023-03-30..2023-04-05&type=Issues) | [@mwouts](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Amwouts+updated%3A2023-03-30..2023-04-05&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.5.4
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.5.3...04ddbeffc4005eb25951ee9cceb2c6d542854cf6))
@@ -22,8 +38,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2023-03-06&to=2023-03-30&type=c))
 
 [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2023-03-06..2023-03-30&type=Issues) | [@ericsnekbytes](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aericsnekbytes+updated%3A2023-03-06..2023-03-30&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.5.3
 
