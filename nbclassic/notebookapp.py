@@ -120,6 +120,13 @@ class NotebookApp(
 
     default_url = Unicode("%s/tree" % nbclassic_path()).tag(config=True)
 
+    show_banner = Bool(
+        True,
+        help="""Whether the banner is displayed on the page.
+        By default, the banner is displayed.
+        """
+        ).tag(config=True)
+
     # Override the default open_Browser trait in ExtensionApp,
     # setting it to True.
     open_browser = Bool(
@@ -184,6 +191,7 @@ class NotebookApp(
             base_dir, 'nbclassic/i18n'), fallback=True)
         self.jinja2_env.install_gettext_translations(nbui, newstyle=False)
         self.jinja2_env.globals.update(nbclassic_path=nbclassic_path)
+        self.jinja2_env.globals.update(show_banner=self.show_banner)
 
     def _link_jupyter_server_extension(self, serverapp):
         # Monkey-patch Jupyter Server's and nbclassic's static path list to include
