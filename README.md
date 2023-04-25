@@ -11,7 +11,7 @@ support during an intermediate transition period to Notebook 7, for users
 with extensions and other customizations that cannot yet be upgraded
 to the new version of Notebook.
 
-In the future, Jupyter frontends like NBClassic and JupyterLab will coexist
+In the future, Jupyter frontends like NbClassic and JupyterLab will coexist
 side-by-side on top of a [Jupyter Server] backend. This package makes that
 possible: You can install this package beside an existing JupyterLab or
 Jupyter Notebook 7 environment, and get the best of both worlds:
