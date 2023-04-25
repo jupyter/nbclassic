@@ -20,4 +20,4 @@ dependencies:
   - sphinxcontrib_github_alt
   - ipython_genutils
   - jupyter_server>=1.8
-  - notebook_shim>=0.1.0
+  - notebook_shim>=0.2.3
