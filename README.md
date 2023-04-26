@@ -1,41 +1,50 @@
-# Jupyter Notebook as a Jupyter Server Extension
+# The Classic Jupyter Notebook as a Jupyter Server Extension
 
 ![Testing nbclassic](https://github.com/jupyterlab/nbclassic/workflows/Testing%20nbclassic/badge.svg)
 [![Documentation Status](https://readthedocs.org/projects/nbclassic/badge/?version=latest)](https://nbclassic.readthedocs.io/en/latest/?badge=latest)
 
-NBClassic is the classic Jupyter Notebook application (with the classic
-Javascript interface) running on Jupyter Server.
+*Read the full [NbClassic User Manual here]!*
 
-This project provides compatibility with the old notebook interface and
-support during an intermediate transition period to Notebook 7, for users
-with extensions and other customizations that cannot yet be upgraded
-to the new version of Notebook.
+The Jupyter Notebook is [evolving to bring you big new features], but it
+will also break backwards compatibility with many classic Jupyter Notebook
+extensions and customizations.
 
-In the future, Jupyter frontends like NbClassic and JupyterLab will coexist
-side-by-side on top of a [Jupyter Server] backend. This package makes that
-possible: You can install this package beside an existing JupyterLab or
-Jupyter Notebook 7 environment, and get the best of both worlds:
+NbClassic provides a backwards compatible Jupyter Notebook interface that
+you can install side-by-side with the latest versions: That way, you can
+fearlessly upgrade without worrying about your classic extensions and
+customizations breaking.
 
-- The newest features from the latest applications
-- Compatibility for older classic extensions and tools that are important
-  to existing workflows, but that cannot yet be converted to the new versions
+How does it work?
+
+Because NbClassic provides the classic interface on top of the new [Jupyter
+Server] backend, it can coexist with other frontends like JupyterLab and
+Notebook 7 in the same installation. NbClassic preserves the custom classic
+notebook experience under a new set of URL endpoints, under the namespace
+`/nbclassic/`.
 
 ## Basic Usage
 
 Install from PyPI:
+
 ```
 > pip install nbclassic
 ```
-This will automatically enable the extension in Jupyter Server.
+
+This will automatically enable the NbClassic Jupyter Server extension in Jupyter Server.
 
 Launch directly:
+
 ```
 > jupyter nbclassic
 ```
 
-Alternatively, you can run Jupyter Server and visiting the `/tree` endpoint:
+TODO: Add info about side by side installs/usage, etc.
+Alternatively, you can run Jupyter Server and visit the `/tree` endpoint:
+
 ```
 > jupyter server
 ```
 
 [Jupyter Server]: https://github.com/jupyter/jupyter_server/
+[evolving to bring you big new features]: https://jupyter-notebook.readthedocs.io/en/latest/migrate_to_notebook7.html
+[NbClassic User Manual here]: https://nbclassic.readthedocs.io/en/latest/
