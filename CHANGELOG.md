@@ -2,6 +2,28 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.6
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.5.5...ddbbf579a904ef1c040f3221f7dd64d287323636))
+
+### Enhancements made
+
+- Add show_banner trait to control the banner display [#243](https://github.com/jupyter/nbclassic/pull/243) ([@echarles](https://github.com/echarles))
+
+### Other merged PRs
+
+- Updated main page README. [#246](https://github.com/jupyter/nbclassic/pull/246) ([@ericsnekbytes](https://github.com/ericsnekbytes))
+- Use the correct icon to display the application [#245](https://github.com/jupyter/nbclassic/pull/245) ([@befeleme](https://github.com/befeleme))
+- State the correct name of the application in the desktop entry [#244](https://github.com/jupyter/nbclassic/pull/244) ([@befeleme](https://github.com/befeleme))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2023-04-05&to=2023-04-27&type=c))
+
+[@befeleme](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Abefeleme+updated%3A2023-04-05..2023-04-27&type=Issues) | [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2023-04-05..2023-04-27&type=Issues) | [@ericsnekbytes](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aericsnekbytes+updated%3A2023-04-05..2023-04-27&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.5.5
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.5.4...8313c3d32f382c712a6c6eae2953ca9157410215))
@@ -15,8 +37,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2023-03-30&to=2023-04-05&type=c))
 
 [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2023-03-30..2023-04-05&type=Issues) | [@matthew-brett](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Amatthew-brett+updated%3A2023-03-30..2023-04-05&type=Issues) | [@mwouts](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Amwouts+updated%3A2023-03-30..2023-04-05&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.5.4
 
