@@ -21,7 +21,7 @@ transition to using the Jupyter Notebook 7. The NbClassic package
 intends to address that need.
 
 You can read more about the migration impacts and coexistence of NbClassic and Notebook package on 
-the `NbClassic and Notebook mibration plan <https://jupyter-notebook.readthedocs.io/en/latest/migrate_to_notebook7.html>`_ page.
+the `NbClassic and Notebook migration plan <https://jupyter-notebook.readthedocs.io/en/latest/migrate_to_notebook7.html>`_ page.
 
 .. _Jupyter Enhancement Proposal #79: https://jupyter.org/enhancement-proposals/79-notebook-v7/notebook-v7.html
 
