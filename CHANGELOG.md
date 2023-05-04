@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.0.0
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.5.6...109a62153a74bae9a38f0c4bec460a91429f0c19))
+
+### Bugs fixed
+
+- Fix typo in documentation [#249](https://github.com/jupyter/nbclassic/pull/249) ([@echarles](https://github.com/echarles))
+
+### Documentation improvements
+
+- Fix typo in documentation [#249](https://github.com/jupyter/nbclassic/pull/249) ([@echarles](https://github.com/echarles))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2023-04-27&to=2023-05-04&type=c))
+
+[@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2023-04-27..2023-05-04&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.5.6
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.5.5...ddbbf579a904ef1c040f3221f7dd64d287323636))
@@ -21,8 +41,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2023-04-05&to=2023-04-27&type=c))
 
 [@befeleme](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Abefeleme+updated%3A2023-04-05..2023-04-27&type=Issues) | [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2023-04-05..2023-04-27&type=Issues) | [@ericsnekbytes](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aericsnekbytes+updated%3A2023-04-05..2023-04-27&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.5.5
 
