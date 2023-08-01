@@ -1,7 +1,7 @@
 .. _frontend_config:
 
 Configuring the NbClassic frontend
-=================================
+==================================
 
 .. note::
 

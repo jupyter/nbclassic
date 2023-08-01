@@ -161,12 +161,37 @@ todo_include_todos = False
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'sphinx_rtd_theme'
+html_theme = "pydata_sphinx_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#html_theme_options = {}
+html_theme_options = {
+    "icon_links": [
+        {
+            "name": "PyPI",
+            "url": "https://pypi.org/project/nbclassic",
+            "icon": "fa-solid fa-box",
+        }
+    ],
+    "use_edit_page_button": True,
+    "github_url": "https://github.com/jupyter/nbclassic",
+    "navbar_end": [
+        # disabled until widget dark variables are available
+        # "theme-switcher",
+        "navbar-icon-links",
+    ],
+    "secondary_sidebar_items": ["edit-this-page", "sourcelink", "search-field.html"]
+}
+
+html_context = {
+    # disabled until widget dark variables are available
+    "default_mode": "light",
+    "doc_path": "docs",
+    "github_repo": "nbclassic",
+    "github_user": "jupyter",
+    "github_version": "main",
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
@@ -209,7 +234,9 @@ html_static_path = ['_static']
 #html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+html_sidebars = {
+    "**": ["sidebar-nav-bs-index.html"]
+}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
