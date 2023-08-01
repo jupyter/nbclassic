@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Is this a common issue? See our Docs.
+    url: https://nbclassic.readthedocs.io/en/latest/troubleshooting.html#what-to-do-when-things-go-wrong
+    about: Before opening an issue, make sure your issue hasn't already been addressed in the documentation.
