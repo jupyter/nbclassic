@@ -3,7 +3,7 @@
 The Jupyter Notebook
 ====================
 
-* `NbClassic Installation <NbClassicUsage>`_
+* :ref:`NbClassic Installation <NbClassicUsage>`
 * `Starting the Notebook <https://jupyter.readthedocs.io/en/latest/running.html>`_
 
 Introduction
