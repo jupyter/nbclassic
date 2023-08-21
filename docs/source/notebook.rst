@@ -1,5 +1,4 @@
-.. _htmlnotebook:
-
+====================
 The Jupyter Notebook
 ====================
 

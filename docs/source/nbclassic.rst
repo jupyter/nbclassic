@@ -1,9 +1,8 @@
 :html_theme.sidebar_secondary.remove:
 
-.. _htmlnotebook:
-
+=================
 Jupyter NbClassic
-====================
+=================
 .. toctree::
    :maxdepth: 2
    

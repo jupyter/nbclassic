@@ -6,7 +6,7 @@ from nbclassic.notebookapp import NotebookApp
 header = """\
 .. _config:
 
-
+====================================
 Config file and command line options
 ====================================
 

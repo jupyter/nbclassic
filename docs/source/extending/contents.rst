@@ -1,5 +1,4 @@
-.. _contents_api:
-
+============
 Contents API
 ============
 
