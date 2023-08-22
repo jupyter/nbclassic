@@ -1,5 +1,4 @@
-.. _configuration-overview:
-
+======================
 Configuration Overview
 ======================
 
@@ -51,7 +50,7 @@ front-end NbClassic client (i.e. the familiar notebook interface).
 
       :ref:`Command line arguments for configuration <config>` settings are documented in the configuration file and the user documentation.
       
-  - :ref:`Running a Notebook server <working_remotely>`
+  - Review the section: :ref:`Running a Notebook server <working_remotely>`
   - Related: `Configuring a language kernel <https://ipython.readthedocs.io/en/latest/install/kernel_install.html>`_
     to run in the Notebook server enables your server to run other languages, like R or Julia.
 

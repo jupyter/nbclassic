@@ -1,5 +1,6 @@
 .. _working_remotely:
 
+=======================================
 Running a Jupyter Server with NbClassic
 =======================================
 

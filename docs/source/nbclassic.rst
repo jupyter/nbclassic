@@ -1,8 +1,11 @@
-.. _htmlnotebook:
+:html_theme.sidebar_secondary.remove:
 
+=================
 Jupyter NbClassic
-====================
-
+=================
+.. toctree::
+   :maxdepth: 2
+   
 Introduction
 ------------
 
@@ -34,14 +37,14 @@ Installation
 ~~~~~~~~~~~~
 
 Installing from PyPI:
-``> pip install nbclassic``
+``pip install nbclassic``
 This will automatically enable the extension in Jupyter Server.
 
 Launch directly:
-``> jupyter nbclassic``
+``jupyter nbclassic``
 
 Alternatively, you can run Jupyter Server and visit the `/tree` endpoint:
-``> jupyter server``
+``jupyter server``
 
 Configuration
 ~~~~~~~~~~~~~

@@ -1,5 +1,3 @@
-.. _development_faq:
-
 Developer FAQ
 =============
 

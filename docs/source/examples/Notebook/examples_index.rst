@@ -9,7 +9,7 @@ __ https://nbviewer.jupyter.org/github/jupyter/nbclassic/blob/main/
    docs/source/examples/Notebook/
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    What is the Jupyter Notebook
    Notebook Basics

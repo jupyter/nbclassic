@@ -6,38 +6,24 @@ Jupyter NbClassic
 
 .. toctree::
    :maxdepth: 1
-   :caption: User Documentation
+   :titlesonly:
 
-   nbclassic
-   notebook
-   ui_components
-   examples/Notebook/examples_index.rst
-   troubleshooting
-   changelog
-   comms
+   user_docs
+
+Information about using and troubleshooting NbClassic as well as examples and changes throughout the history of the project.
 
 .. toctree::
    :maxdepth: 1
-   :caption: Configuration
+   :titlesonly:
 
-   config_overview
-   config
-   public_server
-   security
-   frontend_config
-   examples/Notebook/Distributing Jupyter Extensions as Python Packages
-   extending/index.rst
+   config_docs
+
+Find out more about configuring NbClassic.
 
 .. toctree::
    :maxdepth: 1
-   :caption: Contributor Documentation
+   :titlesonly:
 
-   contributing
-   nbclassic_dev_faq
-   development_faq
+   contribute_docs      
 
-.. toctree::
-    :hidden:
-
-    examples/Notebook/nbpackage/mynotebook.ipynb
-    examples/Notebook/nbpackage/nbs/other.ipynb
+Additional information about contributing to and developing NbClassic.
