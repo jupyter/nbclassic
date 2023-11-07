@@ -2867,6 +2867,10 @@ define([
     Notebook.prototype.save_notebook_as = function() {
         var that = this;
         var current_dir = $('body').attr('data-notebook-path').split('/').slice(0, -1).join("/");
+        var current_notebook_name = $('body').attr('data-notebook-name')
+        console.log(current_dir)
+        console.log(current_notebook_name)
+
         current_dir = current_dir? current_dir + "/": "";
         current_dir = decodeURIComponent(current_dir);
         var dialog_body = $('<div/>').append(
@@ -2893,12 +2897,16 @@ define([
                         var nb_path = d.find('input').val();
                         var nb_name = nb_path.split('/').slice(-1).pop();
                         if (!nb_name) {
-                            $(".save-message").html(
+                            nb_name = current_notebook_name
+                            let path = nb_path.split('/').slice(0, -1)
+                            path.push(current_notebook_name)
+                            var nb_path = path.join('/')
+                            /* $(".save-message").html(
                                     $("<span>")
                                         .attr("style", "color:red;")
                                         .text($(".save-message").text())
                                 );
-                            return false;
+                            return false; */
                         }
                         // If notebook name does not contain extension '.ipynb' add it
                         var ext = utils.splitext(nb_name)[1];
@@ -2930,7 +2938,33 @@ define([
                                             .text(msg)
                                     );
                                 });
+                        };              
+                        var getParentPath = function(path) {
+                            return path.split('/').slice(0, -1).join('/')
                         };
+                        function makeParentDirectory(path) {
+                            var parent_path = getParentPath(path)
+                            var check_parent = that.contents.get(parent_path, {type: 'directory', content: false})
+                            var recursed = check_parent.catch(
+                                function(err) {
+                                    return makeParentDirectory(parent_path)
+                                }
+                            )
+                            var save_it = Promise.allSettled([check_parent, recursed]).then(
+                                function() {
+                                model = {
+                                        'type': 'directory',
+                                        'name': '',
+                                        'path': utils.url_path_split(path)[0]
+                                    }
+                                    console.log(model)
+                                    return that.contents.save(path, model).catch();
+                                }
+                            )
+                            save_it.then(() => {console.log('saved', path)})
+                            return save_it
+                        };
+                        
                         that.contents.get(nb_path, {type: 'notebook', content: false}).then(function(data) {
                             var warning_body = $('<div/>').append(
                                 $("<p/>").text(i18n.msg._('Notebook with that name exists.')));
@@ -2942,18 +2976,48 @@ define([
                                     class: 'btn-warning',
                                     click: function() {
                                         return save_thunk();
-                                    }
+                                    }       
                                 }
                             }
                             });
                         }, function(err) {
-                            return save_thunk();
+                            var nb_path_parent = getParentPath(nb_path)
+                            that.contents.get(nb_path_parent, {type: 'directory', content: false}).then(
+                                function (data) {
+                                    console.log('path parent exists')
+                                    return save_thunk();
+                                },
+                                function(err) {
+                                    console.log('path parent doesnt exists')
+                                    var warning_body = $('<div/>').append(
+                                        $("<p/>").text(i18n.msg._('Directory does not exist.'))
+                                    );
+                                    dialog.modal({
+                                        title: 'Create New Directory?',
+                                        body: warning_body,
+                                        buttons: {
+                                            Cancel: {},
+                                            createNew: {
+                                                class: 'btn-warning',
+                                                click: function() {
+                                                    return makeParentDirectory(nb_path_parent).then(
+                                                        function(data) {
+                                                            return save_thunk()
+                                                        }
+                                                    )
+                                                
+                                                }
+                                            }                                    
+                                        }
+                                    })
+                                }
+                            );
                         });
-                        return false;
-                    }
+                        return false;        
+                        }
+                    },
                 },
-            },
-            open : function () {
+                open : function () {
                 d.find('input[type="text"]').keydown(function (event) {
                     if (event.which === keyboard.keycodes.enter) {
                         d.find('.btn-primary').first().click();
