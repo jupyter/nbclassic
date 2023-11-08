@@ -2930,6 +2930,8 @@ define([
                                     that.session.rename_notebook(data.path);
                                     that.events.trigger('notebook_renamed.Notebook', data);
                                     that.save_notebook_success(start, data);
+                                    document.body.setAttribute('data-notebook-path', that.notebook_path)
+                                    document.body.setAttribute('data-notebook-name', that.notebook_name)    
                                 }, function(error) {
                                     var msg = i18n.msg._(error.message || 'Unknown error saving notebook');
                                     $(".save-message").html(
@@ -3168,6 +3170,10 @@ define([
                 that._last_modified = json.last_modified;
                 that.session.rename_notebook(json.path);
                 that.events.trigger('notebook_renamed.Notebook', json);
+
+                // update document attributes after rename
+                document.body.setAttribute('data-notebook-path', that.notebook_path)
+                document.body.setAttribute('data-notebook-name', that.notebook_name)
             }
         );
     };
