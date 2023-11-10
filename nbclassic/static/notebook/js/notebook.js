@@ -2970,7 +2970,7 @@ define([
                                     class: 'btn-warning',
                                     click: function() {
                                         return save_thunk();
-                                    }       
+                                    }
                                 }
                             }
                             });
