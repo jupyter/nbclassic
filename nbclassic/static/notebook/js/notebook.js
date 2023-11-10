@@ -2866,11 +2866,8 @@ define([
 
     Notebook.prototype.save_notebook_as = function() {
         var that = this;
-        var current_dir = $('body').attr('data-notebook-path').split('/').slice(0, -1).join("/");
         var current_notebook_name = $('body').attr('data-notebook-name')
-        console.log(current_dir)
-        console.log(current_notebook_name)
-
+        var current_dir = $('body').attr('data-notebook-path').split('/').slice(0, -1).join("/");
         current_dir = current_dir? current_dir + "/": "";
         current_dir = decodeURIComponent(current_dir);
         var dialog_body = $('<div/>').append(
@@ -2897,16 +2894,11 @@ define([
                         var nb_path = d.find('input').val();
                         var nb_name = nb_path.split('/').slice(-1).pop();
                         if (!nb_name) {
+                            // infer notebook name from current file
                             nb_name = current_notebook_name
                             let path = nb_path.split('/').slice(0, -1)
                             path.push(current_notebook_name)
                             var nb_path = path.join('/')
-                            /* $(".save-message").html(
-                                    $("<span>")
-                                        .attr("style", "color:red;")
-                                        .text($(".save-message").text())
-                                );
-                            return false; */
                         }
                         // If notebook name does not contain extension '.ipynb' add it
                         var ext = utils.splitext(nb_name)[1];
@@ -2954,16 +2946,16 @@ define([
                             )
                             var save_it = Promise.allSettled([check_parent, recursed]).then(
                                 function() {
-                                model = {
-                                        'type': 'directory',
-                                        'name': '',
-                                        'path': utils.url_path_split(path)[0]
-                                    }
-                                    console.log(model)
-                                    return that.contents.save(path, model).catch();
+                                    model = {
+                                            'type': 'directory',
+                                            'name': '',
+                                            'path': utils.url_path_split(path)[0]
+                                        }
+                                        console.log(model)
+                                        return that.contents.save(path, model).catch();
                                 }
                             )
-                            save_it.then(() => {console.log('saved', path)})
+                            save_it.catch()
                             return save_it
                         };
                         
@@ -2986,20 +2978,18 @@ define([
                             var nb_path_parent = getParentPath(nb_path)
                             that.contents.get(nb_path_parent, {type: 'directory', content: false}).then(
                                 function (data) {
-                                    console.log('path parent exists')
                                     return save_thunk();
                                 },
                                 function(err) {
-                                    console.log('path parent doesnt exists')
                                     var warning_body = $('<div/>').append(
-                                        $("<p/>").text(i18n.msg._('Directory does not exist.'))
+                                        $("<p/>").text(i18n.msg._('Create missing directory?'))
                                     );
                                     dialog.modal({
-                                        title: 'Create New Directory?',
+                                        title: 'Directory does not exist',
                                         body: warning_body,
                                         buttons: {
                                             Cancel: {},
-                                            createNew: {
+                                            Create: {
                                                 class: 'btn-warning',
                                                 click: function() {
                                                     return makeParentDirectory(nb_path_parent).then(
@@ -3015,7 +3005,7 @@ define([
                                 }
                             );
                         });
-                        return false;        
+                        return false;
                         }
                     },
                 },
