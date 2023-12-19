@@ -29,8 +29,7 @@ casper.open_new_notebook = function () {
     
     this.waitForPopup('');
 
-    // Wait a bit for script to redirect to the notebook URL
-    this.wait(1000);
+    this.waitFor(this.popup_has_url);
     this.then(function () {
         console.log('Opening a new notebook under URL: ' + this.popups[0].url);
         this.open(this.popups[0].url);
@@ -89,6 +88,12 @@ casper.page_loaded = function() {
         return typeof IPython !== "undefined" &&
             IPython.page !== undefined;
     });
+};
+
+casper.popup_has_url = function() {
+    // Return whether there is a popup with non blank URL.
+    var url = this.popups[0].url;
+    return typeof url !== 'undefined' && url != 'about:blank';
 };
 
 casper.kernel_running = function() {
