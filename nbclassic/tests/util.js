@@ -29,11 +29,13 @@ casper.open_new_notebook = function () {
     
     this.waitForPopup('');
 
-    this.withPopup('', function () {this.waitForSelector('.CodeMirror-code');});
+    this.waitFor(this.popup_has_url);
     this.then(function () {
+        console.log('Opening a new notebook under URL: ' + this.popups[0].url);
         this.open(this.popups[0].url);
     });
     this.waitFor(this.page_loaded);
+    this.waitForSelector('.CodeMirror-code');
 
     // Hook the log and error methods of the console, forcing them to
     // serialize their arguments before printing.  This allows the
@@ -86,6 +88,12 @@ casper.page_loaded = function() {
         return typeof IPython !== "undefined" &&
             IPython.page !== undefined;
     });
+};
+
+casper.popup_has_url = function() {
+    // Return whether there is a popup with non blank URL.
+    var url = this.popups[0].url;
+    return typeof url !== 'undefined' && url != 'about:blank';
 };
 
 casper.kernel_running = function() {
