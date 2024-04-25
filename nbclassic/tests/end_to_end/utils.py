@@ -881,7 +881,8 @@ class NotebookFrontend:
         else:
             raise Exception('Error, provide a valid page to evaluate from!')
 
-        return specified_page.url
+        # specified_page.url seems to give stale values, so we use evaluate instead
+        return specified_page.evaluate("() => { return window.location.href }")
 
     def go_back(self, page):
         if page == TREE_PAGE:
