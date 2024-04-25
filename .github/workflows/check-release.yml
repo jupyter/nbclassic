@@ -7,7 +7,7 @@ on:
 
 jobs:
   check_release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         group: [check_release, link_check]
