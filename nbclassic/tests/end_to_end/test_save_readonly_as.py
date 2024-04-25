@@ -1,7 +1,10 @@
 """Test readonly notebook saved and renamed"""
 
 
+import sys
 import traceback
+
+import pytest
 
 from .utils import EDITOR_PAGE, EndToEndTimeout
 
@@ -20,7 +23,8 @@ def set_notebook_name(nb, name):
     JS = f'() => Jupyter.notebook.rename("{name}")'
     nb.evaluate(JS, page=EDITOR_PAGE)
 
-
+# on Python 3.7 we get an old playwright which hangs on body.press("Escape")
+@pytest.mark.skipif(sys.version_info < (3, 8), reason="requires python3.8 or higher due to playwright")
 def test_save_readonly_as(notebook_frontend):
     print('[Test] [test_save_readonly_as]')
     notebook_frontend.wait_for_kernel_ready()
