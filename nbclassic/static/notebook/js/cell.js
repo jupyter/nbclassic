@@ -104,6 +104,14 @@ define([
 
         this.cell_id = utils.uuid();
 
+        // Similar to nbformat, which uses `uuid.uuid4().hex[:8]`
+        // as recommended by JEP 62.
+        // We do not check the nbformat version here, as the notebook will report
+        // the incorrect (4, 1) nbformat version while calling
+        // insert_cell_below(...) in load_notebook_success (in notebook.js).
+        // To not break with nbformat < 4.5, we do not include this field in toJSON.
+        this.id = utils.uuid().slice(0, 8);
+
         // For JS VM engines optimization, attributes should be all set (even
         // to null) in the constructor, and if possible, if different subclass
         // have new attributes with same name, they should be created in the
@@ -494,7 +502,10 @@ define([
         var data = {};
         // deepcopy the metadata so copied cells don't share the same object
         data.metadata = JSON.parse(JSON.stringify(this.metadata));
-        if (this.id !== undefined) {
+        // id's are only introduced in 4.5 and should only be added to 'raw', 'code' and 'markdown' cells
+        var nbformatSupportsIds = (Jupyter.notebook.nbformat == 4 && Jupyter.notebook.nbformat_minor >= 5) || (Jupyter.notebook.nbformat > 4);
+        var cellTypeCanIncludeId = this.cell_type == 'raw' || this.cell_type == 'code' || this.cell_type == 'markdown';
+        if (nbformatSupportsIds && cellTypeCanIncludeId) {
             data.id = this.id;
         }
         if (data.metadata.deletable) {
