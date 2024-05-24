@@ -98,6 +98,11 @@ def test_save_as_nb(notebook_frontend):
         if save_element.is_visible():
             print('[Test] Save element still visible after save, wait for hidden')
             try:
+                cancel_element = dialog_element.locate('text=Cancel')
+                cancel_element.wait_for('visible')
+                cancel_element.focus()
+                cancel_element.click()
+                print('[Test] Cancel element clicked')
                 save_element.expect_not_to_be_visible(timeout=120)
             except EndToEndTimeout as err:
                 traceback.print_exc()
