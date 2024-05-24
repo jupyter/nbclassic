@@ -2,6 +2,39 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.1.0
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v1.0.0...991361437fe0e51da639775f5fbe709cc8212278))
+
+### Enhancements made
+
+- Add issue templates to repository [#258](https://github.com/jupyter/nbclassic/pull/258) ([@RRosio](https://github.com/RRosio))
+
+### Bugs fixed
+
+- Make terminals_available false if key is not in settings dict yet [#261](https://github.com/jupyter/nbclassic/pull/261) ([@RRosio](https://github.com/RRosio))
+
+### Maintenance and upkeep improvements
+
+- fix: trust new notebooks and notebooks with new cells [#275](https://github.com/jupyter/nbclassic/pull/275) ([@maartenbreddels](https://github.com/maartenbreddels))
+- Fix ci end-to-end tests [#274](https://github.com/jupyter/nbclassic/pull/274) ([@maartenbreddels](https://github.com/maartenbreddels))
+- Fix `Linux JS Test` CI job [#269](https://github.com/jupyter/nbclassic/pull/269) ([@krassowski](https://github.com/krassowski))
+- Update dependency requirements to minimum necessary [#259](https://github.com/jupyter/nbclassic/pull/259) ([@RRosio](https://github.com/RRosio))
+
+### Documentation improvements
+
+- Adding pydata_sphinx_theme to environment.yml file for docs build [#262](https://github.com/jupyter/nbclassic/pull/262) ([@RRosio](https://github.com/RRosio))
+- Fix links for check_release links CI job [#260](https://github.com/jupyter/nbclassic/pull/260) ([@RRosio](https://github.com/RRosio))
+- Port to PyData-Sphinx Theme [#256](https://github.com/jupyter/nbclassic/pull/256) ([@RRosio](https://github.com/RRosio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2023-05-04&to=2024-05-24&type=c))
+
+[@jph00](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Ajph00+updated%3A2023-05-04..2024-05-24&type=Issues) | [@krassowski](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Akrassowski+updated%3A2023-05-04..2024-05-24&type=Issues) | [@maartenbreddels](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Amaartenbreddels+updated%3A2023-05-04..2024-05-24&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2023-05-04..2024-05-24&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.0.0
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v0.5.6...109a62153a74bae9a38f0c4bec460a91429f0c19))
@@ -19,8 +52,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2023-04-27&to=2023-05-04&type=c))
 
 [@echarles](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aecharles+updated%3A2023-04-27..2023-05-04&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.5.6
 
