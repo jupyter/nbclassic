@@ -72,20 +72,3 @@ NbClassic Developer FAQ
     .. _`allowed organization list`: https://github.com/MeeseeksBox/MeeseeksDev/blob/master/meeseeksdev/__init__.py#L26
     .. _`Jupyter Community`: https://jupyter.org/community
 
-
-Known issues
-------------
-
-Bellow are some known bugs and issues with the NbClassic project. These are items that may be of particular interest to users
-migrating from notebook to nbclassic.
-
-1. `#140 Error using jupyter_nbextensions_configurator with nbclassic <https://github.com/jupyter/nbclassic/issues/140>`_ is a 
-known issue with partial fix `Support nbclassic while updating the static path <https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator/pull/141>`_ 
-pending to be merged into the `Jupyter-contrib/jupyter_nbextensions_configurator <https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator>`_ repository.
-
-    Once a release with this fix is available, users will be able to activate the extension with the following commands::
-
-    $ pip install 'jupyter_nbextensions_configurator @ git+https://github.com/datalayer-externals/jupyter-notebook-configurator.git@fix/nbclassic#egg=jupyter_nbextensions_configurator'
-    $ jupyter nbclassic-extension install --sys-prefix --py jupyter_nbextensions_configurator --overwrite
-    $ jupyter nbclassic-extension enable --sys-prefix --py jupyter_nbextensions_configurator
-    $ jupyter nbclassic-serverextension enable --sys-prefix --py jupyter_nbextensions_configurator
