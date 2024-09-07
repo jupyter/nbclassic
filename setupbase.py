@@ -12,7 +12,7 @@ This includes:
 
 import os
 import re
-import pipes
+import shlex
 import shutil
 import sys
 
@@ -27,7 +27,7 @@ if sys.platform == 'win32':
     from subprocess import list2cmdline
 else:
     def list2cmdline(cmd_list):
-        return ' '.join(map(pipes.quote, cmd_list))
+        return ' '.join(map(shlex.quote, cmd_list))
 
 #-------------------------------------------------------------------------------
 # Useful globals and utility functions
@@ -486,7 +486,7 @@ class CompileCSS(Command):
             try:
                 run(['lessc',
                     '--source-map',
-                    '--include-path=%s' % pipes.quote(static),
+                    '--include-path=%s' % shlex.quote(static),
                     src,
                     dst,
                 ], cwd=repo_root, env=env)
