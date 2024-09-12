@@ -2,6 +2,28 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.2.0
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v1.1.0...abe28bc4fe5d3e026c68c01248047656f58db635))
+
+### Bugs fixed
+
+- Add `view` handler to serve files when Notebook 7 is installed [#287](https://github.com/jupyter/nbclassic/pull/287) ([@RRosio](https://github.com/RRosio))
+- fix: pasting outside of cells doing nothing [#285](https://github.com/jupyter/nbclassic/pull/285) ([@iisakkirotko](https://github.com/iisakkirotko))
+
+### Maintenance and upkeep improvements
+
+- Link and Docs Update [#290](https://github.com/jupyter/nbclassic/pull/290) ([@RRosio](https://github.com/RRosio))
+- Replace pipes with shlex [#286](https://github.com/jupyter/nbclassic/pull/286) ([@frenzymadness](https://github.com/frenzymadness))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2024-05-24&to=2024-09-12&type=c))
+
+[@frenzymadness](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Afrenzymadness+updated%3A2024-05-24..2024-09-12&type=Issues) | [@iisakkirotko](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aiisakkirotko+updated%3A2024-05-24..2024-09-12&type=Issues) | [@maartenbreddels](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Amaartenbreddels+updated%3A2024-05-24..2024-09-12&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2024-05-24..2024-09-12&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.1.0
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v1.0.0...991361437fe0e51da639775f5fbe709cc8212278))
@@ -32,8 +54,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2023-05-04&to=2024-05-24&type=c))
 
 [@jph00](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Ajph00+updated%3A2023-05-04..2024-05-24&type=Issues) | [@krassowski](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Akrassowski+updated%3A2023-05-04..2024-05-24&type=Issues) | [@maartenbreddels](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Amaartenbreddels+updated%3A2023-05-04..2024-05-24&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2023-05-04..2024-05-24&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 1.0.0
 
