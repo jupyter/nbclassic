@@ -325,7 +325,7 @@ class NotebookApp(
         router.add_rules(core_rules)
         router.add_rules(static_handlers)
         router.add_rules(final_rules)
-        print("""
+        print(r"""
   _   _          _      _
  | | | |_ __  __| |__ _| |_ ___
  | |_| | '_ \/ _` / _` |  _/ -_)
