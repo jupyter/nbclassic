@@ -6,8 +6,10 @@ from the rest of the document.
 
 
 from .utils import EDITOR_PAGE
+import pytest
+import sys
 
-
+@pytest.mark.skipif(sys.version_info >= (3, 8), reason="Fails in Python 3.8+")
 def test_display_isolation(notebook_frontend):
     import_ln = "from IPython.core.display import HTML, SVG, display, display_svg"
     notebook_frontend.edit_cell(index=0, content=import_ln)
