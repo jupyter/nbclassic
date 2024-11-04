@@ -74,8 +74,8 @@ function paste(event) {
         }
     }
     first_inserted.focus_cell();
+    event.preventDefault();
   }
-  event.preventDefault();
 }
 
 function notebookOnlyEvent(callback) {

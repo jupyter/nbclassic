@@ -1,8 +1,9 @@
 name: nbclassic_docs
 channels:
   - conda-forge
+  - nodefaults
 dependencies:
-- python=3.8
+- python=3.10
 - pydata-sphinx-theme
 - jinja2
 - tornado

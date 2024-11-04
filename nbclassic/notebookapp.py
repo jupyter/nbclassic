@@ -280,6 +280,7 @@ class NotebookApp(
         handlers.extend(load_handlers('nbclassic.tree.handlers'))
         handlers.extend(load_handlers('nbclassic.notebook.handlers'))
         handlers.extend(load_handlers('nbclassic.edit.handlers'))
+        handlers.extend(load_handlers('nbclassic.view.handlers'))
         self.handlers.extend(handlers)
 
         # Wildcard routes
@@ -324,7 +325,7 @@ class NotebookApp(
         router.add_rules(core_rules)
         router.add_rules(static_handlers)
         router.add_rules(final_rules)
-        print("""
+        print(r"""
   _   _          _      _
  | | | |_ __  __| |__ _| |_ ___
  | |_| | '_ \/ _` / _` |  _/ -_)
