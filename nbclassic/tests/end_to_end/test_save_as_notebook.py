@@ -120,3 +120,78 @@ def test_save_as_nb(notebook_frontend):
         timeout=120,
         period=5
     )
+
+
+    print('[Test] Begin attempts to fill the save dialog input and save the notebook with a new directory')
+    fill_attempts=0
+
+    def attempt_form_fill_w_dir_and_save():
+        # Application behavior here is HIGHLY variable, we use this for repeated attempts
+        # ....................
+        # This may be a retry, check if the application state reflects a successful save operation
+        nonlocal fill_attempts
+        if fill_attempts and get_notebook_name(notebook_frontend) == "new_notebook.ipynb":
+            print('[Test]   Success from previous save attempt!')
+            return True
+        fill_attempts += 1
+        print(f'[Test] Attempt form fill with directory and save #{fill_attempts}')
+
+        # Make sure the save prompt is visible
+        if not name_input_element.is_visible():
+            save_as(notebook_frontend)
+            name_input_element.wait_for('visible')
+
+        # Set the notebook name field in the save dialog
+        print('[Test] Fill the input field')
+        name_input_element.evaluate(f'(elem) => {{ elem.value = "new_\\folder/new_notebook.ipynb"; return elem.value; }}')
+        condition = notebook_frontend.wait_for_condition(
+            lambda: name_input_element.evaluate(
+                f'(elem) => {{ elem.value = "new_\\folder/new_notebook.ipynb"; return elem.value; }}') == 'new_folder/new_notebook.ipynb',
+            timeout=120,
+            period=.25
+        )
+        if condition is None:
+            raise RuntimeError
+        # Show the input field value
+        print('[Test] Name input field contents:')
+        field_value = name_input_element.evaluate(f'(elem) => {{ return elem.value; }}')
+        print('[Test]   ' + field_value)
+        if field_value != 'new_notebook.ipynb':
+            return False
+
+        print('[Test] Locate and click the save button')
+        save_element = dialog_element.locate('text=Save')
+        save_element.wait_for('visible')
+        save_element.focus()
+        save_element.click()
+
+        print('[Test] Locate and click the create button')
+        create_button_selector = '.modal-dialog .modal-body .btn-warning'
+        notebook_frontend.wait_for_selector(create_button_selector, page=EDITOR_PAGE)
+        create_element = notebook_frontend.locate(create_button_selector, page=EDITOR_PAGE)
+        create_element.wait_for('visible')
+        create_element.focus()
+        create_element.click()
+
+
+        # Application lag may cause the save dialog to linger,
+        # if it's visible wait for it to disappear before proceeding
+        if save_element.is_visible():
+            print('[Test] Save element still visible after save, wait for hidden')
+            try:
+                save_element.expect_not_to_be_visible(timeout=120)
+            except EndToEndTimeout as err:
+                traceback.print_exc()
+                print('[Test]   Save button failed to hide...')
+
+        # Check if the save operation succeeded (by checking notebook name change)
+        notebook_frontend.wait_for_condition(
+            lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
+        )
+        print(f'[Test] Notebook name: {get_notebook_name(notebook_frontend)}')
+        print('[Test] Notebook name was changed!')
+        return True
+
+    notebook_frontend.wait_for_condition(attempt_form_fill_w_dir_and_save, timeout=900, period=1)
+
+    
