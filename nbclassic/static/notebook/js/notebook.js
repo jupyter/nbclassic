@@ -2955,11 +2955,11 @@ define([
                                         return that.contents.save(path, model).catch();
                                 }
                             )
-                            save_it.catch()
                             return save_it
                         };
                         
-                        that.contents.get(nb_path, {type: 'notebook', content: false}).then(function(data) {
+                        that.contents.get(nb_path, {type: 'notebook', content: false}).then(
+                        function(data) {
                             var warning_body = $('<div/>').append(
                                 $("<p/>").text(i18n.msg._('Notebook with that name exists.')));
                             dialog.modal({
@@ -2996,10 +2996,19 @@ define([
                                                         function(data) {
                                                             return save_thunk()
                                                         }
+                                                    ).catch(
+                                                        (error) => {
+                                                            var msg = i18n.msg._(error.message || 'Unknown error creating directory.');
+                                                            $(".save-message").html(
+                                                            $("<span>")
+                                                                .attr("style", "color:red;")
+                                                                .text(msg)
+                                                            );
+                                                        }
+
                                                     )
-                                                
                                                 }
-                                            }                                    
+                                            }                            
                                         }
                                     })
                                 }
