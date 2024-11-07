@@ -57,7 +57,7 @@ def test_save_as_nb(notebook_frontend):
         # This may be a retry, check if the application state reflects a successful save operation
         nonlocal fill_attempts
         if fill_attempts and get_notebook_name(notebook_frontend) == notebook_path.split("/")[-1]:
-            print('[Test] Success from previous save attempt!')
+            print('[Test]   Success from previous save attempt!')
             return True
         fill_attempts += 1
         print(f'[Test] Attempt form fill and save #{fill_attempts}')
@@ -139,17 +139,13 @@ def test_save_as_nb(notebook_frontend):
 
         # Set the notebook name field in the save dialog
         print('[Test] Fill the input field')
-
-        elem_string = f'(elem) => {{ elem.value = "{notebook_path}"; return elem.value; }}'
         name_input_element.evaluate(f'(elem) => {{ elem.value = "{notebook_path}"; return elem.value; }}')
-        condition = notebook_frontend.wait_for_condition(
+        notebook_frontend.wait_for_condition(
             lambda: name_input_element.evaluate(
                 f'(elem) => {{ elem.value = "{notebook_path}"; return elem.value; }}') == notebook_path,
             timeout=120,
             period=.25
         )
-        if condition is None:
-            raise RuntimeError
         # Show the input field value
         print('[Test] Name input field contents:')
         field_value = name_input_element.evaluate(f'(elem) => {{ return elem.value; }}')
