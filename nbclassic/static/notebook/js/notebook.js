@@ -2951,7 +2951,6 @@ define([
                                             'name': '',
                                             'path': utils.url_path_split(path)[0]
                                         }
-                                        console.log(model)
                                         return that.contents.save(path, model).catch();
                                 }
                             )
@@ -3015,9 +3014,9 @@ define([
                             );
                         });
                         return false;
-                        }
-                    },
+                    }
                 },
+            },
             open : function () {
                 d.find('input[type="text"]').keydown(function (event) {
                     if (event.which === keyboard.keycodes.enter) {
