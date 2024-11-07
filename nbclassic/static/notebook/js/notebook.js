@@ -3018,7 +3018,7 @@ define([
                         }
                     },
                 },
-                open : function () {
+            open : function () {
                 d.find('input[type="text"]').keydown(function (event) {
                     if (event.which === keyboard.keycodes.enter) {
                         d.find('.btn-primary').first().click();
@@ -3026,7 +3026,7 @@ define([
                     }
                 });
                 d.find('input[type="text"]').val(current_dir).focus();
-             }
+            }
          });
     };
 
