@@ -2,6 +2,47 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.2.0
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v1.1.0...9ae4cb137ea46c9a29cdcf56032dae624f6ff8d8))
+
+### Bugs fixed
+
+- Add `view` handler to serve files when Notebook 7 is installed [#287](https://github.com/jupyter/nbclassic/pull/287) ([@RRosio](https://github.com/RRosio))
+- fix: pasting outside of cells doing nothing [#285](https://github.com/jupyter/nbclassic/pull/285) ([@iisakkirotko](https://github.com/iisakkirotko))
+
+### Maintenance and upkeep improvements
+
+- Bump actions/cache from 1 to 4 [#306](https://github.com/jupyter/nbclassic/pull/306) ([@dependabot](https://github.com/dependabot))
+- Skip test and CI workflow for some python versions [#300](https://github.com/jupyter/nbclassic/pull/300) ([@RRosio](https://github.com/RRosio))
+- Bump actions/setup-python from 1 to 5 [#298](https://github.com/jupyter/nbclassic/pull/298) ([@dependabot](https://github.com/dependabot))
+- Fix SyntaxWarning from update message [#297](https://github.com/jupyter/nbclassic/pull/297) ([@living180](https://github.com/living180))
+- Bump actions/download-artifact from 2 to 4 [#291](https://github.com/jupyter/nbclassic/pull/291) ([@dependabot](https://github.com/dependabot))
+- Replace pipes with shlex [#286](https://github.com/jupyter/nbclassic/pull/286) ([@frenzymadness](https://github.com/frenzymadness))
+- Bump actions/setup-node from 1 to 4 [#264](https://github.com/jupyter/nbclassic/pull/264) ([@dependabot](https://github.com/dependabot))
+- Bump actions/checkout from 1 to 4 [#263](https://github.com/jupyter/nbclassic/pull/263) ([@dependabot](https://github.com/dependabot))
+
+### Documentation improvements
+
+- Update RTD config [#301](https://github.com/jupyter/nbclassic/pull/301) ([@RRosio](https://github.com/RRosio))
+- Link and Docs Update [#290](https://github.com/jupyter/nbclassic/pull/290) ([@RRosio](https://github.com/RRosio))
+
+### Other merged PRs
+
+- Update branch name to trigger all job runs on push to main [#305](https://github.com/jupyter/nbclassic/pull/305) ([@RRosio](https://github.com/RRosio))
+- Fix python version in RTD [#304](https://github.com/jupyter/nbclassic/pull/304) ([@RRosio](https://github.com/RRosio))
+- Update python for conda [#303](https://github.com/jupyter/nbclassic/pull/303) ([@RRosio](https://github.com/RRosio))
+- Correct conda env label in RTD config [#302](https://github.com/jupyter/nbclassic/pull/302) ([@RRosio](https://github.com/RRosio))
+- Bump actions/upload-artifact from 2 to 4 [#292](https://github.com/jupyter/nbclassic/pull/292) ([@dependabot](https://github.com/dependabot))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2024-05-24&to=2025-01-14&type=c))
+
+[@dependabot](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Adependabot+updated%3A2024-05-24..2025-01-14&type=Issues) | [@frenzymadness](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Afrenzymadness+updated%3A2024-05-24..2025-01-14&type=Issues) | [@iisakkirotko](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aiisakkirotko+updated%3A2024-05-24..2025-01-14&type=Issues) | [@living180](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aliving180+updated%3A2024-05-24..2025-01-14&type=Issues) | [@maartenbreddels](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Amaartenbreddels+updated%3A2024-05-24..2025-01-14&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2024-05-24..2025-01-14&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.1.0
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v1.0.0...991361437fe0e51da639775f5fbe709cc8212278))
@@ -32,8 +73,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2023-05-04&to=2024-05-24&type=c))
 
 [@jph00](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Ajph00+updated%3A2023-05-04..2024-05-24&type=Issues) | [@krassowski](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Akrassowski+updated%3A2023-05-04..2024-05-24&type=Issues) | [@maartenbreddels](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Amaartenbreddels+updated%3A2023-05-04..2024-05-24&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2023-05-04..2024-05-24&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 1.0.0
 
