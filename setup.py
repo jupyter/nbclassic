@@ -40,7 +40,7 @@ Python {py} detected.
 
 # At least we're on the python version we need, move on.
 
-# BEFORE importing distutils, remove MANIFEST. distutils doesn't properly
+# BEFORE importing setuptools, remove MANIFEST. Setuptools doesn't properly
 # update it when the contents of directories change.
 if os.path.exists('MANIFEST'): os.remove('MANIFEST')
 
@@ -50,7 +50,6 @@ from setuptools import setup
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 from setupbase import (
-    version,
     find_packages,
     find_package_data,
     check_package_data_first,
@@ -68,9 +67,9 @@ setup_args = dict(
     package_data    = find_package_data(),
 )
 
-# Custom distutils/setuptools commands ----------
-from distutils.command.build_py import build_py
-from distutils.command.sdist import sdist
+# Custom setuptools commands ---------------------
+from setuptools.command.build_py import build_py
+from setuptools.command.sdist import sdist
 from setuptools.command.bdist_egg import bdist_egg
 from setuptools.command.develop import develop
 

@@ -10,14 +10,14 @@ This includes:
 # Copyright (c) IPython Development Team.
 # Distributed under the terms of the Modified BSD License.
 
+import logging
 import os
 import re
 import shlex
 import shutil
 import sys
 
-from distutils import log
-from distutils.cmd import Command
+from setuptools import Command
 from fnmatch import fnmatch
 from glob import glob
 from multiprocessing.pool import ThreadPool
@@ -28,6 +28,8 @@ if sys.platform == 'win32':
 else:
     def list2cmdline(cmd_list):
         return ' '.join(map(shlex.quote, cmd_list))
+
+log = logging.getLogger(__name__)
 
 #-------------------------------------------------------------------------------
 # Useful globals and utility functions
