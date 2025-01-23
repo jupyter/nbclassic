@@ -12,12 +12,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, macos-12, windows-2022]
+        os: [ubuntu-22.04, macos-13, windows-2022]
         python-version: ["3.7", "3.8", "3.9", "3.10"]
         exclude:
           - os: ubuntu-22.04
             python-version: "3.7"
-          - os: macos-12
+          - os: macos-13
             python-version: "3.7"
     steps:
       - name: Checkout
