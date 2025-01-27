@@ -153,6 +153,11 @@ exclude = [
     ".github",
 ]
 
+[tool.hatch.build.targets.wheel.shared-data]
+"nbclassic.svg" = "share/icons/hicolor/scalable/apps/nbclassic.svg"
+"jupyter-nbclassic.desktop" = "share/applications/jupyter-nbclassic.desktop"
+"jupyter_server_config.d/nbclassic.json" = "etc/jupyter/jupyter_server_config.d/nbclassic.json"
+
 [tool.hatch.build.hooks.jupyter-builder]
 dependencies = [
     "hatch-jupyter-builder>=0.9.1",
