@@ -10,9 +10,8 @@
     "url": "https://github.com/jupyter/nbclassic.git"
   },
   "scripts": {
-    "bower:cp-umd": "cp nbclassic/static/components/marked/lib/marked.umd.js nbclassic/static/components/marked/lib/marked.js",
-    "bower:copy-umd": "copy nbclassic/static/components/marked/lib/marked.umd.js nbclassic/static/components/marked/lib/marked.js",
-    "bower": "bower install && (npm run bower:cp-umd || npm run bower:copy-umd)",
+    "bower:copy-marked": "node tools/copy-marked.js",
+    "bower": "bower install && npm run bower:copy-marked",
     "build:webpack": "webpack --mode production",
     "build:notebook": "node tools/build-main.js notebook",
     "build:tree": "node tools/build-main.js tree",
