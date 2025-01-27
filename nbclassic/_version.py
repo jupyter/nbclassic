@@ -15,6 +15,6 @@ if match['rest']:
   parts.append(match['rest'])
 version_info = tuple(parts)
 
-# Downstream maintainer, when running `python.setup.py jsversion`,
-# the version string is propagated to the JavaScript files,  do not forget to
+# Downstream maintainer, when running `tbump <new version>`,
+# the version string is propagated to the JavaScript files, do not forget to
 # patch the JavaScript files in `.postN` release done by distributions.

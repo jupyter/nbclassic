@@ -175,7 +175,6 @@ skip = [
 ]
 
 [tool.jupyter-releaser.hooks]
-after-bump-version = "python setup.py jsversion"
 before-build-python = [
     "npm install -g po2json",
 ]
@@ -211,3 +210,7 @@ version_template = "version = \"{major}.{minor}.{patch}{channel}{release}\""
 
 [[tool.tbump.file]]
 src = "nbclassic/_version.py"
+
+[[tool.tbump.file]]
+src = "nbclassic/static/base/js/namespace.js"
+version_template = "Jupyter.version = \"{major}.{minor}.{patch}{channel}{release}\";"
