@@ -1,42 +1,218 @@
 [build-system]
-requires = [
-  "jupyter_packaging~=0.9,<2",
-  "jupyter_server>=1.17.0",
-  "babel"
-]
-build-backend = "jupyter_packaging.build_api"
+build-backend = "hatchling.build"
 
-[tool.check-manifest]
-ignore = ["tbump.toml", ".*"]
+requires = [
+  "babel",
+  "hatchling",
+  "jupyter-server>=1.17",
+  "setuptools",
+]
+
+[project]
+name = "nbclassic"
+version = "1.3.0.dev0"
+
+description = "Jupyter Notebook as a Jupyter Server extension."
+readme = "README.md"
+keywords = [
+  "interactive",
+  "interpreter",
+  "ipython",
+  "jupyter",
+  "shell",
+  "web",
+]
+license.file = "LICENSE"
+authors = [
+  { name = "Jupyter Development Team", email = "jupyter@googlegroups.com" },
+]
+requires-python = ">=3.8"
+classifiers = [
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: System Administrators",
+  "License :: OSI Approved :: BSD License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+  "ipykernel",
+  "ipython-genutils",
+  "nest-asyncio>=1.5",
+  "notebook-shim>=0.2.3",
+]
+optional-dependencies.docs = [
+  "myst-parser",
+  "nbsphinx",
+  "sphinx",
+  "sphinx-rtd-theme",
+  "sphinxcontrib-github-alt",
+]
+optional-dependencies.json-logging = [
+  "json-logging",
+]
+optional-dependencies.test = [
+  "coverage",
+  "nbval",
+  "pytest",
+  "pytest-cov",
+  "pytest-jupyter",
+  "pytest-playwright",
+  "pytest-tornasync",
+  "requests",
+  "requests-unixsocket; sys_platform!='win32'",
+  "testpath",
+]
+urls.Homepage = "https://github.com/jupyter/nbclassic"
+scripts.jupyter-nbclassic = "nbclassic.notebookapp:main"
+scripts.jupyter-nbclassic-bundlerextension = "nbclassic.bundler.bundlerextensions:main"
+scripts.jupyter-nbclassic-extension = "nbclassic.nbextensions:main"
+scripts.jupyter-nbclassic-serverextension = "nbclassic.serverextensions:main"
+
+[tool.hatch.build]
+artifacts = [
+  "nbclassic/i18n/*/LC_MESSAGES/*.mo",
+  "nbclassic/i18n/*/LC_MESSAGES/nbjs.json",
+  "nbclassic/static/style/*.min.css*",
+  "nbclassic/static/*/js/built/",
+  "nbclassic/static/*/built/",
+  "nbclassic/static/built/",
+  "nbclassic/static/*/js/main.min.js*",
+  "nbclassic/static/lab/*bundle.js",
+  "nbclassic/static/components/**/*.md",
+  "nbclassic/static/components/**/*.json",
+  "nbclassic/static/components/backbone/backbone-min.js",
+  "nbclassic/static/components/bootstrap/dist/js/bootstrap.min.js",
+  "nbclassic/static/components/bootstrap/less/**/*.less",
+  "nbclassic/static/components/bootstrap-tour/build/css/bootstrap-tour.min.css",
+  "nbclassic/static/components/bootstrap-tour/build/js/bootstrap-tour.min.js",
+  "nbclassic/static/components/bootstrap-tour/**/*.png",
+  "nbclassic/static/components/bootstrap-tour/**/*.less",
+  "nbclassic/static/components/codemirror/**/*.js",
+  "nbclassic/static/components/codemirror/**/*.css",
+  "nbclassic/static/components/create-react-class/index.js",
+  "nbclassic/static/components/font-awesome/css/*.css",
+  "nbclassic/static/components/google-caja/html-css-sanitizer-minified.js",
+  "nbclassic/static/components/es6-promise/*.js",
+  "nbclassic/static/components/font-awesome/fonts/*.*",
+  "nbclassic/static/components/font-awesome/less/*.less",
+  "nbclassic/static/components/jed/jed.js",
+  "nbclassic/static/components/jquery/jquery.min.js",
+  "nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.js",
+  "nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.css",
+  "nbclassic/static/components/jquery-ui/dist/jquery-ui.min.js",
+  "nbclassic/static/components/jquery-ui/dist/themes/smoothness/jquery-ui.min.css",
+  "nbclassic/static/components/jquery-ui/dist/themes/smoothness/images/*",
+  "nbclassic/static/components/jquery-ui/dist/themes/*/images/*",
+  "nbclassic/static/components/jquery-ui/themes/base/images/*",
+  "nbclassic/static/components/marked/lib/marked.js",
+  "nbclassic/static/components/react/react.production.min.js",
+  "nbclassic/static/components/react/react-dom.production.min.js",
+  "nbclassic/static/components/requirejs/require.js",
+  "nbclassic/static/components/requirejs-plugins/src/json.js",
+  "nbclassic/static/components/requirejs-plugins/**/*.png",
+  "nbclassic/static/components/requirejs-text/text.js",
+  "nbclassic/static/components/sanitizer/index.js",
+  "nbclassic/static/components/underscore/underscore-min.js",
+  "nbclassic/static/components/moment/moment.js",
+  "nbclassic/static/components/moment/min/*.js",
+  "nbclassic/static/components/xterm.js/index.js",
+  "nbclassic/static/components/xterm.js-css/index.css",
+  "nbclassic/static/components/xterm.js-fit/index.js",
+  "nbclassic/static/components/text-encoding/lib/encoding.js",
+  "nbclassic/static/components/MathJax/MathJax.js",
+  "nbclassic/static/components/MathJax/config/TeX-AMS-MML_HTMLorMML-full.js",
+  "nbclassic/static/components/MathJax/config/Safe.js",
+  "nbclassic/static/components/MathJax/jax/output/*/*.js",
+  "nbclassic/static/components/MathJax/jax/output/*/autoload/",
+  "nbclassic/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/**/*",
+  "nbclassic/static/components/MathJax/jax/output/SVG/fonts/STIX-Web/**/*",
+  "nbclassic/static/components/MathJax/localization/",
+  "nbclassic/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/**/*",
+  "nbclassic/static/components/MathJax/fonts/HTML-CSS/TeX/png/**/*.png",
+  "nbclassic/static/components/MathJax/extensions/",
+  "nbclassic/static/components/MathJax/jax/input/TeX/**/*",
+  "nbclassic/static/components/MathJax/jax/element/mml/",
+  "nbclassic/templates/*",
+  "nbclassic/tests/*.js",
+  "nbclassic/tests/**/*.js",
+  "nbclassic/resources/**/*",
+]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  ".github",
+]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"nbclassic.svg" = "share/icons/hicolor/scalable/apps/nbclassic.svg"
+"jupyter-nbclassic.desktop" = "share/applications/jupyter-nbclassic.desktop"
+"jupyter_server_config.d/nbclassic.json" = "etc/jupyter/jupyter_server_config.d/nbclassic.json"
+
+[tool.hatch.build.hooks.jupyter-builder]
+dependencies = [
+  "hatch-jupyter-builder>=0.9.1",
+]
+build-function = "hatch_jupyter_builder.npm_builder"
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules"
-norecursedirs = ["confs"]
+norecursedirs = [
+  "confs",
+]
 testpaths = [
-    "tests"
+  "tests",
 ]
 
 [tool.jupyter-releaser]
-skip = ["check-links", "check-manifest"]
+skip = [
+  "check-links",
+  "check-manifest",
+]
 
 [tool.jupyter-releaser.hooks]
-after-bump-version = "python setup.py jsversion"
-before-build-python = ["npm install -g po2json"]
+before-build-python = [
+  "npm install -g po2json",
+]
 
 [tool.jupyter-releaser.options]
 post-version-spec = "dev"
-ignore-glob = ["docs/source/examples/Notebook/Working With Markdown Cells.ipynb", "docs-translations/**/README.md", "docs/source/contributing.rst", "docs/source/examples/Notebook/JavaScript Notebook Extensions.ipynb", "CHANGELOG.md", "nbclassic/static/components/**/*.*"]
+ignore-glob = [
+  "docs/source/examples/Notebook/Working With Markdown Cells.ipynb",
+  "docs-translations/**/README.md",
+  "docs/source/contributing.rst",
+  "docs/source/examples/Notebook/JavaScript Notebook Extensions.ipynb",
+  "CHANGELOG.md",
+  "nbclassic/static/components/**/*.*",
+]
+
+[tool.tbump]
+field = [
+  { name = "channel", default = "" },
+  { name = "release", default = "" },
+]
 
 [tool.tbump.version]
 current = "1.3.0.dev0"
-regex = '''
-  (?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)
-  ((?P<channel>a|b|rc|.dev)(?P<release>\d+))?
-'''
+regex = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)((?P<channel>a|b|rc|.dev)(?P<release>\\d+))?"
 
 [tool.tbump.git]
 message_template = "Bump to {new_version}"
 tag_template = "v{new_version}"
 
 [[tool.tbump.file]]
+src = "pyproject.toml"
+version_template = "version = \"{major}.{minor}.{patch}{channel}{release}\""
+
+[[tool.tbump.file]]
 src = "nbclassic/_version.py"
+
+[[tool.tbump.file]]
+src = "nbclassic/static/base/js/namespace.js"
+version_template = "Jupyter.version = \"{major}.{minor}.{patch}{channel}{release}\";"

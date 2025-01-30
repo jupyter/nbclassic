@@ -11,12 +11,12 @@ if [[
   ! -z "$(git diff $PREVIOUS_HEAD nbclassic/static/*/js/**.js)"
 ]]; then
   echo "rebuilding javascript"
-  python setup.py js || echo "fail to rebuild javascript"
+  npm run build:js || echo "fail to rebuild javascript"
 fi
 
 if [[
   ! -z "$(git diff $PREVIOUS_HEAD nbclassic/static/*/less/**.less)"
 ]]; then
   echo "rebuilding css sourcemaps"
-  python setup.py css || echo "fail to recompile css"
+  npm run build:css || echo "fail to recompile css"
 fi
