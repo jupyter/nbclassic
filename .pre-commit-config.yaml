@@ -1,4 +1,3 @@
-
 repos:
 -   repo: https://github.com/pycqa/flake8
     rev: 'e43806be3607110919eff72939fda031776e885a'  # frozen: 7.1.1
