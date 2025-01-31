@@ -1,0 +1,13 @@
+
+repos:
+-   repo: https://github.com/pycqa/flake8
+    rev: 'e43806be3607110919eff72939fda031776e885a'  # frozen: 7.1.1
+    hooks:
+    -   id: flake8
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: cef0300fd0fc4d2a87a85fa2093c6b283ea36f4b  # frozen: v5.0.0
+    hooks:
+        -   id: check-yaml
+        -   id: check-toml
+        -   id: end-of-file-fixer
+        -   id: trailing-whitespace
