@@ -166,4 +166,3 @@ define(['jquery', 'bootstraptour', 'base/js/i18n'], function($, Tour, i18n) {
     return {'Tour': NotebookTour};
 
 });
-

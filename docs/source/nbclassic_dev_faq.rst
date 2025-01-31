@@ -71,4 +71,3 @@ NbClassic Developer FAQ
     .. _`MeeseeksDev bot`: https://github.com/MeeseeksBox/MeeseeksDev#meeseeksdev-migrate-to-target-orgrepo
     .. _`allowed organization list`: https://github.com/MeeseeksBox/MeeseeksDev/blob/master/meeseeksdev/__init__.py#L26
     .. _`Jupyter Community`: https://jupyter.org/community
-
