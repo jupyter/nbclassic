@@ -24,10 +24,10 @@ def navigate_to_link(nb, item_text):
     # Define a match finder func (this is easier
     # to hook into for debugging than a listcomp)
     def get_matches():
-        print(f'[Test]     Attempt to find matches...')
+        print('[Test]     Attempt to find matches...')
         tree_page_items = [item for item in notebook_frontend.locate_all('#notebook_list .item_link', TREE_PAGE)]
         if tree_page_items:
-            print(f'[Test]       Found!')
+            print('[Test]       Found!')
         return [elem for elem in tree_page_items if elem.is_visible() and elem.get_inner_text().strip() == item_text]
     # Get tree page item matching the item_text (the dir name/link element to navigate to)
     matches = notebook_frontend.wait_for_condition(
@@ -42,13 +42,13 @@ def navigate_to_link(nb, item_text):
             f'#notebook_list .item_link >> text="{item_text}"',
             page=EDITOR_PAGE).is_visible()
     )
-    print(f'[Test]     Check URL in tree')
+    print('[Test]     Check URL in tree')
     notebook_frontend.wait_for_condition(
         lambda: url_in_tree(notebook_frontend),
         timeout=60,
         period=5
     )
-    print(f'[Test]     Check URL matches link')
+    print('[Test]     Check URL matches link')
     print(f'[Test]       Item link: "{target_link}"')
     print(f'[Test]       Current URL is: "{notebook_frontend.get_page_url(page=TREE_PAGE)}"')
     notebook_frontend.wait_for_condition(
@@ -56,7 +56,7 @@ def navigate_to_link(nb, item_text):
         timeout=60,
         period=5
     )
-    print(f'[Test]     Passed!')
+    print('[Test]     Passed!')
     return notebook_frontend.get_page_url(page=TREE_PAGE)
 
 
@@ -73,17 +73,17 @@ def test_navigation(notebook_frontend):
     SUBDIR1B = 'sub ∂ir 1b'
 
     # Start at the root (tree) URL
-    print(f'[Test] Start at tree (root) URL')
+    print('[Test] Start at tree (root) URL')
     tree_url = notebook_frontend.get_page_url(page=TREE_PAGE)
     print(f'[Test]   URL is now at "{tree_url}"')
 
     # Test navigation to first folder from root
-    print(f'[Test] Navigate to subdir1')
+    print('[Test] Navigate to subdir1')
     subdir1_url = navigate_to_link(notebook_frontend, SUBDIR1)
     print(f'[Test]   URL is now at "{subdir1_url}"')
 
     # Test navigation to first subfolder (1a)
-    print(f'[Test] Navigate to subdir1a')
+    print('[Test] Navigate to subdir1a')
     subdir1a_url = navigate_to_link(notebook_frontend, SUBDIR1A)
     print(f'[Test]   URL is now at "{subdir1a_url}"')
     notebook_frontend.go_back(page=TREE_PAGE)
@@ -106,7 +106,7 @@ def test_navigation(notebook_frontend):
     )
 
     # Test navigation to second folder from root
-    print(f'[Test] Navigate to subdir2')
+    print('[Test] Navigate to subdir2')
     subdir2_url = navigate_to_link(notebook_frontend, SUBDIR2)
     print(f'[Test]   URL is now at "{subdir2_url}"')
     # Wait for the links to update (subdir2 link should NOT be showing anymore)
@@ -117,7 +117,7 @@ def test_navigation(notebook_frontend):
     )
 
     # Test navigation to second subfolder (1b)
-    print(f'[Test] Navigate to subdir1b')
+    print('[Test] Navigate to subdir1b')
     subdir1b_url = navigate_to_link(notebook_frontend, SUBDIR1B)
     print(f'[Test]   URL is now at "{subdir1b_url}"')
     notebook_frontend.go_back(page=TREE_PAGE)

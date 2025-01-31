@@ -267,7 +267,7 @@ class NotebookApp(
         if len(nbclassic_path()) > 0:
             handlers.append(
                 (
-                    rf"/nbclassic",
+                    r"/nbclassic",
                     RedirectHandler,
                     {"url": self.serverapp.base_url+"nbclassic/tree"}
                 )

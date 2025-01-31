@@ -100,16 +100,16 @@ def test_save_readonly_as(notebook_frontend):
 
         # Set the notebook name field in the save dialog
         print('[Test] Fill the input field')
-        name_input_element.evaluate(f'(elem) => {{ elem.value = "writable_notebook.ipynb"; return elem.value; }}')
+        name_input_element.evaluate('(elem) => {{ elem.value = "writable_notebook.ipynb"; return elem.value; }}')
         notebook_frontend.wait_for_condition(
             lambda: name_input_element.evaluate(
-                f'(elem) => {{ elem.value = "writable_notebook.ipynb"; return elem.value; }}') == 'writable_notebook.ipynb',
+                '(elem) => {{ elem.value = "writable_notebook.ipynb"; return elem.value; }}') == 'writable_notebook.ipynb',
             timeout=120,
             period=.25
         )
         # Show the input field value
         print('[Test] Name input field contents:')
-        field_value = name_input_element.evaluate(f'(elem) => {{ return elem.value; }}')
+        field_value = name_input_element.evaluate('(elem) => {{ return elem.value; }}')
         print('[Test]   ' + field_value)
         if field_value != 'writable_notebook.ipynb':
             return False
