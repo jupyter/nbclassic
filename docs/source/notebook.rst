@@ -24,7 +24,7 @@ text, mathematics, images, and rich media representations of objects.
 
 .. seealso::
 
-    See the :ref:`installation guide <NbClassicUsage>` on how to install 
+    See the :ref:`installation guide <NbClassicUsage>` on how to install
     nbclassic and its dependencies.
 
 

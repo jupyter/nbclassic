@@ -47,14 +47,14 @@ define([
                     // See comment above.
                     $icon.animate({ borderSpacing: 0 }, {
                         step: function(now,fx) {
-                        	isRTL ? $icon.css('transform','rotate(' + now + 'deg)') : $icon.css('transform','rotate(-' + now + 'deg)'); 
+                        	isRTL ? $icon.css('transform','rotate(' + now + 'deg)') : $icon.css('transform','rotate(-' + now + 'deg)');
                         }
                     }, 250);
                 }
             });
         });
     };
-    
+
     SesssionList.prototype.load_sessions = function(){
         var that = this;
         var settings = {

@@ -3,7 +3,7 @@
 [![Google Group](https://img.shields.io/badge/-Google%20Group-lightgrey.svg)](https://groups.google.com/forum/#!forum/jupyter)
 [![Build Status](https://travis-ci.org/jupyter/notebook.svg?branch=master)](https://travis-ci.org/jupyter/notebook)
 [![Documentation Status](https://readthedocs.org/projects/jupyter-notebook/badge/?version=latest)](https://jupyter-notebook.readthedocs.io/en/stable/?badge=latest)
-                
+
 
 
 Jupyter नोटबुक इंटरैक्टिव के लिए एक वेब-आधारित नोटबुक वातावरण है
@@ -74,4 +74,4 @@ IPython कोडबेस का बिग स्प्लिट ™। IPython
 - [Korean Version of Installation](https://github.com/ChungJooHo/Jupyter_Kor_doc/)
 - [Documentation for Project Jupyter](https://jupyter.readthedocs.io/en/latest/index.html )
 - [Issues](https://github.com/jupyter/nbclassic/issues)
-- [Technical support - Jupyter Google Group](https://groups.google.com/forum/#!forum/jupyter) 
+- [Technical support - Jupyter Google Group](https://groups.google.com/forum/#!forum/jupyter)

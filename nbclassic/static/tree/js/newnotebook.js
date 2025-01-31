@@ -9,7 +9,7 @@ define([
     'base/js/dialog',
 ], function ($, IPython, utils, i18n, dialog) {
     "use strict";
-    
+
     var NewNotebookWidget = function (selector, options) {
         this.selector = selector;
         this.nbclassic_path = options.nbclassic_path;
@@ -24,20 +24,20 @@ define([
         }
         this.bind_events();
     };
-    
+
     NewNotebookWidget.prototype.bind_events = function () {
         var that = this;
         this.element.find('#new_notebook').click(function () {
             that.new_notebook();
         });
     };
-    
+
     NewNotebookWidget.prototype.request_kernelspecs = function () {
         /** request and then load kernel specs */
         var url = utils.url_path_join(this.base_url, 'api/kernelspecs');
         utils.promising_ajax(url).then($.proxy(this._load_kernelspecs, this));
     };
-    
+
     NewNotebookWidget.prototype._load_kernelspecs = function (data) {
         /** load kernelspec list */
         var that = this;
@@ -75,7 +75,7 @@ define([
         }
         this.events.trigger('kernelspecs_loaded.KernelSpec', data.kernelspecs);
     };
-    
+
     NewNotebookWidget.prototype.new_notebook = function (kernel_name, evt) {
         /** create and open a new notebook */
         var that = this;
@@ -114,6 +114,6 @@ define([
             evt.preventDefault();
         }
     };
-    
+
     return {'NewNotebookWidget': NewNotebookWidget};
 });

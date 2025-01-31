@@ -226,14 +226,14 @@ define([
             } else if (math_group.substr(0, 3) === "\\\\\[" && math_group.substr(math_group.length - 3) === "\\\\\]") {
                 math_group = "\\\[" + math_group.substring(3, math_group.length - 3) + "\\\]";
             }
-            
+
             return math_group;
         };
 
         // Replace all the math group placeholders in the text
         // with the saved strings.
         text = text.replace(/@@(\d+)@@/g, math_group_process);
-        
+
         return text;
     };
 

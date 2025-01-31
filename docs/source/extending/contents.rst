@@ -78,7 +78,7 @@ model. There are three model types: **notebook**, **file**, and **directory**.
 
 - ``file`` models
     - The ``format`` field is either ``"text"`` or ``"base64"``.
-    - The ``mimetype`` field can be any mimetype string, but defaults to 
+    - The ``mimetype`` field can be any mimetype string, but defaults to
       ``text/plain`` for text-format models and
       ``application/octet-stream`` for base64-format models. For files with
       unknown mime types (e.g. unknown file extensions), this field may be
@@ -196,7 +196,7 @@ methods:
    ContentsManager.is_hidden
 
 You may be required to specify a Checkpoints object, as the default one,
-``FileCheckpoints``, could be incompatible with your custom 
+``FileCheckpoints``, could be incompatible with your custom
 ContentsManager.
 
 
@@ -222,12 +222,12 @@ Customizing Checkpoints
 -----------------------
 .. currentmodule:: notebook.services.contents.checkpoints
 
-Customized Checkpoint definitions allows behavior to be 
+Customized Checkpoint definitions allows behavior to be
 altered and extended.
 
 The ``Checkpoints`` and ``GenericCheckpointsMixin`` classes
 (from :mod:`notebook.services.contents.checkpoints`)
-have reusable code and are intended to be used together, 
+have reusable code and are intended to be used together,
 but require the following methods to be implemented.
 
 .. autosummary::
@@ -243,7 +243,7 @@ No-op example
 ~~~~~~~~~~~~~
 
 Here is an example of a no-op checkpoints object - note the mixin
-comes first. The docstrings indicate what each method should do or 
+comes first. The docstrings indicate what each method should do or
 return for a more complete implementation.
 
 .. code-block:: python
@@ -261,7 +261,7 @@ return for a more complete implementation.
         def delete_checkpoint(self, checkpoint_id, path):
             """deletes a checkpoint for a file"""
         def list_checkpoints(self, path):
-            """returns a list of checkpoint models for a given file, 
+            """returns a list of checkpoint models for a given file,
             default just does one per file
             """
             return []

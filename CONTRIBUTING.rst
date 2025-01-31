@@ -137,9 +137,9 @@ To run the Python tests, use::
 For the end to end Pytest-Playwright tests you will need to install the browser binaries using::
 
     playwright install
-    
+
 Then you can run the end to end tests using::
-    
+
     pytest -sv nbclassic/tests/end_to_end
 
 If you want coverage statistics as well, you can run::

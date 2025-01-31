@@ -20,7 +20,7 @@ class CustomViewHandler(JupyterHandler):
     @gen.coroutine
     def get(self, path):
         """Get a view on a given path."""
- 
+
         path = path.strip('/')
         exists = yield ensure_async(self.contents_manager.file_exists(path))
         if not exists:

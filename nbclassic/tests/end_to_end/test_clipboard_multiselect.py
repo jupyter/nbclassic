@@ -11,7 +11,7 @@ def test_clipboard_multiselect(prefill_notebook):
     assert notebook.get_cells_contents() == ['', '1', '2', '3', '4', '5a', '6b', '7c', '8d']
 
     # Copy the first 3 cells
-    # Paste the values copied from the first three cells into the last 3 cells 
+    # Paste the values copied from the first three cells into the last 3 cells
 
     # Selecting the fist 3 cells
     notebook.select_cell_range(1, 3)

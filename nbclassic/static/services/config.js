@@ -11,9 +11,9 @@ function(utils) {
         this.nbclassic_path = options.nbclassic_path;
         this.base_url = options.base_url;
         this.data = {};
-        
+
         var that = this;
-        
+
         /* .loaded is a promise, fulfilled the first time the config is loaded
          * from the server. Code can do:
          *      conf.loaded.then(function() { ... using conf.data ... });
@@ -28,14 +28,14 @@ function(utils) {
         return utils.url_path_join(this.base_url, 'api/config',
             utils.encode_uri_components(this.section_name));
     };
-    
+
     ConfigSection.prototype._load_done = function() {
         if (!this._one_load_finished) {
             this._one_load_finished = true;
             this._finish_firstload();
         }
     };
-    
+
     ConfigSection.prototype.load = function() {
         var that = this;
         return utils.promising_ajax(this.api_url(), {
@@ -48,7 +48,7 @@ function(utils) {
             return data;
         });
     };
-    
+
     /**
      * Modify the config values stored. Update the local data immediately,
      * send the change to the server, and use the updated data from the server
@@ -56,7 +56,7 @@ function(utils) {
      */
     ConfigSection.prototype.update = function(newdata) {
         $.extend(true, this.data, newdata);  // true -> recursive update
-        
+
         var that = this;
         return utils.promising_ajax(this.api_url(), {
             processData: false,
@@ -70,14 +70,14 @@ function(utils) {
             return data;
         });
     };
-    
-    
+
+
     var ConfigWithDefaults = function(section, defaults, classname) {
         this.section = section;
         this.defaults = defaults;
         this.classname = classname;
     };
-    
+
     ConfigWithDefaults.prototype._class_data = function() {
         if (this.classname) {
             return this.section.data[this.classname] || {};
@@ -85,7 +85,7 @@ function(utils) {
             return this.section.data;
         }
     };
-    
+
     /**
      * Wait for config to have loaded, then get a value or the default.
      * Returns a promise.
@@ -96,7 +96,7 @@ function(utils) {
             return that.get_sync(key);
         });
     };
-    
+
     /**
      * Return a config value. If config is not yet loaded, return the default
      * instead of waiting for it to load.
@@ -119,7 +119,7 @@ function(utils) {
         }
         return this.defaults[key];
     };
-    
+
     /**
      * Set a config value. Send the update to the server, and change our
      * local copy of the data immediately.
@@ -137,7 +137,7 @@ function(utils) {
             return this.section.update(d);
         }
     };
-    
+
     return {ConfigSection: ConfigSection,
             ConfigWithDefaults: ConfigWithDefaults,
            };

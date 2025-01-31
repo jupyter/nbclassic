@@ -10,7 +10,7 @@ define([
     'codemirror/mode/meta',
 ], function($, IPython, utils, dialog, CodeMirror) {
     "use strict";
-    
+
     var MenuBar = function (selector, options) {
         /**
          * Constructor
@@ -46,7 +46,7 @@ define([
     MenuBar.prototype.bind_events = function () {
         var that = this;
         var editor = that.editor;
-        
+
         //  File
         this.element.find('#new-file').click(function () {
             var w = window.open(undefined, IPython._target);
@@ -80,7 +80,7 @@ define([
                 utils.encode_uri_components(that.editor.file_path)
             ) + '?download=1');
         });
-        
+
         // Edit
         this.element.find('#menu-find').click(function () {
             editor.codemirror.execCommand("find");
@@ -112,25 +112,25 @@ define([
                 keyMap: 'vim'
             });
         });
-        
+
         // View
 
         this.element.find('#toggle_header').click(function (){
             $("#header-container").toggle();
         });
-        
+
         this.element.find('#menu-line-numbers').click(function () {
             var current = editor.codemirror.getOption('lineNumbers');
             var value = Boolean(1-current);
             editor.update_codemirror_options({lineNumbers: value});
         });
-        
+
         this.events.on("config_changed.Editor", function () {
             var keyMap = editor.codemirror.getOption('keyMap') || 'default';
             that.element.find(".selected-keymap").removeClass("selected-keymap");
             that.element.find("#menu-keymap-" + keyMap).addClass("selected-keymap");
         });
-        
+
         this.events.on("mode_changed.Editor", function (evt, modeinfo) {
             that.element.find("#current-mode")
                 .text(modeinfo.name)
@@ -140,7 +140,7 @@ define([
                 );
         });
     };
-    
+
     MenuBar.prototype._load_mode_menu = function () {
         var list = this.element.find("#mode-menu");
         var editor = this.editor;

@@ -14,7 +14,7 @@ casper.notebook_test(function () {
             );
         }
     });
-    
+
     var that = this;
     // syntax highlighting
     [

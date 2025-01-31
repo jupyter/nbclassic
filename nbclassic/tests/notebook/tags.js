@@ -3,13 +3,13 @@
 //
 
 casper.notebook_test(function () {
-    
+
     function get_tag_metadata () {
         return casper.evaluate(function () {
             return Jupyter.notebook.get_cell(0).metadata.tags;
         });
     }
-    
+
     function get_tag_elements () {
         return casper.evaluate(function () {
             var cell = Jupyter.notebook.get_cell(0);
@@ -40,7 +40,7 @@ casper.notebook_test(function () {
             1,
             "Tag cell toolbar item is present");
     })
-    
+
     // activate tags toolbar via menubar
     this.thenEvaluate(function () {
         $('#menu-cell-toolbar-submenu')
@@ -48,7 +48,7 @@ casper.notebook_test(function () {
             .find('a')
             .click();
     });
-    
+
     // wait for one tag container
     this.waitForSelector('.tags_button_container');
     this.then(function () {
@@ -76,7 +76,7 @@ casper.notebook_test(function () {
             .find('.tags-input button')
             .click();
     });
-    
+
     var all_tags = ['tag1', 'tüg2', 'tåg3', 'tag4', 'tag5'];
     // verify that tags are applied
     this.then(function () {

@@ -10,7 +10,7 @@ The JavaScript tests are organized into subdirectories that match those in
 To run all of the JavaScript tests do:
 
 ```
-python -m nbclassic.jstest 
+python -m nbclassic.jstest
 ```
 
 To run the JavaScript tests for a specific file (`base/utils.js` in this case)

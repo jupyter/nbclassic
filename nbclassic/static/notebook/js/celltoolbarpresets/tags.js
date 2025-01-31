@@ -84,7 +84,7 @@ define([
         };
     };
 
-    var init_tag_container = function(cell, tag_container, on_remove) {    
+    var init_tag_container = function(cell, tag_container, on_remove) {
         var tag_list = cell.metadata.tags || [];
         if (!Array.isArray(tag_list)) {
             // We cannot make tags UI for this cell!

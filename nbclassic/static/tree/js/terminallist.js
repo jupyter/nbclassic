@@ -54,7 +54,7 @@ define([
             dataType: "json",
             success : function (data, status, xhr) {
                 var name = data.name;
-                w.location = utils.url_path_join(base_url, 'terminals', 
+                w.location = utils.url_path_join(base_url, 'terminals',
                     utils.encode_uri_components(name));
             },
             error : function(jqXHR, status, error){
@@ -68,7 +68,7 @@ define([
         );
         utils.ajax(url, settings);
     };
-    
+
     TerminalList.prototype.load_terminals = function() {
         var url = utils.url_path_join(this.base_url, 'api/terminals');
         utils.ajax(url, {
@@ -92,7 +92,7 @@ define([
         }
         $('#terminal_list_header').toggle(data.length === 0);
     };
-    
+
     TerminalList.prototype.add_link = function(name, item) {
         item.data('term-name', name);
         item.find(".item_name").text("terminals/" + name);
@@ -103,7 +103,7 @@ define([
         link.attr('target', IPython._target||'_blank');
         this.add_shutdown_button(name, item);
     };
-    
+
     TerminalList.prototype.add_shutdown_button = function(name, item) {
         var that = this;
         var shutdown_button = $("<button/>").text(i18n._("Shutdown")).addClass("btn btn-xs btn-warning").

@@ -50,7 +50,7 @@ def test_save(notebook_frontend):
 
     hrefs_nonmatch = []
     all_links = notebook_frontend.locate_all('a.item_link', page=EDITOR_PAGE)
-    
+
     for link in all_links:
         href = link.get_attribute('href')
 
@@ -68,4 +68,3 @@ def test_save(notebook_frontend):
 
     notebook_frontend.edit_cell(index=0, content="")
     notebook_frontend.delete_all_cells()
-    

@@ -80,7 +80,7 @@ def isolated_svg(notebook):
     notebook.wait_for_frame(count=2, page=EDITOR_PAGE)
     isolated_svg_1 = notebook.locate_in_frame('#r1', page=EDITOR_PAGE, frame_index=2)
     assert isolated_svg_1.get_computed_property("fill") == yellow
-    
+
     # The second rectangle will be black
     notebook.wait_for_frame(count=3, page=EDITOR_PAGE)
     isolated_svg_2 = notebook.locate_in_frame('#r2', page=EDITOR_PAGE, frame_index=3)

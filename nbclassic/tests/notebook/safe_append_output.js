@@ -10,7 +10,7 @@ casper.notebook_test(function () {
     this.on('remote.message', function (msg) {
         messages.push(msg);
     });
-    
+
     this.evaluate(function () {
         var cell = IPython.notebook.get_cell(0);
         cell.set_text( "dp = get_ipython().display_pub\n" +

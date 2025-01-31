@@ -24,13 +24,13 @@ define(['jquery',
      *    - notebook : notebook instance
      *    - keyboard_manager: keyboard manager instance.
      *
-     *  Unlike bootstrap modals, the backdrop options is set by default 
+     *  Unlike bootstrap modals, the backdrop options is set by default
      *  to 'static'.
      *
-     *  The rest of the options are passed as is to bootstrap modals. 
+     *  The rest of the options are passed as is to bootstrap modals.
      *
      *  btn_options: dict with the following property:
-     *  
+     *
      *    - click : callback to trigger on click
      *    - class : css classes to add to button.
      *
@@ -77,11 +77,11 @@ define(['jquery',
                     options.body || $("<p/>")
                 )
         );
-        
+
         var footer = $("<div/>").addClass("modal-footer");
-        
+
         var default_button;
-        
+
         for (var label in options.buttons) {
             var btn_opts = options.buttons[label];
             var button = $("<button/>")
@@ -115,7 +115,7 @@ define(['jquery',
                 }
             }, 0);
         });
-        
+
         // destroy modal on hide, unless explicitly asked not to
         if (options.destroy === undefined || options.destroy) {
             modal.on("hidden.bs.modal", function () {
@@ -135,15 +135,15 @@ define(['jquery',
             	$(options.focus_button).focus();
 	    }
         });
-        
+
         if (options.keyboard_manager) {
             options.keyboard_manager.disable();
         }
-        
+
         if(options.backdrop === undefined){
           options.backdrop = 'static';
         }
-        
+
         return modal.modal(options);
     };
 
@@ -161,11 +161,11 @@ define(['jquery',
     var edit_metadata = function (options) {
         options.name = options.name || "Cell";
         var error_div = $('<div/>').css('color', 'red');
-        var message_cell = 
+        var message_cell =
             i18n.msg._("Manually edit the JSON below to manipulate the metadata for this cell.");
-        var message_notebook = 
+        var message_notebook =
             i18n.msg._("Manually edit the JSON below to manipulate the metadata for this notebook.");
-        var message_end = 
+        var message_end =
             i18n.msg._(" We recommend putting custom metadata attributes in an appropriately named substructure," +
             " so they don't conflict with those of others.");
 
@@ -180,7 +180,7 @@ define(['jquery',
             .attr('cols', '80')
             .attr('name', 'metadata')
             .text(JSON.stringify(options.md || {}, null, 2));
-        
+
         var dialogform = $('<div/>').attr('title', i18n.msg._('Edit the metadata'))
             .append(
                 $('<form/>').append(
@@ -420,7 +420,7 @@ define(['jquery',
         });
     };
 
-    
+
     var dialog = {
         modal : modal,
         kernel_modal : kernel_modal,

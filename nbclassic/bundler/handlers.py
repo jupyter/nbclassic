@@ -41,22 +41,22 @@ class BundlerHandler(JupyterHandler):
         """Make tools module available on the handler instance for compatibility
         with existing bundler API and ease of reference."""
         self.tools = tools
-    
+
     def get_bundler(self, bundler_id):
         """
         Get bundler metadata from config given a bundler ID.
-        
+
         Parameters
         ----------
         bundler_id: str
             Unique bundler ID within the notebook/bundlerextensions config section
-        
+
         Returns
         -------
         dict
             Bundler metadata with label, group, and module_name attributes
-        
-        
+
+
         Raises
         ------
         KeyError
@@ -69,7 +69,7 @@ class BundlerHandler(JupyterHandler):
     @gen.coroutine
     def get(self, path):
         """Bundle the given nbclassic.
-        
+
         Parameters
         ----------
         path: str
@@ -93,7 +93,7 @@ class BundlerHandler(JupyterHandler):
         except UnicodeEncodeError:
             # Encode unicode as utf-8 in python2 else import_item fails
             module_name = module_name.encode('utf-8')
-        
+
         try:
             bundler_mod = import_item(module_name)
         except ImportError as e:

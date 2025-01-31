@@ -2,11 +2,11 @@
 The Development of NbClassic
 ============================
 
-Here you will find information about some especially noteworthy updates made in NbClassic, issues that have been reported 
+Here you will find information about some especially noteworthy updates made in NbClassic, issues that have been reported
 and common questions.
 
 
-Noteworthy Updates in NbClassic 
+Noteworthy Updates in NbClassic
 --------------------------------
 
 - Entrypoints in NbClassic
@@ -16,13 +16,13 @@ Noteworthy Updates in NbClassic
         - ``jupyter nbclassic-serverextension``
         - ``jupyter-nbclassic-bundlerextension``
 
-    - The decision to rename these entrypoints came about after some deliberation and consideration for user experience. When considering the confusion that having a more implicit handling of the entrypoints might pose, the concensus was that renaming the entrypoints would allow for more observability and it would help highlight some of the changes that are happening in the Jupyter ecosystem.  
+    - The decision to rename these entrypoints came about after some deliberation and consideration for user experience. When considering the confusion that having a more implicit handling of the entrypoints might pose, the concensus was that renaming the entrypoints would allow for more observability and it would help highlight some of the changes that are happening in the Jupyter ecosystem.
 
 .. _`Rename duplicate entrypoints #138`: https://github.com/jupyter/nbclassic/pull/138
 
 
 - Providing backwards compatibility with the  `jupyter_notebook_config.py` file
-    - With the goal of allowing NbClassic to be installed along with Notebook 7, the release of NbClassic 0.4 included changing the project name from `notebook` to `nbclassic`. In changing the 'name' attribute to be `nbclassic`, the traitlet behavior changed and resulted in the configuration file which was previously named `jupyter_notebook_config`, to be named `jupyter_nbclassic_config`. However, this was updated to manually set the file name to `jupyter_notebook_config`. With this, the configuration file is picked up whether Notebook or NbClassic are installed. 
+    - With the goal of allowing NbClassic to be installed along with Notebook 7, the release of NbClassic 0.4 included changing the project name from `notebook` to `nbclassic`. In changing the 'name' attribute to be `nbclassic`, the traitlet behavior changed and resulted in the configuration file which was previously named `jupyter_notebook_config`, to be named `jupyter_nbclassic_config`. However, this was updated to manually set the file name to `jupyter_notebook_config`. With this, the configuration file is picked up whether Notebook or NbClassic are installed.
 
 - Endpoints in NbClassic
     - NbClassic handlers have been updated to account for Notebook 7 being installed (`Handlers under nbclassic if notebook 7 is found`_). If so, the resources from nbclassic will be served under the ``/nbclassic/`` URL subpath, so as to not interfere  with those resources being served by Jupyter Notebook.
@@ -44,7 +44,7 @@ NbClassic Developer FAQ
     For Notebook 6.5.x, as it is intended to be end of life and will receive only
     bug and security fixes, issues of this type in the frontend should be reported in
     the `jupyter/nbclassic`_ repository, bug and security issues for the server can be
-    submitted in the `jupyter/notebook`_ repository. 
+    submitted in the `jupyter/notebook`_ repository.
 
     Generally, user interface issues dealing with the nbclassic package can be
     submitted to the `jupyter/nbclassic`_ repository, while server issues can be

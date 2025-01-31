@@ -87,15 +87,15 @@ define([
         /**
          * Constructor
          *
-         * Construct a new TextCell, codemirror mode is by default 'htmlmixed', 
+         * Construct a new TextCell, codemirror mode is by default 'htmlmixed',
          * and cell type is 'text' cell start as not redered.
          *
          * Parameters:
          *  options: dictionary
          *      Dictionary of keyword arguments.
-         *          events: $(Events) instance 
+         *          events: $(Events) instance
          *          config: dictionary
-         *          keyboard_manager: KeyboardManager instance 
+         *          keyboard_manager: KeyboardManager instance
          *          notebook: Notebook instance
          */
         options = options || {};
@@ -110,8 +110,8 @@ define([
 
         // we cannot put this as a class key as it has handle to "this".
         Cell.apply(this, [{
-                    config: options.config, 
-                    keyboard_manager: options.keyboard_manager, 
+                    config: options.config,
+                    keyboard_manager: options.keyboard_manager,
                     events: this.events}]);
 
         this.cell_type = this.cell_type || 'text';
@@ -144,7 +144,7 @@ define([
         cell.append(prompt);
         var inner_cell = $('<div/>').addClass('inner_cell');
         this.celltoolbar = new celltoolbar.CellToolbar({
-            cell: this, 
+            cell: this,
             notebook: this.notebook});
         inner_cell.append(this.celltoolbar.element);
         var input_area = $('<div/>').addClass('input_area').attr("aria-label", i18n.msg._("Edit Markup Text here"));
@@ -331,9 +331,9 @@ define([
          * Parameters:
          *  options: dictionary
          *      Dictionary of keyword arguments.
-         *          events: $(Events) instance 
+         *          events: $(Events) instance
          *          config: ConfigSection instance
-         *          keyboard_manager: KeyboardManager instance 
+         *          keyboard_manager: KeyboardManager instance
          *          notebook: Notebook instance
          */
         options = options || {};
@@ -596,9 +596,9 @@ define([
          * Parameters:
          *  options: dictionary
          *      Dictionary of keyword arguments.
-         *          events: $(Events) instance 
+         *          events: $(Events) instance
          *          config: ConfigSection instance
-         *          keyboard_manager: KeyboardManager instance 
+         *          keyboard_manager: KeyboardManager instance
          *          notebook: Notebook instance
          */
         options = options || {};

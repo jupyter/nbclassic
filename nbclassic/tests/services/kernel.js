@@ -26,7 +26,7 @@ casper.notebook_test(function () {
         });
         this.test.assertEquals(num_kernels, 1, 'one kernel running');
     });
-    
+
     // test get_info
     var kernel_info = this.evaluate(function () {
         return {
@@ -316,7 +316,7 @@ casper.notebook_test(function () {
                               "os._exit(1)");
                 cell.execute();
             });
-        }, 
+        },
 
         // need an extra-long timeout, because it needs to try
         // restarting the kernel 5 times!

@@ -24,6 +24,6 @@ Find out more about configuring NbClassic.
    :maxdepth: 1
    :titlesonly:
 
-   contribute_docs      
+   contribute_docs
 
 Additional information about contributing to and developing NbClassic.
