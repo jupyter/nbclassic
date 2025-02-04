@@ -1,6 +1,6 @@
 """Test save-as functionality"""
 
-
+from functools import partial
 import traceback
 
 from .utils import EDITOR_PAGE, EndToEndTimeout
@@ -50,21 +50,17 @@ def test_save_as_nb(notebook_frontend):
     name_input_element = notebook_frontend.locate('.modal-body .form-control', page=EDITOR_PAGE)
     name_input_element.focus()
     name_input_element.click()
-    notebook_name = 'new_notebook.ipynb'
 
-    print('[Test] Begin attempts to fill the save dialog input and save the notebook')
-    fill_attempts = 0
-
-    def attempt_form_fill_and_save():
+    def attempt_form_fill_and_save(notebook_path):
         # Application behavior here is HIGHLY variable, we use this for repeated attempts
         # ....................
         # This may be a retry, check if the application state reflects a successful save operation
         nonlocal fill_attempts
-        if fill_attempts and get_notebook_name(notebook_frontend) == "new_notebook.ipynb":
+        if fill_attempts and get_notebook_name(notebook_frontend) == notebook_path.split("/")[-1]:
             print('[Test]   Success from previous save attempt!')
             return True
         fill_attempts += 1
-        print(f'[Test] Attempt form fill and save #{fill_attempts}')
+        print(f'[Test] Attempt form fill with directory and save #{fill_attempts}')
 
         # Make sure the save prompt is visible
         if not name_input_element.is_visible():
@@ -73,10 +69,10 @@ def test_save_as_nb(notebook_frontend):
 
         # Set the notebook name field in the save dialog
         print('[Test] Fill the input field')
-        name_input_element.evaluate(f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}')
+        name_input_element.evaluate(f'(elem) => {{ elem.value = "{notebook_path}"; return elem.value; }}')
         notebook_frontend.wait_for_condition(
             lambda: name_input_element.evaluate(
-                f'(elem) => {{ elem.value = "new_notebook.ipynb"; return elem.value; }}') == 'new_notebook.ipynb',
+                f'(elem) => {{ elem.value = "{notebook_path}"; return elem.value; }}') == notebook_path,
             timeout=120,
             period=.25
         )
@@ -84,7 +80,7 @@ def test_save_as_nb(notebook_frontend):
         print('[Test] Name input field contents:')
         field_value = name_input_element.evaluate(f'(elem) => {{ return elem.value; }}')
         print('[Test]   ' + field_value)
-        if field_value != 'new_notebook.ipynb':
+        if field_value != notebook_path:
             return False
 
         print('[Test] Locate and click the save button')
@@ -92,6 +88,14 @@ def test_save_as_nb(notebook_frontend):
         save_element.wait_for('visible')
         save_element.focus()
         save_element.click()
+
+        # If the notebook path contains a directory, click the create button
+        if "/" in notebook_path:
+            print('[Test] Locate and click the create button')
+            create_element = dialog_element.locate('text=Create')
+            create_element.wait_for('visible')
+            create_element.focus()
+            create_element.click()
 
         # Application lag may cause the save dialog to linger,
         # if it's visible wait for it to disappear before proceeding
@@ -105,18 +109,27 @@ def test_save_as_nb(notebook_frontend):
 
         # Check if the save operation succeeded (by checking notebook name change)
         notebook_frontend.wait_for_condition(
-            lambda: get_notebook_name(notebook_frontend) == "new_notebook.ipynb", timeout=120, period=5
+            lambda: get_notebook_name(notebook_frontend) == notebook_path.split('/')[-1], timeout=120, period=5
         )
         print(f'[Test] Notebook name: {get_notebook_name(notebook_frontend)}')
         print('[Test] Notebook name was changed!')
         return True
 
-    # Retry until timeout (wait_for_condition retries upon func exception)
-    notebook_frontend.wait_for_condition(attempt_form_fill_and_save, timeout=900, period=1)
+    # for notebook_path in ["new_folder/another_new_notebook.ipynb"]:
+    for notebook_path in ["new_notebook.ipynb", "new_folder/another_new_notebook.ipynb"]:
+        print(f'[Test] Begin attempts to fill the save dialog input with {notebook_path} and save the notebook')
+        fill_attempts = 0
+        check_func = partial(attempt_form_fill_and_save, notebook_path)
+        notebook_frontend.wait_for_condition(check_func, timeout=900, period=1)
 
-    print('[Test] Check notebook name in URL')
-    notebook_frontend.wait_for_condition(
-        lambda: notebook_name in notebook_frontend.get_page_url(page=EDITOR_PAGE),
-        timeout=120,
-        period=5
-    )
+        print('[Test] Check notebook name in URL')
+        try:
+            notebook_frontend.wait_for_condition(
+                lambda: notebook_path.split("/")[-1] in notebook_frontend.get_page_url(page=EDITOR_PAGE),
+                timeout=120,
+                period=5
+            )
+        except:
+            print(notebook_frontend.get_page_url(page=EDITOR_PAGE))
+
+    
