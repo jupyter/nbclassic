@@ -54,6 +54,10 @@ optional-dependencies.docs = [
   "sphinx-rtd-theme",
   "sphinxcontrib-github-alt",
 ]
+optional-dependencies.dev = [
+    "pre-commit",
+    "hatch"
+]
 optional-dependencies.json-logging = [
   "json-logging",
 ]
