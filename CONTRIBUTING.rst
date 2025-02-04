@@ -84,6 +84,33 @@ running other instances of Jupyter NbClassic. You can try the following steps:
    a port that is neither the default nor in use, then it should be fine.
 5. Verify the installation with the steps in the previous section.
 
+Code Formatting and Linting
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+All source code is linted using `Flake8 <https://github.com/PyCQA/flake8>`_. When
+code is modified and committed, staged files are automatically checked for PEP 8
+compliance using pre-commit git hooks (with help from `pre-commit
+<https://github.com/pre-commit/pre-commit>`_). Using a linter like `flake8` helps
+maintain consistent code style and catches potential errors during pull request
+reviews, streamlining the review process. Other checks are also run to look for
+proper new lines at the end of files and to remove unnecessary whitespace.
+
+To install `pre-commit`, run::
+
+    pip install -e ".[dev]"
+    pre-commit install
+
+You can manually trigger the pre-commit hook at any time with::
+
+    pre-commit run
+
+This will check your code against the pre-commit checks and report any style
+violations or potential issues.
+
+If you committed files before setting up the pre-commit hook with
+`pre-commit install`, you can check all files using
+`pre-commit run --all-files`. You will need to fix any reported issues and commit
+the changes yourself afterward.
 
 Rebuilding JavaScript and CSS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
