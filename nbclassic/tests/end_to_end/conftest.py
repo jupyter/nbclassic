@@ -134,7 +134,7 @@ def prefill_notebook(playwright_browser, notebook_server):
         cells = [new_code_cell(c) if isinstance(c, str) else c
                  for c in cells]
         # new_notebook is an nbformat function that is imported so that it can create a
-        # notebook that is formatted as it needs to be 
+        # notebook that is formatted as it needs to be
         nb = new_notebook(cells=cells)
 
         # Create temporary file directory and store it's reference as well as the path

@@ -16,6 +16,6 @@ git clean -dffx
 python -m build
 tbump <new version number>
 pip install twine
-twine check dist/* 
+twine check dist/*
 twine upload dist/*
 ```

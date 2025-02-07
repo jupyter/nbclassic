@@ -58,7 +58,7 @@ casper.notebook_test(function () {
       'x2\r\r',
       '1\r',
     ].join('');
-    
+
     var output = [
       'hasrn\n',
       'hasn\n',
@@ -66,13 +66,13 @@ casper.notebook_test(function () {
       'hellof\n',
       '123\r'
     ].join('');
-    
+
     var result = this.evaluate(function (input) {
       return IPython.utils.fixCarriageReturn(input);
     }, input);
 
     this.test.assertEquals(result, output, "IPython.utils.fixCarriageReturns works");
-    
+
     // Test load_extensions
 
     this.thenEvaluate(function() {
@@ -85,7 +85,7 @@ casper.notebook_test(function () {
         this.waitFor(function() {
             return this.evaluate(function() { return window.a; });
         });
-        
+
         this.waitFor(function() {
             return this.evaluate(function() { return window.a; });
         });

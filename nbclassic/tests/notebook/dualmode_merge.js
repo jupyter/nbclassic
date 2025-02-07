@@ -130,7 +130,7 @@ casper.notebook_test(function () {
         this.test.assertEquals(this.get_cell_text(0), a, 'Split cell 1: Cell 0 is unchanged');
         this.test.assertEquals(this.get_cell_text(1), b, 'Split cell 1: Cell 1 is unchanged');
         this.test.assertEquals(this.get_cell_text(2), c, 'Split cell 1: Cell 2 is unchanged');
-        this.validate_notebook_state('ctrl-shift--', 'edit', 1); 
+        this.validate_notebook_state('ctrl-shift--', 'edit', 1);
     });
 
     // Try to merge cell 1 down, should fail, as 1 is locked

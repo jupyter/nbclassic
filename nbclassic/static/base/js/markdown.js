@@ -61,7 +61,7 @@ define([
          * Find a readme in the current directory. Look for files with
          * a name like 'readme.md' (case insensitive) or similar and
          * mimetype 'text/markdown'.
-         * 
+         *
          * @param markdown: the markdown text to parse
          * @param options
          *  Object with parameters:

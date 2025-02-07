@@ -42,16 +42,16 @@ requirejs([
         ws_url = location.protocol.replace('http', 'ws') + "//" + location.host;
     }
     ws_url = ws_url + base_url + ws_path;
-    
+
     page.show_header();
-    
+
     var terminal = terminado.make_terminal($("#terminado-container")[0], ws_url);
-    
+
     page.show_site();
-    
+
     utils.load_extensions_from_config(config);
     utils.load_extensions_from_config(common_config);
-    
+
     window.onresize = function() {
       terminal.term.fit();
       // send the new size to the server so that it can trigger a resize in the running process.

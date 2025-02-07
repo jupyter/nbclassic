@@ -3,7 +3,7 @@
 //
 
 casper.notebook_test(function () {
-    
+
     function get_outputs(cell_idx) {
         var outputs_json = casper.evaluate(function (cell_idx) {
             var cell = Jupyter.notebook.get_cell(cell_idx);
@@ -11,7 +11,7 @@ casper.notebook_test(function () {
         }, {cell_idx: cell_idx});
         return JSON.parse(outputs_json);
     }
-    
+
     this.thenEvaluate(function () {
         Jupyter.notebook.insert_cell_at_index("code", 0);
         var cell = Jupyter.notebook.get_cell(0);

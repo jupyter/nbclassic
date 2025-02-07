@@ -8,11 +8,11 @@ define (["xterm", "xtermjs-fit"], function(Terminal, fit) {
             term.on('data', function(data) {
                 ws.send(JSON.stringify(['stdin', data]));
             });
-            
+
             term.on('title', function(title) {
                 document.title = title;
             });
-            
+
             term.open(element);
             term.fit();
             // send the terminal size to the server.

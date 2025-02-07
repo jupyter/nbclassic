@@ -66,4 +66,3 @@ Here's a snapshot of how JupyterApp's are initialized. The order of operations w
 ```
 
 ## Where do we add the steps above?
-

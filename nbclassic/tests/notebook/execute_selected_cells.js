@@ -149,7 +149,7 @@ casper.notebook_test(function () {
         this.trigger_keydown('alt-enter');
 
     });
-    
+
     this.wait_for_output(0);
     this.wait_for_output(1);
     this.then(function () {
@@ -168,7 +168,7 @@ casper.notebook_test(function () {
         });
 
     });
-    
+
     this.wait_for_output(1);
     this.wait_for_output(2);
     this.then(function () {

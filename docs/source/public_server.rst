@@ -378,7 +378,7 @@ server.
 Known issues
 ------------
 
-Below are issues previously reported Notebook server issues and may be  applicable to 
+Below are issues previously reported Notebook server issues and may be  applicable to
 the Jupyter Server package that provides NbClassic's server.
 
 Proxies

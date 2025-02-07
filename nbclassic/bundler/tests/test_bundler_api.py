@@ -14,7 +14,7 @@ from nbformat.v4 import (
 
 from unittest.mock import patch
 
-    
+
 def bundle(handler, model):
     """Bundler test stub. Echo the notebook path."""
     handler.finish(model['path'])
@@ -34,7 +34,7 @@ class BundleAPITest(NotebookTestBase):
         cc1 = new_code_cell(source=u'print(2*6)')
         cc1.outputs.append(new_output(output_type="stream", text=u'12'))
         nb.cells.append(cc1)
-        
+
         with io.open(pjoin(nbdir, 'testnb.ipynb'), 'w',
                      encoding='utf-8') as f:
             write(nb, f, version=4)
@@ -68,7 +68,7 @@ class BundleAPITest(NotebookTestBase):
             mock.assert_called_with('fake_bundler')
         self.assertEqual(resp.status_code, 500)
         self.assertIn('Could not import bundler fake_bundler', resp.text)
-        
+
     def test_bundler_invoke(self):
         """Should respond with 200 and output from test bundler stub"""
         with patch('nbclassic.bundler.handlers.BundlerHandler.get_bundler') as mock:

@@ -2,7 +2,7 @@
     "markdown": {
         "parser": "gfm"
     },
-    "plugins": [ 
+    "plugins": [
         "plugins/markdown" ,
         "jsdoc_plugin.js"
     ],

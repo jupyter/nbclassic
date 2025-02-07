@@ -49,7 +49,7 @@ front-end NbClassic client (i.e. the familiar notebook interface).
             $ jupyter nbclassic --generate-config
 
       :ref:`Command line arguments for configuration <config>` settings are documented in the configuration file and the user documentation.
-      
+
   - Review the section: :ref:`Running a Notebook server <working_remotely>`
   - Related: `Configuring a language kernel <https://ipython.readthedocs.io/en/latest/install/kernel_install.html>`_
     to run in the Notebook server enables your server to run other languages, like R or Julia.

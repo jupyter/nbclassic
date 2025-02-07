@@ -1,0 +1,10 @@
+[flake8]
+ignore = E, C, W, F401, F403, F811, F841, E402, I100, I101, D400
+builtins = c, get_config
+exclude =
+    .cache,
+    .github,
+    docs,
+    .venv,
+    dist,
+    build

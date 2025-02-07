@@ -36,7 +36,7 @@ requirejs([
           }
           text = text + '<br/>';
           text = text + i18n.msg._('The server is running on this version of Python:');
-          text = text + _.template('<br/><pre>Python <%- pyver %></pre>')({ 
+          text = text + _.template('<br/><pre>Python <%- pyver %></pre>')({
             pyver: sys_info.sys_version });
           var kinfo = $('<div/>').attr('id', '#about-kinfo').text(i18n.msg._('Waiting for kernel to be available...'));
           var body = $('<div/>');

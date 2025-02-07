@@ -14,7 +14,7 @@ define([
     'base/js/keyboard',
 ], function($, utils, keyboard) {
     "use strict";
-    
+
     // Main keyboard manager for the notebook
     var keycodes = keyboard.keycodes;
 
@@ -25,7 +25,7 @@ define([
          * @class KeyboardManager
          * @constructor
          * @param options {dict} Dictionary of keyword arguments :
-         *    @param options.events {$(Events)} instance 
+         *    @param options.events {$(Events)} instance
          *    @param options.pager: {Pager}  pager instance
          */
         this.mode = 'command';
@@ -48,7 +48,7 @@ define([
         this.config = options.config;
         var that = this;
 
-        this.config.loaded.then(function(){ 
+        this.config.loaded.then(function(){
             var edit_unbind;
 
             try {
@@ -186,7 +186,7 @@ define([
         this.notebook = notebook;
         this.actions.extend_env({notebook:notebook});
     };
-    
+
     KeyboardManager.prototype.set_quickhelp = function (notebook) {
         this.actions.extend_env({quick_help:notebook});
     };
@@ -202,7 +202,7 @@ define([
             // websocket connection with firefox
             event.preventDefault();
         }
-        
+
         if (!this.enabled) {
             if (event.which === keycodes.esc) {
                 this.notebook.command_mode();
@@ -210,7 +210,7 @@ define([
             }
             return true;
         }
-        
+
         if (this.mode === 'edit') {
             return this.edit_shortcuts.call_handler(event);
         } else if (this.mode === 'command') {
@@ -248,8 +248,8 @@ define([
         };
         e.on('focusin', handle_focus);
         e.on('focusout', handle_blur);
-        // TODO: Very strange. The focusout event does not seem fire for the 
-        // bootstrap textboxes on FF25&26...  This works around that by 
+        // TODO: Very strange. The focusout event does not seem fire for the
+        // bootstrap textboxes on FF25&26...  This works around that by
         // registering focus and blur events recursively on all inputs within
         // registered element.
         e.find('input').blur(handle_blur);
@@ -258,7 +258,7 @@ define([
             if (target.is('input')) {
                 target.blur(handle_blur);
             } else {
-                target.find('input').blur(handle_blur);    
+                target.find('input').blur(handle_blur);
             }
           });
         // There are times (raw_input) where we remove the element from the DOM before

@@ -12,11 +12,11 @@ def shim_notebook():
     their corresponding and backwards-compatible jupyter-server packages.
 
     TODO Can we lazy load these loadings?
-    
-    Note: We could a custom module loader to achieve similar functionality. The 
+
+    Note: We could a custom module loader to achieve similar functionality. The
     logic thar conditional loading seems to be more complicated than simply
     listing by hand the needed subpackages but could avoid latency on server start.
-    
+
     https://docs.python.org/3/library/importlib.html#importlib.abc.Loader
 
     These are the notebook packages we need to shim:

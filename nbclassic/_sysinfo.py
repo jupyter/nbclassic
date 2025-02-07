@@ -94,4 +94,3 @@ def get_sys_info():
     p = os.path
     path = p.realpath(p.dirname(p.abspath(p.join(nbclassic.__file__))))
     return pkg_info(path)
-

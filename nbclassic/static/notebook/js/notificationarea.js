@@ -9,16 +9,16 @@ define([
     "use strict";
 
     var NotificationArea = notificationarea.NotificationArea;
-    
+
     var NotebookNotificationArea = function(selector, options) {
         NotificationArea.apply(this, [selector, options]);
         this.save_widget = options.save_widget;
         this.notebook = options.notebook;
         this.keyboard_manager = options.keyboard_manager;
     };
-    
+
     NotebookNotificationArea.prototype = Object.create(NotificationArea.prototype);
-    
+
     /**
      * Initialize the default set of notification widgets.
      *
@@ -43,7 +43,7 @@ define([
         var $readonly_ind_icon = $('#readonly-indicator');
         var $body = $('body');
         var busy_favicon_timer = -1;
-        
+
         var set_busy_favicon = function(on) {
             if (on) {
                 // Only show the busy icon if execution lasts > 1s
@@ -234,7 +234,7 @@ define([
 
             showMsg();
         });
-        
+
         this.events.on("no_kernel.Kernel", function (evt, data) {
             $("#kernel_indicator").find('.kernel_indicator_name').text(i18n.msg._("No Kernel"));
         });
@@ -280,7 +280,7 @@ define([
             $kernel_ind_icon.attr('class','kernel_dead_icon').attr('title',i18n.msg._('Kernel Dead'));
             knw.danger(short, undefined, showMsg);
         });
-        
+
         this.events.on('kernel_starting.Kernel kernel_created.Session', function () {
             // window.document.title='(Starting) '+window.document.title;
             $kernel_ind_icon.attr('class','kernel_busy_icon').attr('title',i18n.msg._('Kernel Busy'));
@@ -314,7 +314,7 @@ define([
             });
         });
 
-        
+
         // Start the kernel indicator in the busy state, and send a kernel_info request.
         // When the kernel_info reply arrives, the kernel is idle.
         $kernel_ind_icon.attr('class','kernel_busy_icon').attr('title',i18n.msg._('Kernel Busy'));
@@ -347,7 +347,7 @@ define([
         this.events.on('notebook_copy_failed.Notebook', function (evt, error) {
             nnw.warning(error.message || i18n.msg._("Notebook copy failed"));
         });
-        
+
         // Checkpoint events
         this.events.on('checkpoint_created.Notebook', function (evt, data) {
             var msg = i18n.msg._("Checkpoint created");

@@ -80,11 +80,11 @@ define([
                 // This allows the pager-contents div to use percentage sizing.
                 that.pager_element.height(that.pager_element.height());
                 that._resize();
-                
+
                 // HACK: Less horrible, but still horrible hack to force the
                 // pager to show it's scrollbars on FireFox. ipython/ipython/#8853
                 that.pager_element.css('position', 'relative');
-                window.requestAnimationFrame(function() { /* Wait one frame */                    
+                window.requestAnimationFrame(function() { /* Wait one frame */
                     that.pager_element.css('position', '');
                 });
             });
@@ -176,9 +176,9 @@ define([
         /**
          * Update document based on pager size.
          */
-        
+
         // Make sure the padding at the end of the notebook is large
-        // enough that the user can scroll to the bottom of the 
+        // enough that the user can scroll to the bottom of the
         // notebook.
         $('.end_space').css('height', Math.max(this.pager_element.height(), this._default_end_space));
     };

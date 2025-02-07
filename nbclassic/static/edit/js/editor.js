@@ -45,14 +45,14 @@ function(
             that._clean_state();
         });
         this.generation = -1;
-        
+
         // It appears we have to set commands on the CodeMirror class, not the
         // instance. I'd like to be wrong, but since there should only be one CM
         // instance on the page, this is good enough for now.
         CodeMirror.commands.save = $.proxy(this.save, this);
-        
+
         this.save_enabled = false;
-        
+
         this.config.loaded.then(function () {
             // load codemirror config
             var cfg = that.config.data.Editor || {};
@@ -78,7 +78,7 @@ function(
         $('.last_modified').before(this.clean_sel);
         this.clean_sel.addClass('dirty-indicator-dirty');
     };
-    
+
     // default CodeMirror options
     Editor.default_codemirror_options = {
         extraKeys: {
@@ -95,7 +95,7 @@ function(
         lineNumbers: true,
         lineWrapping: true
     };
-    
+
     Editor.prototype.load = function() {
         /** load the file */
         var that = this;
@@ -124,7 +124,7 @@ function(
             }
         );
     };
-    
+
     Editor.prototype._set_mode_for_model = function (model) {
         /** Set the CodeMirror mode based on the file model */
 
@@ -191,8 +191,8 @@ function(
     };
 
     Editor.prototype._get_file_extension = function () {
-        /** return file extension *including* . 
-        
+        /** return file extension *including* .
+
         Returns undefined if no extension is found.
         */
         var filename = this.get_filename();
@@ -224,7 +224,7 @@ function(
             }
         );
     };
-    
+
 
     /**
      * Save this file on the server.
@@ -263,12 +263,12 @@ function(
             });
         };
 
-        /* 
+        /*
          * Gets the current working file, and checks if the file has been modified on disk. If so, it
          * creates & opens a modal that issues the user a warning and prompts them to overwrite the file.
-         * 
+         *
          * If it can't get the working file, it builds a new file and saves.
-         */ 
+         */
         if (check_last_modified) {
             return this.contents.get(that.file_path, {content: false}).then(
                 function check_if_modified(data) {
@@ -284,7 +284,7 @@ function(
                             // save & reload callbacks on the confirmation & reload buttons
                             that._changed_on_disk_dialog.find('.save-confirm-btn').click(_save);
                             that._changed_on_disk_dialog.find('.btn-warning').click(function () {window.location.reload()});
-                            
+
                             // redisplay existing dialog
                             that._changed_on_disk_dialog.modal('show');
                         } else {

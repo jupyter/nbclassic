@@ -3,7 +3,7 @@
 //
 
 casper.notebook_test(function () {
-    
+
     this.compare_outputs = function(results, expected) {
         for (var i = 0; i < results.length; i++) {
             var r = results[i];
@@ -19,16 +19,16 @@ casper.notebook_test(function () {
         this.then(function () {
             this.echo("Test coalesced output: " + msg);
         });
-        
+
         this.thenEvaluate(function (code) {
             IPython.notebook.insert_cell_at_index("code", 0);
             var cell = IPython.notebook.get_cell(0);
             cell.set_text(code);
             cell.execute();
         }, {code: code});
-        
+
         this.wait_for_output(0);
-        
+
         this.then(function () {
             var results = this.evaluate(function () {
                 var cell = IPython.notebook.get_cell(0);
@@ -37,7 +37,7 @@ casper.notebook_test(function () {
             this.test.assertEquals(results.length, expected.length, "correct number of outputs");
             this.compare_outputs(results, expected);
         });
-        
+
     };
 
     this.thenEvaluate(function () {
@@ -63,7 +63,7 @@ casper.notebook_test(function () {
             text: "1\n2\n3\n"
         }]
     );
-    
+
     this.test_coalesced_output("stdout+sdterr", [
         "print(1)",
         "sys.stdout.flush()",
@@ -111,7 +111,7 @@ casper.notebook_test(function () {
         'SVG(nested_svg)'
         ].join("\n"), [{
             output_type: "execute_result",
-            data: { 
+            data: {
             "text/plain" : "<IPython.core.display.SVG object>",
             "image/svg+xml": [
               '<svg height="200" width="100" xmlns="http://www.w3.org/2000/svg">',
@@ -167,9 +167,9 @@ casper.notebook_test(function () {
         }, false);
         kernel.output_callback_overrides_push(msg_id, callback_id);
     });
-    
+
     this.wait_for_idle();
-    
+
     this.then(function () {
         var expected_callback = [{
             output_type: "stream",
@@ -234,9 +234,9 @@ casper.notebook_test(function () {
         }, false);
         kernel.output_callback_overrides_push(msg_id, callback_id);
     });
-    
+
     this.wait_for_idle();
-    
+
     this.then(function () {
         var expected_callback = [{
             output_type: "execute_result",

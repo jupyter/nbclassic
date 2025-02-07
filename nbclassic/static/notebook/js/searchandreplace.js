@@ -151,7 +151,7 @@ define([
    * Search N' Replace action handler.
    **/
   var snr = function(env, event) {
-      
+
     var isRegExpButton = $('<button/>')
       .attr('type', 'button')
       .attr('id', 'isreg')
@@ -177,7 +177,7 @@ define([
       .attr('title', i18n.msg._('Match case'))
       .css('font-weight', 'bold')
       .text('Aa');
-     
+
     var search  = $("<input/>")
       .addClass('form-control input-sm')
       .attr('id', 'findreplace_find_inp')
@@ -203,7 +203,7 @@ define([
     replaceFormGroup.append(replace);
 
     var body = $('<div/>').attr('id', 'replace-preview');
-     
+
     var form = $('<form/>').attr('id', 'find-and-replace')
     form.append(findFormGroup);
     form.append(replaceFormGroup);
@@ -311,7 +311,7 @@ define([
         if (!cell.is_editable()) {
           continue;
         }
-          
+
         var oldvalue = cell.code_mirror.getValue();
         var newvalue = oldvalue.replace(reg , replaceValue);
         cell.code_mirror.setValue(newvalue);

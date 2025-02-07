@@ -483,4 +483,3 @@ msgstr "notebooks 运行所在的本地路径: %s"
 #: notebook/services/contents/manager.py:69
 msgid "Untitled"
 msgstr "未命名"
-

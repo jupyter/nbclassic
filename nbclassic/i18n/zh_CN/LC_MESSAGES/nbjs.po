@@ -1975,4 +1975,3 @@ msgstr "已经存在一个名为 \"%s\" 的文件，替换现有文件？"
 #: notebook/static/tree/js/notebooklist.js:1399
 msgid "Replace file"
 msgstr "替换文件"
-

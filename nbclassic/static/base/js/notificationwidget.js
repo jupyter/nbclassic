@@ -35,7 +35,7 @@ define(['jquery'], function($) {
         // for this particular combination
         this.element.addClass('notification_widget btn btn-xs navbar-btn');
     };
-   
+
     /**
      * hide the widget and empty the text
      **/

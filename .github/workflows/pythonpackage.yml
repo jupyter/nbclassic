@@ -7,6 +7,17 @@ on:
   pull_request:
 
 jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5.3.0
+        with:
+          python-version: '3.13'
+      - name: Lint with Pre-commit
+        uses: pre-commit/action@v3.0.1
   build:
     runs-on: ${{ matrix.os }}
     strategy:

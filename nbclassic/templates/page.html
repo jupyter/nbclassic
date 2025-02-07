@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{static_url("components/jquery-ui/dist/themes/smoothness/jquery-ui.min.css") }}" type="text/css" />
     <link rel="stylesheet" href="{{static_url("components/jquery-typeahead/dist/jquery.typeahead.min.css") }}" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     {% block stylesheet %}
     <link rel="stylesheet" href="{{ static_url("style/style.min.css") }}" type="text/css"/>
     {% endblock %}
@@ -111,7 +111,7 @@
               return {};
           }
       })
-      
+
     document.nbjs_translations = {{ nbjs_translations|safe }};
     document.documentElement.lang = navigator.language.toLowerCase();
     </script>
@@ -151,7 +151,7 @@ dir="ltr">
           <a href="" onclick="alert('This message will not be shown anymore.'); return false;">
             <button type="button" class="btn btn-default btn-xs" id="dontShowId">
               Don't show anymore
-            </button>          
+            </button>
           </a>
         </div>
       </div>
@@ -167,9 +167,9 @@ dir="ltr">
 
   {% block headercontainer %}
   {% endblock %}
-  
+
   {% block header_buttons %}
-  
+
   {% block login_widget %}
 
     <span id="login_widget">
@@ -183,7 +183,7 @@ dir="ltr">
   {% endblock %}
 
   {% endblock header_buttons %}
-  
+
   </div>
   <div class="header-bar"></div>
 
@@ -216,9 +216,9 @@ dir="ltr">
         if (search_parameters.length) {
           new_search = '?' + search_parameters.join('&');
         }
-        var new_url = window.location.origin + 
-                      window.location.pathname + 
-                      new_search + 
+        var new_url = window.location.origin +
+                      window.location.pathname +
+                      new_search +
                       window.location.hash;
         window.history.replaceState({}, "", new_url);
         return;

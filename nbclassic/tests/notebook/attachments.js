@@ -189,4 +189,3 @@ casper.notebook_test(function () {
                                'cell1 attachments have been garbage collected');
     });
 });
-

@@ -10,7 +10,7 @@ define([
     'bidi/bidi',
 ], function($, utils, dialog, keyboard, moment, bidi) {
     "use strict";
-    
+
     var SaveWidget = function (selector, options) {
         this.editor = undefined;
         this.selector = selector;
@@ -142,10 +142,10 @@ define([
         }
         this._render_last_modified();
     };
-    
+
     SaveWidget.prototype._render_last_modified = function () {
         /** actually set the text in the element, from our _last_modified value
-        
+
         called directly, and periodically in timeouts.
         */
         this._schedule_render_last_modified();
@@ -168,10 +168,10 @@ define([
         }
         el.text(human_date).attr('title', long_date);
     };
-    
+
     SaveWidget.prototype._schedule_render_last_modified = function () {
         /** schedule the next update to relative date
-        
+
         periodically updated, so short values like 'a few seconds ago' don't get stale.
         */
         if (!this._last_modified) {

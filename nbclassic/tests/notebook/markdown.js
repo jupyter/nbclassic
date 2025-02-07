@@ -39,7 +39,7 @@ casper.notebook_test(function () {
     var input_string_1 = 'x \\\\(a_{0}+ b_{T}\\\\) y \\\\(a_{0}+  b_{T}\\\\) z';
     var expected_result_1 = ['x @@0@@ y @@1@@ z', ['\\\\(a_{0}+ b_{T}\\\\)','\\\\(a_{0}+  b_{T}\\\\)']];
     var message_1 = "multiple inline(LaTeX style) with underscores";
-    
+
     var input_string_2 = 'x \\\\[a_{0}+ b_{T}\\\\] y \\\\[a_{0}+  b_{T}\\\\] z';
     var expected_result_2 = ['x @@0@@ y @@1@@ z', ['\\\\[a_{0}+ b_{T}\\\\]','\\\\[a_{0}+  b_{T}\\\\]']];
     var message_2 = "multiple equation (LaTeX style) with underscores";
@@ -47,7 +47,7 @@ casper.notebook_test(function () {
     var input_string_3 = 'x $a_{0}+ b_{T}$ y $a_{0}+  b_{T}$ z';
     var expected_result_3 = ['x @@0@@ y @@1@@ z',['$a_{0}+ b_{T}$','$a_{0}+  b_{T}$']];
     var message_3 = "multiple inline(TeX style) with underscores";
-    
+
     var input_string_4 = 'x $$a_{0}+ b_{T}$$ y $$a_{0}+  b_{T}$$ z';
     var expected_result_4 = ['x @@0@@ y @@1@@ z', ['$$a_{0}+ b_{T}$$','$$a_{0}+  b_{T}$$']];
     var message_4 = "multiple equation(TeX style) with underscores";

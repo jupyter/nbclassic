@@ -31,8 +31,3 @@ jupyter notebook 명령어를 실행하면 가장 먼저  Notebook Dashboard가 
 이제 Notebook Dashboard 안의 Notebook 파일이 아닌 표시된 파일을 선택하여 열어야한다고 한다면, 파일은 파일 편집기로 열립니다.
 
 ![File Editor example](resources/file_editor.GIF "File Editor")
-
-
-
-
-

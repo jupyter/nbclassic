@@ -9,7 +9,7 @@ define([
     'base/js/i18n'
 ], function($, IPython, dialog, utils, i18n) {
     "use strict";
-    
+
     var KernelSelector = function(selector, notebook, options) {
         options = options || {};
         var that = this;
@@ -32,17 +32,17 @@ define([
         this.loaded = new Promise(function(resolve) {
             that._finish_load = resolve;
         });
-        
+
         Object.seal(this);
     };
-    
+
     KernelSelector.prototype.request_kernelspecs = function() {
-        // Preliminary documentation for kernelspecs api is at 
+        // Preliminary documentation for kernelspecs api is at
         // https://github.com/ipython/ipython/wiki/IPEP-25%3A-Registry-of-installed-kernels#rest-api
         var url = utils.url_path_join(this.notebook.base_url, 'api/kernelspecs');
         utils.promising_ajax(url).then($.proxy(this._got_kernelspecs, this));
     };
-    
+
     var _sorted_names = function(kernelspecs) {
         // sort kernel names
         return Object.keys(kernelspecs).sort(function (a, b) {
@@ -58,14 +58,14 @@ define([
             }
         });
     };
-    
+
     KernelSelector.prototype._got_kernelspecs = function(data) {
         var that = this;
         this.kernelspecs = data.kernelspecs;
         var change_kernel_submenu = $("#menu-change-kernel-submenu");
         var new_notebook_submenu = $("#menu-new-notebook-submenu");
         var keys = _sorted_names(data.kernelspecs);
-        
+
         keys.map(function (key) {
             // Create the Kernel > Change kernel submenu
             var ks = data.kernelspecs[key];
@@ -96,14 +96,14 @@ define([
         this._loaded = true;
         this._finish_load();
     };
-    
+
     KernelSelector.prototype._spec_changed = function (event, ks) {
         /** event handler for spec_changed */
         var that = this;
-        
+
         // update selection
         this.current_selection = ks.name;
-        
+
         // put the current kernel at the top of File > New Notebook
         var cur_kernel_entry = $("#new-notebook-submenu-" + ks.name);
         var parent = cur_kernel_entry.parent();
@@ -125,11 +125,11 @@ define([
             // then, if there is no divider yet, add one
             if (!parent.children("li[class='divider']").length) {
                 parent.prepend($("<li>").attr("class","divider"));
-            } 
+            }
             // finally, put the current kernel at the top
             parent.prepend(cur_kernel_entry);
         }
-        
+
         // load logo
         var logo_img = this.element.find("img.current_kernel_logo");
         $("#kernel_indicator").find('.kernel_indicator_name').text(ks.spec.display_name);
@@ -140,7 +140,7 @@ define([
         } else {
             logo_img.hide();
         }
-        
+
         // load kernel css
         var css_url = ks.resources['kernel.css'];
         if (css_url) {
@@ -148,7 +148,7 @@ define([
         } else {
             $('#kernel-css').attr('href', '');
         }
-        
+
         // load kernel js
         if (ks.resources['kernel.js']) {
 
@@ -157,7 +157,7 @@ define([
             // have kernel.js
             //
             // > Uncaught (in promise) TypeError: require is not a function
-            // 
+            //
             console.info('Dynamically requiring kernel.js, `requirejs` is ', requirejs);
             requirejs([ks.resources['kernel.js']],
                 function (kernel_mod) {
@@ -185,8 +185,8 @@ define([
     };
 
     KernelSelector.prototype.set_kernel = function (selected) {
-        /** set the kernel by name, ensuring kernelspecs have been loaded, first 
-        
+        /** set the kernel by name, ensuring kernelspecs have been loaded, first
+
         kernel can be just a kernel name, or a notebook kernelspec metadata
         (name, language, display_name).
         */
@@ -250,7 +250,7 @@ define([
         this.current_selection = ks.name;
         this.events.trigger('spec_changed.Kernel', ks);
     };
-    
+
     KernelSelector.prototype._spec_not_found = function (event, data) {
         var that = this;
         var select = $("<select>").addClass('form-control');
@@ -267,7 +267,7 @@ define([
                 $('<option/>').attr('value', ks.name).text(ks.spec.display_name || ks.name)
             );
         });
-        
+
         var no_kernel_msg = i18n.msg.sprintf(i18n.msg._("Could not find a kernel matching %s. Please select a kernel:"),
                 (data.selected.display_name || data.selected.name))
         var body = $("<form>").addClass("form-inline").append(
@@ -278,7 +278,7 @@ define([
         // will pick up the strings.  The actual setting of the text
         // for the button is in dialog.js.
         var button_labels = [ i18n.msg._("Continue Without Kernel"), i18n.msg._("Set Kernel"), i18n.msg._("OK") ];
-        
+
         dialog.modal({
             title : i18n.msg._('Kernel not found'),
             body : body,
@@ -300,7 +300,7 @@ define([
     };
 
     KernelSelector.prototype.new_notebook = function (kernel_name) {
-        
+
         var w = window.open('', IPython._target);
         // Create a new notebook in the same path as the current
         // notebook's path.
@@ -340,7 +340,7 @@ define([
         this.events.on('kernel_created.Session', function (event, data) {
             that.set_kernel(data.kernel.name);
         });
-        
+
         var logo_img = this.element.find("img.current_kernel_logo");
         logo_img.on("load", function() {
             logo_img.show();

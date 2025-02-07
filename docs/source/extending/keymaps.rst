@@ -8,18 +8,18 @@ Customize keymaps
     which is not guaranteed to be kept in future versions of the notebook,
     and can be removed or changed without warnings.
 
-The notebook shortcuts that are defined by jupyter both in edit mode and 
+The notebook shortcuts that are defined by jupyter both in edit mode and
 command mode are configurable in the frontend configuration file
-``~/.jupyter/nbconfig/notebook.json``. The modification of keyboard 
-shortcuts suffers from several limitations, mainly that your Browser and OS 
+``~/.jupyter/nbconfig/notebook.json``. The modification of keyboard
+shortcuts suffers from several limitations, mainly that your Browser and OS
 might prevent certain shortcuts from working correctly. If this is the case,
 there is unfortunately not much that can be done. The second issue can arise
-with keyboards that have a layout different than US English. Again, even if 
+with keyboards that have a layout different than US English. Again, even if
 we are aware of the issue, there is not much that can be done.
 
-Shortcuts are also limited by the underlying library that handles code and 
-text editing: CodeMirror. If some keyboard shortcuts are conflicting, the 
-method described below might not work to create new keyboard shortcuts, 
+Shortcuts are also limited by the underlying library that handles code and
+text editing: CodeMirror. If some keyboard shortcuts are conflicting, the
+method described below might not work to create new keyboard shortcuts,
 especially in the ``edit`` mode of the notebook.
 
 
@@ -31,9 +31,9 @@ following:
   - ``keys.command.bind``
   - ``keys.edit.bind``
 
-The first two sections describe which default keyboard shortcuts not to 
-register at notebook startup time. These are mostly useful if you need to 
-``unbind`` a default keyboard shortcut before binding it to a new 
+The first two sections describe which default keyboard shortcuts not to
+register at notebook startup time. These are mostly useful if you need to
+``unbind`` a default keyboard shortcut before binding it to a new
 ``command``.
 
 The first two sections apply respectively to the ``command`` and ``edit``
@@ -88,5 +88,5 @@ the following:
 
 
 
-The name of the available ``commands`` can be find by hovering over the 
+The name of the available ``commands`` can be find by hovering over the
 right end of a row in the command palette.

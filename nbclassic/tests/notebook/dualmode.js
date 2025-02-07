@@ -60,7 +60,7 @@ casper.notebook_test(function () {
                 IPython.modal_shown = false;
             });
         });
-        
+
     });
 
     this.waitFor(function () {
