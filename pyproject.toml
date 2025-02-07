@@ -91,48 +91,19 @@ artifacts = [
   "nbclassic/static/lab/*bundle.js",
   "nbclassic/static/components/**/*.md",
   "nbclassic/static/components/**/*.json",
-  "nbclassic/static/components/backbone/backbone-min.js",
-  "nbclassic/static/components/bootstrap/dist/js/bootstrap.min.js",
   "nbclassic/static/components/bootstrap/less/**/*.less",
-  "nbclassic/static/components/bootstrap-tour/build/css/bootstrap-tour.min.css",
-  "nbclassic/static/components/bootstrap-tour/build/js/bootstrap-tour.min.js",
   "nbclassic/static/components/bootstrap-tour/**/*.png",
   "nbclassic/static/components/bootstrap-tour/**/*.less",
   "nbclassic/static/components/codemirror/**/*.js",
   "nbclassic/static/components/codemirror/**/*.css",
-  "nbclassic/static/components/create-react-class/index.js",
   "nbclassic/static/components/font-awesome/css/*.css",
-  "nbclassic/static/components/google-caja/html-css-sanitizer-minified.js",
   "nbclassic/static/components/es6-promise/*.js",
   "nbclassic/static/components/font-awesome/fonts/*.*",
   "nbclassic/static/components/font-awesome/less/*.less",
-  "nbclassic/static/components/jed/jed.js",
-  "nbclassic/static/components/jquery/jquery.min.js",
-  "nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.js",
-  "nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.css",
-  "nbclassic/static/components/jquery-ui/dist/jquery-ui.min.js",
-  "nbclassic/static/components/jquery-ui/dist/themes/smoothness/jquery-ui.min.css",
-  "nbclassic/static/components/jquery-ui/dist/themes/smoothness/images/*",
   "nbclassic/static/components/jquery-ui/dist/themes/*/images/*",
   "nbclassic/static/components/jquery-ui/themes/base/images/*",
-  "nbclassic/static/components/marked/lib/marked.js",
-  "nbclassic/static/components/react/react.production.min.js",
-  "nbclassic/static/components/react/react-dom.production.min.js",
-  "nbclassic/static/components/requirejs/require.js",
-  "nbclassic/static/components/requirejs-plugins/src/json.js",
   "nbclassic/static/components/requirejs-plugins/**/*.png",
-  "nbclassic/static/components/requirejs-text/text.js",
-  "nbclassic/static/components/sanitizer/index.js",
-  "nbclassic/static/components/underscore/underscore-min.js",
-  "nbclassic/static/components/moment/moment.js",
   "nbclassic/static/components/moment/min/*.js",
-  "nbclassic/static/components/xterm.js/index.js",
-  "nbclassic/static/components/xterm.js-css/index.css",
-  "nbclassic/static/components/xterm.js-fit/index.js",
-  "nbclassic/static/components/text-encoding/lib/encoding.js",
-  "nbclassic/static/components/MathJax/MathJax.js",
-  "nbclassic/static/components/MathJax/config/TeX-AMS-MML_HTMLorMML-full.js",
-  "nbclassic/static/components/MathJax/config/Safe.js",
   "nbclassic/static/components/MathJax/jax/output/*/*.js",
   "nbclassic/static/components/MathJax/jax/output/*/autoload/",
   "nbclassic/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/**/*",
@@ -148,6 +119,35 @@ artifacts = [
   "nbclassic/tests/**/*.js",
   "nbclassic/resources/**/*",
 ]
+[tool.hatch.build.force-include]
+"nbclassic/static/components/backbone/backbone-min.js" = "nbclassic/static/components/backbone/backbone-min.js"
+"nbclassic/static/components/bootstrap-tour/build/css/bootstrap-tour.min.css" = "nbclassic/static/components/bootstrap-tour/build/css/bootstrap-tour.min.css"
+"nbclassic/static/components/bootstrap-tour/build/js/bootstrap-tour.min.js" = "nbclassic/static/components/bootstrap-tour/build/js/bootstrap-tour.min.js"
+"nbclassic/static/components/bootstrap/dist/js/bootstrap.min.js" = "nbclassic/static/components/bootstrap/dist/js/bootstrap.min.js"
+"nbclassic/static/components/create-react-class/index.js" = "nbclassic/static/components/create-react-class/index.js"
+"nbclassic/static/components/google-caja/html-css-sanitizer-minified.js" = "nbclassic/static/components/google-caja/html-css-sanitizer-minified.js"
+"nbclassic/static/components/jed/jed.js" = "nbclassic/static/components/jed/jed.js"
+"nbclassic/static/components/jquery/jquery.min.js" = "nbclassic/static/components/jquery/jquery.min.js"
+"nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.js" = "nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.js"
+"nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.css" = "nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.css"
+"nbclassic/static/components/jquery-ui/dist/jquery-ui.min.js" = "nbclassic/static/components/jquery-ui/dist/jquery-ui.min.js"
+"nbclassic/static/components/jquery-ui/dist/themes/smoothness/jquery-ui.min.css" = "nbclassic/static/components/jquery-ui/dist/themes/smoothness/jquery-ui.min.css"
+"nbclassic/static/components/marked/lib/marked.js" = "nbclassic/static/components/marked/lib/marked.js"
+"nbclassic/static/components/moment/moment.js" = "nbclassic/static/components/moment/moment.js"
+"nbclassic/static/components/MathJax/config/TeX-AMS-MML_HTMLorMML-full.js" = "nbclassic/static/components/MathJax/config/TeX-AMS-MML_HTMLorMML-full.js"
+"nbclassic/static/components/MathJax/MathJax.js" = "nbclassic/static/components/MathJax/MathJax.js"
+"nbclassic/static/components/MathJax/config/Safe.js" = "nbclassic/static/components/MathJax/config/Safe.js"
+"nbclassic/static/components/react/react.production.min.js" = "nbclassic/static/components/react/react.production.min.js"
+"nbclassic/static/components/react/react-dom.production.min.js" = "nbclassic/static/components/react/react-dom.production.min.js"
+"nbclassic/static/components/requirejs/require.js" = "nbclassic/static/components/requirejs/require.js"
+"nbclassic/static/components/requirejs-plugins/src/json.js" = "nbclassic/static/components/requirejs-plugins/src/json.js"
+"nbclassic/static/components/requirejs-text/text.js" = "nbclassic/static/components/requirejs-text/text.js"
+"nbclassic/static/components/sanitizer/index.js" = "nbclassic/static/components/sanitizer/index.js"
+"nbclassic/static/components/text-encoding/lib/encoding.js" = "nbclassic/static/components/text-encoding/lib/encoding.js"
+"nbclassic/static/components/underscore/underscore-min.js" = "nbclassic/static/components/underscore/underscore-min.js"
+"nbclassic/static/components/xterm.js-css/index.css" = "nbclassic/static/components/xterm.js-css/index.css"
+"nbclassic/static/components/xterm.js-fit/index.js" = "nbclassic/static/components/xterm.js-fit/index.js"
+"nbclassic/static/components/xterm.js/index.js" = "nbclassic/static/components/xterm.js/index.js"
 
 [tool.hatch.build.targets.sdist]
 exclude = [
