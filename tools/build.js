@@ -1,10 +1,17 @@
 const { spawn } = require('child_process');
 const fs = require('fs').promises;
 
+// Find binary paths for Windows compatibility
+const webpackPath = require.resolve('webpack/bin/webpack.js');
+const lesscPath = require.resolve('less/bin/lessc');
+const po2jsonPath = require.resolve('po2json/bin/po2json');
+
+const LANGUAGES = ['fr_FR', 'ja_JP', 'nl', 'ru_RU', 'zh_CN'];
+
 const tasks = {
     webpack: {
         output: 'dist/main.js',
-        command: ['webpack', '--mode', 'production'],
+        command: ['node', webpackPath, '--mode', 'production'],
     },
     notebook: {
         output: 'nbclassic/static/notebook/js/main.min.js',
@@ -28,37 +35,40 @@ const tasks = {
     },
     ipythonCss: {
         output: 'nbclassic/static/style/ipython.min.css',
-        command: ['lessc', '--source-map', '--include-path=nbclassic/static/style',
+        command: ['node', lesscPath, '--source-map', '--include-path=nbclassic/static/style',
                  'nbclassic/static/style/ipython.less', 'nbclassic/static/style/ipython.min.css']
     },
     styleCss: {
         output: 'nbclassic/static/style/style.min.css',
-        command: ['lessc', '--source-map', '--include-path=nbclassic/static/style',
+        command: ['node', lesscPath, '--source-map', '--include-path=nbclassic/static/style',
                  'nbclassic/static/style/style.less', 'nbclassic/static/style/style.min.css']
     },
     translations: {
-        outputs: ['fr_FR', 'ja_JP', 'nl', 'ru_RU', 'zh_CN'].map(lang => {
+        outputs: LANGUAGES.map(lang => {
             const langPath = lang.includes('_') ? lang : lang;
             return `nbclassic/i18n/${langPath}/LC_MESSAGES/nbjs.json`;
         }),
         buildFn: async () => {
-            const languages = ['fr_FR', 'ja_JP', 'nl', 'ru_RU', 'zh_CN'];
-            for (const lang of languages) {
+            await Promise.all(LANGUAGES.map(async lang => {
                 const langPath = lang.includes('_') ? lang : lang;
                 const input = `nbclassic/i18n/${langPath}/LC_MESSAGES/nbjs.po`;
                 const output = `nbclassic/i18n/${langPath}/LC_MESSAGES/nbjs.json`;
                 console.log(`Building translation for ${lang}...`);
-                const proc = spawn('po2json', [
-                    '-p', '-F', '-f', 'jed1.x', '-d', 'nbjs',
+                const proc = spawn('node', [
+                    po2jsonPath, '-p', '-F', '-f', 'jed1.x', '-d', 'nbjs',
                     input, output
                 ], { stdio: 'inherit' });
                 await new Promise((resolve, reject) => {
                     proc.on('close', code => {
-                        if (code === 0) resolve();
-                        else reject(new Error(`Translation failed for ${lang} with code ${code}`));
+                        if (code === 0) {
+                            console.log(`Finished translation for ${lang}`);
+                            resolve();
+                        } else {
+                            reject(new Error(`Translation failed for ${lang} with code ${code}`));
+                        }
                     });
                 });
-            }
+            }));
         }
     }
 };
@@ -75,19 +85,23 @@ async function runTask(taskName) {
         const proc = spawn(task.command[0], task.command.slice(1), { stdio: 'inherit' });
         await new Promise((resolve, reject) => {
             proc.on('close', code => {
-                if (code === 0) resolve();
-                else reject(new Error(`Command failed with code ${code}`));
+                if (code === 0) {
+                    console.log(`Finished ${taskName}`);
+                    resolve();
+                } else {
+                    reject(new Error(`Command failed with code ${code}`));
+                }
             });
+            proc.on('error', reject);
         });
     }
-    console.log(`Finished ${taskName}`);
 }
 
 async function clean() {
     console.log('Cleaning build outputs...');
-    for (const task of Object.values(tasks)) {
+    const cleanTasks = Object.values(tasks).map(async task => {
         const outputs = task.outputs || [task.output];
-        for (const output of outputs) {
+        await Promise.all(outputs.map(async output => {
             try {
                 await fs.unlink(output);
                 console.log(`Removed ${output}`);
@@ -96,31 +110,22 @@ async function clean() {
                     console.error(`Error removing ${output}:`, err);
                 }
             }
-        }
-    }
+        }));
+    });
+    await Promise.all(cleanTasks);
 }
 
-// Define the build order explicitly
-const buildOrder = [
-    'webpack',
-    'notebook',
-    'tree',
-    'edit',
-    'terminal',
-    'auth',
-    'translations',
-    'ipythonCss',
-    'styleCss'
-];
-
 async function runAll() {
-    for (const taskName of buildOrder) {
-        try {
-            await runTask(taskName);
-        } catch (err) {
-            console.error(`Error in task ${taskName}:`, err);
-            process.exit(1);
-        }
+    try {
+        // Run webpack first
+        await runTask('webpack');
+
+        // Run everything else in parallel
+        const remainingTasks = Object.keys(tasks).filter(task => task !== 'webpack');
+        await Promise.all(remainingTasks.map(taskName => runTask(taskName)));
+    } catch (err) {
+        console.error('Build failed:', err);
+        process.exit(1);
     }
 }
 
