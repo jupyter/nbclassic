@@ -9,17 +9,24 @@
     "type": "git",
     "url": "https://github.com/jupyter/nbclassic.git"
   },
-"scripts": {
-  "bower:copy-marked": "node tools/copy-marked.js",
-  "bower": "bower install && npm run bower:copy-marked",
-  "build": "npm run bower && node tools/build.js",
-  "build:clean": "node tools/build.js clean",
-  "build:webpack": "node tools/build.js webpack",
-  "build:notebook": "node tools/build.js notebook",
-  "build:css": "node tools/build.js ipythonCss && node tools/build.js styleCss",
-  "build:translations": "node tools/build.js translations",
-  "watch": "npm-run-all --parallel watch:*"
-},
+  "scripts": {
+    "bower:copy-marked": "node tools/copy-marked.js",
+    "bower": "bower install && npm run bower:copy-marked",
+    "build:webpack": "node tools/build.js webpack",
+    "build:notebook": "node tools/build.js notebook",
+    "build:tree": "node tools/build.js tree",
+    "build:edit": "node tools/build.js edit",
+    "build:terminal": "node tools/build.js terminal",
+    "build:auth": "node tools/build.js auth",
+    "build:translations": "node tools/build.js translations",
+    "build:js": "npm run build:notebook && npm run build:tree && npm run build:edit && npm run build:terminal && npm run build:auth && npm run build:translations",
+    "build:css": "node tools/build.js ipythonCss && node tools/build.js styleCss",
+    "build": "npm run bower && npm run build:webpack && npm run build:js && npm run build:css",
+    "build:clean": "node tools/build.js clean",
+    "watch:css": "onchange 'nbclassic/static/**/*.less' -- npm run build:css",
+    "watch:js": "onchange 'nbclassic/static/**/!(*.min).js' 'bower.json' -- npm run build:js",
+    "watch": "npm-run-all --parallel watch:*"
+  },
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",

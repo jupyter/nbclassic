@@ -10,6 +10,22 @@ const tasks = {
         output: 'nbclassic/static/notebook/js/main.min.js',
         command: ['node', 'tools/build-main.js', 'notebook'],
     },
+    tree: {
+        output: 'nbclassic/static/tree/js/main.min.js',
+        command: ['node', 'tools/build-main.js', 'tree'],
+    },
+    edit: {
+        output: 'nbclassic/static/edit/js/main.min.js',
+        command: ['node', 'tools/build-main.js', 'edit'],
+    },
+    terminal: {
+        output: 'nbclassic/static/terminal/js/main.min.js',
+        command: ['node', 'tools/build-main.js', 'terminal'],
+    },
+    auth: {
+        output: 'nbclassic/static/auth/js/main.min.js',
+        command: ['node', 'tools/build-main.js', 'auth'],
+    },
     ipythonCss: {
         output: 'nbclassic/static/style/ipython.min.css',
         command: ['lessc', '--source-map', '--include-path=nbclassic/static/style',
@@ -31,13 +47,11 @@ const tasks = {
                 const langPath = lang.includes('_') ? lang : lang;
                 const input = `nbclassic/i18n/${langPath}/LC_MESSAGES/nbjs.po`;
                 const output = `nbclassic/i18n/${langPath}/LC_MESSAGES/nbjs.json`;
-
                 console.log(`Building translation for ${lang}...`);
                 const proc = spawn('po2json', [
                     '-p', '-F', '-f', 'jed1.x', '-d', 'nbjs',
                     input, output
                 ], { stdio: 'inherit' });
-
                 await new Promise((resolve, reject) => {
                     proc.on('close', code => {
                         if (code === 0) resolve();
@@ -54,7 +68,6 @@ async function runTask(taskName) {
     if (!task) {
         throw new Error(`Unknown task: ${taskName}`);
     }
-
     console.log(`Building ${taskName}...`);
     if (task.buildFn) {
         await task.buildFn();
@@ -87,15 +100,26 @@ async function clean() {
     }
 }
 
+// Define the build order explicitly
+const buildOrder = [
+    'webpack',
+    'notebook',
+    'tree',
+    'edit',
+    'terminal',
+    'auth',
+    'translations',
+    'ipythonCss',
+    'styleCss'
+];
+
 async function runAll() {
-    for (const taskName of Object.keys(tasks)) {
-        if (taskName !== 'bower') {
-            try {
-                await runTask(taskName);
-            } catch (err) {
-                console.error(`Error in task ${taskName}:`, err);
-                process.exit(1);
-            }
+    for (const taskName of buildOrder) {
+        try {
+            await runTask(taskName);
+        } catch (err) {
+            console.error(`Error in task ${taskName}:`, err);
+            process.exit(1);
         }
     }
 }
