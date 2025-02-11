@@ -1,6 +1,6 @@
-==================
+=================
 Jupyter NbClassic
-==================
+=================
 
 :ref:`Getting Started <NbClassicUsage>`
 
