@@ -19,10 +19,10 @@
     "moment": "~2.29.4",
     "react": "~16.0.0",
     "requirejs": "~2.2",
-    "requirejs-text": "~2.0.15",
+    "requirejs-text": "~2.0.16",
     "requirejs-plugins": "~1.0.3",
     "text-encoding": "~0.1",
-    "underscore": "jashkenas/underscore#~1.13.4",
+    "underscore": "jashkenas/underscore#~1.13.7",
     "xterm.js": "https://unpkg.com/xterm@~3.1.0/dist/xterm.js",
     "xterm.js-css": "https://unpkg.com/xterm@~3.1.0/dist/xterm.css",
     "xterm.js-fit": "https://unpkg.com/xterm@~3.1.0/dist/addons/fit/fit.js"
