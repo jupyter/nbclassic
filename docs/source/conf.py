@@ -14,7 +14,6 @@
 
 import sys
 import os
-import shlex
 import shutil
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -117,7 +116,7 @@ release = version_ns['__version__']
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -198,10 +197,10 @@ html_context = {
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-#html_title = None
+html_title = "Classic Jupyter Notebook"
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
-#html_short_title = None
+html_short_title = "NbClassic"
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
