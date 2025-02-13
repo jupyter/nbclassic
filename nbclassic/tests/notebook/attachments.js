@@ -42,6 +42,15 @@ casper.notebook_test(function () {
 
     // Validate and render the markdown cell
     this.thenClick('#btn_ok');
+
+    // Wait for cell content to update before rendering
+    this.waitFor(function() {
+        return this.evaluate(function() {
+            var cell = Jupyter.notebook.get_cell(0);
+            return cell.get_text().indexOf('![') >= 0;
+        });
+    });
+
     this.thenEvaluate(function() {
         Jupyter.notebook.get_cell(0).render();
     });
