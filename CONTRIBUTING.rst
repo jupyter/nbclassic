@@ -195,6 +195,10 @@ or to run just ``nbclassic/tests/notebook/deletecell.js``::
 
     python -m nbclassic.jstest notebook/deletecell.js
 
+.. note::
+   If you are getting spawn errors with an ARM Mac on macOS, make sure you
+   have Rosetta installed.
+
 
 Building the Documentation
 --------------------------
