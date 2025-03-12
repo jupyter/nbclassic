@@ -863,7 +863,7 @@
   version "4.7.0"
   resolved "https://codeload.github.com/components/font-awesome/tar.gz/885308b939369d147bec93174722786bc2c4eedd"
 
-"@bower_components/google-caja@minrk/google-caja-bower#5669":
+"@bower_components/google-caja@github:minrk/google-caja-bower#5669":
   version "0.0.0"
   resolved "https://codeload.github.com/minrk/google-caja-bower/tar.gz/1743addd38529927f046edebce42faf2c952e9e5"
 
