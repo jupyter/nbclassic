@@ -56,4 +56,4 @@ jobs:
         if: ${{ matrix.group == 'link_check' }}
         uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1
         with:
-          ignore_glob: nbclassic/static/components/**/*.md
+          ignore_glob: nbclassic/static/components/**/*.md docs-translations/*/*.md
