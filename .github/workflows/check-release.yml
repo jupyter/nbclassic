@@ -57,3 +57,4 @@ jobs:
         uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1
         with:
           ignore_glob: nbclassic/static/components/**/*.md docs-translations/*/*.md
+          ignore_links: http://127.0.0.1
