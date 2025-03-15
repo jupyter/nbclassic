@@ -34,7 +34,7 @@ jobs:
 
     - name: Install JS
       run: |
-        npm install
+        yarn install
 
     - name: Install Python dependencies
       run: |

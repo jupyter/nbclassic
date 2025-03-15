@@ -10,8 +10,9 @@
     "url": "https://github.com/jupyter/nbclassic.git"
   },
   "scripts": {
-    "bower:copy-marked": "node tools/copy-marked.js",
-    "bower": "bower install && npm run bower:copy-marked",
+    "yarn:copy-marked": "node tools/copy-marked.js",
+    "yarn:copy-remote-dependencies": "node tools/copy-remote-dependencies.js",
+    "yarn": "yarn install && npm run yarn:copy-marked && npm run yarn:copy-remote-dependencies",
     "build:webpack": "webpack --mode production",
     "build:notebook": "node tools/build-main.js notebook",
     "build:tree": "node tools/build-main.js tree",
@@ -28,11 +29,12 @@
     "build:css-ipython": "lessc --source-map --include-path='nbclassic/static/style' nbclassic/static/style/ipython.less nbclassic/static/style/ipython.min.css",
     "build:css-style": "lessc --source-map --include-path='nbclassic/static/style' nbclassic/static/style/style.less nbclassic/static/style/style.min.css",
     "build:css": "npm run build:css-ipython && npm run build:css-style",
-    "build": "npm run bower && npm run build:webpack && npm run build:js && npm run build:css",
+    "build": "npm run yarn && npm run build:webpack && npm run build:js && npm run build:css",
     "build:watch": "npm run watch",
     "watch:css": "onchange 'nbclassic/static/**/*.less' -- npm run build:css",
     "watch:js": "onchange 'nbclassic/static/**/!(*.min).js' 'bower.json' -- npm run build:js",
-    "watch": "npm-run-all --parallel watch:*"
+    "watch": "npm-run-all --parallel watch:*",
+    "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'nbclassic/static/components', 'junction') } catch (e) { }\""
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -47,5 +49,30 @@
     "requirejs": "^2.3.6",
     "webpack": "^5.46.0",
     "webpack-cli": "^4.7.2"
+  },
+  "dependencies": {
+    "@bower_components/MathJax": "mathjax/MathJax#^2.7.4",
+    "@bower_components/backbone": "jashkenas/backbone#~1.6.0",
+    "@bower_components/bootstrap": "twbs/bootstrap#~3.4.1",
+    "@bower_components/bootstrap-tour": "sorich87/bootstrap-tour#0.12.0",
+    "@bower_components/codemirror": "components/codemirror#5.58.2+components1",
+    "@bower_components/es6-promise": "components/es6-promise#~1.0",
+    "@bower_components/font-awesome": "components/font-awesome#~4.7.0",
+    "@bower_components/google-caja": "github:minrk/google-caja-bower#5669",
+    "@bower_components/jed": "SlexAxton/Jed#~1.1.1",
+    "@bower_components/jquery": "components/jquery#~3.7.1",
+    "@bower_components/jquery-typeahead": "running-coder/jquery-typeahead#~2.10.7",
+    "@bower_components/jquery-ui": "jquery/jquery-ui#~1.13.3",
+    "@bower_components/marked": "chjj/marked#~4.0.10",
+    "@bower_components/moment": "moment/moment#~2.29.4",
+    "@bower_components/react": "facebook/react-bower#~16.0.0",
+    "@bower_components/requirejs": "jrburke/requirejs-bower#~2.2",
+    "@bower_components/requirejs-plugins": "millermedeiros/requirejs-plugins#~1.0.3",
+    "@bower_components/requirejs-text": "requirejs/text#~2.0.16",
+    "@bower_components/text-encoding": "inexorabletash/text-encoding#~0.1",
+    "@bower_components/underscore": "jashkenas/underscore#~1.13.7"
+  },
+  "engines": {
+    "yarn": ">= 1.0.0"
   }
 }
