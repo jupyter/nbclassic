@@ -44,7 +44,10 @@ jobs:
       run: |
         pip install -e .[test] codecov
         pip install -r docs/doc-requirements.txt
-        wget https://github.com/jgm/pandoc/releases/download/1.19.1/pandoc-1.19.1-1-amd64.deb && sudo dpkg -i pandoc-1.19.1-1-amd64.deb
+    - name: Install pandoc
+      uses: pandoc/actions/setup@v1.1.0
+      with:
+        version: 3.6.4
     - name: List installed packages
       run: |
         pip freeze
