@@ -10,6 +10,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  python-version: '3.12'
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -26,7 +29,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.8
+          python-version: ${{ env.python-version }}
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -50,9 +53,9 @@ jobs:
         if: startsWith(runner.os, 'Linux')
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ matrix.python }}-${{ hashFiles('pyproject.toml') }}
+          key: ${{ runner.os }}-pip-${{ env.python-version }}-${{ hashFiles('pyproject.toml') }}
           restore-keys: |
-            ${{ runner.os }}-pip-${{ matrix.python }}
+            ${{ runner.os }}-pip-${{ env.python-version }}
 
       - name: Temporary workaround for sanitizer loading in JS Tests
         run: |
