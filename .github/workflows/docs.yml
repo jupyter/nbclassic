@@ -9,21 +9,21 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  python-version: '3.12'
+
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
-      matrix:
-        os: [ubuntu-22.04]
-        python-version: [ '3.12' ]
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Install Python ${{ matrix.python-version }}
+    - name: Install Python ${{ env.python-version }}
       uses: actions/setup-python@v5
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: ${{ env.python-version }}
         architecture: 'x64'
     - name: Upgrade packaging dependencies
       run: |
@@ -36,9 +36,9 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ${{ steps.pip-cache.outputs.dir }}
-        key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}
+        key: ${{ runner.os }}-pip-${{ env.python-version }}-${{ hashFiles('pyproject.toml') }}
         restore-keys: |
-          ${{ runner.os }}-pip-${{ matrix.python-version }}-
+          ${{ runner.os }}-pip-${{ env.python-version }}-
           ${{ runner.os }}-pip-
     - name: Install the Python dependencies
       run: |
