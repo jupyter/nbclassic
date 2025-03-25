@@ -27,7 +27,7 @@ Installing Node.js and npm
 Building the NbClassic from its GitHub source code requires some tools to
 create and minify JavaScript components and the CSS,
 specifically Node.js and Node's package manager, ``npm``.
-It should be node version ≥ 6.0.
+It should be node version ≥ 16.0.
 
 If you use ``conda``, you can get them with::
 
