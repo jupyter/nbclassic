@@ -181,6 +181,10 @@ installed::
 
     npm install -g casperjs phantomjs-prebuilt
 
+Re-build the JavaScript prior to running tests::
+
+    npm run build
+
 Then, to run the JavaScript tests::
 
     python -m nbclassic.jstest [group]
