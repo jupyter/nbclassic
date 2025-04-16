@@ -2923,7 +2923,7 @@ define([
                                     that.events.trigger('notebook_renamed.Notebook', data);
                                     that.save_notebook_success(start, data);
                                     document.body.setAttribute('data-notebook-path', that.notebook_path)
-                                    document.body.setAttribute('data-notebook-name', that.notebook_name)    
+                                    document.body.setAttribute('data-notebook-name', that.notebook_name)
                                 }, function(error) {
                                     var msg = i18n.msg._(error.message || 'Unknown error saving notebook');
                                     $(".save-message").html(
@@ -2932,7 +2932,7 @@ define([
                                             .text(msg)
                                     );
                                 });
-                        };              
+                        };
                         var getParentPath = function(path) {
                             return path.split('/').slice(0, -1).join('/')
                         };
@@ -2956,7 +2956,7 @@ define([
                             )
                             return save_it
                         };
-                        
+
                         that.contents.get(nb_path, {type: 'notebook', content: false}).then(
                         function(data) {
                             var warning_body = $('<div/>').append(
@@ -3007,7 +3007,7 @@ define([
 
                                                     )
                                                 }
-                                            }                            
+                                            }
                                         }
                                     })
                                 }

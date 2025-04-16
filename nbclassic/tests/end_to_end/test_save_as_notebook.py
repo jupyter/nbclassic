@@ -112,7 +112,7 @@ def test_save_as_nb(notebook_frontend):
 
     print('[Test] Check notebook name in URL')
     notebook_frontend.wait_for_condition(
-        lambda: notebook_name in notebook_frontend.get_page_url(page=EDITOR_PAGE),
+        lambda: get_notebook_name(notebook_frontend) in notebook_frontend.get_page_url(page=EDITOR_PAGE),
         timeout=120,
         period=5
     )
@@ -148,7 +148,7 @@ def test_save_as_nb(notebook_frontend):
         )
         # Show the input field value
         print('[Test] Name input field contents:')
-        field_value = name_input_element.evaluate(f'(elem) => {{ return elem.value; }}')
+        field_value = name_input_element.evaluate('(elem) => {{ return elem.value; }}')
         print('[Test]   ' + field_value)
         if field_value != notebook_path:
             return False
