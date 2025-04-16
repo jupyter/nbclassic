@@ -79,6 +79,7 @@
     "@bower_components/underscore": "jashkenas/underscore#~1.13.7"
   },
   "engines": {
-    "yarn": ">= 1.0.0"
+    "yarn": "^1.22.22",
+    "node": ">=16"
   }
 }

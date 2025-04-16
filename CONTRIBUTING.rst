@@ -27,15 +27,15 @@ Installing Node.js and npm
 Building the NbClassic from its GitHub source code requires some tools to
 create and minify JavaScript components and the CSS,
 specifically Node.js and Node's package manager, ``npm``.
-It should be node version ≥ 16.0.
+It should be node version ≥ 16.0. We also use Yarn (classic) version 1.x.
 
 If you use ``conda``, you can get them with::
 
-    conda install -c conda-forge nodejs
+    conda install -c conda-forge nodejs=16 yarn=1
 
 If you use `Homebrew <https://brew.sh/>`_ on Mac OS X::
 
-    brew install node
+    brew install node yarn
 
 Installation on Linux may vary, but be aware that the `nodejs` or `npm` packages
 included in the system package repository may be too old to work properly.
