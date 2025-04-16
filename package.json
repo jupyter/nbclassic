@@ -39,7 +39,7 @@
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
-    "@jupyterlab/apputils": "^4.4.6",
+    "@jupyterlab/apputils": "^3.6.1",
     "babel-loader": "^8.2.2",
     "babel-polyfill": "^6.26.0",
     "commander": "^6.0.0",
@@ -51,6 +51,10 @@
     "requirejs": "^2.3.6",
     "webpack": "^5.46.0",
     "webpack-cli": "^4.7.2"
+  },
+  "devDependenciesNotes": {
+    "@jupyterlab/apputils": "Restricted to 3.6.x because v4.x changes sanitizer API breaking Markdown cells",
+    "pos2json": "Using a beta 1.0.0 version because previous version have security problems, and no 1.0.0 release"
   },
   "dependencies": {
     "@bower_components/MathJax": "mathjax/MathJax#^2.7.4",
