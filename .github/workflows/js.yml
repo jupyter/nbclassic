@@ -74,7 +74,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install --upgrade setuptools wheel
-          yarn install
+          npm run build
           npm install -g casperjs@1.1.4 phantomjs-prebuilt@2.1.16
           pip install .[test]
 

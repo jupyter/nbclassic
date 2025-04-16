@@ -32,9 +32,9 @@ jobs:
       with:
         node-version: '16.x'
 
-    - name: Install JS
+    - name: Install and build JS
       run: |
-        yarn install
+        npm run build
 
     - name: Install Python dependencies
       run: |
