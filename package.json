@@ -39,16 +39,22 @@
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
-    "@jupyterlab/apputils": "^3.1.3",
+    "@jupyterlab/apputils": "^3.6.1",
     "babel-loader": "^8.2.2",
     "babel-polyfill": "^6.26.0",
-    "bower": "^1.8.8",
-    "less": "~2",
+    "commander": "^6.0.0",
+    "gettext-parser": "2.0.0",
+    "gettext-to-messageformat": "0.3.1",
+    "less": "^4.2.2",
     "onchange": "^6.0.0",
-    "po2json": "^0.4.5",
+    "po2json": "1.0.0-beta-3",
     "requirejs": "^2.3.6",
     "webpack": "^5.46.0",
     "webpack-cli": "^4.7.2"
+  },
+  "devDependenciesNotes": {
+    "@jupyterlab/apputils": "Restricted to 3.6.x because v4.x changes sanitizer API breaking Markdown cells",
+    "pos2json": "Using a beta 1.0.0 version because previous version have security problems, and no 1.0.0 release"
   },
   "dependencies": {
     "@bower_components/MathJax": "mathjax/MathJax#^2.7.4",
@@ -58,10 +64,10 @@
     "@bower_components/codemirror": "components/codemirror#5.58.2+components1",
     "@bower_components/es6-promise": "components/es6-promise#~1.0",
     "@bower_components/font-awesome": "components/font-awesome#~4.7.0",
-    "@bower_components/google-caja": "github:minrk/google-caja-bower#5669",
+    "@bower_components/google-caja": "https://github.com/minrk/google-caja-bower/archive/refs/tags/5669.0.0.tar.gz",
     "@bower_components/jed": "SlexAxton/Jed#~1.1.1",
     "@bower_components/jquery": "components/jquery#~3.7.1",
-    "@bower_components/jquery-typeahead": "running-coder/jquery-typeahead#~2.10.7",
+    "@bower_components/jquery-typeahead": "running-coder/jquery-typeahead#~2.11.1",
     "@bower_components/jquery-ui": "jquery/jquery-ui#~1.13.3",
     "@bower_components/marked": "chjj/marked#~4.0.10",
     "@bower_components/moment": "moment/moment#~2.29.4",
@@ -73,6 +79,7 @@
     "@bower_components/underscore": "jashkenas/underscore#~1.13.7"
   },
   "engines": {
-    "yarn": ">= 1.0.0"
+    "yarn": "^1.22.22",
+    "node": ">=16"
   }
 }
