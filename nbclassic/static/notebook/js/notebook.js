@@ -2866,7 +2866,7 @@ define([
 
     Notebook.prototype.save_notebook_as = function() {
         var that = this;
-        var current_notebook_name = $('body').attr('data-notebook-name')
+        var current_notebook_name = $('body').attr('data-notebook-name');
         var current_dir = $('body').attr('data-notebook-path').split('/').slice(0, -1).join("/");
         current_dir = current_dir? current_dir + "/": "";
         current_dir = decodeURIComponent(current_dir);
@@ -2895,10 +2895,10 @@ define([
                         var nb_name = nb_path.split('/').slice(-1).pop();
                         if (!nb_name) {
                             // infer notebook name from current file
-                            nb_name = current_notebook_name
-                            let path = nb_path.split('/').slice(0, -1)
-                            path.push(current_notebook_name)
-                            var nb_path = path.join('/')
+                            nb_name = current_notebook_name;
+                            var path = nb_path.split('/').slice(0, -1);
+                            path.push(current_notebook_name);
+                            var nb_path = path.join('/');
                         }
                         // If notebook name does not contain extension '.ipynb' add it
                         var ext = utils.splitext(nb_name)[1];
@@ -2919,11 +2919,11 @@ define([
                                     that.writable = true;
                                     that.notebook_name = data.name;
                                     that.notebook_path = data.path;
+                                    document.body.setAttribute('data-notebook-path', that.notebook_path);
+                                    document.body.setAttribute('data-notebook-name', that.notebook_name);
                                     that.session.rename_notebook(data.path);
                                     that.events.trigger('notebook_renamed.Notebook', data);
                                     that.save_notebook_success(start, data);
-                                    document.body.setAttribute('data-notebook-path', that.notebook_path)
-                                    document.body.setAttribute('data-notebook-name', that.notebook_name)
                                 }, function(error) {
                                     var msg = i18n.msg._(error.message || 'Unknown error saving notebook');
                                     $(".save-message").html(
@@ -2934,31 +2934,29 @@ define([
                                 });
                         };
                         var getParentPath = function(path) {
-                            return path.split('/').slice(0, -1).join('/')
+                            return path.split('/').slice(0, -1).join('/');
                         };
                         function makeParentDirectory(path) {
-                            var parent_path = getParentPath(path)
-                            var check_parent = that.contents.get(parent_path, {type: 'directory', content: false})
+                            var parent_path = getParentPath(path);
+                            var check_parent = that.contents.get(parent_path, {type: 'directory', content: false});
                             var recursed = check_parent.catch(
-                                function(err) {
-                                    return makeParentDirectory(parent_path)
+                                function() {
+                                    return makeParentDirectory(parent_path);
                                 }
-                            )
-                            var save_it = Promise.allSettled([check_parent, recursed]).then(
+                            );
+                            return Promise.allSettled([check_parent, recursed]).then(
                                 function() {
                                     model = {
                                             'type': 'directory',
                                             'name': '',
                                             'path': utils.url_path_split(path)[0]
-                                        }
-                                        return that.contents.save(path, model).catch();
+                                        };
+                                    return that.contents.save(path, model).catch();
                                 }
-                            )
-                            return save_it
+                            );
                         };
 
-                        that.contents.get(nb_path, {type: 'notebook', content: false}).then(
-                        function(data) {
+                        that.contents.get(nb_path, {type: 'notebook', content: false}).then(function(data) {
                             var warning_body = $('<div/>').append(
                                 $("<p/>").text(i18n.msg._('Notebook with that name exists.')));
                             dialog.modal({
@@ -2973,13 +2971,11 @@ define([
                                 }
                             }
                             });
-                        }, function(err) {
-                            var nb_path_parent = getParentPath(nb_path)
+                        }, function() {
+                            var nb_path_parent = getParentPath(nb_path);
                             that.contents.get(nb_path_parent, {type: 'directory', content: false}).then(
-                                function (data) {
-                                    return save_thunk();
-                                },
-                                function(err) {
+                                save_thunk,
+                                function() {
                                     var warning_body = $('<div/>').append(
                                         $("<p/>").text(i18n.msg._('Create missing directory?'))
                                     );
@@ -2991,27 +2987,25 @@ define([
                                             Create: {
                                                 class: 'btn-warning',
                                                 click: function() {
-                                                    return makeParentDirectory(nb_path_parent).then(
-                                                        function(data) {
-                                                            return save_thunk()
-                                                        }
+                                                    makeParentDirectory(nb_path_parent).then(
+                                                        save_thunk
                                                     ).catch(
-                                                        (error) => {
+                                                        function(error) {
                                                             var msg = i18n.msg._(error.message || 'Unknown error creating directory.');
                                                             $(".save-message").html(
-                                                            $("<span>")
-                                                                .attr("style", "color:red;")
-                                                                .text(msg)
+                                                                $("<span>")
+                                                                    .attr("style", "color:red;")
+                                                                    .text(msg)
                                                             );
                                                         }
-
-                                                    )
+                                                    );
                                                 }
                                             }
                                         }
-                                    })
+                                    });
                                 }
                             );
+
                         });
                         return false;
                     }
@@ -3163,15 +3157,14 @@ define([
             function (json) {
                 that.notebook_name = json.name;
                 that.notebook_path = json.path;
+                document.body.setAttribute('data-notebook-path', that.notebook_path);
+                document.body.setAttribute('data-notebook-name', that.notebook_name);
+
                 that.last_modified = new Date(json.last_modified);
                 // debug 484
                 that._last_modified = json.last_modified;
                 that.session.rename_notebook(json.path);
                 that.events.trigger('notebook_renamed.Notebook', json);
-
-                // update document attributes after rename
-                document.body.setAttribute('data-notebook-path', that.notebook_path)
-                document.body.setAttribute('data-notebook-name', that.notebook_name)
             }
         );
     };

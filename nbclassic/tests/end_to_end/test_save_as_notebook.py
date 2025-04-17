@@ -51,6 +51,8 @@ def test_save_as_nb(notebook_frontend):
     name_input_element.focus()
     name_input_element.click()
 
+    fill_attempts = 0
+
     def attempt_form_fill_and_save(notebook_path):
         # Application behavior here is HIGHLY variable, we use this for repeated attempts
         # ....................
@@ -88,6 +90,7 @@ def test_save_as_nb(notebook_frontend):
         save_element.wait_for('visible')
         save_element.focus()
         save_element.click()
+        print('[Test] Save button clicked')
 
         # Application lag may cause the save dialog to linger,
         # if it's visible wait for it to disappear before proceeding
@@ -108,7 +111,11 @@ def test_save_as_nb(notebook_frontend):
         return True
 
     # Retry until timeout (wait_for_condition retries upon func exception)
-    notebook_frontend.wait_for_condition(attempt_form_fill_and_save, timeout=900, period=1)
+    notebook_frontend.wait_for_condition(
+        partial(attempt_form_fill_and_save, "new_notebook.ipynb"),
+        timeout=120,
+        period=1,
+    )
 
     print('[Test] Check notebook name in URL')
     notebook_frontend.wait_for_condition(
@@ -121,7 +128,7 @@ def test_save_as_nb(notebook_frontend):
     print('[Test] Begin attempts to fill the save dialog input and save the notebook with a new directory')
     fill_attempts=0
 
-    def attempt_form_fill_w_dir_and_save():
+    def attempt_form_fill_w_dir_and_save(notebook_path):
         # Application behavior here is HIGHLY variable, we use this for repeated attempts
         # ....................
         # This may be a retry, check if the application state reflects a successful save operation
@@ -185,7 +192,6 @@ def test_save_as_nb(notebook_frontend):
         print('[Test] Notebook name was changed!')
         return True
 
-    # for notebook_path in ["new_folder/another_new_notebook.ipynb"]:
     for notebook_path in ["new_notebook.ipynb", "new_folder/another_new_notebook.ipynb"]:
         print(f'[Test] Begin attempts to fill the save dialog input with {notebook_path} and save the notebook')
         fill_attempts = 0
