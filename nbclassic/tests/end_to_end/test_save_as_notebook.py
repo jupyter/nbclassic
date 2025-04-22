@@ -22,7 +22,7 @@ def set_notebook_name(nb, name):
 
 
 def test_save_as_nb(notebook_frontend):
-    print('[Test] [test_save_readonly_as]')
+    print('[Test] [test_save_as_notebook]')
     notebook_frontend.wait_for_kernel_ready()
     notebook_frontend.wait_for_selector(".input", page=EDITOR_PAGE)
 
@@ -91,6 +91,16 @@ def test_save_as_nb(notebook_frontend):
         save_element.focus()
         save_element.click()
         print('[Test] Save button clicked')
+
+        # If the notebook already exists from previous attempts or other tests,
+        # just overwrite it
+        if notebook_frontend.locate('text=Overwrite', page=EDITOR_PAGE).is_visible():
+            overwrite_element = notebook_frontend.locate('text=Overwrite', page=EDITOR_PAGE)
+            overwrite_element.focus()
+            overwrite_element.click()
+
+        save_element.wait_for('detached')
+        print('[Test] Save element detached')
 
         # Application lag may cause the save dialog to linger,
         # if it's visible wait for it to disappear before proceeding
@@ -165,18 +175,29 @@ def test_save_as_nb(notebook_frontend):
         save_element.wait_for('visible')
         save_element.focus()
         save_element.click()
+        show_screenshot(notebook_frontend)
 
         # If the notebook path contains a directory, click the create button
         if "/" in notebook_path:
+            show_screenshot(notebook_frontend)
             print('[Test] Locate and click the create button')
             create_element = dialog_element.locate('text=Create')
             create_element.wait_for('visible')
             create_element.focus()
             create_element.click()
 
+        breakpoint()
+        # If the notebook already exists from previous attempts or other tests,
+        # just overwrite it
+        if notebook_frontend.locate('text=Overwrite', page=EDITOR_PAGE).is_visible():
+            overwrite_element = notebook_frontend.locate('text=Overwrite', page=EDITOR_PAGE)
+            overwrite_element.focus()
+            overwrite_element.click()
+
         # Application lag may cause the save dialog to linger,
         # if it's visible wait for it to disappear before proceeding
         if save_element.is_visible():
+            show_screenshot(notebook_frontend)
             print('[Test] Save element still visible after save, wait for hidden')
             try:
                 save_element.expect_not_to_be_visible(timeout=120)
@@ -195,7 +216,7 @@ def test_save_as_nb(notebook_frontend):
     for notebook_path in ["new_notebook.ipynb", "new_folder/another_new_notebook.ipynb"]:
         print(f'[Test] Begin attempts to fill the save dialog input with {notebook_path} and save the notebook')
         fill_attempts = 0
-        check_func = partial(attempt_form_fill_and_save, notebook_path)
+        check_func = partial(attempt_form_fill_w_dir_and_save, notebook_path)
         notebook_frontend.wait_for_condition(check_func, timeout=900, period=1)
 
         print('[Test] Check notebook name in URL')

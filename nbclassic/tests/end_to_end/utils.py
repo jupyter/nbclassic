@@ -95,6 +95,9 @@ class FrontendElement:
             self._user_data = copy.deepcopy(item._user_data)
             self._user_data.update(user_data)
 
+    def __repr__(self) -> str:
+        return str(self._raw)
+
     def __bool__(self):
         """Returns True if construction succeeded"""
         # (Quick/dirty )We can debug on failures by deferring bad inits and testing for them here

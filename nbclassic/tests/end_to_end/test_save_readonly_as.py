@@ -116,8 +116,17 @@ def test_save_readonly_as(notebook_frontend):
         save_element.wait_for('visible')
         save_element.focus()
         save_element.click()
+        print('[Test] Save button clicked')
+
+        # If the notebook already exists from previous attempts or other tests,
+        # just overwrite it
+        if notebook_frontend.locate('text=Overwrite', page=EDITOR_PAGE).is_visible():
+            overwrite_element = notebook_frontend.locate('text=Overwrite', page=EDITOR_PAGE)
+            overwrite_element.focus()
+            overwrite_element.click()
 
         save_element.wait_for('detached')
+        print('[Test] Save element detached')
 
         # Check if the save operation succeeded (by checking notebook name change)
         notebook_frontend.wait_for_condition(
