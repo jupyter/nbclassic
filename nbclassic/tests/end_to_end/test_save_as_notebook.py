@@ -175,18 +175,15 @@ def test_save_as_nb(notebook_frontend):
         save_element.wait_for('visible')
         save_element.focus()
         save_element.click()
-        show_screenshot(notebook_frontend)
 
         # If the notebook path contains a directory, click the create button
         if "/" in notebook_path:
-            show_screenshot(notebook_frontend)
             print('[Test] Locate and click the create button')
             create_element = dialog_element.locate('text=Create')
             create_element.wait_for('visible')
             create_element.focus()
             create_element.click()
 
-        breakpoint()
         # If the notebook already exists from previous attempts or other tests,
         # just overwrite it
         if notebook_frontend.locate('text=Overwrite', page=EDITOR_PAGE).is_visible():
@@ -197,7 +194,6 @@ def test_save_as_nb(notebook_frontend):
         # Application lag may cause the save dialog to linger,
         # if it's visible wait for it to disappear before proceeding
         if save_element.is_visible():
-            show_screenshot(notebook_frontend)
             print('[Test] Save element still visible after save, wait for hidden')
             try:
                 save_element.expect_not_to_be_visible(timeout=120)
