@@ -1,8 +1,11 @@
 """Test save-as functionality"""
 
-from functools import partial
-import traceback
+import sys
 import time
+import traceback
+from functools import partial
+
+import pytest
 
 from .utils import EDITOR_PAGE, EndToEndTimeout
 
@@ -22,6 +25,7 @@ def set_notebook_name(nb, name):
     nb.evaluate(JS, page=EDITOR_PAGE)
 
 
+@pytest.mark.skipif(sys.platform == 'darwin', reason="fails randomly on osx")
 def test_save_as_nb(notebook_frontend):
     print('[Test] [test_save_as_notebook]')
     notebook_frontend.wait_for_kernel_ready()

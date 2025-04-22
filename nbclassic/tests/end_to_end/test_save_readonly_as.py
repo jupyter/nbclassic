@@ -1,12 +1,10 @@
 """Test readonly notebook saved and renamed"""
 
-
 import sys
-import traceback
 
 import pytest
 
-from .utils import EDITOR_PAGE, EndToEndTimeout
+from .utils import EDITOR_PAGE
 
 
 def save_as(nb):
