@@ -2,6 +2,7 @@
 
 from functools import partial
 import traceback
+import time
 
 from .utils import EDITOR_PAGE, EndToEndTimeout
 
@@ -90,6 +91,7 @@ def test_save_as_nb(notebook_frontend):
         save_element.wait_for('visible')
         save_element.focus()
         save_element.click()
+        time.sleep(1)
         print('[Test] Save button clicked')
 
         # If the notebook already exists from previous attempts or other tests,
@@ -98,6 +100,7 @@ def test_save_as_nb(notebook_frontend):
             overwrite_element = notebook_frontend.locate('text=Overwrite', page=EDITOR_PAGE)
             overwrite_element.focus()
             overwrite_element.click()
+            time.sleep(1)
 
         save_element.wait_for('detached')
         print('[Test] Save element detached')
@@ -133,7 +136,6 @@ def test_save_as_nb(notebook_frontend):
         timeout=120,
         period=5
     )
-
 
     print('[Test] Begin attempts to fill the save dialog input and save the notebook with a new directory')
     fill_attempts=0
@@ -175,6 +177,8 @@ def test_save_as_nb(notebook_frontend):
         save_element.wait_for('visible')
         save_element.focus()
         save_element.click()
+        time.sleep(1)
+        print('[Test] Save button clicked')
 
         # If the notebook path contains a directory, click the create button
         if "/" in notebook_path:
@@ -183,6 +187,7 @@ def test_save_as_nb(notebook_frontend):
             create_element.wait_for('visible')
             create_element.focus()
             create_element.click()
+            time.sleep(1)
 
         # If the notebook already exists from previous attempts or other tests,
         # just overwrite it
@@ -190,6 +195,7 @@ def test_save_as_nb(notebook_frontend):
             overwrite_element = notebook_frontend.locate('text=Overwrite', page=EDITOR_PAGE)
             overwrite_element.focus()
             overwrite_element.click()
+            time.sleep(1)
 
         # Application lag may cause the save dialog to linger,
         # if it's visible wait for it to disappear before proceeding
