@@ -2866,6 +2866,7 @@ define([
 
     Notebook.prototype.save_notebook_as = function() {
         var that = this;
+        var current_notebook_name = $('body').attr('data-notebook-name');
         var current_dir = $('body').attr('data-notebook-path').split('/').slice(0, -1).join("/");
         current_dir = current_dir? current_dir + "/": "";
         current_dir = decodeURIComponent(current_dir);
@@ -2893,12 +2894,11 @@ define([
                         var nb_path = d.find('input').val();
                         var nb_name = nb_path.split('/').slice(-1).pop();
                         if (!nb_name) {
-                            $(".save-message").html(
-                                    $("<span>")
-                                        .attr("style", "color:red;")
-                                        .text($(".save-message").text())
-                                );
-                            return false;
+                            // infer notebook name from current file
+                            nb_name = current_notebook_name;
+                            var path = nb_path.split('/').slice(0, -1);
+                            path.push(current_notebook_name);
+                            var nb_path = path.join('/');
                         }
                         // If notebook name does not contain extension '.ipynb' add it
                         var ext = utils.splitext(nb_name)[1];
@@ -2919,6 +2919,8 @@ define([
                                     that.writable = true;
                                     that.notebook_name = data.name;
                                     that.notebook_path = data.path;
+                                    document.body.setAttribute('data-notebook-path', that.notebook_path);
+                                    document.body.setAttribute('data-notebook-name', that.notebook_name);
                                     that.session.rename_notebook(data.path);
                                     that.events.trigger('notebook_renamed.Notebook', data);
                                     that.save_notebook_success(start, data);
@@ -2931,6 +2933,29 @@ define([
                                     );
                                 });
                         };
+                        var getParentPath = function(path) {
+                            return path.split('/').slice(0, -1).join('/');
+                        };
+                        function makeParentDirectory(path) {
+                            var parent_path = getParentPath(path);
+                            var check_parent = that.contents.get(parent_path, {type: 'directory', content: false});
+                            var recursed = check_parent.catch(
+                                function() {
+                                    return makeParentDirectory(parent_path);
+                                }
+                            );
+                            return Promise.allSettled([check_parent, recursed]).then(
+                                function() {
+                                    model = {
+                                            'type': 'directory',
+                                            'name': '',
+                                            'path': utils.url_path_split(path)[0]
+                                        };
+                                    return that.contents.save(path, model).catch();
+                                }
+                            );
+                        };
+
                         that.contents.get(nb_path, {type: 'notebook', content: false}).then(function(data) {
                             var warning_body = $('<div/>').append(
                                 $("<p/>").text(i18n.msg._('Notebook with that name exists.')));
@@ -2946,8 +2971,41 @@ define([
                                 }
                             }
                             });
-                        }, function(err) {
-                            return save_thunk();
+                        }, function() {
+                            var nb_path_parent = getParentPath(nb_path);
+                            that.contents.get(nb_path_parent, {type: 'directory', content: false}).then(
+                                save_thunk,
+                                function() {
+                                    var warning_body = $('<div/>').append(
+                                        $("<p/>").text(i18n.msg._('Create missing directory?'))
+                                    );
+                                    dialog.modal({
+                                        title: 'Directory does not exist',
+                                        body: warning_body,
+                                        buttons: {
+                                            Cancel: {},
+                                            Create: {
+                                                class: 'btn-warning',
+                                                click: function() {
+                                                    makeParentDirectory(nb_path_parent).then(
+                                                        save_thunk
+                                                    ).catch(
+                                                        function(error) {
+                                                            var msg = i18n.msg._(error.message || 'Unknown error creating directory.');
+                                                            $(".save-message").html(
+                                                                $("<span>")
+                                                                    .attr("style", "color:red;")
+                                                                    .text(msg)
+                                                            );
+                                                        }
+                                                    );
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            );
+
                         });
                         return false;
                     }
@@ -2961,7 +3019,7 @@ define([
                     }
                 });
                 d.find('input[type="text"]').val(current_dir).focus();
-             }
+            }
          });
     };
 
@@ -3099,6 +3157,9 @@ define([
             function (json) {
                 that.notebook_name = json.name;
                 that.notebook_path = json.path;
+                document.body.setAttribute('data-notebook-path', that.notebook_path);
+                document.body.setAttribute('data-notebook-name', that.notebook_name);
+
                 that.last_modified = new Date(json.last_modified);
                 // debug 484
                 that._last_modified = json.last_modified;
