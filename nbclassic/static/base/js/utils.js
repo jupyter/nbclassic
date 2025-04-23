@@ -1063,13 +1063,16 @@ define([
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
     **/
+    var log10 = function(x) {
+        return Math.log(x) / Math.LN10;
+    };
     var format_filesize = function(num) {
       if (num === undefined || num === null)
         return;
 
       var UNITS = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
-      if (!Number.isFinite(num)) {
+      if (!(typeof num === 'number' && isFinite(num))) {
         console.error("Expected finite number, got ", typeof(num) + ": " + num);
       }
 
@@ -1083,12 +1086,12 @@ define([
         return (neg ? '-' : '') + num + ' B';
       }
 
-      var exponent = Math.min(Math.floor(Math.log10(num) / 3), UNITS.length - 1);
+      var exponent = Math.min(Math.floor(log10(num) / 3), UNITS.length - 1);
       var numStr = Number((num / Math.pow(1000, exponent)).toPrecision(3));
       var unit = UNITS[exponent];
 
       return (neg ? '-' : '') + numStr + ' ' + unit;
-    }
+    };
 
     // javascript stores text as utf16 and string indices use "code units",
     // which stores high-codepoint characters as "surrogate pairs",
