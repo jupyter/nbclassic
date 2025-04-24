@@ -5,7 +5,7 @@ store the current version info of nbclassic.
 import re
 
 # Version string must appear intact for tbump versioning
-__version__ = '1.3.0rc0'
+__version__ = '1.3.0.dev1'
 
 # Build up version_info tuple for backwards compatibility
 pattern = r'(?P<major>\d+).(?P<minor>\d+).(?P<patch>\d+)(?P<rest>.*)'
