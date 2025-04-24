@@ -73,7 +73,7 @@ define(function(){
     // tree
     jglobal('SessionList','tree/js/sessionlist');
 
-    Jupyter.version = "1.3.0.dev1";
+    Jupyter.version = "1.3.0";
     Jupyter._target = '_blank';
 
     return Jupyter;
