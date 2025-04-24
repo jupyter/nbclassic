@@ -2,6 +2,44 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.3.0rc0
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v1.2.0...5d1cf0221a03898907cf5f1576e87041fffc76c0))
+
+### Enhancements made
+
+- Improve build performance through improving artifact patterns [#317](https://github.com/jupyter/nbclassic/pull/317) ([@danyeaw](https://github.com/danyeaw))
+- Save as improvements [#267](https://github.com/jupyter/nbclassic/pull/267) ([@andrewfulton9](https://github.com/andrewfulton9))
+
+### Maintenance and upkeep improvements
+
+- Upload release artifacts on push [#332](https://github.com/jupyter/nbclassic/pull/332) ([@RRosio](https://github.com/RRosio))
+- Add Release workflows [#331](https://github.com/jupyter/nbclassic/pull/331) ([@RRosio](https://github.com/RRosio))
+- Fix set-output deprecation warnings [#330](https://github.com/jupyter/nbclassic/pull/330) ([@RRosio](https://github.com/RRosio))
+- Update JavaScript dependencies [#329](https://github.com/jupyter/nbclassic/pull/329) ([@danyeaw](https://github.com/danyeaw))
+- Drop support for Python 3.8, Test with 3.12 and 3.13 [#327](https://github.com/jupyter/nbclassic/pull/327) ([@danyeaw](https://github.com/danyeaw))
+- Automatically cancel concurrent workflows [#326](https://github.com/jupyter/nbclassic/pull/326) ([@danyeaw](https://github.com/danyeaw))
+- Initial migration from Bower to Yarn [#323](https://github.com/jupyter/nbclassic/pull/323) ([@danyeaw](https://github.com/danyeaw))
+- Fix CI `Check Release` job with deprecated action use [#322](https://github.com/jupyter/nbclassic/pull/322) ([@RRosio](https://github.com/RRosio))
+- Update JQuery, Bootstrap, Underscore, Backbone, and requirejs-text [#321](https://github.com/jupyter/nbclassic/pull/321) ([@danyeaw](https://github.com/danyeaw))
+- Restore usage of flake8 and add to CI [#316](https://github.com/jupyter/nbclassic/pull/316) ([@danyeaw](https://github.com/danyeaw))
+- Migrate from setup.py to pyproject.toml [#315](https://github.com/jupyter/nbclassic/pull/315) ([@danyeaw](https://github.com/danyeaw))
+- Update macos action runner image to macos-13 [#311](https://github.com/jupyter/nbclassic/pull/311) ([@RRosio](https://github.com/RRosio))
+- Remove use of deprecated distutils [#310](https://github.com/jupyter/nbclassic/pull/310) ([@danyeaw](https://github.com/danyeaw))
+
+### Documentation improvements
+
+- Improve JS Test Docs for macOS and Fix Flaky Test [#320](https://github.com/jupyter/nbclassic/pull/320) ([@danyeaw](https://github.com/danyeaw))
+- Fix documentation title formatting [#319](https://github.com/jupyter/nbclassic/pull/319) ([@danyeaw](https://github.com/danyeaw))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2025-01-15&to=2025-04-24&type=c))
+
+[@andrewfulton9](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aandrewfulton9+updated%3A2025-01-15..2025-04-24&type=Issues) | [@danyeaw](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Adanyeaw+updated%3A2025-01-15..2025-04-24&type=Issues) | [@peytondmurray](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Apeytondmurray+updated%3A2025-01-15..2025-04-24&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2025-01-15..2025-04-24&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.2.0
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v1.1.0...9ae4cb137ea46c9a29cdcf56032dae624f6ff8d8))
@@ -40,8 +78,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2024-05-24&to=2025-01-14&type=c))
 
 [@dependabot](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Adependabot+updated%3A2024-05-24..2025-01-14&type=Issues) | [@frenzymadness](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Afrenzymadness+updated%3A2024-05-24..2025-01-14&type=Issues) | [@iisakkirotko](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aiisakkirotko+updated%3A2024-05-24..2025-01-14&type=Issues) | [@living180](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aliving180+updated%3A2024-05-24..2025-01-14&type=Issues) | [@maartenbreddels](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Amaartenbreddels+updated%3A2024-05-24..2025-01-14&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2024-05-24..2025-01-14&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 1.1.0
 
