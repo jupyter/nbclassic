@@ -133,3 +133,24 @@ jobs:
         run: |
           cd sdist/test
           pytest -vv || pytest -vv --lf
+  test_offline_build:
+    runs-on: ubuntu-latest
+    needs: [make_sdist]
+    name: Test building offline
+    timeout-minutes: 20
+    steps:
+      - name: Base Setup
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - name: Download sdist
+        uses: actions/download-artifact@v4
+      - name: Install From SDist
+        run: |
+          set -ex
+          cd sdist
+          mkdir test
+          tar --strip-components=1 -zxvf *.tar.gz -C ./test
+      - name: Test offline build with unshare
+        run: |
+          # Use unshare to create a network namespace that blocks network access
+          cd test
+          sudo unshare --net bash -c "python -m build --no-isolation --wheel"
