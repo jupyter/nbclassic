@@ -49,7 +49,7 @@ Installing the Jupyter NbClassic
 Once you have installed the dependencies mentioned above, use the following
 steps::
 
-    pip install --upgrade setuptools pip
+    pip install --upgrade pip
     git clone https://github.com/jupyter/nbclassic
     cd nbclassic
     pip install -e .

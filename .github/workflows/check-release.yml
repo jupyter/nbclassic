@@ -49,7 +49,7 @@ jobs:
             ${{ runner.os }}-linkcheck-
       - name: Upgrade packaging dependencies
         run: |
-          pip install --upgrade pip setuptools wheel --user
+          pip install --upgrade pip wheel --user
       - name: Install Dependencies
         run: |
           pip install -e .

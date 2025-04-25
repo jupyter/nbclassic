@@ -29,7 +29,7 @@ def attempt(arg_list, max_attempts=1, name=''):
 
 def run():
     steps = {
-        'step1': """python -m pip install -U pip setuptools wheel""".split(' '),
+        'step1': """python -m pip install -U pip""".split(' '),
         'step2': """pip install pytest-playwright""".split(' '),
         'step3': """playwright install""".split(' '),
         'step4': """pip install .[test]""".split(' '),
