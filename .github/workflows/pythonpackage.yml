@@ -152,5 +152,5 @@ jobs:
       - name: Test offline build with unshare
         run: |
           # Use unshare to create a network namespace that blocks network access
-          cd test
+          cd sdist/test
           sudo unshare --net bash -c "python -m build --no-isolation --wheel"
