@@ -5,7 +5,6 @@ requires = [
   "babel",
   "hatchling",
   "jupyter-server>=1.17",
-  "setuptools",
 ]
 
 [project]
@@ -163,6 +162,11 @@ dependencies = [
   "hatch-jupyter-builder>=0.9.1",
 ]
 build-function = "hatch_jupyter_builder.npm_builder"
+# Allow offline builds of sdist, prevents running yarn install again
+skip-if-exists = ["nbclassic/static/components/MathJax/MathJax.js"]
+
+[tool.hatch.build.hooks.jupyter-builder.build-kwargs]
+npm = ["yarn"]
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules"
