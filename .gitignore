@@ -2,6 +2,7 @@ docs/man/*.gz
 docs/source/api/generated
 docs/source/config.rst
 docs/gh-pages
+nbclassic/i18n/*/LC_MESSAGES/nbjs.json
 nbclassic/static/components
 nbclassic/static/style/*.min.css*
 nbclassic/static/*/js/built/
