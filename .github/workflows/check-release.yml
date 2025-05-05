@@ -16,6 +16,7 @@ concurrency:
 jobs:
   check_release:
     runs-on: ubuntu-22.04
+    timeout-minutes: 15
     strategy:
       matrix:
         group: [check_release, link_check]

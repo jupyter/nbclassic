@@ -6,6 +6,7 @@ on:
 jobs:
   enforce-label:
     runs-on: ubuntu-22.04
+    timeout-minutes: 5
     steps:
       - name: enforce-triage-label
         uses: jupyterlab/maintainer-tools/.github/actions/enforce-label@v1
