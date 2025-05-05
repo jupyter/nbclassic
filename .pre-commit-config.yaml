@@ -1,8 +1,8 @@
 repos:
 -   repo: https://github.com/pycqa/flake8
-    rev: 'e43806be3607110919eff72939fda031776e885a'  # frozen: 7.1.1
+    rev: '4b5e89b4b108a6c1a000c591d334a99a80d34c7b'  # frozen: 7.2.0
     hooks:
-    -   id: flake8
+        -   id: flake8
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: cef0300fd0fc4d2a87a85fa2093c6b283ea36f4b  # frozen: v5.0.0
     hooks:
@@ -10,3 +10,11 @@ repos:
         -   id: check-toml
         -   id: end-of-file-fixer
         -   id: trailing-whitespace
+-   repo: https://github.com/abravalheri/validate-pyproject
+    rev: 78f5e0f104cfa803d0597eaa924b4de3becd3e3e  # frozen: v0.24.1
+    hooks:
+        -   id: validate-pyproject
+-   repo: https://github.com/tox-dev/pyproject-fmt
+    rev: "57b6ff7bf72affdd12c7f3fd6de761ba18a33b3a"  # frozen: v2.5.1
+    hooks:
+        -   id: pyproject-fmt

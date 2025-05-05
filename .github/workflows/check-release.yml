@@ -64,7 +64,7 @@ jobs:
         uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1
         with:
           ignore_glob: nbclassic/static/components/**/*.md docs-translations/*/*.md
-          ignore_links: http://127.0.0.1
+          ignore_links: "http://127.0.0.1 https://stackoverflow https://github.com"
       - name: Upload Assets
         if: ${{ matrix.group == 'check_release' && github.event_name == 'push' }}
         uses: actions/upload-artifact@v4
