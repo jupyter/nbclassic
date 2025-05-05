@@ -78,8 +78,14 @@ scripts.jupyter-nbclassic-extension = "nbclassic.nbextensions:main"
 scripts.jupyter-nbclassic-serverextension = "nbclassic.serverextensions:main"
 
 [tool.hatch.build]
+ensured-targets = [
+  "nbclassic/i18n/fr_FR/LC_MESSAGES/nbjs.json",
+  "nbclassic/static/base/js/events.js",
+  "nbclassic/static/style/style.min.css",
+  "nbclassic/static/auth/js/main.min.js",
+  "nbclassic/static/components/MathJax/MathJax.js",
+]
 artifacts = [
-  "nbclassic/i18n/*/LC_MESSAGES/*.mo",
   "nbclassic/i18n/*/LC_MESSAGES/nbjs.json",
   "nbclassic/static/style/*.min.css*",
   "nbclassic/static/*/js/built/",
@@ -148,8 +154,17 @@ artifacts = [
 "nbclassic/static/components/xterm.js/index.js" = "nbclassic/static/components/xterm.js/index.js"
 
 [tool.hatch.build.targets.sdist]
+ensured-targets = [
+  "nbclassic/i18n/fr_FR/LC_MESSAGES/nbjs.po",
+  "nbclassic/i18n/fr_FR/LC_MESSAGES/nbclassic.po",
+]
 exclude = [
   ".github",
+]
+
+[tool.hatch.build.targets.wheel]
+ensured-targets = [
+  "nbclassic/i18n/fr_FR/LC_MESSAGES/nbclassic.mo",
 ]
 
 [tool.hatch.build.targets.wheel.shared-data]
@@ -167,6 +182,21 @@ skip-if-exists = [ "nbclassic/static/components/MathJax/MathJax.js" ]
 
 [tool.hatch.build.hooks.jupyter-builder.build-kwargs]
 npm = [ "yarn" ]
+
+[tool.hatch.build.targets.wheel.hooks.custom]
+path = "nbclassic/i18n/build_py_translations.py"
+
+[tool.hatch.envs.default.scripts]
+compile-translations = "hatch -e compile run translations"
+
+[tool.hatch.envs.compile]
+dependencies = [
+  "hatchling",
+  "babel",
+]
+
+[tool.hatch.envs.compile.scripts]
+translations = "python -m nbclassic.i18n.build_py_translations"
 
 [tool.check-wheel-contents]
 ignore = [

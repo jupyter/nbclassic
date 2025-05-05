@@ -1,70 +1,73 @@
 # Implementation Notes for Internationalization of Jupyter Notebook
 
-The implementation of i18n features for jupyter notebook is still a work-in-progress:
+The implementation of i18n features for jupyter notebook:
 
 - User interface strings are (mostly) handled
 - Console messages are not handled (their usefulness in a translated environment is questionable)
-- Tooling has to be refined
+- Tooling has been updated to use Hatch build system
 
-However…
-
-## How the language is selected ?
+## How the language is selected?
 
 1. `jupyter notebook` command reads the `LANG` environment variable at startup,
-(`xx_XX` or just `xx` form, where `xx` is the language code you're wanting to
-run in).
+   (`xx_XX` or just `xx` form, where `xx` is the language code you're wanting to
+   run in).
 
 Hint: if running Windows, you can set it in PowerShell with `${Env:LANG} = "xx_XX"`.
-      if running Ubuntu 14, you should set environment variable `LANGUAGE="xx_XX"`.
+if running Ubuntu, you should set environment variable `LANGUAGE="xx_XX"`.
 
 2. The preferred language for web pages in your browser settings (`xx`) is
    also used. At the moment, it has to be first in the list.
 
 ## Contributing and managing translations
 
-Finding and translating the `.pot` files could be (partially) done with a translation API, see the repo [Jupyter Notebook Azure Translator](https://github.com/berendjan/Jupyter-Notebook-Azure-Translator.git) for a possible starting point. (Not affiliated with Jupyter)
-
 ### Requirements
 
 - *pybabel* (could be installed `pip install babel`)
 - *po2json* (could be installed with `npm install -g po2json`)
+- *hatch* (could be installed with `pip install hatch`)
 
-**All i18n-related commands are done from the related directory :**
-
-    cd notebook/i18n/
+**All i18n-related commands are done from the project root directory.**
 
 ### Message extraction
 
 The translatable material for notebook is split into 3 `.pot` files, as follows:
 
-- *notebook/i18n/notebook.pot* - Console and startup messages, basically anything that is
-	produced by Python code.
-- *notebook/i18n/nbui.pot* - User interface strings, as extracted from the Jinja2 templates
-	in *notebook/templates/\*.html*
-- *noteook/i18n/nbjs.pot* - JavaScript strings and dialogs, which contain much of the visible
-	user interface for Jupyter notebook.
+- *nbclassic/i18n/notebook.pot* - Console and startup messages
+- *nbclassic/i18n/nbui.pot* - User interface strings from Jinja2 templates
+- *nbclassic/i18n/nbjs.pot* - JavaScript strings and dialogs
 
 To extract the messages from the source code whenever new material is added, use the
 `pybabel` command:
 
 ```shell
-pybabel extract -F babel_notebook.cfg -o notebook.pot --no-wrap --project Jupyter .
-pybabel extract -F babel_nbui.cfg -o nbui.pot --no-wrap --project Jupyter .
-pybabel extract -F babel_nbjs.cfg -o nbjs.pot --no-wrap --project Jupyter .
-```
+pybabel extract -F nbclassic/i18n/babel_notebook.cfg -o nbclassic/i18n/notebook.pot --no-wrap --project Jupyter .
+pybabel extract -F nbclassic/i18n/babel_nbui.cfg -o nbclassic/i18n/nbui.pot --no-wrap --project Jupyter .
+pybabel extract -F nbclassic/i18n/babel_nbjs.cfg -o nbclassic/i18n/nbjs.pot --no-wrap --project Jupyter .
 
 After this is complete you have 3 `.pot` files that you can give to a translator for your favorite language.
 
-Finding and translating the `.pot` files could be (partially done with a translation API, see the repo [Jupyter Notebook Azure Translator](https://github.com/berendjan/Jupyter-Notebook-Azure-Translator.git) for a possible starting point. (Not affiliated with Jupyter)
-
 ### Messages compilation
 
-After the source material has been translated, you should have 3 `.po` files with the same base names
-as the `.pot` files above.  Put them in `notebook/i18n/${LANG}/LC_MESSAGES`, where `${LANG}` is the language
-code for your desired language ( i.e. German = "de", Japanese = "ja", etc. ).
+After the source material has been translated, you should have 3 .po files with the same base names
+as the `.pot` files above. Put them in `nbclassic/i18n/${LANG}/LC_MESSAGES`, where `${LANG}` is the language
+code for your desired language (i.e. German = "de", Japanese = "ja", etc.).
 
-*notebook.po* and *nbui.po* need to be converted from `.po` to `.mo` format for
-use at runtime.
+### Compiling with Hatch
+
+The `.po` to `.mo` conversion is now handled automatically by a Hatch build hook.
+When building the package with Hatch, the `.po` files are automatically compiled to
+`.mo` files.
+
+To manually compile the translation files without building the package, run:
+
+```shell
+hatch run compile-translations
+```
+
+### Manual Compilation (if needed)
+
+If you need to manually compile the translation files:
+`notebook.po` and `nbui.po` need to be converted from .po to .mo format:
 
 ```shell
 pybabel compile -D notebook -f -l ${LANG} -i ${LANG}/LC_MESSAGES/nbclassic.po -o ${LANG}/LC_MESSAGES/nbclassic.mo
@@ -122,13 +125,5 @@ of languages in the UI ( never a good thing ).
 2. We will need to decide if console messages should be translatable, and enable them if desired.
 3. The keyboard shortcut editor was implemented after the i18n work was completed, so that portion
 does not have translation support at this time.
-4. Babel's documentation has instructions on how to integrate messages extraction
-into your *setup.py* so that eventually we can just do:
-
-    ./setup.py extract_messages
 
 I hope to get this working at some point in the near future.
-5. The conversions from `.po` to `.mo` probably can and should be done using `setup.py install`.
-
-
-Any questions or comments please let me know @JCEmmons on github (emmo@us.ibm.com)
