@@ -45,16 +45,16 @@ dependencies = [
   "nest-asyncio>=1.5",
   "notebook-shim>=0.2.3",
 ]
+optional-dependencies.dev = [
+  "hatch",
+  "pre-commit",
+]
 optional-dependencies.docs = [
   "myst-parser",
   "nbsphinx",
   "sphinx",
   "sphinx-rtd-theme",
   "sphinxcontrib-github-alt",
-]
-optional-dependencies.dev = [
-    "pre-commit",
-    "hatch"
 ]
 optional-dependencies.json-logging = [
   "json-logging",
@@ -163,10 +163,15 @@ dependencies = [
 ]
 build-function = "hatch_jupyter_builder.npm_builder"
 # Allow offline builds of sdist, prevents running yarn install again
-skip-if-exists = ["nbclassic/static/components/MathJax/MathJax.js"]
+skip-if-exists = [ "nbclassic/static/components/MathJax/MathJax.js" ]
 
 [tool.hatch.build.hooks.jupyter-builder.build-kwargs]
-npm = ["yarn"]
+npm = [ "yarn" ]
+
+[tool.check-wheel-contents]
+ignore = [
+  "W002", # Duplicate files check
+]
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules"
@@ -223,8 +228,3 @@ src = "nbclassic/_version.py"
 [[tool.tbump.file]]
 src = "nbclassic/static/base/js/namespace.js"
 version_template = "Jupyter.version = \"{major}.{minor}.{patch}{channel}{release}\";"
-
-[tool.check-wheel-contents]
-ignore = [
-  "W002", # Duplicate files check
-]
