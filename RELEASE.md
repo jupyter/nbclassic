@@ -19,7 +19,7 @@ NbClassic follows a standard versioning flow:
 
 ## Automated Release Process
 
-To begin a release, follow these two-step process:
+To begin a release, follow this two-step process:
 
 ### Step 1: Prep Release
 
