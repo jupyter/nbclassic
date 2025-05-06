@@ -2,6 +2,33 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.3.1
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v1.3.0...ce70ed4c9272b93b91067287396287a03fb43e90))
+
+### Bugs fixed
+
+- Fix Hatch build fails in src directory [#340](https://github.com/jupyter/nbclassic/pull/340) ([@danyeaw](https://github.com/danyeaw))
+- Fix mo translations missing from wheels [#339](https://github.com/jupyter/nbclassic/pull/339) ([@danyeaw](https://github.com/danyeaw))
+- Support offline source distribution builds [#337](https://github.com/jupyter/nbclassic/pull/337) ([@danyeaw](https://github.com/danyeaw))
+
+### Maintenance and upkeep improvements
+
+- Add CI workflow dispatch and timeouts [#343](https://github.com/jupyter/nbclassic/pull/343) ([@danyeaw](https://github.com/danyeaw))
+- Reformat pyproject.toml [#342](https://github.com/jupyter/nbclassic/pull/342) ([@danyeaw](https://github.com/danyeaw))
+
+### Documentation improvements
+
+- Update releaser docs [#341](https://github.com/jupyter/nbclassic/pull/341) ([@RRosio](https://github.com/RRosio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2025-04-24&to=2025-05-06&type=c))
+
+[@danyeaw](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Adanyeaw+updated%3A2025-04-24..2025-05-06&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2025-04-24..2025-05-06&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.3.0
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v1.2.0...5d1cf0221a03898907cf5f1576e87041fffc76c0))
@@ -37,8 +64,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2025-01-15&to=2025-04-24&type=c))
 
 [@andrewfulton9](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Aandrewfulton9+updated%3A2025-01-15..2025-04-24&type=Issues) | [@danyeaw](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Adanyeaw+updated%3A2025-01-15..2025-04-24&type=Issues) | [@peytondmurray](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Apeytondmurray+updated%3A2025-01-15..2025-04-24&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2025-01-15..2025-04-24&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 1.3.0rc0
 
