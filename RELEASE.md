@@ -3,7 +3,7 @@
 ## Overview
 
 NbClassic can be released using either the recommended automated method with
-`jupyter_releaser` or the manual process described at the end of this document.
+`jupyter_releaser` or the manual process described at the end of this document. To use the automated release workflow or create a manual release, you must have admin privileges on the repository.
 
 ## Using `jupyter_releaser`
 
