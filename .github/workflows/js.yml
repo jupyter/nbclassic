@@ -14,6 +14,9 @@ concurrency:
 env:
   python-version: '3.12'
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
