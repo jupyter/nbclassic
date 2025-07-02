@@ -18,13 +18,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@d5b08e36724fe4271b4751cc0d84c80c2e5c982c # v1
 
       - name: Test jupyterlab
-        uses: jupyterlab/maintainer-tools/.github/actions/downstream-test@v1
+        uses: jupyterlab/maintainer-tools/.github/actions/downstream-test@d5b08e36724fe4271b4751cc0d84c80c2e5c982c # v1
         with:
           package_name: jupyterlab
           package_spec: "\".[test]\""

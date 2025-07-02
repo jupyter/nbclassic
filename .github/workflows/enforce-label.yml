@@ -9,4 +9,4 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: enforce-triage-label
-        uses: jupyterlab/maintainer-tools/.github/actions/enforce-label@v1
+        uses: jupyterlab/maintainer-tools/.github/actions/enforce-label@d5b08e36724fe4271b4751cc0d84c80c2e5c982c # v1
