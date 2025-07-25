@@ -34,7 +34,7 @@
     "watch:css": "onchange 'nbclassic/static/**/*.less' -- npm run build:css",
     "watch:js": "onchange 'nbclassic/static/**/!(*.min).js' 'bower.json' -- npm run build:js",
     "watch": "npm-run-all --parallel watch:*",
-    "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'nbclassic/static/components', 'junction') } catch (e) { }\""
+    "postinstall": "node postinstall.js"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -63,7 +63,6 @@
     "@bower_components/bootstrap-tour": "sorich87/bootstrap-tour#0.12.0",
     "@bower_components/codemirror": "components/codemirror#5.58.2+components1",
     "@bower_components/es6-promise": "components/es6-promise#~1.0",
-    "@bower_components/font-awesome": "components/font-awesome#~4.7.0",
     "@bower_components/google-caja": "https://github.com/minrk/google-caja-bower/archive/refs/tags/5669.0.0.tar.gz",
     "@bower_components/jed": "SlexAxton/Jed#~1.1.1",
     "@bower_components/jquery": "components/jquery#~3.7.1",
@@ -76,7 +75,8 @@
     "@bower_components/requirejs-plugins": "millermedeiros/requirejs-plugins#~1.0.3",
     "@bower_components/requirejs-text": "requirejs/text#~2.0.16",
     "@bower_components/text-encoding": "inexorabletash/text-encoding#~0.1",
-    "@bower_components/underscore": "jashkenas/underscore#~1.13.7"
+    "@bower_components/underscore": "jashkenas/underscore#~1.13.7",
+    "font-awesome": "4.7.0"
   },
   "engines": {
     "yarn": "^1.22.22",
