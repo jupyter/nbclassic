@@ -845,88 +845,9 @@
   version "2.7.9"
   resolved "https://codeload.github.com/mathjax/MathJax/tar.gz/3b461438246adfcf67690795fcc0ae6dc4e335fe"
 
-"@bower_components/backbone@jashkenas/backbone#~1.6.0":
-  version "1.6.0"
-  resolved "https://codeload.github.com/jashkenas/backbone/tar.gz/89cbe401f353d3543108ca52ff6924d650cb500d"
-  dependencies:
-    underscore ">=1.8.3"
-
-"@bower_components/bootstrap-tour@sorich87/bootstrap-tour#0.12.0":
-  version "0.12.0"
-  resolved "https://codeload.github.com/sorich87/bootstrap-tour/tar.gz/1a06475e27f852bb642b9353574638d51673b0d5"
-  dependencies:
-    bootstrap "~3"
-    jquery ">=1.8"
-
-"@bower_components/bootstrap@twbs/bootstrap#~3.4.1":
-  version "3.4.1"
-  resolved "https://codeload.github.com/twbs/bootstrap/tar.gz/68b0d231a13201eb14acd3dc84e51543d16e5f7e"
-
-"@bower_components/codemirror@components/codemirror#5.58.2+components1":
-  version "5.58.2"
-  resolved "https://codeload.github.com/components/codemirror/tar.gz/367d6e1cc6ec446f50b42da832bc6a9643684202"
-
-"@bower_components/es6-promise@components/es6-promise#~1.0":
-  version "0.0.0"
-  resolved "https://codeload.github.com/components/es6-promise/tar.gz/c95149ffaa2e8162601c57d4282362eac84f929b"
-
-"@bower_components/google-caja@https://github.com/minrk/google-caja-bower/archive/refs/tags/5669.0.0.tar.gz":
-  version "0.0.0"
-  resolved "https://github.com/minrk/google-caja-bower/archive/refs/tags/5669.0.0.tar.gz#6830582db17ef8087e38d3aa9703966fb9a86278"
-
-"@bower_components/jed@SlexAxton/Jed#~1.1.1":
-  version "1.1.1"
-  resolved "https://codeload.github.com/SlexAxton/Jed/tar.gz/3016c1f595bf37b4ded95cfe6c1196a4b124bbe5"
-
-"@bower_components/jquery-typeahead@running-coder/jquery-typeahead#~2.11.1":
-  version "2.11.2"
-  resolved "https://codeload.github.com/running-coder/jquery-typeahead/tar.gz/4524de1b296729355d0773c0485b98447da2ca8b"
-  dependencies:
-    "@babel/register" "^7.6.2"
-    jquery ">=1.7.2"
-    lz-string "^1.4.4"
-
-"@bower_components/jquery-ui@jquery/jquery-ui#~1.13.3":
-  version "1.13.3"
-  resolved "https://codeload.github.com/jquery/jquery-ui/tar.gz/a9e8520d38e06b6a37100762ddc8af4952926752"
-  dependencies:
-    jquery ">=1.8.0 <4.0.0"
-
-"@bower_components/jquery@components/jquery#~3.7.1":
-  version "3.7.1"
-  resolved "https://codeload.github.com/components/jquery/tar.gz/8edc7785239bb8c2ad2b83302b856a1d61de60e7"
-
-"@bower_components/marked@chjj/marked#~4.0.10":
-  version "4.0.19"
-  resolved "https://codeload.github.com/chjj/marked/tar.gz/95f37bd23bd9794e145c37046d3546783ffba007"
-
-"@bower_components/moment@moment/moment#~2.29.4":
-  version "2.29.4"
-  resolved "https://codeload.github.com/moment/moment/tar.gz/000ac1800e620f770f4eb31b5ae908f6167b0ab2"
-
 "@bower_components/react@facebook/react-bower#~16.0.0":
   version "0.0.0"
   resolved "https://codeload.github.com/facebook/react-bower/tar.gz/55c46d41c3fcedf35703f6d2adffc350f9834b70"
-
-"@bower_components/requirejs-plugins@millermedeiros/requirejs-plugins#~1.0.3":
-  version "0.0.0"
-  resolved "https://codeload.github.com/millermedeiros/requirejs-plugins/tar.gz/ac9de4bfae70b0630754a9faf93c42db362cb9a2"
-
-"@bower_components/requirejs-text@requirejs/text#~2.0.16":
-  version "2.0.16"
-  resolved "https://codeload.github.com/requirejs/text/tar.gz/3f9d4c19b3a1a3c6f35650c5788cbea1db93197a"
-
-"@bower_components/requirejs@jrburke/requirejs-bower#~2.2":
-  version "0.0.0"
-  resolved "https://codeload.github.com/jrburke/requirejs-bower/tar.gz/f50aa125e93710c10bb43cf452a97f2abeb144cb"
-
-"@bower_components/text-encoding@inexorabletash/text-encoding#~0.1":
-  version "0.1.0"
-  resolved "https://codeload.github.com/inexorabletash/text-encoding/tar.gz/7ee012e6931f3af4e606b833948f55946bdc53db"
-
-"@bower_components/underscore@jashkenas/underscore#~1.13.7":
-  version "1.13.7"
-  resolved "https://codeload.github.com/jashkenas/underscore/tar.gz/d2e7e613a597bec6b16c946e42c91950dcc1a215"
 
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.7"
@@ -1557,6 +1478,13 @@ babel-runtime@^6.26.0:
     core-js "^2.4.0"
     regenerator-runtime "^0.11.0"
 
+backbone@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/backbone/-/backbone-1.6.0.tgz#5cdfa25257819b223109a77a74dde26d38995930"
+  integrity sha512-13PUjmsgw/49EowNcQvfG4gmczz1ximTMhUktj0Jfrjth0MVaTxehpU+qYYX4MxnuIuhmvBLC6/ayxuAGnOhbA==
+  dependencies:
+    underscore ">=1.8.3"
+
 big.js@^5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
@@ -1567,7 +1495,15 @@ binary-extensions@^2.0.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.3.0.tgz#f6e14a97858d327252200242d4ccfe522c445522"
   integrity sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==
 
-bootstrap@~3:
+bootstrap-tour@0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-tour/-/bootstrap-tour-0.12.0.tgz#c56eb48debe9cf788378a20184ef5a761b13b650"
+  integrity sha512-J+Nure5q3eHKVAy0Oi0Y7bGhdVsnCl2bfaAYFg7hNcdWK+lyXtS3fLHIUqzbvdW//wcy2FRMHSr7G6EuisBWoA==
+  dependencies:
+    bootstrap "~3"
+    jquery ">=1.8"
+
+bootstrap@3.4.1, bootstrap@~3:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.4.1.tgz#c3a347d419e289ad11f4033e3c4132b87c081d72"
   integrity sha512-yN5oZVmRCwe5aKwzRj6736nSmKDX7pLYwsXiCj/EYmo16hODaBiT4En5btW/jhBF/seV+XMx3aYwukYC3A49DA==
@@ -1658,6 +1594,11 @@ clone-deep@^4.0.1:
     is-plain-object "^2.0.4"
     kind-of "^6.0.2"
     shallow-clone "^3.0.0"
+
+codemirror@5.58.2:
+  version "5.58.2"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.58.2.tgz#ed54a1796de1498688bea1cdd4e9eeb187565d1b"
+  integrity sha512-K/hOh24cCwRutd1Mk3uLtjWzNISOkm4fvXiMO7LucCrqbh6aJDdtqUziim3MZUI6wOY0rvY1SlL1Ork01uMy6w==
 
 colorette@^2.0.14:
   version "2.0.20"
@@ -1908,6 +1849,11 @@ es-object-atoms@^1.0.0, es-object-atoms@^1.1.1:
   dependencies:
     es-errors "^1.3.0"
 
+es6-promise@1.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-1.0.0.tgz#f90d3629faa7c26166ae4df77c89bacdeb8dca7f"
+  integrity sha512-8/2Juj7DeNMwxkbcruBmErKcgPSTPgaGIB08nQvlBzaqliW1vMliNOaBQaMzzQAxX9k0vGy+8wwWlgiLuKqZIw==
+
 escalade@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/escalade/-/escalade-3.2.0.tgz#011a3f69856ba189dffa7dc8fcce99d2a87903e5"
@@ -2112,6 +2058,11 @@ globals@^11.1.0:
   resolved "https://registry.yarnpkg.com/globals/-/globals-11.12.0.tgz#ab8795338868a0babd8525758018c2a7eb95c42e"
   integrity sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==
 
+google-caja@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/google-caja/-/google-caja-0.0.2.tgz#50891a9dcc39452da94d22ccbaa73245e13c598f"
+  integrity sha512-WlZbPlYpoTogipdRR4qIi28GZDyxmMXZelaA21EgRZnoe5Ly4nLbsxVdMzzzhjthyKX+U9yhIVSFNswPZnOxqA==
+
 gopd@^1.0.1, gopd@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/gopd/-/gopd-1.2.0.tgz#89f56b8217bdbc8802bd299df6d7f1081d7e51a1"
@@ -2282,6 +2233,11 @@ isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==
 
+jed@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/jed/-/jed-1.1.1.tgz#7a549bbd9ffe1585b0cd0a191e203055bee574b4"
+  integrity sha512-z35ZSEcXHxLW4yumw0dF6L464NT36vmx3wxJw8MDpraBcWuNVgUPZgPJKcu1HekNgwlMFNqol7i/IpSbjhqwqA==
+
 jest-worker@^27.4.5:
   version "27.5.1"
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-27.5.1.tgz#8d146f0900e8973b106b6f73cc1e9a8cb86f8db0"
@@ -2291,7 +2247,23 @@ jest-worker@^27.4.5:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jquery@>=1.7.2, jquery@>=1.8, "jquery@>=1.8.0 <4.0.0":
+jquery-typeahead@2.11.1:
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/jquery-typeahead/-/jquery-typeahead-2.11.1.tgz#91286be6603a067c5f8777899cf31b26a79c68b9"
+  integrity sha512-iuNRruN5bWtck+VPxdCTijD6BD9bVuBj3NCD25vITOdMb7P3fYlkBWcmnLEazD8O+VAtbcJ9aLxRi+qrpopNZA==
+  dependencies:
+    "@babel/register" "^7.6.2"
+    jquery ">=1.7.2"
+    lz-string "^1.4.4"
+
+jquery-ui@1.13.3:
+  version "1.13.3"
+  resolved "https://registry.yarnpkg.com/jquery-ui/-/jquery-ui-1.13.3.tgz#d9f5292b2857fa1f2fdbbe8f2e66081664eb9bc5"
+  integrity sha512-D2YJfswSJRh/B8M/zCowDpNFfwsDmtfnMPwjJTyvl+CBqzpYwQ+gFYIbUUlzijy/Qvoy30H1YhoSui4MNYpRwA==
+  dependencies:
+    jquery ">=1.8.0 <4.0.0"
+
+jquery@3.7.1, jquery@>=1.7.2, jquery@>=1.8, "jquery@>=1.8.0 <4.0.0":
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
   integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
@@ -2447,6 +2419,11 @@ make-dir@^3.0.2, make-dir@^3.1.0:
   dependencies:
     semver "^6.0.0"
 
+marked@4.0.10:
+  version "4.0.10"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-4.0.10.tgz#423e295385cc0c3a70fa495e0df68b007b879423"
+  integrity sha512-+QvuFj0nGgO970fySghXGmuw+Fd0gD2x3+MqCWLIPf5oxdv1Ka6b2q+z9RP01P/IaKPMEramy+7cNy/Lw8c3hw==
+
 math-intrinsics@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/math-intrinsics/-/math-intrinsics-1.1.0.tgz#a0dd74be81e2aa5c2f27e65ce283605ee4e2b7f9"
@@ -2478,6 +2455,11 @@ minimist@^1.2.3, minimist@~1.2.0:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
   integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
+
+moment@2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 moment@^2.24.0:
   version "2.30.1"
@@ -2866,6 +2848,16 @@ require-from-string@^2.0.2:
   resolved "https://registry.yarnpkg.com/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
   integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
 
+requirejs-plugins@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/requirejs-plugins/-/requirejs-plugins-1.0.2.tgz#693b5589d97f8598462fc71826353262aafda836"
+  integrity sha512-bX1vGnjDd1iIod3hst47oM/Nv9JiYw4qodWNKgyeQw5ahzSvPI3j1K6hMcK0HtiGRKxebCf+QUrtWzbrZtzQog==
+
+requirejs-text@2.0.16:
+  version "2.0.16"
+  resolved "https://registry.yarnpkg.com/requirejs-text/-/requirejs-text-2.0.16.tgz#b6f3e20689aa998e36641bc4f8bd11b7964ac872"
+  integrity sha512-XrzjeTb1pwzIWmkz8qnUiM20gENgiwB+66IciNuziwlaPAJsYQsQPSYyQ1kD4tGKGZxTisIfDbOHk02DpI/76Q==
+
 requirejs@^2.3.6:
   version "2.3.7"
   resolved "https://registry.yarnpkg.com/requirejs/-/requirejs-2.3.7.tgz#0b22032e51a967900e0ae9f32762c23a87036bd0"
@@ -2923,6 +2915,14 @@ sax@^1.2.4:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.4.1.tgz#44cc8988377f126304d3b3fc1010c733b929ef0f"
   integrity sha512-+aWOz7yVScEGoKNd4PA10LZ8sk0A/z5+nXQG5giUO5rprX9jgYsTdov9qCchZiPIZezbZH+jRut8nPodFAX4Jg==
+
+scheduler@0.19.1:
+  version "0.19.1"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
+  integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 
 scheduler@^0.20.2:
   version "0.20.2"
@@ -3111,6 +3111,11 @@ terser@^5.31.1:
     acorn "^8.8.2"
     commander "^2.20.0"
     source-map-support "~0.5.20"
+
+text-encoding@0.1:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/text-encoding/-/text-encoding-0.1.0.tgz#dfae5dfb298c3bbe5a8e5a95f4de7fffd010cc5b"
+  integrity sha512-YioxUvvjxITnWOgK0OHqyYyAtqi3bYznsE4+PXgDFcDyxLshJ+VZ6xm0lCeuySNsVXVeLRspRkix3G0l7Nad9w==
 
 to-regex-range@^5.0.1:
   version "5.0.1"

@@ -16,11 +16,19 @@ function ensureSymlink(sourcePath, targetPath) {
   }
 }
 
-//  Symlink bower_components
-ensureSymlink("node_modules/@bower_components", "nbclassic/static/components");
-
-// Symlink other static assets no longer in bower_components
+// Symlink static assets
 ensureSymlink(
-  "node_modules/font-awesome",
-  "nbclassic/static/components/font-awesome"
+  "node_modules",
+  "nbclassic/static/components"
+);
+
+//  Symlink bower_components
+ensureSymlink(
+    "nbclassic/static/components/@bower_components/MathJax",
+    "nbclassic/static/components/MathJax"
+);
+
+ensureSymlink(
+    "nbclassic/static/components/@bower_components/react",
+    "nbclassic/static/components/react"
 );

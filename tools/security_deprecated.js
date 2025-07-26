@@ -3,7 +3,7 @@
 
 define([
     'jquery',
-    'components/google-caja/html-css-sanitizer-minified',
+    'components/google-caja/sanitizer',
 ], function($, sanitize) {
     "use strict";
 

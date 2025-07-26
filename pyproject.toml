@@ -105,7 +105,7 @@ artifacts = [
   "nbclassic/static/components/font-awesome/less/*.less",
   "nbclassic/static/components/jquery-ui/dist/themes/*/images/*",
   "nbclassic/static/components/jquery-ui/themes/base/images/*",
-  "nbclassic/static/components/es6-promise/*.js",
+  "nbclassic/static/components/es6-promise/dist/*.js",
   "nbclassic/static/components/requirejs-plugins/**/*.png",
   "nbclassic/static/components/moment/min/*.js",
   "nbclassic/static/components/MathJax/extensions/**/*",
@@ -129,9 +129,9 @@ artifacts = [
 "nbclassic/static/components/bootstrap-tour/build/js/bootstrap-tour.min.js" = "nbclassic/static/components/bootstrap-tour/build/js/bootstrap-tour.min.js"
 "nbclassic/static/components/bootstrap/dist/js/bootstrap.min.js" = "nbclassic/static/components/bootstrap/dist/js/bootstrap.min.js"
 "nbclassic/static/components/create-react-class/index.js" = "nbclassic/static/components/create-react-class/index.js"
-"nbclassic/static/components/google-caja/html-css-sanitizer-minified.js" = "nbclassic/static/components/google-caja/html-css-sanitizer-minified.js"
+"nbclassic/static/components/google-caja/sanitizer.js" = "nbclassic/static/components/google-caja/sanitizer.js"
 "nbclassic/static/components/jed/jed.js" = "nbclassic/static/components/jed/jed.js"
-"nbclassic/static/components/jquery/jquery.min.js" = "nbclassic/static/components/jquery/jquery.min.js"
+"nbclassic/static/components/jquery/dist/jquery.min.js" = "nbclassic/static/components/jquery/dist/jquery.min.js"
 "nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.js" = "nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.js"
 "nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.css" = "nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.css"
 "nbclassic/static/components/jquery-ui/dist/jquery-ui.min.js" = "nbclassic/static/components/jquery-ui/dist/jquery-ui.min.js"
