@@ -21,14 +21,3 @@ ensureSymlink(
   "node_modules",
   "nbclassic/static/components"
 );
-
-//  Symlink bower_components
-ensureSymlink(
-    "nbclassic/static/components/@bower_components/MathJax",
-    "nbclassic/static/components/MathJax"
-);
-
-ensureSymlink(
-    "nbclassic/static/components/@bower_components/react",
-    "nbclassic/static/components/react"
-);
