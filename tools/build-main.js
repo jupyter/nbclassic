@@ -16,7 +16,7 @@ var rjs_config = {
     underscore : 'components/underscore/underscore-min',
     backbone : 'components/backbone/backbone-min',
     jed: 'components/jed/jed',
-    jquery: 'components/jquery/jquery.min',
+    jquery: 'components/jquery/dist/jquery.min',
     json: 'components/requirejs-plugins/src/json',
     text: 'components/requirejs-text/text',
     bootstrap: 'components/bootstrap/dist/js/bootstrap.min',
