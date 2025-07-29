@@ -57,6 +57,7 @@
     "pos2json": "Using a beta 1.0.0 version because previous version have security problems, and no 1.0.0 release"
   },
   "dependencies": {
+    "@bower_components/react": "facebook/react-bower#~16.0.0",
     "backbone": "1.6.0",
     "bootstrap": "3.4.1",
     "bootstrap-tour": "0.12.0",
@@ -71,8 +72,6 @@
     "marked": "4.0.10",
     "mathjax": "2.7.4",
     "moment": "2.29.4",
-    "react": "~16.0.0",
-    "react-dom": "~16.0.0",
     "requirejs-plugins": "^1.0.2",
     "requirejs-text": "2.0.16",
     "scheduler": "0.19.1",

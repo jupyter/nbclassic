@@ -21,3 +21,8 @@ ensureSymlink(
   "node_modules",
   "nbclassic/static/components"
 );
+
+ensureSymlink(
+    "node_modules/@bower_components/react",
+    "nbclassic/static/components/react"
+);
