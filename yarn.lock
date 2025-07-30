@@ -857,20 +857,6 @@
   version "0.0.0"
   resolved "https://github.com/minrk/google-caja-bower/archive/refs/tags/5669.0.0.tar.gz#6830582db17ef8087e38d3aa9703966fb9a86278"
 
-"@bower_components/jquery-typeahead@running-coder/jquery-typeahead#~2.11.1":
-  version "2.11.2"
-  resolved "https://codeload.github.com/running-coder/jquery-typeahead/tar.gz/4524de1b296729355d0773c0485b98447da2ca8b"
-  dependencies:
-    "@babel/register" "^7.6.2"
-    jquery ">=1.7.2"
-    lz-string "^1.4.4"
-
-"@bower_components/jquery-ui@jquery/jquery-ui#~1.13.3":
-  version "1.13.3"
-  resolved "https://codeload.github.com/jquery/jquery-ui/tar.gz/a9e8520d38e06b6a37100762ddc8af4952926752"
-  dependencies:
-    jquery ">=1.8.0 <4.0.0"
-
 "@bower_components/jquery@components/jquery#~3.7.1":
   version "3.7.1"
   resolved "https://codeload.github.com/components/jquery/tar.gz/8edc7785239bb8c2ad2b83302b856a1d61de60e7"
@@ -2277,6 +2263,22 @@ jest-worker@^27.4.5:
     "@types/node" "*"
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
+
+jquery-typeahead@~2.11.1:
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/jquery-typeahead/-/jquery-typeahead-2.11.1.tgz#91286be6603a067c5f8777899cf31b26a79c68b9"
+  integrity sha512-iuNRruN5bWtck+VPxdCTijD6BD9bVuBj3NCD25vITOdMb7P3fYlkBWcmnLEazD8O+VAtbcJ9aLxRi+qrpopNZA==
+  dependencies:
+    "@babel/register" "^7.6.2"
+    jquery ">=1.7.2"
+    lz-string "^1.4.4"
+
+jquery-ui@~1.13.3:
+  version "1.13.3"
+  resolved "https://registry.yarnpkg.com/jquery-ui/-/jquery-ui-1.13.3.tgz#d9f5292b2857fa1f2fdbbe8f2e66081664eb9bc5"
+  integrity sha512-D2YJfswSJRh/B8M/zCowDpNFfwsDmtfnMPwjJTyvl+CBqzpYwQ+gFYIbUUlzijy/Qvoy30H1YhoSui4MNYpRwA==
+  dependencies:
+    jquery ">=1.8.0 <4.0.0"
 
 jquery@>=1.7.2, jquery@>=1.8, "jquery@>=1.8.0 <4.0.0":
   version "3.7.1"

@@ -52,3 +52,11 @@ ensureSymlink(
   "node_modules/underscore",
   "nbclassic/static/components/underscore"
 );
+ensureSymlink(
+  "node_modules/jquery-ui",
+  "nbclassic/static/components/jquery-ui"
+);
+ensureSymlink(
+  "node_modules/jquery-typeahead",
+  "nbclassic/static/components/jquery-typeahead"
+);
