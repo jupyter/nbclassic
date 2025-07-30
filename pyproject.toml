@@ -178,7 +178,7 @@ dependencies = [
 ]
 build-function = "hatch_jupyter_builder.npm_builder"
 # Allow offline builds of sdist, prevents running yarn install again
-skip-if-exists = [ "nbclassic/static/components/mathjax/MathJax.js" ]
+skip-if-exists = [ "nbclassic/static/notebook/js/main.min.js" ]
 
 [tool.hatch.build.hooks.jupyter-builder.build-kwargs]
 npm = [ "yarn" ]
