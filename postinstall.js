@@ -53,6 +53,10 @@ ensureSymlink(
   "nbclassic/static/components/underscore"
 );
 ensureSymlink(
+  "node_modules/jquery",
+  "nbclassic/static/components/jquery"
+);
+ensureSymlink(
   "node_modules/jquery-ui",
   "nbclassic/static/components/jquery-ui"
 );
