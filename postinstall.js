@@ -2,10 +2,33 @@ const fs = require("fs");
 const path = require("path");
 
 function ensureSymlink(sourcePath, targetPath) {
+  const source = path.resolve(sourcePath);
+  const target = path.resolve(targetPath);
+
+  try {
+    const stat = fs.lstatSync(target);
+    if (!stat.isSymbolicLink()) {
+      console.log(`Removing non-symlink at: ${target}`);
+      fs.rmSync(target, { recursive: true, force: true });
+    } else {
+        const exists = fs.readlinkSync(target);
+        if (path.resolve(exists) === source) {
+            console.log(`Symlink exists at: ${target}`);
+            return;
+        }
+        console.log(`Replacing symlink at: ${target}`);
+        fs.unlinkSync(target);
+    }
+  } catch (e) {
+    if (e.code !== "ENOENT") {
+      console.error(`Error checking symlink: ${e.message}`);
+    }
+  }
+
   try {
     fs.symlinkSync(
-      path.resolve(sourcePath),
-      path.resolve(targetPath),
+      path.resolve(source),
+      path.resolve(target),
       "junction"
     );
     console.log(`Symlink created: ${sourcePath} -> ${targetPath}`);
@@ -51,4 +74,16 @@ ensureSymlink(
 ensureSymlink(
   "node_modules/underscore",
   "nbclassic/static/components/underscore"
+);
+ensureSymlink(
+  "node_modules/jquery",
+  "nbclassic/static/components/jquery"
+);
+ensureSymlink(
+  "node_modules/jquery-ui",
+  "nbclassic/static/components/jquery-ui"
+);
+ensureSymlink(
+  "node_modules/jquery-typeahead",
+  "nbclassic/static/components/jquery-typeahead"
 );
