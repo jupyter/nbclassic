@@ -845,23 +845,6 @@
   version "2.7.9"
   resolved "https://codeload.github.com/mathjax/MathJax/tar.gz/3b461438246adfcf67690795fcc0ae6dc4e335fe"
 
-"@bower_components/backbone@jashkenas/backbone#~1.6.0":
-  version "1.6.0"
-  resolved "https://codeload.github.com/jashkenas/backbone/tar.gz/89cbe401f353d3543108ca52ff6924d650cb500d"
-  dependencies:
-    underscore ">=1.8.3"
-
-"@bower_components/bootstrap-tour@sorich87/bootstrap-tour#0.12.0":
-  version "0.12.0"
-  resolved "https://codeload.github.com/sorich87/bootstrap-tour/tar.gz/1a06475e27f852bb642b9353574638d51673b0d5"
-  dependencies:
-    bootstrap "~3"
-    jquery ">=1.8"
-
-"@bower_components/bootstrap@twbs/bootstrap#~3.4.1":
-  version "3.4.1"
-  resolved "https://codeload.github.com/twbs/bootstrap/tar.gz/68b0d231a13201eb14acd3dc84e51543d16e5f7e"
-
 "@bower_components/codemirror@components/codemirror#5.58.2+components1":
   version "5.58.2"
   resolved "https://codeload.github.com/components/codemirror/tar.gz/367d6e1cc6ec446f50b42da832bc6a9643684202"
@@ -873,10 +856,6 @@
 "@bower_components/google-caja@https://github.com/minrk/google-caja-bower/archive/refs/tags/5669.0.0.tar.gz":
   version "0.0.0"
   resolved "https://github.com/minrk/google-caja-bower/archive/refs/tags/5669.0.0.tar.gz#6830582db17ef8087e38d3aa9703966fb9a86278"
-
-"@bower_components/jed@SlexAxton/Jed#~1.1.1":
-  version "1.1.1"
-  resolved "https://codeload.github.com/SlexAxton/Jed/tar.gz/3016c1f595bf37b4ded95cfe6c1196a4b124bbe5"
 
 "@bower_components/jquery-typeahead@running-coder/jquery-typeahead#~2.11.1":
   version "2.11.2"
@@ -900,10 +879,6 @@
   version "4.0.19"
   resolved "https://codeload.github.com/chjj/marked/tar.gz/95f37bd23bd9794e145c37046d3546783ffba007"
 
-"@bower_components/moment@moment/moment#~2.29.4":
-  version "2.29.4"
-  resolved "https://codeload.github.com/moment/moment/tar.gz/000ac1800e620f770f4eb31b5ae908f6167b0ab2"
-
 "@bower_components/react@facebook/react-bower#~16.0.0":
   version "0.0.0"
   resolved "https://codeload.github.com/facebook/react-bower/tar.gz/55c46d41c3fcedf35703f6d2adffc350f9834b70"
@@ -919,14 +894,6 @@
 "@bower_components/requirejs@jrburke/requirejs-bower#~2.2":
   version "0.0.0"
   resolved "https://codeload.github.com/jrburke/requirejs-bower/tar.gz/f50aa125e93710c10bb43cf452a97f2abeb144cb"
-
-"@bower_components/text-encoding@inexorabletash/text-encoding#~0.1":
-  version "0.1.0"
-  resolved "https://codeload.github.com/inexorabletash/text-encoding/tar.gz/7ee012e6931f3af4e606b833948f55946bdc53db"
-
-"@bower_components/underscore@jashkenas/underscore#~1.13.7":
-  version "1.13.7"
-  resolved "https://codeload.github.com/jashkenas/underscore/tar.gz/d2e7e613a597bec6b16c946e42c91950dcc1a215"
 
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.7"
@@ -1557,6 +1524,13 @@ babel-runtime@^6.26.0:
     core-js "^2.4.0"
     regenerator-runtime "^0.11.0"
 
+backbone@~1.6.0:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/backbone/-/backbone-1.6.1.tgz#6e067777767f54b9e150d3de825f7d66e7ed77d0"
+  integrity sha512-YQzWxOrIgL6BoFnZjThVN99smKYhyEXXFyJJ2lsF1wJLyo4t+QjmkLrH8/fN22FZ4ykF70Xq7PgTugJVR4zS9Q==
+  dependencies:
+    underscore ">=1.8.3"
+
 big.js@^5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
@@ -1567,7 +1541,15 @@ binary-extensions@^2.0.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.3.0.tgz#f6e14a97858d327252200242d4ccfe522c445522"
   integrity sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==
 
-bootstrap@~3:
+bootstrap-tour@0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-tour/-/bootstrap-tour-0.12.0.tgz#c56eb48debe9cf788378a20184ef5a761b13b650"
+  integrity sha512-J+Nure5q3eHKVAy0Oi0Y7bGhdVsnCl2bfaAYFg7hNcdWK+lyXtS3fLHIUqzbvdW//wcy2FRMHSr7G6EuisBWoA==
+  dependencies:
+    bootstrap "~3"
+    jquery ">=1.8"
+
+bootstrap@~3, bootstrap@~3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.4.1.tgz#c3a347d419e289ad11f4033e3c4132b87c081d72"
   integrity sha512-yN5oZVmRCwe5aKwzRj6736nSmKDX7pLYwsXiCj/EYmo16hODaBiT4En5btW/jhBF/seV+XMx3aYwukYC3A49DA==
@@ -2282,6 +2264,11 @@ isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==
 
+jed@~1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/jed/-/jed-1.1.1.tgz#7a549bbd9ffe1585b0cd0a191e203055bee574b4"
+  integrity sha512-z35ZSEcXHxLW4yumw0dF6L464NT36vmx3wxJw8MDpraBcWuNVgUPZgPJKcu1HekNgwlMFNqol7i/IpSbjhqwqA==
+
 jest-worker@^27.4.5:
   version "27.5.1"
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-27.5.1.tgz#8d146f0900e8973b106b6f73cc1e9a8cb86f8db0"
@@ -2483,6 +2470,11 @@ moment@^2.24.0:
   version "2.30.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.30.1.tgz#f8c91c07b7a786e30c59926df530b4eac96974ae"
   integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==
+
+moment@~2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 ms@^2.1.3:
   version "2.1.3"
@@ -3112,6 +3104,11 @@ terser@^5.31.1:
     commander "^2.20.0"
     source-map-support "~0.5.20"
 
+text-encoding@~0.1:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/text-encoding/-/text-encoding-0.1.0.tgz#dfae5dfb298c3bbe5a8e5a95f4de7fffd010cc5b"
+  integrity sha512-YioxUvvjxITnWOgK0OHqyYyAtqi3bYznsE4+PXgDFcDyxLshJ+VZ6xm0lCeuySNsVXVeLRspRkix3G0l7Nad9w==
+
 to-regex-range@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/to-regex-range/-/to-regex-range-5.0.1.tgz#1648c44aae7c8d988a326018ed72f5b4dd0392e4"
@@ -3157,7 +3154,7 @@ typestyle@^2.0.4:
     csstype "3.0.10"
     free-style "3.1.0"
 
-underscore@>=1.8.3:
+underscore@>=1.8.3, underscore@~1.13.7:
   version "1.13.7"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.7.tgz#970e33963af9a7dda228f17ebe8399e5fbe63a10"
   integrity sha512-GMXzWtsc57XAtguZgaQViUOzs0KTkk8ojr3/xAxXLITqf/3EMwxC0inyETfDFjH/Krbhuep0HNbbjI9i/q3F3g==
