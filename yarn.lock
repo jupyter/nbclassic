@@ -857,10 +857,6 @@
   version "0.0.0"
   resolved "https://github.com/minrk/google-caja-bower/archive/refs/tags/5669.0.0.tar.gz#6830582db17ef8087e38d3aa9703966fb9a86278"
 
-"@bower_components/jquery@components/jquery#~3.7.1":
-  version "3.7.1"
-  resolved "https://codeload.github.com/components/jquery/tar.gz/8edc7785239bb8c2ad2b83302b856a1d61de60e7"
-
 "@bower_components/marked@chjj/marked#~4.0.10":
   version "4.0.19"
   resolved "https://codeload.github.com/chjj/marked/tar.gz/95f37bd23bd9794e145c37046d3546783ffba007"
@@ -2280,7 +2276,7 @@ jquery-ui@~1.13.3:
   dependencies:
     jquery ">=1.8.0 <4.0.0"
 
-jquery@>=1.7.2, jquery@>=1.8, "jquery@>=1.8.0 <4.0.0":
+jquery@>=1.7.2, jquery@>=1.8, "jquery@>=1.8.0 <4.0.0", jquery@~3.7.1:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
   integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==

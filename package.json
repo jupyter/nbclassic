@@ -65,7 +65,7 @@
     "@bower_components/es6-promise": "components/es6-promise#~1.0",
     "@bower_components/google-caja": "https://github.com/minrk/google-caja-bower/archive/refs/tags/5669.0.0.tar.gz",
     "jed": "~1.1.1",
-    "@bower_components/jquery": "components/jquery#~3.7.1",
+    "jquery": "~3.7.1",
     "jquery-typeahead": "~2.11.1",
     "jquery-ui": "~1.13.3",
     "@bower_components/marked": "chjj/marked#~4.0.10",
