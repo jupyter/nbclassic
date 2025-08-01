@@ -44,6 +44,10 @@ ensureSymlink("node_modules/@bower_components", "nbclassic/static/components");
 
 // Symlink other static assets no longer in bower_components
 ensureSymlink(
+  "node_modules/marked",
+  "nbclassic/static/components/marked"
+);
+ensureSymlink(
   "node_modules/font-awesome",
   "nbclassic/static/components/font-awesome"
 );
