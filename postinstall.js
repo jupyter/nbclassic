@@ -87,3 +87,7 @@ ensureSymlink(
   "node_modules/jquery-typeahead",
   "nbclassic/static/components/jquery-typeahead"
 );
+ensureSymlink(
+  "node_modules/mathjax",
+  "nbclassic/static/components/mathjax"
+);
