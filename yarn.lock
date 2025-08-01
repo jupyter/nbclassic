@@ -857,10 +857,6 @@
   version "0.0.0"
   resolved "https://github.com/minrk/google-caja-bower/archive/refs/tags/5669.0.0.tar.gz#6830582db17ef8087e38d3aa9703966fb9a86278"
 
-"@bower_components/marked@chjj/marked#~4.0.10":
-  version "4.0.19"
-  resolved "https://codeload.github.com/chjj/marked/tar.gz/95f37bd23bd9794e145c37046d3546783ffba007"
-
 "@bower_components/react@facebook/react-bower#~16.0.0":
   version "0.0.0"
   resolved "https://codeload.github.com/facebook/react-bower/tar.gz/55c46d41c3fcedf35703f6d2adffc350f9834b70"
@@ -2431,6 +2427,11 @@ make-dir@^3.0.2, make-dir@^3.1.0:
   integrity sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==
   dependencies:
     semver "^6.0.0"
+
+marked@~4.0.10:
+  version "4.0.19"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-4.0.19.tgz#d36198d1ac1255525153c351c68c75bc1d7aee46"
+  integrity sha512-rgQF/OxOiLcvgUAj1Q1tAf4Bgxn5h5JZTp04Fx4XUkVhs7B+7YA9JEWJhJpoO8eJt8MkZMwqLCNeNqj1bCREZQ==
 
 math-intrinsics@^1.1.0:
   version "1.1.0"
