@@ -83,7 +83,7 @@ ensured-targets = [
   "nbclassic/static/base/js/events.js",
   "nbclassic/static/style/style.min.css",
   "nbclassic/static/auth/js/main.min.js",
-  "nbclassic/static/components/mathjax/MathJax.js",
+  "nbclassic/static/components/MathJax/MathJax.js",
 ]
 artifacts = [
   "nbclassic/i18n/*/LC_MESSAGES/nbjs.json",
@@ -108,16 +108,16 @@ artifacts = [
   "nbclassic/static/components/es6-promise/*.js",
   "nbclassic/static/components/requirejs-plugins/**/*.png",
   "nbclassic/static/components/moment/min/*.js",
-  "nbclassic/static/components/mathjax/extensions/**/*",
-  "nbclassic/static/components/mathjax/localization/**/*",
-  "nbclassic/static/components/mathjax/jax/output/*/*.js",
-  "nbclassic/static/components/mathjax/jax/output/*/autoload/**/*",
-  "nbclassic/static/components/mathjax/jax/output/HTML-CSS/fonts/STIX-Web/**/*",
-  "nbclassic/static/components/mathjax/jax/output/SVG/fonts/STIX-Web/**/*",
-  "nbclassic/static/components/mathjax/jax/element/mml/**/*",
-  "nbclassic/static/components/mathjax/jax/input/TeX/**/*",
-  "nbclassic/static/components/mathjax/fonts/HTML-CSS/STIX-Web/woff/**/*",
-  "nbclassic/static/components/mathjax/fonts/HTML-CSS/TeX/png/**/*.png",
+  "nbclassic/static/components/MathJax/extensions/**/*",
+  "nbclassic/static/components/MathJax/localization/**/*",
+  "nbclassic/static/components/MathJax/jax/output/*/*.js",
+  "nbclassic/static/components/MathJax/jax/output/*/autoload/**/*",
+  "nbclassic/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/**/*",
+  "nbclassic/static/components/MathJax/jax/output/SVG/fonts/STIX-Web/**/*",
+  "nbclassic/static/components/MathJax/jax/element/mml/**/*",
+  "nbclassic/static/components/MathJax/jax/input/TeX/**/*",
+  "nbclassic/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/**/*",
+  "nbclassic/static/components/MathJax/fonts/HTML-CSS/TeX/png/**/*.png",
   "nbclassic/templates/*",
   "nbclassic/tests/*.js",
   "nbclassic/tests/**/*.js",
@@ -138,9 +138,9 @@ artifacts = [
 "nbclassic/static/components/jquery-ui/dist/themes/smoothness/jquery-ui.min.css" = "nbclassic/static/components/jquery-ui/dist/themes/smoothness/jquery-ui.min.css"
 "nbclassic/static/components/marked/lib/marked.js" = "nbclassic/static/components/marked/lib/marked.js"
 "nbclassic/static/components/moment/moment.js" = "nbclassic/static/components/moment/moment.js"
-"nbclassic/static/components/mathjax/config/TeX-AMS-MML_HTMLorMML-full.js" = "nbclassic/static/components/mathjax/config/TeX-AMS-MML_HTMLorMML-full.js"
-"nbclassic/static/components/mathjax/MathJax.js" = "nbclassic/static/components/mathjax/MathJax.js"
-"nbclassic/static/components/mathjax/config/Safe.js" = "nbclassic/static/components/mathjax/config/Safe.js"
+"nbclassic/static/components/MathJax/config/TeX-AMS-MML_HTMLorMML-full.js" = "nbclassic/static/components/MathJax/config/TeX-AMS-MML_HTMLorMML-full.js"
+"nbclassic/static/components/MathJax/MathJax.js" = "nbclassic/static/components/MathJax/MathJax.js"
+"nbclassic/static/components/MathJax/config/Safe.js" = "nbclassic/static/components/MathJax/config/Safe.js"
 "nbclassic/static/components/react/react.production.min.js" = "nbclassic/static/components/react/react.production.min.js"
 "nbclassic/static/components/react/react-dom.production.min.js" = "nbclassic/static/components/react/react-dom.production.min.js"
 "nbclassic/static/components/requirejs/require.js" = "nbclassic/static/components/requirejs/require.js"
@@ -178,7 +178,7 @@ dependencies = [
 ]
 build-function = "hatch_jupyter_builder.npm_builder"
 # Allow offline builds of sdist, prevents running yarn install again
-skip-if-exists = [ "nbclassic/static/components/mathjax/MathJax.js" ]
+skip-if-exists = [ "nbclassic/static/components/MathJax/MathJax.js" ]
 
 [tool.hatch.build.hooks.jupyter-builder.build-kwargs]
 npm = [ "yarn" ]

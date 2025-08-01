@@ -89,5 +89,5 @@ ensureSymlink(
 );
 ensureSymlink(
   "node_modules/mathjax",
-  "nbclassic/static/components/mathjax"
+  "nbclassic/static/components/MathJax"
 );
