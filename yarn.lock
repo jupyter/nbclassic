@@ -841,10 +841,6 @@
     classnames "^2.2"
     tslib "~2.3.1"
 
-"@bower_components/MathJax@mathjax/MathJax#^2.7.4":
-  version "2.7.9"
-  resolved "https://codeload.github.com/mathjax/MathJax/tar.gz/3b461438246adfcf67690795fcc0ae6dc4e335fe"
-
 "@bower_components/codemirror@components/codemirror#5.58.2+components1":
   version "5.58.2"
   resolved "https://codeload.github.com/components/codemirror/tar.gz/367d6e1cc6ec446f50b42da832bc6a9643684202"
@@ -2436,6 +2432,11 @@ math-intrinsics@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/math-intrinsics/-/math-intrinsics-1.1.0.tgz#a0dd74be81e2aa5c2f27e65ce283605ee4e2b7f9"
   integrity sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==
+
+mathjax@^2.7.4:
+  version "2.7.9"
+  resolved "https://registry.yarnpkg.com/mathjax/-/mathjax-2.7.9.tgz#d6b67955c173e7d719fcb2fc0288662884eb7d3d"
+  integrity sha512-NOGEDTIM9+MrsqnjPEjVGNx4q0GQxqm61yQwSK+/5S59i26wId5IC5gNu9/bu8+CCVl5p9G2IHcAl/wJa+5+BQ==
 
 merge-stream@^2.0.0:
   version "2.0.0"
