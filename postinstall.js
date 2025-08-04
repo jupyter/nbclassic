@@ -96,6 +96,10 @@ ensureSymlink(
   "nbclassic/static/components/MathJax"
 );
 ensureSymlink(
+  "node_modules/es6-promise",
+  "nbclassic/static/components/es6-promise"
+);
+ensureSymlink(
   "node_modules/requirejs",
   "nbclassic/static/components/requirejs"
 );
