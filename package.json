@@ -72,9 +72,8 @@
     "moment": "~2.29.4",
     "react": "~16.0.0",
     "react-dom": "~16.0.0",
-    "@bower_components/requirejs": "jrburke/requirejs-bower#~2.2",
-    "@bower_components/requirejs-plugins": "millermedeiros/requirejs-plugins#~1.0.3",
-    "@bower_components/requirejs-text": "requirejs/text#~2.0.16",
+    "requirejs-plugins": "~1.0.2",
+    "requirejs-text": "~2.0.16",
     "text-encoding": "~0.1",
     "underscore": "~1.13.7",
     "font-awesome": "4.7.0"

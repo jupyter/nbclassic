@@ -103,3 +103,15 @@ ensureSymlink(
   "node_modules/react-dom",
   "nbclassic/static/components/react-dom"
 );
+ensureSymlink(
+  "node_modules/requirejs",
+  "nbclassic/static/components/requirejs"
+);
+ensureSymlink(
+  "node_modules/requirejs-plugins",
+  "nbclassic/static/components/requirejs-plugins"
+);
+ensureSymlink(
+  "node_modules/requirejs-text",
+  "nbclassic/static/components/requirejs-text"
+);

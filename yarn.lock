@@ -853,18 +853,6 @@
   version "0.0.0"
   resolved "https://github.com/minrk/google-caja-bower/archive/refs/tags/5669.0.0.tar.gz#6830582db17ef8087e38d3aa9703966fb9a86278"
 
-"@bower_components/requirejs-plugins@millermedeiros/requirejs-plugins#~1.0.3":
-  version "0.0.0"
-  resolved "https://codeload.github.com/millermedeiros/requirejs-plugins/tar.gz/ac9de4bfae70b0630754a9faf93c42db362cb9a2"
-
-"@bower_components/requirejs-text@requirejs/text#~2.0.16":
-  version "2.0.16"
-  resolved "https://codeload.github.com/requirejs/text/tar.gz/3f9d4c19b3a1a3c6f35650c5788cbea1db93197a"
-
-"@bower_components/requirejs@jrburke/requirejs-bower#~2.2":
-  version "0.0.0"
-  resolved "https://codeload.github.com/jrburke/requirejs-bower/tar.gz/f50aa125e93710c10bb43cf452a97f2abeb144cb"
-
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
@@ -2924,6 +2912,16 @@ require-from-string@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
   integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
+
+requirejs-plugins@~1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/requirejs-plugins/-/requirejs-plugins-1.0.2.tgz#693b5589d97f8598462fc71826353262aafda836"
+  integrity sha512-bX1vGnjDd1iIod3hst47oM/Nv9JiYw4qodWNKgyeQw5ahzSvPI3j1K6hMcK0HtiGRKxebCf+QUrtWzbrZtzQog==
+
+requirejs-text@~2.0.16:
+  version "2.0.16"
+  resolved "https://registry.yarnpkg.com/requirejs-text/-/requirejs-text-2.0.16.tgz#b6f3e20689aa998e36641bc4f8bd11b7964ac872"
+  integrity sha512-XrzjeTb1pwzIWmkz8qnUiM20gENgiwB+66IciNuziwlaPAJsYQsQPSYyQ1kD4tGKGZxTisIfDbOHk02DpI/76Q==
 
 requirejs@^2.3.6:
   version "2.3.7"
