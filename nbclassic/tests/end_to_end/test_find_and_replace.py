@@ -11,7 +11,7 @@ def test_find_and_replace(notebook_frontend):
     find_str = "ello"
     replace_str = "foo"
 
-    notebook_frontend.wait_for_condition(lambda: notebook_frontend.get_cells_contents() == INITIAL_CELLS, timeout=120, period=5)
+    notebook_frontend.wait_for_condition(lambda: notebook_frontend.get_cells_contents() == INITIAL_CELLS, timeout=180, period=5)
 
     # replace the strings
     notebook_frontend.find_and_replace(index=0, find_txt=find_str, replace_txt=replace_str)

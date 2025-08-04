@@ -99,3 +99,15 @@ ensureSymlink(
   "node_modules/codemirror",
   "nbclassic/static/components/codemirror"
 );
+ensureSymlink(
+  "node_modules/requirejs",
+  "nbclassic/static/components/requirejs"
+);
+ensureSymlink(
+  "node_modules/requirejs-plugins",
+  "nbclassic/static/components/requirejs-plugins"
+);
+ensureSymlink(
+  "node_modules/requirejs-text",
+  "nbclassic/static/components/requirejs-text"
+);
