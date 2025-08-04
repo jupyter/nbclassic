@@ -95,3 +95,15 @@ ensureSymlink(
   "node_modules/mathjax",
   "nbclassic/static/components/MathJax"
 );
+ensureSymlink(
+  "node_modules/requirejs",
+  "nbclassic/static/components/requirejs"
+);
+ensureSymlink(
+  "node_modules/requirejs-plugins",
+  "nbclassic/static/components/requirejs-plugins"
+);
+ensureSymlink(
+  "node_modules/requirejs-text",
+  "nbclassic/static/components/requirejs-text"
+);
