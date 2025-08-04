@@ -95,3 +95,11 @@ ensureSymlink(
   "node_modules/mathjax",
   "nbclassic/static/components/MathJax"
 );
+ensureSymlink(
+  "node_modules/react",
+  "nbclassic/static/components/react"
+);
+ensureSymlink(
+  "node_modules/react-dom",
+  "nbclassic/static/components/react-dom"
+);
