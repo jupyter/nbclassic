@@ -61,7 +61,7 @@
     "bootstrap": "~3.4.1",
     "bootstrap-tour": "0.12.0",
     "mathjax": "^2.7.4",
-    "@bower_components/codemirror": "components/codemirror#5.58.2+components1",
+    "codemirror": "~5.58.2",
     "@bower_components/es6-promise": "components/es6-promise#~1.0",
     "@bower_components/google-caja": "https://github.com/minrk/google-caja-bower/archive/refs/tags/5669.0.0.tar.gz",
     "jed": "~1.1.1",

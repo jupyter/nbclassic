@@ -841,10 +841,6 @@
     classnames "^2.2"
     tslib "~2.3.1"
 
-"@bower_components/codemirror@components/codemirror#5.58.2+components1":
-  version "5.58.2"
-  resolved "https://codeload.github.com/components/codemirror/tar.gz/367d6e1cc6ec446f50b42da832bc6a9643684202"
-
 "@bower_components/es6-promise@components/es6-promise#~1.0":
   version "0.0.0"
   resolved "https://codeload.github.com/components/es6-promise/tar.gz/c95149ffaa2e8162601c57d4282362eac84f929b"
@@ -1614,6 +1610,11 @@ clone-deep@^4.0.1:
     is-plain-object "^2.0.4"
     kind-of "^6.0.2"
     shallow-clone "^3.0.0"
+
+codemirror@~5.58.2:
+  version "5.58.3"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.58.3.tgz#3f0689854ecfbed5d4479a98b96148b2c3b79796"
+  integrity sha512-KBhB+juiyOOgn0AqtRmWyAT3yoElkuvWTI6hsHa9E6GQrl6bk/fdAYcvuqW1/upO9T9rtEtapWdw4XYcNiVDEA==
 
 colorette@^2.0.14:
   version "2.0.20"
