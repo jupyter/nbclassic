@@ -105,7 +105,7 @@ artifacts = [
   "nbclassic/static/components/font-awesome/less/*.less",
   "nbclassic/static/components/jquery-ui/dist/themes/*/images/*",
   "nbclassic/static/components/jquery-ui/themes/base/images/*",
-  "nbclassic/static/components/es6-promise/*.js",
+  "nbclassic/static/components/es6-promise/dist/*.js",
   "nbclassic/static/components/requirejs-plugins/**/*.png",
   "nbclassic/static/components/moment/min/*.js",
   "nbclassic/static/components/MathJax/extensions/**/*",
@@ -141,8 +141,8 @@ artifacts = [
 "nbclassic/static/components/MathJax/config/TeX-AMS-MML_HTMLorMML-full.js" = "nbclassic/static/components/MathJax/config/TeX-AMS-MML_HTMLorMML-full.js"
 "nbclassic/static/components/MathJax/MathJax.js" = "nbclassic/static/components/MathJax/MathJax.js"
 "nbclassic/static/components/MathJax/config/Safe.js" = "nbclassic/static/components/MathJax/config/Safe.js"
-"nbclassic/static/components/react/react.production.min.js" = "nbclassic/static/components/react/react.production.min.js"
-"nbclassic/static/components/react/react-dom.production.min.js" = "nbclassic/static/components/react/react-dom.production.min.js"
+"nbclassic/static/components/react/umd/react.production.min.js" = "nbclassic/static/components/react/umd/react.production.min.js"
+"nbclassic/static/components/react-dom/umd/react-dom.production.min.js" = "nbclassic/static/components/react-dom/umd/react-dom.production.min.js"
 "nbclassic/static/components/requirejs/require.js" = "nbclassic/static/components/requirejs/require.js"
 "nbclassic/static/components/requirejs-plugins/src/json.js" = "nbclassic/static/components/requirejs-plugins/src/json.js"
 "nbclassic/static/components/requirejs-text/text.js" = "nbclassic/static/components/requirejs-text/text.js"

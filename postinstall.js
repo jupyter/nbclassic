@@ -98,6 +98,18 @@ ensureSymlink(
 ensureSymlink(
   "node_modules/codemirror",
   "nbclassic/static/components/codemirror"
+ );
+ensureSymlink(
+  "node_modules/react",
+  "nbclassic/static/components/react"
+);
+ensureSymlink(
+  "node_modules/react-dom",
+  "nbclassic/static/components/react-dom"
+);
+ensureSymlink(
+  "node_modules/es6-promise",
+  "nbclassic/static/components/es6-promise"
 );
 ensureSymlink(
   "node_modules/requirejs",
