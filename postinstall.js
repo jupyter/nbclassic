@@ -96,6 +96,10 @@ ensureSymlink(
   "nbclassic/static/components/MathJax"
 );
 ensureSymlink(
+  "node_modules/codemirror",
+  "nbclassic/static/components/codemirror"
+ );
+ensureSymlink(
   "node_modules/react",
   "nbclassic/static/components/react"
 );
