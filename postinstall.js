@@ -41,10 +41,11 @@ function ensureSymlink(sourcePath, targetPath) {
 
 // Symlink other static assets no longer in bower_components
 ensureSymlink(
-  "node_modules",
-  "nbclassic/static/components"
-);
-ensureSymlink(
   "node_modules/mathjax",
   "nbclassic/static/components/MathJax"
+);
+
+ensureSymlink(
+  "node_modules",
+  "nbclassic/static/components"
 );
