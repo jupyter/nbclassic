@@ -34,7 +34,7 @@
     "watch:css": "onchange 'nbclassic/static/**/*.less' -- npm run build:css",
     "watch:js": "onchange 'nbclassic/static/**/!(*.min).js' 'bower.json' -- npm run build:js",
     "watch": "npm-run-all --parallel watch:*",
-    "postinstall": "node postinstall.js && npx patch-package google-caja-sanitizer"
+    "postinstall": "node postinstall.js && npx patch-package"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
