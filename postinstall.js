@@ -1,9 +1,23 @@
 const fs = require("fs");
 const path = require("path");
 
+const isWin = process.platform === "win32";
+const LINK_TYPE = isWin ? "junction" : "dir";
+
+function ensureDir(p) {
+  fs.mkdirSync(p, { recursive: true });
+}
+
 function ensureSymlink(sourcePath, targetPath) {
   const source = path.resolve(sourcePath);
   const target = path.resolve(targetPath);
+
+  ensureDir(path.dirname(target));
+
+  if (!fs.existsSync(source)) {
+    console.warn(`Skipping symlink; source missing: ${source}`);
+    return false;
+  }
 
   try {
     const stat = fs.lstatSync(target);
@@ -11,13 +25,13 @@ function ensureSymlink(sourcePath, targetPath) {
       console.log(`Removing non-symlink at: ${target}`);
       fs.rmSync(target, { recursive: true, force: true });
     } else {
-        const exists = fs.readlinkSync(target);
-        if (path.resolve(exists) === source) {
-            console.log(`Symlink exists at: ${target}`);
-            return;
-        }
-        console.log(`Replacing symlink at: ${target}`);
-        fs.unlinkSync(target);
+      const exists = fs.readlinkSync(target);
+      if (path.resolve(exists) === source) {
+        console.log(`Symlink exists at: ${target}`);
+        return;
+      }
+      console.log(`Replacing symlink at: ${target}`);
+      fs.unlinkSync(target);
     }
   } catch (e) {
     if (e.code !== "ENOENT") {
@@ -26,11 +40,7 @@ function ensureSymlink(sourcePath, targetPath) {
   }
 
   try {
-    fs.symlinkSync(
-      path.resolve(source),
-      path.resolve(target),
-      "junction"
-    );
+    fs.symlinkSync(source, target, LINK_TYPE);
     console.log(`Symlink created: ${sourcePath} -> ${targetPath}`);
   } catch (e) {
     if (e.code !== "EEXIST") {
@@ -39,87 +49,31 @@ function ensureSymlink(sourcePath, targetPath) {
   }
 }
 
-//  Symlink bower_components
-ensureSymlink("node_modules/@bower_components", "nbclassic/static/components");
+ensureDir("nbclassic/static/components");
 
-// Symlink other static assets no longer in bower_components
-ensureSymlink(
-  "node_modules/marked",
-  "nbclassic/static/components/marked"
-);
-ensureSymlink(
-  "node_modules/font-awesome",
-  "nbclassic/static/components/font-awesome"
-);
-ensureSymlink(
-  "node_modules/backbone",
-  "nbclassic/static/components/backbone"
-);
-ensureSymlink(
-  "node_modules/bootstrap",
-  "nbclassic/static/components/bootstrap"
-);
-ensureSymlink(
-  "node_modules/bootstrap-tour",
-  "nbclassic/static/components/bootstrap-tour"
-);
-ensureSymlink(
-  "node_modules/jed",
-  "nbclassic/static/components/jed"
-);
-ensureSymlink(
-  "node_modules/moment",
-  "nbclassic/static/components/moment"
-);
-ensureSymlink(
-  "node_modules/text-encoding",
-  "nbclassic/static/components/text-encoding"
-);
-ensureSymlink(
-  "node_modules/underscore",
-  "nbclassic/static/components/underscore"
-);
-ensureSymlink(
-  "node_modules/jquery",
-  "nbclassic/static/components/jquery"
-);
-ensureSymlink(
-  "node_modules/jquery-ui",
-  "nbclassic/static/components/jquery-ui"
-);
-ensureSymlink(
-  "node_modules/jquery-typeahead",
-  "nbclassic/static/components/jquery-typeahead"
-);
-ensureSymlink(
-  "node_modules/mathjax",
-  "nbclassic/static/components/MathJax"
-);
-ensureSymlink(
-  "node_modules/codemirror",
-  "nbclassic/static/components/codemirror"
- );
-ensureSymlink(
-  "node_modules/react",
-  "nbclassic/static/components/react"
-);
-ensureSymlink(
-  "node_modules/react-dom",
-  "nbclassic/static/components/react-dom"
-);
-ensureSymlink(
-  "node_modules/es6-promise",
-  "nbclassic/static/components/es6-promise"
-);
-ensureSymlink(
-  "node_modules/requirejs",
-  "nbclassic/static/components/requirejs"
-);
-ensureSymlink(
-  "node_modules/requirejs-plugins",
-  "nbclassic/static/components/requirejs-plugins"
-);
-ensureSymlink(
-  "node_modules/requirejs-text",
-  "nbclassic/static/components/requirejs-text"
-);
+[
+  "marked",
+  "font-awesome",
+  "backbone",
+  "bootstrap",
+  "bootstrap-tour",
+  "jed",
+  "moment",
+  "text-encoding",
+  "underscore",
+  "jquery",
+  "jquery-ui",
+  "jquery-typeahead",
+  "codemirror",
+  "react",
+  "react-dom",
+  "es6-promise",
+  "requirejs",
+  "requirejs-plugins",
+  "requirejs-text",
+  "google-caja-sanitizer",
+  "mathjax",
+].forEach((pkg) => {
+  const dst = pkg === "mathjax" ? "MathJax" : pkg;
+  ensureSymlink(`node_modules/${pkg}`, `nbclassic/static/components/${dst}`);
+});

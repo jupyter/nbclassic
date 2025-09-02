@@ -34,7 +34,7 @@
     "watch:css": "onchange 'nbclassic/static/**/*.less' -- npm run build:css",
     "watch:js": "onchange 'nbclassic/static/**/!(*.min).js' 'bower.json' -- npm run build:js",
     "watch": "npm-run-all --parallel watch:*",
-    "postinstall": "node postinstall.js"
+    "postinstall": "node postinstall.js && npx patch-package"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -63,7 +63,7 @@
     "mathjax": "^2.7.4",
     "codemirror": "~5.58.2",
     "es6-promise": "~1.0",
-    "@bower_components/google-caja": "https://github.com/minrk/google-caja-bower/archive/refs/tags/5669.0.0.tar.gz",
+    "google-caja-sanitizer": "~1.0.4",
     "jed": "~1.1.1",
     "jquery": "~3.7.1",
     "jquery-typeahead": "~2.11.1",
