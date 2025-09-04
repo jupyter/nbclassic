@@ -2,6 +2,46 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.3.2
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v1.3.1...4d36b0b201c4692100243f943a24dbff132d42c6))
+
+### Maintenance and upkeep improvements
+
+- Bump actions/create-github-app-token from 2.1.0 to 2.1.1 [#369](https://github.com/jupyter/nbclassic/pull/369) ([@dependabot](https://github.com/dependabot))
+- Bump actions/checkout from 4.2.2 to 5.0.0 [#368](https://github.com/jupyter/nbclassic/pull/368) ([@dependabot](https://github.com/dependabot))
+- Bump actions/download-artifact from 4.3.0 to 5.0.0 [#367](https://github.com/jupyter/nbclassic/pull/367) ([@dependabot](https://github.com/dependabot))
+- Bump actions/create-github-app-token from 2.0.6 to 2.1.0 [#366](https://github.com/jupyter/nbclassic/pull/366) ([@dependabot](https://github.com/dependabot))
+- Bump actions/cache from 4.2.3 to 4.2.4 [#365](https://github.com/jupyter/nbclassic/pull/365) ([@dependabot](https://github.com/dependabot))
+- Migrate google-caja to npm [#364](https://github.com/jupyter/nbclassic/pull/364) ([@RRosio](https://github.com/RRosio))
+- Migrate react and react-dom to npm [#363](https://github.com/jupyter/nbclassic/pull/363) ([@RRosio](https://github.com/RRosio))
+- Migrate codemirror to npm [#362](https://github.com/jupyter/nbclassic/pull/362) ([@RRosio](https://github.com/RRosio))
+- Migrate requirejs dependencies to npm [#361](https://github.com/jupyter/nbclassic/pull/361) ([@RRosio](https://github.com/RRosio))
+- Migrate es6-promise [#359](https://github.com/jupyter/nbclassic/pull/359) ([@RRosio](https://github.com/RRosio))
+- Migrate marked to npm [#358](https://github.com/jupyter/nbclassic/pull/358) ([@RRosio](https://github.com/RRosio))
+- Fix jquery npm migration [#357](https://github.com/jupyter/nbclassic/pull/357) ([@RRosio](https://github.com/RRosio))
+- Migrate MathJax to npm [#356](https://github.com/jupyter/nbclassic/pull/356) ([@RRosio](https://github.com/RRosio))
+- Migration of jquery, jquery-ui and jquery-typeahead to npm [#355](https://github.com/jupyter/nbclassic/pull/355) ([@RRosio](https://github.com/RRosio))
+- Partial migration of JS dependencies to npm [#354](https://github.com/jupyter/nbclassic/pull/354) ([@RRosio](https://github.com/RRosio))
+- Migrate font-awesome dependency to npm [#351](https://github.com/jupyter/nbclassic/pull/351) ([@RRosio](https://github.com/RRosio))
+- Bump pandoc/actions from 1.1.0 to 1.1.1 [#350](https://github.com/jupyter/nbclassic/pull/350) ([@dependabot](https://github.com/dependabot))
+- Bump jupyter-server/jupyter_releaser from 45ee32c387085d5f1df41da443ade8b952a9dac6 to 6accaa3c07b69acaa1e14e00ba138133d8cbe879 [#349](https://github.com/jupyter/nbclassic/pull/349) ([@dependabot](https://github.com/dependabot))
+- Bump jupyterlab/maintainer-tools from 0.28.0 to 0.28.1 [#348](https://github.com/jupyter/nbclassic/pull/348) ([@dependabot](https://github.com/dependabot))
+- Bump actions/setup-python from 5.3.0 to 5.6.0 [#347](https://github.com/jupyter/nbclassic/pull/347) ([@dependabot](https://github.com/dependabot))
+- Improve GitHub Action security [#345](https://github.com/jupyter/nbclassic/pull/345) ([@danyeaw](https://github.com/danyeaw))
+
+### Documentation improvements
+
+- Update release process in to steps [#344](https://github.com/jupyter/nbclassic/pull/344) ([@danyeaw](https://github.com/danyeaw))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2025-05-06&to=2025-09-04&type=c))
+
+[@danyeaw](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Adanyeaw+updated%3A2025-05-06..2025-09-04&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Adependabot+updated%3A2025-05-06..2025-09-04&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2025-05-06..2025-09-04&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.3.1
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v1.3.0...ce70ed4c9272b93b91067287396287a03fb43e90))
@@ -26,8 +66,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2025-04-24&to=2025-05-06&type=c))
 
 [@danyeaw](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Adanyeaw+updated%3A2025-04-24..2025-05-06&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2025-04-24..2025-05-06&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 1.3.0
 
