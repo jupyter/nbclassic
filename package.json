@@ -63,7 +63,6 @@
     "mathjax": "^2.7.4",
     "codemirror": "~5.58.2",
     "es6-promise": "~1.0",
-    "google-caja-sanitizer": "~1.0.4",
     "jed": "~1.1.1",
     "jquery": "~3.7.1",
     "jquery-typeahead": "~2.11.1",

@@ -71,7 +71,6 @@ ensureDir("nbclassic/static/components");
   "requirejs",
   "requirejs-plugins",
   "requirejs-text",
-  "google-caja-sanitizer",
   "mathjax",
 ].forEach((pkg) => {
   const dst = pkg === "mathjax" ? "MathJax" : pkg;
