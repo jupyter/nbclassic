@@ -129,7 +129,6 @@ artifacts = [
 "nbclassic/static/components/bootstrap-tour/build/js/bootstrap-tour.min.js" = "nbclassic/static/components/bootstrap-tour/build/js/bootstrap-tour.min.js"
 "nbclassic/static/components/bootstrap/dist/js/bootstrap.min.js" = "nbclassic/static/components/bootstrap/dist/js/bootstrap.min.js"
 "nbclassic/static/components/create-react-class/index.js" = "nbclassic/static/components/create-react-class/index.js"
-"nbclassic/static/components/google-caja-sanitizer/sanitizer.js" = "nbclassic/static/components/google-caja-sanitizer/sanitizer.js"
 "nbclassic/static/components/jed/jed.js" = "nbclassic/static/components/jed/jed.js"
 "nbclassic/static/components/jquery/dist/jquery.min.js" = "nbclassic/static/components/jquery/dist/jquery.min.js"
 "nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.js" = "nbclassic/static/components/jquery-typeahead/dist/jquery.typeahead.min.js"
