@@ -2,6 +2,29 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.3.3
+
+([Full Changelog](https://github.com/jupyter/nbclassic/compare/v1.3.2...153295cb571ff369b09bed5145047722adf5dc55))
+
+### Bugs fixed
+
+- Copy static assets to legacy paths for notebook 6 compatibility [#375](https://github.com/jupyter/nbclassic/pull/375) ([@RRosio](https://github.com/RRosio))
+
+### Maintenance and upkeep improvements
+
+- Bump actions/create-github-app-token from 2.1.1 to 2.1.4 [#376](https://github.com/jupyter/nbclassic/pull/376) ([@dependabot](https://github.com/dependabot))
+- Copy static assets to legacy paths for notebook 6 compatibility [#375](https://github.com/jupyter/nbclassic/pull/375) ([@RRosio](https://github.com/RRosio))
+- Bump actions/setup-node from 4.4.0 to 5.0.0 [#374](https://github.com/jupyter/nbclassic/pull/374) ([@dependabot](https://github.com/dependabot))
+- Bump actions/setup-python from 5.6.0 to 6.0.0 [#373](https://github.com/jupyter/nbclassic/pull/373) ([@dependabot](https://github.com/dependabot))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2025-09-04&to=2025-09-16&type=c))
+
+[@dependabot](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Adependabot+updated%3A2025-09-04..2025-09-16&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2025-09-04..2025-09-16&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.3.2
 
 ([Full Changelog](https://github.com/jupyter/nbclassic/compare/v1.3.1...4d36b0b201c4692100243f943a24dbff132d42c6))
@@ -39,8 +62,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter/nbclassic/graphs/contributors?from=2025-05-06&to=2025-09-04&type=c))
 
 [@danyeaw](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Adanyeaw+updated%3A2025-05-06..2025-09-04&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3Adependabot+updated%3A2025-05-06..2025-09-04&type=Issues) | [@RRosio](https://github.com/search?q=repo%3Ajupyter%2Fnbclassic+involves%3ARRosio+updated%3A2025-05-06..2025-09-04&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 1.3.1
 
