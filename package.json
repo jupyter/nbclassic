@@ -43,6 +43,7 @@
     "babel-loader": "^8.2.2",
     "babel-polyfill": "^6.26.0",
     "commander": "^6.0.0",
+    "copy-webpack-plugin": "^13.0.1",
     "gettext-parser": "2.0.0",
     "gettext-to-messageformat": "0.3.1",
     "less": "^4.2.2",
@@ -60,26 +61,27 @@
     "backbone": "~1.6.0",
     "bootstrap": "~3.4.1",
     "bootstrap-tour": "0.12.0",
-    "mathjax": "^2.7.4",
     "codemirror": "~5.58.2",
     "es6-promise": "~1.0",
+    "font-awesome": "4.7.0",
     "google-caja-sanitizer": "~1.0.4",
     "jed": "~1.1.1",
     "jquery": "~3.7.1",
     "jquery-typeahead": "~2.11.1",
     "jquery-ui": "~1.13.3",
     "marked": "~4.0.10",
+    "mathjax": "^2.7.4",
     "moment": "~2.29.4",
     "react": "~16.0.0",
     "react-dom": "~16.0.0",
     "requirejs-plugins": "~1.0.2",
     "requirejs-text": "~2.0.16",
     "text-encoding": "~0.1",
-    "underscore": "~1.13.7",
-    "font-awesome": "4.7.0"
+    "underscore": "~1.13.7"
   },
   "engines": {
     "yarn": "^1.22.22",
-    "node": ">=16"
-  }
+    "node": ">=18"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

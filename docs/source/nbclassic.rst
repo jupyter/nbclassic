@@ -68,6 +68,11 @@ NbClassic Development
 the classic Jupyter Notebook 6 and serves this UI through the server
 endpoints provided by Jupyter Server.
 
+NbClassic 1.3.2 contained new paths for the static assets of the classic Notebook. This was done to allow
+for the complete removal of bower components and the use of npm packages. This change broke the ability to
+serve the classic Notebook static assets from the original endpoints. NbClassic 1.3.3 introduces the use of the
+Copy Webpack Plugin to copy the static assets to the legacy paths.
+
 *Jupyter Server Extensions*
 - `Authoring a basic server extension <https://jupyter-server.readthedocs.io/en/latest/developers/extensions.html>`_
 
