@@ -63,7 +63,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run Link Check
         if: ${{ matrix.group == 'link_check' }}
-        uses: jupyterlab/maintainer-tools/.github/actions/check-links@affc83be6020d529b9368cd4d63e467877606600 # v1
+        uses: jupyterlab/maintainer-tools/.github/actions/check-links@d72f5cb72b472c1e59036840891e918c9bda4dae # v1
         with:
           ignore_glob: nbclassic/static/components/**/*.md docs-translations/*/*.md
           ignore_links: "http://127.0.0.1 https://stackoverflow https://github.com"
