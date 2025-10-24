@@ -159,8 +159,6 @@ casper.notebook_test(function () {
         this.open_dashboard();
     });
 
-    // Give extra time for cleanup
-    this.wait(1000);
 
     this.then(function(){
         var notebook_url = this.evaluate(function(nbname){
