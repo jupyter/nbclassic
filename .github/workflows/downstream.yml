@@ -21,10 +21,10 @@ jobs:
         uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
       - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@7a3e70473eff6cce4988f449decedc61d1304379 # v1
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@d734fad2dc3aadbe56a5fd530037656e770e1a8d # v1
 
       - name: Test jupyterlab
-        uses: jupyterlab/maintainer-tools/.github/actions/downstream-test@7a3e70473eff6cce4988f449decedc61d1304379 # v1
+        uses: jupyterlab/maintainer-tools/.github/actions/downstream-test@d734fad2dc3aadbe56a5fd530037656e770e1a8d # v1
         with:
           package_name: jupyterlab
           package_spec: "\".[test]\""
