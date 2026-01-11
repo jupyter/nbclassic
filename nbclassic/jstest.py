@@ -13,6 +13,7 @@ import multiprocessing.pool
 import os
 import re
 import requests
+import shutil
 import signal
 import sys
 import subprocess
@@ -23,9 +24,8 @@ from threading import Thread, Lock, Event
 from unittest.mock import patch
 
 from jupyter_core.paths import jupyter_runtime_dir
-from ipython_genutils.py3compat import bytes_to_str, which
 from nbclassic._sysinfo import get_sys_info
-from ipython_genutils.tempdir import TemporaryDirectory
+from tempfile import TemporaryDirectory
 
 from subprocess import TimeoutExpired
 def popen_wait(p, timeout):
@@ -34,9 +34,9 @@ def popen_wait(p, timeout):
 NOTEBOOK_SHUTDOWN_TIMEOUT = 10
 
 have = {}
-have['casperjs'] = bool(which('casperjs'))
-have['phantomjs'] = bool(which('phantomjs'))
-have['slimerjs'] = bool(which('slimerjs'))
+have['casperjs'] = bool(shutil.which('casperjs'))
+have['phantomjs'] = bool(shutil.which('phantomjs'))
+have['slimerjs'] = bool(shutil.which('slimerjs'))
 
 class StreamCapturer(Thread):
     daemon = True  # Don't hang if main thread crashes
@@ -59,7 +59,7 @@ class StreamCapturer(Thread):
             with self.buffer_lock:
                 self.buffer.write(chunk)
             if self.echo:
-                sys.stdout.write(bytes_to_str(chunk))
+                sys.stdout.write(decode(chunk))
 
         os.close(self.readfd)
         os.close(self.writefd)
@@ -272,7 +272,7 @@ class JSController(TestController):
         # If this is a SlimerJS controller, check the captured stdout for
         # errors.  Otherwise, just return the return code.
         if self.engine == 'slimerjs':
-            stdout = bytes_to_str(self.stdout)
+            stdout = decode(self.stdout)
             if ret != 0:
                 # This could still happen e.g. if it's stopped by SIGINT
                 return ret
@@ -536,7 +536,7 @@ def run_jstestall(options):
                 print(justify('Test group: ' + controller.section, res_string))
                 if res:
                     controller.print_extra_info()
-                    print(bytes_to_str(controller.stdout))
+                    print(decode(controller.stdout))
                     failed.append(controller)
                     if res == -signal.SIGINT:
                         print("Interrupted")
