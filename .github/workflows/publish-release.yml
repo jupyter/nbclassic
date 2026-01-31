@@ -22,7 +22,7 @@ jobs:
     permissions:
       id-token: write
     steps:
-      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@7a3e70473eff6cce4988f449decedc61d1304379 # v1
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@d734fad2dc3aadbe56a5fd530037656e770e1a8d # v1
 
       - uses: actions/create-github-app-token@7e473efe3cb98aa54f8d4bac15400b15fad77d94 # v2.2.0
         id: app-token
