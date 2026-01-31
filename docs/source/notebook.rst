@@ -369,7 +369,7 @@ Installing kernels
 ------------------
 
 For information on how to install a Python kernel, refer to the
-`IPython install page <https://ipython.org/install.html>`__.
+`IPython install page <https://ipython.org/install>`__.
 
 The Jupyter wiki has a long list of `Kernels for other languages
 <https://github.com/jupyter/jupyter/wiki/Jupyter-kernels>`_.
