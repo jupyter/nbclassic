@@ -57,7 +57,7 @@ jobs:
           pip install -e .
       - name: Check Release
         if: ${{ matrix.group == 'check_release' }}
-        uses: jupyter-server/jupyter_releaser/.github/actions/check-release@28d08b1ad3d91b7d63bac33a2a8e72fce489b786 # v2
+        uses: jupyter-server/jupyter_releaser/.github/actions/check-release@eac745a8271d8ed64ba09d12dfbeef2178569e89 # v2 (1.10.2)
         with:
           version_spec: 100.100.100
           token: ${{ secrets.GITHUB_TOKEN }}
