@@ -16,9 +16,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Set up Python
-        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
+        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
         with:
           python-version: '3.13'
       - name: Lint with Pre-commit
@@ -32,9 +32,9 @@ jobs:
         python-version: [ '3.9', '3.10', '3.11', '3.12', '3.13' ]
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@d72f5cb72b472c1e59036840891e918c9bda4dae # v1
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@7a3e70473eff6cce4988f449decedc61d1304379 # v1
       - name: Install pip dependencies
         run: |
           pip install -v -e ".[test]" pytest-cov
@@ -64,9 +64,9 @@ jobs:
 #    timeout-minutes: 20
 #    runs-on: ubuntu-latest
 #    steps:
-#      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+#      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 #      - name: Base Setup
-#        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@d72f5cb72b472c1e59036840891e918c9bda4dae # v1
+#        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@7a3e70473eff6cce4988f449decedc61d1304379 # v1
 #        with:
 #          python_version: "3.8"
 #      - name: Install minimum versions
@@ -80,9 +80,9 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@d72f5cb72b472c1e59036840891e918c9bda4dae # v1
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@7a3e70473eff6cce4988f449decedc61d1304379 # v1
       - name: Install the Python dependencies
         run: |
           pip install --pre -e ".[test]"
@@ -99,14 +99,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@d72f5cb72b472c1e59036840891e918c9bda4dae # v1
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@7a3e70473eff6cce4988f449decedc61d1304379 # v1
       - name: Build SDist
         run: |
           pip install build
           python -m build --sdist
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: "sdist"
           path: dist/*.tar.gz
@@ -118,9 +118,9 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@d72f5cb72b472c1e59036840891e918c9bda4dae # v1
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@7a3e70473eff6cce4988f449decedc61d1304379 # v1
       - name: Download sdist
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: sdist
           path: sdist
@@ -144,9 +144,9 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@d72f5cb72b472c1e59036840891e918c9bda4dae # v1
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@7a3e70473eff6cce4988f449decedc61d1304379 # v1
       - name: Download sdist
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: sdist
           path: sdist
