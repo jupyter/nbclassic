@@ -77,7 +77,7 @@
     "requirejs-plugins": "~1.0.2",
     "requirejs-text": "~2.0.16",
     "text-encoding": "~0.1",
-    "underscore": "~1.13.7"
+    "underscore": "~1.13.8"
   },
   "engines": {
     "yarn": "^1.22.22",
