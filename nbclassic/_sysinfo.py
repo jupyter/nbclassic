@@ -11,8 +11,6 @@ import pprint
 import sys
 import subprocess
 
-from ipython_genutils import py3compat, encoding
-
 import nbclassic
 from nbclassic import _version
 
@@ -86,7 +84,7 @@ def pkg_info(pkg_path):
         sys_platform=sys.platform,
         platform=platform.platform(),
         os_name=os.name,
-        default_encoding=encoding.DEFAULT_ENCODING,
+        default_encoding=sys.getdefaultencoding(),
         )
 
 def get_sys_info():

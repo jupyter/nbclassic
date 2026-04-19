@@ -41,7 +41,6 @@ classifiers = [
 ]
 dependencies = [
   "ipykernel",
-  "ipython-genutils",
   "nest-asyncio>=1.5",
   "notebook-shim>=0.2.3",
 ]

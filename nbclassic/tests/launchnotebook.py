@@ -21,7 +21,7 @@ import jupyter_core.paths
 from traitlets.config import Config
 from ..notebookapp import NotebookApp, urlencode_unix_socket
 from ..utils import url_path_join
-from ipython_genutils.tempdir import TemporaryDirectory
+from tempfile import TemporaryDirectory
 
 MAX_WAITTIME = 30   # seconds to wait for notebook server to start
 POLL_INTERVAL = 0.1 # time between attempts
