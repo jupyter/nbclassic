@@ -81,7 +81,7 @@ define([
         var that = this;
         kernel_name = kernel_name || this.default_kernel;
         var w = window.open(undefined, IPython._target);
-        var dir_path = $('body').attr('data-notebook-path');
+        var dir_path = utils.get_body_data('notebookPath');
         this.contents.new_untitled(dir_path, {type: "notebook"}).then(
             function (data) {
                 var url = utils.url_path_join(
