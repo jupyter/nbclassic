@@ -149,9 +149,10 @@ def install_nbextension(path, overwrite=False, symlink=False,
 
         if path.endswith('.zip'):
             archive = zipfile.ZipFile(path)
+            archive.extractall(nbext)
         elif _safe_is_tarfile(path):
             archive = tarfile.open(path)
-        archive.extractall(nbext)
+            _safe_extract_tar(archive, nbext)
         archive.close()
         # TODO: what to do here
         full_dest = None
@@ -1045,6 +1046,22 @@ def _safe_is_tarfile(path):
         return tarfile.is_tarfile(path)
     except OSError:
         return False
+
+
+def _safe_extract_tar(archive, dest):
+    """Extract a tarball into dest, refusing members that would escape it."""
+    if hasattr(tarfile, 'data_filter'):
+        archive.extractall(dest, filter='data')
+        return
+    # Python without extraction filters (PEP 706): reject links and any
+    # member whose path resolves outside of dest.
+    root = os.path.realpath(dest)
+    for member in archive.getmembers():
+        target = os.path.realpath(pjoin(root, member.name))
+        if (member.issym() or member.islnk()
+                or os.path.commonpath([root, target]) != root):
+            raise ValueError(f"Refusing to extract unsafe tar member {member.name!r}")
+    archive.extractall(dest)
 
 
 def _get_nbextension_dir(user=False, sys_prefix=False, prefix=None, nbextensions_dir=None):
