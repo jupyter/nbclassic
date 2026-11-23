@@ -9,10 +9,11 @@ define([
     'base/js/dialog',
     'base/js/events',
     'base/js/keyboard',
+    'base/js/security',
     'moment',
     'bidi/bidi',
     'components/marked/lib/marked'
-], function($, IPython, utils, i18n, dialog, events, keyboard, moment, bidi, marked) {
+], function($, IPython, utils, i18n, dialog, events, keyboard, security, moment, bidi, marked) {
     "use strict";
 
     var extension = function(path){
@@ -544,7 +545,8 @@ define([
 	span12.empty();
 	that.contents.get(list_item.path, {"content": true}).then(
           function (data) {
-	    span12.append($('<div style="margin:auto;text-align:center;color:grey"/>').innerHTML = marked.marked(data.content));
+	    span12.append($('<div style="margin:auto;text-align:center;color:grey"/>')
+	      .append(security.sanitize_html_and_parse(marked.marked(data.content), true)));
 	  },
           function(error) {
             span12.append(i18n.msg._("Server error: ") + error.message);
