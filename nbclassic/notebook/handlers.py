@@ -92,11 +92,13 @@ class NotebookHandler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, Jupyter
             if e.status_code == 404 and 'files' in path.split('/'):
                 # 404, but '/files/' in URL, let FilesRedirect take care of it
                 yield FilesRedirectHandler.redirect_to_files(self, path)
+                return
             else:
                 raise
         if model['type'] != 'notebook':
             # not a notebook, redirect to files
             yield FilesRedirectHandler.redirect_to_files(self, path)
+            return
         name = path.rsplit('/', 1)[-1]
         self.write(self.render_template('notebook.html',
                                         notebook_path=path,
