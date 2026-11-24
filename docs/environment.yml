@@ -19,6 +19,5 @@ dependencies:
   - Send2Trash
   - prometheus_client
   - sphinxcontrib_github_alt
-  - ipython_genutils
   - jupyter_server>=1.8
   - notebook_shim>=0.2.3

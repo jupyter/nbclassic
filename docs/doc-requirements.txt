@@ -4,4 +4,3 @@ pydata-sphinx-theme
 nbsphinx
 sphinxcontrib_github_alt
 myst_parser
-ipython_genutils
